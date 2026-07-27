@@ -210,26 +210,3 @@ SUPPLIERS = [
         ],
     ),
 ]
-
-# Fifth supplier: present in the price comparison, but its SelfCost tab is empty.
-KORIKO = dict(
-    short='Nature Best Food',
-    headline='KoriKo — снеки з водорості норі',
-    brand='KoriKo',
-    summary='Вкладка «Koriko» у файлі Self Cost порожня — собівартість ще не '
-            'розрахована. Нижче асортимент і ціни FOB як основа для розрахунку.',
-    items=[
-        ('kk_chewy', 'KoriKo Chewy\nOriginal', '4,5 г × 12 пакетів / постер · '
-         '12 постерів у картоні', '$1,15 / постер'),
-        ('kk_chewy_spicy', 'KoriKo Chewy\nHot & Spicy', '4,5 г × 12 пакетів / постер · '
-         '12 постерів у картоні', '$1,15 / постер'),
-        ('kk_bigsheet', 'Big Sheet 50 г\nOriginal / Squid', '5 г × 10 пакетів · '
-         '12 наборів у картоні', '$1,30 / набір'),
-        ('kk_roll', 'Roll Seaweed 36 г\nOriginal / Spicy', '10 рулетів у коробці · '
-         '12 коробок у картоні', '$1,20 / коробка'),
-        ('kk_sandwich', 'Sandwich Seaweed\n5 смаків', 'Original, Kimchi, Wasabi… · '
-         '24 пакети в картоні', '$1,03 / пакет'),
-        ('kk_fizze', 'Fizze Sheet 72 г\n3 смаки', '6 пакетів у коробці · '
-         '8 коробок у картоні', '$1,30 / коробка'),
-    ],
-)

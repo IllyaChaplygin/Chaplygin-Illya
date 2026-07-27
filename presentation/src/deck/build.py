@@ -8,10 +8,10 @@ from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.util import Inches
 
 sys.path.insert(0, os.path.dirname(__file__))
-from catalog import BASE, DATA, KORIKO, SUPPLIERS, photo  # noqa: E402
-from theme import (ACCENT, ACCENT_TX, BODY_TX, BRIGHT, CONTENT_BOTTOM, CONTENT_TOP,  # noqa: E402
-                   HEAD, INK, M, MUTED, PANEL, RULE, SH, SW, TINT, WHITE, blank,
-                   fmt_uah, fmt_usd, footer, header, hline, label, picture, rect, text)
+from catalog import BASE, DATA, SUPPLIERS, photo  # noqa: E402
+from theme import (ACCENT, ACCENT_TX, BODY_TX, CONTENT_BOTTOM, CONTENT_TOP, HEAD,  # noqa: E402
+                   INK, M, MUTED, PANEL, RULE, SH, SW, WHITE, blank, fit_size, fmt_uah,
+                   fmt_usd, footer, header, hline, label, picture, rect, text)
 
 OUT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..',
                                    'Постачальники_снеків_собівартість.pptx'))
@@ -74,17 +74,30 @@ def cost_row(s, x, y, w, h, cost):
 
 
 # ====================================================================== cards ===
-def card_grid(s, x, w, p, cost):
+def photo_band(page, bw, bh=1.22):
+    """Height the photo strip needs on this page.
+
+    Whole suppliers ship only thumbnail-sized shots. Holding a fixed tall strip
+    would leave them marooned in white, so the strip shrinks to the tallest
+    picture actually on the page — the cost block below stays pinned, so cards
+    still line up across the slide.
+    """
+    tallest = max(fit_size(photo(p['photo']), bw, bh)[1] for p in page)
+    return min(bh, max(0.80, tallest + 0.10))
+
+
+def card_grid(s, x, w, p, cost, band=1.22):
     y = CONTENT_TOP
     h = CONTENT_BOTTOM - CONTENT_TOP
     rect(s, x, y, w, h, fill=WHITE, line=RULE)
-    rect(s, x, y, w, 1.40, fill=PANEL)
-    picture(s, photo(p['photo']), x + 0.16, y + 0.10, w - 0.32, 1.20)
+    picture(s, photo(p['photo']), x + 0.16, y + 0.12, w - 0.32, band)
+    top = y + 0.12 + band
+    hline(s, x + 0.16, top + 0.10, w - 0.32)
 
-    label(s, x + 0.16, y + 1.54, w - 0.32, p['badge'], color=ACCENT_TX, size=6.5)
-    text(s, x + 0.16, y + 1.74, w - 0.32, 0.44, p['title'], size=12, font=HEAD,
+    label(s, x + 0.16, top + 0.22, w - 0.32, p['badge'], color=ACCENT_TX, size=6.5)
+    text(s, x + 0.16, top + 0.42, w - 0.32, 0.44, p['title'], size=12, font=HEAD,
          bold=True, color=INK, line_spacing=1.0)
-    text(s, x + 0.16, y + 2.24, w - 0.32, 0.64, p['desc'], size=8, color=BODY_TX,
+    text(s, x + 0.16, top + 0.92, w - 0.32, 0.64, p['desc'], size=8, color=BODY_TX,
          line_spacing=1.22)
 
     label(s, x + 0.16, y + 2.96, w - 0.32, 'Собівартість за одиницю', size=6)
@@ -95,8 +108,8 @@ def card_duo(s, x, w, p, cost):
     y = CONTENT_TOP
     h = CONTENT_BOTTOM - CONTENT_TOP
     rect(s, x, y, w, h, fill=WHITE, line=RULE)
-    rect(s, x, y, w, 1.55, fill=PANEL)
-    picture(s, photo(p['photo']), x + 0.30, y + 0.12, w - 0.60, 1.31)
+    picture(s, photo(p['photo']), x + 0.30, y + 0.14, w - 0.60, 1.34)
+    hline(s, x + 0.60, y + 1.58, w - 1.20)
 
     label(s, x + 0.30, y + 1.70, w - 0.60, p['badge'], color=ACCENT_TX, size=7.5,
           align=PP_ALIGN.CENTER)
@@ -118,7 +131,7 @@ def slide_cover(prs):
          font=HEAD, color=INK, bold=True, line_spacing=1.12)
     rect(s, M, 2.66, 1.10, 0.045, fill=ACCENT)
     text(s, M, 2.92, 6.4, 0.70,
-         'Продукти п’яти постачальників, короткі описи та собівартість одиниці\n'
+         'Продукти чотирьох постачальників, короткі описи та собівартість одиниці\n'
          'товару в доларах і гривні — за всіма сценаріями доставки.',
          size=11.5, color=BODY_TX, line_spacing=1.36)
 
@@ -132,7 +145,7 @@ def slide_cover(prs):
         x += tw + gap
 
     text(s, SW - M - 3.0, 0.80, 3.0, 0.20,
-         '5 постачальників · 28 SKU · 4 сценарії доставки', size=8, color=MUTED,
+         '4 постачальники · 28 SKU · 4 сценарії доставки', size=8, color=MUTED,
          align=PP_ALIGN.RIGHT)
     _page[0] += 1
 
@@ -166,9 +179,11 @@ def slide_supplier(prs, sup, index):
     cols = 1 if len(shots) == 1 else 2
     rows = -(-len(shots) // cols)
     tw = (bw - gap * (cols - 1)) / cols
-    # packs are portrait; cap the tile so a short grid does not leave a tall
-    # band of empty grey, then centre the block in the available height
-    th = min((bh - gap * (rows - 1)) / rows, tw * 1.45)
+    # size the tiles to the pictures that actually land in them — packs are
+    # portrait, and some suppliers only ship thumbnails — then centre the block
+    room = min((bh - gap * (rows - 1)) / rows, tw * 1.45)
+    tallest = max(fit_size(photo(n), tw - 0.32, room - 0.28)[1] for n in shots)
+    th = min(room, tallest + 0.34)
     top = by + (bh - (th * rows + gap * (rows - 1))) / 2
     for i, name in enumerate(shots):
         x = bx + (i % cols) * (tw + gap)
@@ -194,39 +209,18 @@ def slides_products(prs, sup):
         n = len(page)
         gap = 0.30 if n <= 2 else 0.20
         w = (SW - 2 * M - gap * (n - 1)) / n
-        draw = card_duo if n <= 2 else card_grid
         x0 = (SW - (w * n + gap * (n - 1))) / 2
+        band = None if n <= 2 else photo_band(page, w - 0.32)
         for i, p in enumerate(page):
-            draw(s, x0 + i * (w + gap), w, p, costs(sup['sheet'], p['key']))
+            cost = costs(sup['sheet'], p['key'])
+            cx = x0 + i * (w + gap)
+            if n <= 2:
+                card_duo(s, cx, w, p, cost)
+            else:
+                card_grid(s, cx, w, p, cost, band)
         close(s, sup.get('note') or
               'Собівартість за одиницю товару. Джерело: SelfCost.xlsx, вкладка «%s».'
               % sup['sheet'])
-
-
-def slide_koriko(prs):
-    s = blank(prs)
-    header(s, KORIKO['headline'], eyebrow=KORIKO['short'], tag=KORIKO['brand'])
-    rect(s, M, CONTENT_TOP, SW - 2 * M, 0.44, fill=TINT)
-    rect(s, M, CONTENT_TOP, 0.045, 0.44, fill=ACCENT)
-    text(s, M + 0.22, CONTENT_TOP, SW - 2 * M - 0.44, 0.44, KORIKO['summary'],
-         size=8.5, color=ACCENT_TX, anchor=MSO_ANCHOR.MIDDLE)
-
-    w, gap = 2.98, 0.20
-    for i, (ph, name, pack, price) in enumerate(KORIKO['items']):
-        col, row = i % 3, i // 3
-        x = M + col * (w + gap)
-        y = 1.86 + row * 1.72
-        rect(s, x, y, w, 1.56, fill=WHITE, line=RULE)
-        rect(s, x, y, 1.16, 1.56, fill=PANEL)
-        picture(s, photo(ph), x + 0.10, y + 0.12, 0.96, 1.32)
-        text(s, x + 1.34, y + 0.20, w - 1.52, 0.44, name, size=10.5, font=HEAD,
-             bold=True, color=INK, line_spacing=1.05)
-        text(s, x + 1.34, y + 0.72, w - 1.52, 0.42, pack, size=8, color=BODY_TX,
-             line_spacing=1.2)
-        hline(s, x + 1.34, y + 1.16, w - 1.52)
-        text(s, x + 1.34, y + 1.22, w - 1.52, 0.24, price, size=10, font=HEAD,
-             bold=True, color=ACCENT_TX, anchor=MSO_ANCHOR.MIDDLE)
-    close(s, 'Джерело: Snacks. Price Comparison.xlsx, вкладка «Nature Best Food Co., Ltd».')
 
 
 def main():
@@ -238,7 +232,6 @@ def main():
     for i, sup in enumerate(SUPPLIERS, start=1):
         slide_supplier(prs, sup, i)
         slides_products(prs, sup)
-    slide_koriko(prs)
 
     prs.save(OUT)
     print('saved %s — %d slides' % (OUT, len(prs.slides._sldIdLst)))

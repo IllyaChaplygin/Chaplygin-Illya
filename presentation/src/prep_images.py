@@ -91,13 +91,24 @@ def border_is_dark(im, thresh=70, frac=0.5):
 
 
 def grade(im):
-    """Lift the flat catalogue scans: clean whites, wider tonal range, richer colour."""
-    # stretch each channel, ignoring the 0.4% extremes so a stray pixel can't anchor it
-    im = ImageOps.autocontrast(im, cutoff=(0.4, 0.2), preserve_tone=True)
-    im = ImageEnhance.Color(im).enhance(1.28)
-    im = ImageEnhance.Contrast(im).enhance(1.10)
-    im = ImageEnhance.Brightness(im).enhance(1.03)
-    im = im.filter(ImageFilter.UnsharpMask(radius=1.6, percent=70, threshold=3))
+    """Lift the flat catalogue scans: clean whites, wider tonal range, richer colour.
+
+    Small sources are JPEG-compressed thumbnails — on those, auto-contrast and
+    unsharp masking amplify the block artefacts into coloured speckle, so they
+    get a much gentler pass.
+    """
+    fragile = max(im.size) < 220
+    if not fragile:
+        # stretch each channel, ignoring the extremes so a stray pixel can't anchor it
+        im = ImageOps.autocontrast(im, cutoff=(0.4, 0.2), preserve_tone=True)
+        im = ImageEnhance.Color(im).enhance(1.22)
+        im = ImageEnhance.Contrast(im).enhance(1.08)
+        im = ImageEnhance.Brightness(im).enhance(1.03)
+        im = im.filter(ImageFilter.UnsharpMask(radius=1.4, percent=55, threshold=4))
+    else:
+        im = ImageEnhance.Color(im).enhance(1.12)
+        im = ImageEnhance.Contrast(im).enhance(1.04)
+        im = ImageEnhance.Brightness(im).enhance(1.04)
 
     # anything already near-white becomes pure white so the cut-out reads clean
     px = im.load()
@@ -110,27 +121,24 @@ def grade(im):
     return im
 
 
-def resample(im, target=680):
-    """Normalise every shot to a similar pixel height.
+def resample(im):
+    """Only ever downscale.
 
-    Several catalogue images are only ~130 px wide (all of TMK, and the slices
-    taken out of the multi-flavour line shots). Nothing can restore detail that
-    is not there, but a Lanczos upscale plus a light unsharp keeps them from
-    going blocky when PowerPoint scales them up on the slide.
+    Enlarging here does not add detail — it just bakes in interpolation blur and
+    hands PowerPoint a file whose pixel count no longer says how sharp the shot
+    really is. The deck sizes each picture from its true resolution instead
+    (see theme.picture), so the original pixels are what must be preserved.
     """
-    s = target / max(im.size)
-    if s <= 1.02:
-        return im if max(im.size) <= MAXPX else im.resize(
-            (int(im.width * MAXPX / max(im.size)),
-             int(im.height * MAXPX / max(im.size))), Image.LANCZOS)
-    im = im.resize((int(im.width * s), int(im.height * s)), Image.LANCZOS)
-    return im.filter(ImageFilter.UnsharpMask(radius=2.0, percent=55, threshold=2))
+    if max(im.size) <= MAXPX:
+        return im
+    s = MAXPX / max(im.size)
+    return im.resize((int(im.width * s), int(im.height * s)), Image.LANCZOS)
 
 
 def save(im, name, dark_bg=False):
     if dark_bg or border_is_dark(im):
         im = whiten_border(im)
-    im = pad(resample(grade(trim(im))))
+    im = pad(resample(grade(trim(im))), frac=0.02)
     im.save('%s/%s.png' % (DST, name))
     return name
 
@@ -139,7 +147,6 @@ HANJIN = 'HanJin_Food_Co_Ltd'
 TMK = 'TMK_(Thailand)_Co_Ltd'
 TN = 'Thai-Nichi_Industries_Co_Ltd'
 SK = 'SINGHA_KAMEDA'
-NB = 'Nature_Best_Food_Co_Ltd'
 
 
 def main():
@@ -193,11 +200,6 @@ def main():
             im = im.transpose(Image.FLIP_LEFT_RIGHT)
         save(im, name)
     save(load(HANJIN, 3), 'zek_classic')
-
-    # --- KoriKo / Nature Best (assortment showcase, no self-cost yet)
-    for name, row in {'kk_chewy': 3, 'kk_chewy_spicy': 4, 'kk_bigsheet': 9,
-                      'kk_roll': 14, 'kk_sandwich': 16, 'kk_fizze': 22}.items():
-        save(load(NB, row), name)
 
     print('written', len(os.listdir(DST)), 'files ->', DST)
 

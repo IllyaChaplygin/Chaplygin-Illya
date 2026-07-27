@@ -108,12 +108,29 @@ def label(slide, x, y, w, content, color=MUTED, size=6.5, align=PP_ALIGN.LEFT,
                 align=align, spc=0.9)
 
 
-def picture(slide, path, bx, by, bw, bh):
-    """Scale to fit (contain) inside the box, centred."""
+MIN_DPI = 90       # never render a picture coarser than this
+
+
+def fit_size(path, bw, bh):
+    """Size a picture would take in the box — lets a layout react to small shots."""
     from PIL import Image
     with Image.open(path) as im:
         iw, ih = im.size
-    scale = min(bw / iw, bh / ih)
+    scale = min(bw / iw, bh / ih, 1.0 / MIN_DPI)
+    return iw * scale, ih * scale
+
+
+def picture(slide, path, bx, by, bw, bh):
+    """Fit (contain) inside the box, centred, but never blow a shot up past MIN_DPI.
+
+    Some supplier shots are 43x64 thumbnails. Stretched to fill a box they turn
+    to mush; held to their own resolution they stay crisp and simply sit smaller
+    on the card, which reads as deliberate against a white photo area.
+    """
+    from PIL import Image
+    with Image.open(path) as im:
+        iw, ih = im.size
+    scale = min(bw / iw, bh / ih, 1.0 / MIN_DPI)
     w, h = iw * scale, ih * scale
     return slide.shapes.add_picture(path, Inches(bx + (bw - w) / 2),
                                     Inches(by + (bh - h) / 2), Inches(w), Inches(h))
