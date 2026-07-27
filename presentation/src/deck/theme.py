@@ -1,28 +1,33 @@
-"""Design system lifted from the Avocado deck: same palette, type and card style."""
-import copy
+"""Design system: light consulting-report layout — white space, hairlines, one accent.
 
+The colour comes from the product photography; the page furniture stays quiet.
+"""
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
-from pptx.oxml.ns import qn
 from pptx.util import Inches, Pt
 
-# ------------------------------------- palette (from Avocado_Product_Final.pptx) ----
-DARK = RGBColor(0x1A, 0x3A, 0x2A)      # header bars, covers, headings
-GREEN = RGBColor(0x2E, 0x6E, 0x4A)     # pills, badges, highlighted row
-BRIGHT = RGBColor(0x6D, 0xC0, 0x4B)    # accent
-MINT = RGBColor(0xE8, 0xF5, 0xE0)      # price panel fill
-PAGE = RGBColor(0xF7, 0xFA, 0xF4)      # slide background
+# ------------------------------------------------------------------- palette ----
+INK = RGBColor(0x0E, 0x2A, 0x24)        # headings
+BODY_TX = RGBColor(0x38, 0x4A, 0x44)    # body copy
+MUTED = RGBColor(0x7C, 0x8B, 0x86)      # labels, captions
+ACCENT = RGBColor(0x0B, 0x7D, 0x57)     # emerald — fills carrying white text
+ACCENT_TX = RGBColor(0x07, 0x6B, 0x4A)  # emerald — text on white
+BRIGHT = RGBColor(0x00, 0xB8, 0x7C)     # thin rules and marks only
+TINT = RGBColor(0xEA, 0xF6, 0xF1)       # pale mint panels
+PANEL = RGBColor(0xF4, 0xF7, 0xF6)      # photo wells
+RULE = RGBColor(0xE1, 0xE8, 0xE5)       # hairlines
 WHITE = RGBColor(0xFF, 0xFF, 0xFF)
-TEXT = RGBColor(0x1A, 0x2E, 0x1C)      # body copy
-SOFT = RGBColor(0x3D, 0x5A, 0x40)      # secondary copy
 
 HEAD = 'Cambria'
 BODY = 'Calibri'
 
 SW, SH = 10.0, 5.625
-M = 0.4
-BAR_H = 0.72
+M = 0.40
+TOP_RULE = 0.055
+CONTENT_TOP = 1.22
+CONTENT_BOTTOM = 5.16
+HAIRLINE = 0.01
 
 
 def fmt_usd(v):
@@ -33,28 +38,8 @@ def fmt_uah(v):
     return ('%.2f ₴' % v).replace('.', ',')
 
 
-# ------------------------------------------------------------------ primitives ----
-_SHADOW = (
-    '<a:effectLst xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">'
-    '<a:outerShdw blurRad="76200" dist="25400" dir="2700000" algn="bl" rotWithShape="0">'
-    '<a:srgbClr val="000000"><a:alpha val="12000"/></a:srgbClr></a:outerShdw></a:effectLst>'
-)
-_SHADOW_XML = None
-
-
-def _add_shadow(shape):
-    """Avocado cards carry a soft 12% drop shadow; python-pptx can only clear one."""
-    global _SHADOW_XML
-    if _SHADOW_XML is None:
-        from pptx.oxml import parse_xml
-        _SHADOW_XML = parse_xml(_SHADOW)
-    spPr = shape._element.spPr
-    for old in spPr.findall(qn('a:effectLst')):
-        spPr.remove(old)
-    spPr.append(copy.deepcopy(_SHADOW_XML))
-
-
-def rect(slide, x, y, w, h, fill=None, radius=None, line=None, lw=0.75, shadow=False):
+# ---------------------------------------------------------------- primitives ----
+def rect(slide, x, y, w, h, fill=None, radius=None, line=None, lw=0.75):
     kind = MSO_SHAPE.ROUNDED_RECTANGLE if radius is not None else MSO_SHAPE.RECTANGLE
     sh = slide.shapes.add_shape(kind, Inches(x), Inches(y), Inches(w), Inches(h))
     if radius is not None:
@@ -71,23 +56,25 @@ def rect(slide, x, y, w, h, fill=None, radius=None, line=None, lw=0.75, shadow=F
         sh.line.color.rgb = line
         sh.line.width = Pt(lw)
     sh.text_frame.text = ''
-    if shadow:
-        _add_shadow(sh)
     return sh
 
 
-def text(slide, x, y, w, h, runs, size=10, font=BODY, color=TEXT, bold=False,
+def hline(slide, x, y, w, color=RULE):
+    return rect(slide, x, y, w, HAIRLINE, fill=color)
+
+
+def text(slide, x, y, w, h, runs, size=10, font=BODY, color=BODY_TX, bold=False,
          align=PP_ALIGN.LEFT, anchor=MSO_ANCHOR.TOP, line_spacing=1.0, italic=False,
-         wrap=True):
-    """runs: a string, or a list of (text, {overrides}) tuples rendered as paragraphs."""
+         wrap=True, spc=0):
+    """runs: a string, or a list of (text, {overrides}). `spc` is letter spacing in pt."""
     box = slide.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
     tf = box.text_frame
     tf.word_wrap = wrap
     tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
     tf.vertical_anchor = anchor
     items = runs if isinstance(runs, list) else [(runs, {})]
-    # a "\n" inside a run becomes a soft break that ignores paragraph spacing —
-    # split it into real paragraphs so line_spacing applies to every line
+    # a "\n" inside a run is a soft break that ignores paragraph spacing — split
+    # it into real paragraphs so line_spacing applies to every line
     paras = []
     for item in items:
         content, over = item if isinstance(item, tuple) else (item, {})
@@ -104,7 +91,21 @@ def text(slide, x, y, w, h, runs, size=10, font=BODY, color=TEXT, bold=False,
         f.bold = over.get('bold', bold)
         f.italic = over.get('italic', italic)
         f.color.rgb = over.get('color', color)
+        tracking = over.get('spc', spc)
+        if tracking:
+            r.font._rPr.set('spc', str(int(tracking * 100)))
     return box
+
+
+def label(slide, x, y, w, content, color=MUTED, size=6.5, align=PP_ALIGN.LEFT,
+          h=0.16):
+    """Small letter-spaced caps — the workhorse label of a consulting layout.
+
+    Keep word_wrap on: a wrap="none" body auto-sizes and LibreOffice then centres
+    it on the box regardless of paragraph alignment.
+    """
+    return text(slide, x, y, w, h, content.upper(), size=size, color=color, bold=True,
+                align=align, spc=0.9)
 
 
 def picture(slide, path, bx, by, bw, bh):
@@ -118,23 +119,29 @@ def picture(slide, path, bx, by, bw, bh):
                                     Inches(by + (bh - h) / 2), Inches(w), Inches(h))
 
 
-# ------------------------------------------------------------------- furniture ----
+# ----------------------------------------------------------------- furniture ----
 def blank(prs):
     s = prs.slides.add_slide(prs.slide_layouts[6])
-    rect(s, 0, 0, SW, SH, fill=PAGE)
+    rect(s, 0, 0, SW, SH, fill=WHITE)
+    rect(s, 0, 0, SW, TOP_RULE, fill=ACCENT)
     return s
 
 
-def header(slide, title, tag=None):
-    rect(slide, 0, 0, SW, BAR_H, fill=DARK)
-    text(slide, M, 0, SW - 2 * M - 2.4, BAR_H, title, size=18, font=HEAD, color=WHITE,
+def header(slide, title, eyebrow=None, tag=None):
+    if eyebrow:
+        label(slide, M, 0.34, 5.6, eyebrow, color=ACCENT_TX, size=7.5)
+    text(slide, M, 0.54, SW - 2 * M - 2.6, 0.46, title, size=20, font=HEAD, color=INK,
          bold=True, anchor=MSO_ANCHOR.MIDDLE)
     if tag:
-        text(slide, SW - M - 2.4, 0, 2.4, BAR_H, tag, size=9.5, color=BRIGHT,
-             bold=True, align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
+        text(slide, SW - M - 2.6, 0.54, 2.6, 0.46, tag, size=9, color=MUTED,
+             align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
+    hline(slide, M, 1.08, SW - 2 * M)
 
 
-def pill(slide, x, y, w, h, label, fill=GREEN, color=WHITE, size=9, radius=0.22):
-    rect(slide, x, y, w, h, fill=fill, radius=radius)
-    text(slide, x, y, w, h, label, size=size, color=color, bold=True,
-         align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE, wrap=False)
+def footer(slide, page, note=None):
+    hline(slide, M, 5.26, SW - 2 * M)
+    if note:
+        text(slide, M, 5.34, SW - 2 * M - 0.6, 0.16, note, size=6.5, color=MUTED,
+             italic=True)
+    text(slide, SW - M - 0.6, 5.34, 0.6, 0.16, str(page), size=7, color=MUTED,
+         bold=True, align=PP_ALIGN.RIGHT)

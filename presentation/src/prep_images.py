@@ -1,11 +1,17 @@
-"""Prepare product photos for the deck: de-background, slice multi-flavour line shots, fix mirroring."""
+"""Prepare product photos for the deck.
+
+De-background, slice multi-flavour line shots, fix mirroring, and grade every
+shot: the supplier catalogue images are flat, low-contrast scans that look dull
+on a light slide.
+"""
 import os
 from collections import deque
 
-from PIL import Image, ImageChops
+from PIL import Image, ImageChops, ImageEnhance, ImageFilter, ImageOps
 
 SRC = '/home/user/work/img'
 DST = '/home/user/work/photo'
+MAXPX = 1400
 os.makedirs(DST, exist_ok=True)
 
 
@@ -84,13 +90,47 @@ def border_is_dark(im, thresh=70, frac=0.5):
     return dark / len(edge) >= frac
 
 
+def grade(im):
+    """Lift the flat catalogue scans: clean whites, wider tonal range, richer colour."""
+    # stretch each channel, ignoring the 0.4% extremes so a stray pixel can't anchor it
+    im = ImageOps.autocontrast(im, cutoff=(0.4, 0.2), preserve_tone=True)
+    im = ImageEnhance.Color(im).enhance(1.28)
+    im = ImageEnhance.Contrast(im).enhance(1.10)
+    im = ImageEnhance.Brightness(im).enhance(1.03)
+    im = im.filter(ImageFilter.UnsharpMask(radius=1.6, percent=70, threshold=3))
+
+    # anything already near-white becomes pure white so the cut-out reads clean
+    px = im.load()
+    w, h = im.size
+    for y in range(h):
+        for x in range(w):
+            r, g, b = px[x, y]
+            if r > 243 and g > 243 and b > 243:
+                px[x, y] = (255, 255, 255)
+    return im
+
+
+def resample(im, target=680):
+    """Normalise every shot to a similar pixel height.
+
+    Several catalogue images are only ~130 px wide (all of TMK, and the slices
+    taken out of the multi-flavour line shots). Nothing can restore detail that
+    is not there, but a Lanczos upscale plus a light unsharp keeps them from
+    going blocky when PowerPoint scales them up on the slide.
+    """
+    s = target / max(im.size)
+    if s <= 1.02:
+        return im if max(im.size) <= MAXPX else im.resize(
+            (int(im.width * MAXPX / max(im.size)),
+             int(im.height * MAXPX / max(im.size))), Image.LANCZOS)
+    im = im.resize((int(im.width * s), int(im.height * s)), Image.LANCZOS)
+    return im.filter(ImageFilter.UnsharpMask(radius=2.0, percent=55, threshold=2))
+
+
 def save(im, name, dark_bg=False):
     if dark_bg or border_is_dark(im):
         im = whiten_border(im)
-    im = pad(trim(im))
-    if max(im.size) > 900:
-        s = 900 / max(im.size)
-        im = im.resize((int(im.width * s), int(im.height * s)), Image.LANCZOS)
+    im = pad(resample(grade(trim(im))))
     im.save('%s/%s.png' % (DST, name))
     return name
 
