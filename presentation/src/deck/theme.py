@@ -1,6 +1,8 @@
-"""Design system: light consulting-report layout — white space, hairlines, one accent.
+"""Design system: warm editorial food-catalogue look.
 
-The colour comes from the product photography; the page furniture stays quiet.
+Paper-cream page, white cards with soft corners, editorial serif headlines, and a
+signature colour per supplier drawn from their own packaging. The chrome stays
+disciplined so the product photography carries the appetite.
 """
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_SHAPE
@@ -8,26 +10,50 @@ from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.util import Inches, Pt
 
 # ------------------------------------------------------------------- palette ----
-INK = RGBColor(0x0E, 0x2A, 0x24)        # headings
-BODY_TX = RGBColor(0x38, 0x4A, 0x44)    # body copy
-MUTED = RGBColor(0x7C, 0x8B, 0x86)      # labels, captions
-ACCENT = RGBColor(0x0B, 0x7D, 0x57)     # emerald — fills carrying white text
-ACCENT_TX = RGBColor(0x07, 0x6B, 0x4A)  # emerald — text on white
-BRIGHT = RGBColor(0x00, 0xB8, 0x7C)     # thin rules and marks only
-TINT = RGBColor(0xEA, 0xF6, 0xF1)       # pale mint panels
-PANEL = RGBColor(0xF4, 0xF7, 0xF6)      # photo wells
-RULE = RGBColor(0xE1, 0xE8, 0xE5)       # hairlines
-WHITE = RGBColor(0xFF, 0xFF, 0xFF)
+INK = RGBColor(0x14, 0x24, 0x1F)        # headings, near-black green
+BODY_TX = RGBColor(0x44, 0x52, 0x4C)    # body copy
+MUTED = RGBColor(0x8A, 0x93, 0x8D)      # labels, captions
+PAPER = RGBColor(0xFA, 0xF7, 0xF2)      # page — warm cream, not clinical white
+WHITE = RGBColor(0xFF, 0xFF, 0xFF)      # cards
+RULE = RGBColor(0xE6, 0xE1, 0xD8)       # hairlines on paper
+GOLD = RGBColor(0xC9, 0xA2, 0x4E)       # small ornaments
+
+# Signature colour per supplier, sampled from their packaging. Each carries
+# white text at >= 4.5:1, so it can be used as a filled band.
+SUPPLIER_COLORS = {
+    'singha': RGBColor(0xB3, 0x62, 0x14),      # burnt amber
+    'thainichi': RGBColor(0x1D, 0x5B, 0x63),   # deep teal
+    'tmk': RGBColor(0x2F, 0x7A, 0x3E),         # fresh green
+    'zek': RGBColor(0xB2, 0x3A, 0x22),         # terracotta
+}
+DEFAULT_ACCENT = RGBColor(0x2F, 0x7A, 0x3E)
 
 HEAD = 'Cambria'
 BODY = 'Calibri'
 
 SW, SH = 10.0, 5.625
 M = 0.40
-TOP_RULE = 0.055
+TOP_RULE = 0.07
 CONTENT_TOP = 1.22
 CONTENT_BOTTOM = 5.16
 HAIRLINE = 0.01
+CARD_R = 0.035                          # soft corners — food, not audit
+
+
+def mix(color, other, amount):
+    """Blend `amount` of `color` into `other`."""
+    return RGBColor(*(round(c * amount + o * (1 - amount))
+                      for c, o in zip(color, other)))
+
+
+def tint(color, amount=0.09):
+    """Very pale wash of a supplier colour, for photo areas and panels."""
+    return mix(color, WHITE, amount)
+
+
+def deepen(color, amount=0.72):
+    """Darker version of a supplier colour, for text on paper."""
+    return mix(color, INK, amount)
 
 
 def fmt_usd(v):
@@ -137,16 +163,16 @@ def picture(slide, path, bx, by, bw, bh):
 
 
 # ----------------------------------------------------------------- furniture ----
-def blank(prs):
+def blank(prs, accent=DEFAULT_ACCENT, bg=PAPER):
     s = prs.slides.add_slide(prs.slide_layouts[6])
-    rect(s, 0, 0, SW, SH, fill=WHITE)
-    rect(s, 0, 0, SW, TOP_RULE, fill=ACCENT)
+    rect(s, 0, 0, SW, SH, fill=bg)
+    rect(s, 0, 0, SW, TOP_RULE, fill=accent)
     return s
 
 
-def header(slide, title, eyebrow=None, tag=None):
+def header(slide, title, eyebrow=None, tag=None, accent=DEFAULT_ACCENT):
     if eyebrow:
-        label(slide, M, 0.34, 5.6, eyebrow, color=ACCENT_TX, size=7.5)
+        label(slide, M, 0.34, 5.6, eyebrow, color=deepen(accent, 0.85), size=7.5)
     text(slide, M, 0.54, SW - 2 * M - 2.6, 0.46, title, size=20, font=HEAD, color=INK,
          bold=True, anchor=MSO_ANCHOR.MIDDLE)
     if tag:
