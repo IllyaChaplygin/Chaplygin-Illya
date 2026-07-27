@@ -10,9 +10,9 @@ from pptx.util import Inches
 sys.path.insert(0, os.path.dirname(__file__))
 from catalog import BASE, DATA, SUPPLIERS, photo  # noqa: E402
 from theme import (BODY_TX, CARD_R, CONTENT_BOTTOM, CONTENT_TOP, GOLD, HEAD, INK,  # noqa: E402
-                   M, MUTED, PAPER, RULE, SH, SUPPLIER_COLORS, SW, WHITE, blank,
-                   deepen, fit_size, fmt_uah, fmt_usd, footer, header, hline, label,
-                   mix, picture, rect, text, tint)
+                   M, MUTED, RULE, SH, SUPPLIER_COLORS, SW, WHITE, blank, deepen,
+                   fit_size, fmt_uah, fmt_usd, footer, header, hline, label, mix,
+                   picture, rect, text, tint)
 
 OUT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..',
                                    'Постачальники_снеків_собівартість.pptx'))
@@ -31,18 +31,6 @@ def close(slide, note=None):
 
 def accent_of(sup):
     return SUPPLIER_COLORS[sup['id']]
-
-
-def plural_positions(n):
-    """Ukrainian agreement for «позиція» — 2 позиції, 5 позицій, 14 позицій."""
-    tail, hundred = n % 10, n % 100
-    if tail == 1 and hundred != 11:
-        word = 'позиція'
-    elif tail in (2, 3, 4) and hundred not in (12, 13, 14):
-        word = 'позиції'
-    else:
-        word = 'позицій'
-    return '%d %s' % (n, word)
 
 
 def costs(sheet, key):
@@ -183,71 +171,68 @@ def slide_cover(prs):
     _page[0] += 1
 
 
-def route_strip(s, x, y, w, origin, accent, on_dark=False):
-    """Origin port to Ukraine — a designed cue instead of another line of text."""
-    ink = WHITE if on_dark else INK
-    dim = mix(WHITE, accent, 0.72) if on_dark else MUTED
-    dash = mix(WHITE, accent, 0.45) if on_dark else mix(accent, PAPER, 0.4)
-    label(s, x, y, w, 'Маршрут постачання', size=6.5, color=dim)
-    cy = y + 0.34
-    rect(s, x + 0.05, cy, 0.14, 0.14, fill=ink, radius=0.5)
-    for i in range(11):
-        rect(s, x + 0.34 + i * 0.20, cy + 0.055, 0.10, 0.03, fill=dash)
-    rect(s, x + 2.52, cy, 0.14, 0.14, fill=ink, radius=0.5)
-    text(s, x, cy + 0.24, 1.5, 0.20, origin, size=8, color=ink, bold=True)
-    text(s, x + 1.7, cy + 0.24, 1.0, 0.20, 'Україна', size=8, color=ink, bold=True,
-         align=PP_ALIGN.RIGHT)
+def brand_panel(s, sup, accent):
+    """Full-height colour column with the brand held on a white plate."""
+    px, pw = 5.85, SW - 5.85
+    rect(s, px, 0, pw, SH, fill=accent)
 
+    cx, cw = px + 0.50, pw - 1.00
+    rect(s, cx, 1.10, cw, 2.55, fill=WHITE, radius=0.05)
+    if sup.get('logo'):
+        picture(s, photo(sup['logo']), cx + 0.30, 1.42, cw - 0.60, 1.00)
+    else:
+        # no logo file for this supplier — a typographic mark, as the avocado deck
+        # sets "SYROS" rather than an image
+        text(s, cx + 0.16, 1.42, cw - 0.32, 1.00, sup['brand_mark'], size=25,
+             font=HEAD, bold=True, color=deepen(accent, 0.95),
+             align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE, line_spacing=1.08)
+    rect(s, cx + (cw - 0.66) / 2, 2.68, 0.66, 0.035, fill=accent)
+    text(s, cx + 0.16, 2.88, cw - 0.32, 0.30, sup.get('tagline', sup['brand']),
+         size=10.5, color=MUTED, align=PP_ALIGN.CENTER)
 
-BAND_H = 2.92
+    label(s, px, 4.04, pw, 'Виробництво', color=mix(WHITE, accent, 0.72), size=7,
+          align=PP_ALIGN.CENTER, h=0.20)
+    text(s, px, 4.26, pw, 0.30, sup['country'], size=13, font=HEAD, bold=True,
+         color=WHITE, align=PP_ALIGN.CENTER)
 
 
 def slide_supplier(prs, sup, index):
-    """Chapter opener: a colour band with the packs breaking out of its lower edge."""
+    """Company profile: brand column on the right, credentials on the left."""
     accent = accent_of(sup)
-    s = blank(prs, accent=accent)
-    rect(s, 0, 0, SW, BAND_H, fill=accent)
+    s = blank(prs, accent=accent, rule=False)
+    brand_panel(s, sup, accent)
 
-    rect(s, M, 0.52, 0.44, 0.44, fill=WHITE, radius=0.10)
-    text(s, M, 0.52, 0.44, 0.44, '%02d' % index, size=14, font=HEAD, bold=True,
-         color=deepen(accent, 0.95), align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-    label(s, M + 0.60, 0.54, 4.4, 'Постачальник', size=7,
-          color=mix(WHITE, accent, 0.70), h=0.20)
-    label(s, M + 0.60, 0.74, 4.4, sup['brand'], color=WHITE, size=9, h=0.22)
+    rect(s, M, 0.52, 0.26, 0.26, fill=accent)
+    label(s, M + 0.42, 0.52, 4.4, 'Профіль постачальника · %02d' % index,
+          color=deepen(accent, 0.9), size=8, h=0.26)
 
-    text(s, M, 1.00, 5.1, 0.88, sup['name'], size=26, font=HEAD, color=WHITE,
-         bold=True, line_spacing=1.06)
-    route_strip(s, M, 2.08, 3.0, sup['port'], accent, on_dark=True)
+    text(s, M, 0.94, 5.05, 1.00, sup['name'], size=26, font=HEAD, color=INK,
+         bold=True, line_spacing=1.08)
+    text(s, M, 2.10, 5.05, 0.30, sup['category'], size=11, color=deepen(accent, 0.9))
 
-    # packs sit on white tiles that cross the band edge — the deck's signature move.
-    # Tiles are sized to the pictures and then hung off the edge, so a supplier
-    # with only thumbnail shots still crosses it instead of floating in white.
-    shots = sup['hero'][:2]
-    tw, gap = 1.92, 0.16
-    tx = SW - M - (len(shots) * tw + (len(shots) - 1) * gap)
-    th = min(2.60, max(fit_size(photo(n), tw - 0.22, 2.34)[1] for n in shots) + 0.26)
-    ty = BAND_H - th * 0.62
-    for i, name in enumerate(shots):
-        x = tx + i * (tw + gap)
-        rect(s, x, ty, tw, th, fill=WHITE, radius=0.06, line=RULE)
-        picture(s, photo(name), x + 0.11, ty + 0.13, tw - 0.22, th - 0.26)
-    text(s, tx, ty + th + 0.14, len(shots) * tw + (len(shots) - 1) * gap, 0.20,
-         '%s із розрахованою собівартістю' % plural_positions(len(sup['products'])),
-         size=7.5, color=MUTED, align=PP_ALIGN.CENTER)
+    cw = 0.062 * len(sup['port']) + 0.44
+    rect(s, M, 2.50, cw, 0.30, fill=tint(accent, 0.12), radius=0.24)
+    text(s, M, 2.50, cw, 0.30, sup['port'], size=8.5, color=deepen(accent, 0.95),
+         bold=True, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
 
-    text(s, M, BAND_H + 0.28, 5.05, 0.90, sup['summary'], size=10.5, color=BODY_TX,
-         line_spacing=1.34)
+    label(s, M, 3.04, 5.05, 'Про компанію', color=deepen(accent, 0.9), size=7)
+    text(s, M, 3.24, 5.05, 0.80, sup['summary'], size=10, color=BODY_TX,
+         line_spacing=1.32)
 
-    label(s, M, 4.16, 5.05, 'Виробництво і умови поставки',
-          color=deepen(accent, 0.9), size=7)
-    for i, (cap, value) in enumerate(sup['specs']):
-        col, row = i % 2, i // 2
-        x = M + col * 2.60
-        y = 4.40 + row * 0.44
-        hline(s, x, y, 2.40)
-        text(s, x, y + 0.06, 2.40, 0.16, cap, size=6.5, color=MUTED)
-        text(s, x, y + 0.20, 2.40, 0.20, value, size=9, color=INK, bold=True)
-    close(s)
+    tw, gap = 1.62, 0.145
+    for i, (value, cap) in enumerate(sup['stats']):
+        x = M + i * (tw + gap)
+        rect(s, x, 4.16, tw, 0.94, fill=WHITE, radius=0.06, line=RULE)
+        rect(s, x, 4.16, tw, 0.05, fill=accent)
+        text(s, x, 4.32, tw, 0.32, value, size=17, font=HEAD, bold=True,
+             color=deepen(accent, 0.95), align=PP_ALIGN.CENTER)
+        text(s, x + 0.10, 4.68, tw - 0.20, 0.36, cap, size=7, color=MUTED,
+             align=PP_ALIGN.CENTER, line_spacing=1.14)
+
+    # the brand column runs to the slide edge, so the page number rides on it
+    _page[0] += 1
+    text(s, SW - M - 0.6, 5.34, 0.6, 0.16, str(_page[0]), size=7,
+         color=mix(WHITE, accent, 0.70), bold=True, align=PP_ALIGN.RIGHT)
 
 
 def slides_products(prs, sup):

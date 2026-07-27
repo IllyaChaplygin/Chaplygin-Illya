@@ -163,10 +163,11 @@ def picture(slide, path, bx, by, bw, bh):
 
 
 # ----------------------------------------------------------------- furniture ----
-def blank(prs, accent=DEFAULT_ACCENT, bg=PAPER):
+def blank(prs, accent=DEFAULT_ACCENT, bg=PAPER, rule=True):
     s = prs.slides.add_slide(prs.slide_layouts[6])
     rect(s, 0, 0, SW, SH, fill=bg)
-    rect(s, 0, 0, SW, TOP_RULE, fill=accent)
+    if rule:
+        rect(s, 0, 0, SW, TOP_RULE, fill=accent)
     return s
 
 
