@@ -1,0 +1,738 @@
+{
+ "SINGHA KAMEDA - Retail": [
+  {
+   "name": "Original Flavour",
+   "fob": 0.77,
+   "cost": {
+    "20'": {
+     "usd": 1.2977,
+     "uah": 58.4,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 1.0353,
+     "uah": 46.59,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 1.8062,
+     "uah": 81.28,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 1.2813,
+     "uah": 57.66,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "Wasabi Flavour",
+   "fob": 0.77,
+   "cost": {
+    "20'": {
+     "usd": 1.2977,
+     "uah": 58.4,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 1.0353,
+     "uah": 46.59,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 1.8062,
+     "uah": 81.28,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 1.2813,
+     "uah": 57.66,
+     "rate": 45
+    }
+   }
+  }
+ ],
+ "Thai-Nichi - Retail": [
+  {
+   "name": "Norimaki Original",
+   "fob": 0.6,
+   "cost": {
+    "20'": {
+     "usd": 1.0341,
+     "uah": 46.53,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 0.7941,
+     "uah": 35.74,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 1.4532,
+     "uah": 65.39,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 0.9733,
+     "uah": 43.8,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "Norimaki Wasabi",
+   "fob": 0.75,
+   "cost": {
+    "20'": {
+     "usd": 1.2926,
+     "uah": 58.17,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 0.9927,
+     "uah": 44.67,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 1.8165,
+     "uah": 81.74,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 1.2166,
+     "uah": 54.75,
+     "rate": 45
+    }
+   }
+  }
+ ],
+ "TMK Thailand Co., Ltd -Retail": [
+  {
+   "name": "KOKIRI Wow ROLL - Original",
+   "fob": 0.12199999999999998,
+   "cost": {
+    "20'": {
+     "usd": 0.2382,
+     "uah": 10.72,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 0.1691,
+     "uah": 7.61,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 0.3455,
+     "uah": 15.55,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 0.2353,
+     "uah": 10.59,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "KOKIRI Wow ROLL - Hot Spicy",
+   "fob": 0.12199999999999998,
+   "cost": {
+    "20'": {
+     "usd": 0.2382,
+     "uah": 10.72,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 0.1691,
+     "uah": 7.61,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 0.3455,
+     "uah": 15.55,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 0.2353,
+     "uah": 10.59,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "KOKIRI Wow ROLL - Spicy Squid",
+   "fob": 0.12199999999999998,
+   "cost": {
+    "20'": {
+     "usd": 0.2382,
+     "uah": 10.72,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 0.1691,
+     "uah": 7.61,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 0.3455,
+     "uah": 15.55,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 0.2353,
+     "uah": 10.59,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "KOKIRI Wow DOUBLE ROLL - Original",
+   "fob": 0.21800000000000003,
+   "cost": {
+    "20'": {
+     "usd": 0.4256,
+     "uah": 19.15,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 0.3035,
+     "uah": 13.66,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 0.6174,
+     "uah": 27.78,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 0.4205,
+     "uah": 18.92,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "KOKIRI Wow DOUBLE ROLL - Hot Spicy",
+   "fob": 0.21800000000000003,
+   "cost": {
+    "20'": {
+     "usd": 0.4256,
+     "uah": 19.15,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 0.3035,
+     "uah": 13.66,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 0.6174,
+     "uah": 27.78,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 0.4205,
+     "uah": 18.92,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "KOKIRI WOW SEAWEED - Original",
+   "fob": 0.449,
+   "cost": {
+    "20'": {
+     "usd": 0.8766,
+     "uah": 39.45,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 0.62,
+     "uah": 27.9,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 1.2716,
+     "uah": 57.22,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 0.8661,
+     "uah": 38.97,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "KOKIRI WOW SEAWEED - Spicy",
+   "fob": 0.449,
+   "cost": {
+    "20'": {
+     "usd": 0.8766,
+     "uah": 39.45,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 0.62,
+     "uah": 27.9,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 1.2716,
+     "uah": 57.22,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 0.8661,
+     "uah": 38.97,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "KOKIRI WOW SEAWEED - Squid",
+   "fob": 0.449,
+   "cost": {
+    "20'": {
+     "usd": 0.8766,
+     "uah": 40.33,
+     "rate": 46
+    },
+    "40'": {
+     "usd": 0.62,
+     "uah": 28.52,
+     "rate": 46
+    },
+    "LCL 17": {
+     "usd": 1.2717,
+     "uah": 58.5,
+     "rate": 46
+    },
+    "LCL 34": {
+     "usd": 0.8661,
+     "uah": 39.84,
+     "rate": 46
+    }
+   }
+  },
+  {
+   "name": "KOKIRI WOW MINI - Original",
+   "fob": 0.446,
+   "cost": {
+    "20'": {
+     "usd": 0.8707,
+     "uah": 39.18,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 0.6243,
+     "uah": 28.1,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 1.2631,
+     "uah": 56.84,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 0.8603,
+     "uah": 38.71,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "KOKIRI WOW MINI - Hot Spicy",
+   "fob": 0.446,
+   "cost": {
+    "20'": {
+     "usd": 0.8707,
+     "uah": 39.18,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 0.6243,
+     "uah": 28.1,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 1.2631,
+     "uah": 56.84,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 0.8603,
+     "uah": 38.71,
+     "rate": 45
+    }
+   }
+  }
+ ],
+ "ZEK -Retail": [
+  {
+   "name": "ZEK TEMPURA SEAWEED - Corn 30g",
+   "fob": 0.43,
+   "cost": {
+    "20'": {
+     "usd": 0.8787,
+     "uah": 39.54,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 0.6675,
+     "uah": 30.04,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 1.443,
+     "uah": 64.94,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 0.9467,
+     "uah": 42.6,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "ZEK TEMPURA SEAWEED - Wasabi 30g",
+   "fob": 0.43,
+   "cost": {
+    "20'": {
+     "usd": 0.8787,
+     "uah": 39.54,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 0.6675,
+     "uah": 30.04,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 1.443,
+     "uah": 64.94,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 0.9467,
+     "uah": 42.6,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "ZEK TEMPURA SEAWEED - Mala Crawfish 30g",
+   "fob": 0.43,
+   "cost": {
+    "20'": {
+     "usd": 0.8787,
+     "uah": 39.54,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 0.6675,
+     "uah": 30.04,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 1.443,
+     "uah": 64.94,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 0.9467,
+     "uah": 42.6,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "ZEK TEMPURA SEAWEED - Corn 50g",
+   "fob": 0.65,
+   "cost": {
+    "20'": {
+     "usd": 1.3282,
+     "uah": 59.77,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 1.009,
+     "uah": 45.4,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 2.1813,
+     "uah": 98.16,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 1.4311,
+     "uah": 64.4,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "ZEK TEMPURA SEAWEED - Wasabi 50g",
+   "fob": 0.65,
+   "cost": {
+    "20'": {
+     "usd": 1.3282,
+     "uah": 59.77,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 1.009,
+     "uah": 45.4,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 2.1813,
+     "uah": 98.16,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 1.4311,
+     "uah": 64.4,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "ZEK TEMPURA SEAWEED - Mala Crawfish 50g",
+   "fob": 0.65,
+   "cost": {
+    "20'": {
+     "usd": 1.3282,
+     "uah": 59.77,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 1.009,
+     "uah": 45.4,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 2.1813,
+     "uah": 98.16,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 1.4311,
+     "uah": 64.4,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "ZEK SANDWICH SEAWEED - Meat Floss 25g",
+   "fob": 0.31,
+   "cost": {
+    "20'": {
+     "usd": 0.6335,
+     "uah": 28.51,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 0.4812,
+     "uah": 21.65,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 1.0403,
+     "uah": 46.81,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 0.6825,
+     "uah": 30.71,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "ZEK SANDWICH SEAWEED - Sesame 25g",
+   "fob": 0.31,
+   "cost": {
+    "20'": {
+     "usd": 0.6335,
+     "uah": 29.14,
+     "rate": 46
+    },
+    "40'": {
+     "usd": 0.4812,
+     "uah": 22.14,
+     "rate": 46
+    },
+    "LCL 17": {
+     "usd": 1.0403,
+     "uah": 47.85,
+     "rate": 46
+    },
+    "LCL 34": {
+     "usd": 0.6825,
+     "uah": 31.4,
+     "rate": 46
+    }
+   }
+  },
+  {
+   "name": "ZEK SEAWEED TOPPING - Chicken Floss 35g",
+   "fob": 0.4,
+   "cost": {
+    "20'": {
+     "usd": 0.8174,
+     "uah": 36.78,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 0.6209,
+     "uah": 27.94,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 1.3424,
+     "uah": 60.41,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 0.8807,
+     "uah": 39.63,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "ZEK SEAWEED TOPPING - Vegetables 35g",
+   "fob": 0.4,
+   "cost": {
+    "20'": {
+     "usd": 0.8174,
+     "uah": 36.78,
+     "rate": 45
+    },
+    "40'": {
+     "usd": 0.6209,
+     "uah": 27.94,
+     "rate": 45
+    },
+    "LCL 17": {
+     "usd": 1.3424,
+     "uah": 60.41,
+     "rate": 45
+    },
+    "LCL 34": {
+     "usd": 0.8807,
+     "uah": 39.63,
+     "rate": 45
+    }
+   }
+  },
+  {
+   "name": "ZEK SEAWEED TOPPING - Sesame 35g",
+   "fob": 0.4,
+   "cost": {
+    "20'": {
+     "usd": 0.8174,
+     "uah": 37.6,
+     "rate": 46
+    },
+    "40'": {
+     "usd": 0.6209,
+     "uah": 28.56,
+     "rate": 46
+    },
+    "LCL 17": {
+     "usd": 1.3424,
+     "uah": 61.75,
+     "rate": 46
+    },
+    "LCL 34": {
+     "usd": 0.8807,
+     "uah": 40.51,
+     "rate": 46
+    }
+   }
+  },
+  {
+   "name": "ZEK SEAWEED TOPPING - Vegetables 70g",
+   "fob": 0.81,
+   "cost": {
+    "20'": {
+     "usd": 1.6552,
+     "uah": 77.79,
+     "rate": 47
+    },
+    "40'": {
+     "usd": 1.2573,
+     "uah": 59.1,
+     "rate": 47
+    },
+    "LCL 17": {
+     "usd": 2.7182,
+     "uah": 127.76,
+     "rate": 47
+    },
+    "LCL 34": {
+     "usd": 1.7834,
+     "uah": 83.82,
+     "rate": 47
+    }
+   }
+  },
+  {
+   "name": "ZEK SEAWEED TOPPING - Sesame 70g",
+   "fob": 0.81,
+   "cost": {
+    "20'": {
+     "usd": 1.6552,
+     "uah": 79.45,
+     "rate": 48
+    },
+    "40'": {
+     "usd": 1.2573,
+     "uah": 60.35,
+     "rate": 48
+    },
+    "LCL 17": {
+     "usd": 2.7182,
+     "uah": 130.48,
+     "rate": 48
+    },
+    "LCL 34": {
+     "usd": 1.7834,
+     "uah": 85.6,
+     "rate": 48
+    }
+   }
+  },
+  {
+   "name": "ZEK SEAWEED TOPPING - Chicken Floss 70g",
+   "fob": 0.81,
+   "cost": {
+    "20'": {
+     "usd": 1.6552,
+     "uah": 81.1,
+     "rate": 49
+    },
+    "40'": {
+     "usd": 1.2573,
+     "uah": 61.61,
+     "rate": 49
+    },
+    "LCL 17": {
+     "usd": 2.7182,
+     "uah": 133.19,
+     "rate": 49
+    },
+    "LCL 34": {
+     "usd": 1.7834,
+     "uah": 87.38,
+     "rate": 49
+    }
+   }
+  }
+ ]
+}
