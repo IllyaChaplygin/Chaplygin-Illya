@@ -22,6 +22,11 @@ def photo(name):
 SUPPLIERS = [
     dict(
         id='singha',
+        hero=['sk_original', 'sk_wasabi', 'sk_okome'],
+        specs=[('Фасовка', '24 шт / картон'),
+               ('Термін придатності', '12 місяців'),
+               ('Місткість 20′', '1 485 картонів'),
+               ('Місткість 40′HC', '3 626 картонів')],
         sheet='SINGHA KAMEDA - Retail',
         name='Singha Kameda\n(Thailand) Co., Ltd.',
         short='Singha Kameda',
@@ -46,6 +51,11 @@ SUPPLIERS = [
     ),
     dict(
         id='thainichi',
+        hero=['tn_original', 'tn_wasabi', 'tn_chips'],
+        specs=[('Фасовка', '12 – 96 шт / картон'),
+               ('Термін придатності', '8 – 12 місяців'),
+               ('Місткість 20′', '1 013 картонів'),
+               ('MOQ', 'від 300 картонів')],
         sheet='Thai-Nichi - Retail',
         name='Thai-Nichi\nIndustries Co., Ltd.',
         short='Thai-Nichi',
@@ -70,6 +80,11 @@ SUPPLIERS = [
     ),
     dict(
         id='tmk',
+        hero=['tmk_roll_orig', 'tmk_dbl_orig', 'tmk_mini_orig'],
+        specs=[('Термін виробництва', '45 – 60 днів'),
+               ('Оплата', '50% депозит + 50% до ETD'),
+               ('Місткість 20′', '425 – 1 499 картонів'),
+               ('Місткість 40′HQ', '959 – 3 431 картонів')],
         sheet='TMK Thailand Co., Ltd -Retail',
         name='TMK (Thailand)\nCo., Ltd.',
         short='TMK · KOKIRI',
@@ -130,6 +145,11 @@ SUPPLIERS = [
     ),
     dict(
         id='zek',
+        hero=['zek_tempura_corn30', 'zek_topping_veg35', 'zek_sandwich_sesame25'],
+        specs=[('Фасовка', '8 – 36 шт / картон'),
+               ('Термін придатності', '9 – 12 місяців'),
+               ('Місткість 20′', '350 – 4 000 картонів'),
+               ('Місткість 40′HQ', '500 – 2 370 картонів')],
         sheet='ZEK -Retail',
         name='HanJin Food Co. Ltd\nбренд ZEK',
         short='HanJin · ZEK',

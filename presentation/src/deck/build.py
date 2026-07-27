@@ -33,6 +33,18 @@ def accent_of(sup):
     return SUPPLIER_COLORS[sup['id']]
 
 
+def plural_positions(n):
+    """Ukrainian agreement for «позиція» — 2 позиції, 5 позицій, 14 позицій."""
+    tail, hundred = n % 10, n % 100
+    if tail == 1 and hundred != 11:
+        word = 'позиція'
+    elif tail in (2, 3, 4) and hundred not in (12, 13, 14):
+        word = 'позиції'
+    else:
+        word = 'позицій'
+    return '%d %s' % (n, word)
+
+
 def costs(sheet, key):
     for row in DATA[sheet]:
         if row['name'] == key:
@@ -171,83 +183,71 @@ def slide_cover(prs):
     _page[0] += 1
 
 
-def route_strip(s, x, y, w, origin, accent):
-    """Origin port to Ukraine — a small designed cue instead of another text line."""
-    label(s, x, y, w, 'Маршрут постачання', size=6.5)
+def route_strip(s, x, y, w, origin, accent, on_dark=False):
+    """Origin port to Ukraine — a designed cue instead of another line of text."""
+    ink = WHITE if on_dark else INK
+    dim = mix(WHITE, accent, 0.72) if on_dark else MUTED
+    dash = mix(WHITE, accent, 0.45) if on_dark else mix(accent, PAPER, 0.4)
+    label(s, x, y, w, 'Маршрут постачання', size=6.5, color=dim)
     cy = y + 0.34
-    rect(s, x + 0.05, cy, 0.14, 0.14, fill=accent, radius=0.5)
+    rect(s, x + 0.05, cy, 0.14, 0.14, fill=ink, radius=0.5)
     for i in range(11):
-        rect(s, x + 0.34 + i * 0.20, cy + 0.055, 0.10, 0.03, fill=mix(accent, PAPER, 0.4))
-    rect(s, x + 2.52, cy, 0.14, 0.14, fill=INK, radius=0.5)
-    text(s, x, cy + 0.24, 1.5, 0.20, origin, size=8, color=INK, bold=True)
-    text(s, x + 1.7, cy + 0.24, 1.0, 0.20, 'Україна', size=8, color=INK, bold=True,
+        rect(s, x + 0.34 + i * 0.20, cy + 0.055, 0.10, 0.03, fill=dash)
+    rect(s, x + 2.52, cy, 0.14, 0.14, fill=ink, radius=0.5)
+    text(s, x, cy + 0.24, 1.5, 0.20, origin, size=8, color=ink, bold=True)
+    text(s, x + 1.7, cy + 0.24, 1.0, 0.20, 'Україна', size=8, color=ink, bold=True,
          align=PP_ALIGN.RIGHT)
 
 
+BAND_H = 2.92
+
+
 def slide_supplier(prs, sup, index):
+    """Chapter opener: a colour band with the packs breaking out of its lower edge."""
     accent = accent_of(sup)
     s = blank(prs, accent=accent)
+    rect(s, 0, 0, SW, BAND_H, fill=accent)
 
-    # chapter marker: a filled square carrying the section number
-    rect(s, M, 0.74, 0.44, 0.44, fill=accent, radius=0.10)
-    text(s, M, 0.74, 0.44, 0.44, '%02d' % index, size=14, font=HEAD, bold=True,
-         color=WHITE, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-    label(s, M + 0.60, 0.74, 4.7, 'Постачальник', size=7, h=0.20)
-    label(s, M + 0.60, 0.94, 4.7, sup['brand'], color=deepen(accent, 0.9), size=9,
-          h=0.22)
+    rect(s, M, 0.52, 0.44, 0.44, fill=WHITE, radius=0.10)
+    text(s, M, 0.52, 0.44, 0.44, '%02d' % index, size=14, font=HEAD, bold=True,
+         color=deepen(accent, 0.95), align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+    label(s, M + 0.60, 0.54, 4.4, 'Постачальник', size=7,
+          color=mix(WHITE, accent, 0.70), h=0.20)
+    label(s, M + 0.60, 0.74, 4.4, sup['brand'], color=WHITE, size=9, h=0.22)
 
-    text(s, M, 1.42, 5.3, 1.10, sup['name'], size=27, font=HEAD, color=INK,
-         bold=True, line_spacing=1.1)
-    rect(s, M, 2.70, 1.10, 0.05, fill=accent)
-    text(s, M, 2.94, 5.15, 1.10, sup['summary'], size=10.5, color=BODY_TX,
+    text(s, M, 1.00, 5.1, 0.88, sup['name'], size=26, font=HEAD, color=WHITE,
+         bold=True, line_spacing=1.06)
+    route_strip(s, M, 2.08, 3.0, sup['port'], accent, on_dark=True)
+
+    # packs sit on white tiles that cross the band edge — the deck's signature move.
+    # Tiles are sized to the pictures and then hung off the edge, so a supplier
+    # with only thumbnail shots still crosses it instead of floating in white.
+    shots = sup['hero'][:2]
+    tw, gap = 1.92, 0.16
+    tx = SW - M - (len(shots) * tw + (len(shots) - 1) * gap)
+    th = min(2.60, max(fit_size(photo(n), tw - 0.22, 2.34)[1] for n in shots) + 0.26)
+    ty = BAND_H - th * 0.62
+    for i, name in enumerate(shots):
+        x = tx + i * (tw + gap)
+        rect(s, x, ty, tw, th, fill=WHITE, radius=0.06, line=RULE)
+        picture(s, photo(name), x + 0.11, ty + 0.13, tw - 0.22, th - 0.26)
+    text(s, tx, ty + th + 0.14, len(shots) * tw + (len(shots) - 1) * gap, 0.20,
+         '%s із розрахованою собівартістю' % plural_positions(len(sup['products'])),
+         size=7.5, color=MUTED, align=PP_ALIGN.CENTER)
+
+    text(s, M, BAND_H + 0.28, 5.05, 0.90, sup['summary'], size=10.5, color=BODY_TX,
          line_spacing=1.34)
 
-    route_strip(s, M, 3.92, 3.0, sup['port'], accent)
-
-    # facts as tiles rather than a table row
-    fx = M + 3.30
-    for value, cap in [(sup['country'], 'Країна'),
-                       (str(len(sup['products'])), 'Позицій із с/в')]:
-        rect(s, fx, 3.92, 0.90, 0.92, fill=WHITE, radius=0.08, line=RULE)
-        text(s, fx, 4.06, 0.90, 0.32, value, size=13, font=HEAD, bold=True,
-             color=deepen(accent, 0.9), align=PP_ALIGN.CENTER)
-        text(s, fx, 4.46, 0.90, 0.22, cap, size=6.5, color=MUTED,
-             align=PP_ALIGN.CENTER)
-        fx += 1.02
-
-    supplier_collage(s, sup, accent)
+    label(s, M, 4.16, 5.05, 'Виробництво і умови поставки',
+          color=deepen(accent, 0.9), size=7)
+    for i, (cap, value) in enumerate(sup['specs']):
+        col, row = i % 2, i // 2
+        x = M + col * 2.60
+        y = 4.40 + row * 0.44
+        hline(s, x, y, 2.40)
+        text(s, x, y + 0.06, 2.40, 0.16, cap, size=6.5, color=MUTED)
+        text(s, x, y + 0.20, 2.40, 0.20, value, size=9, color=INK, bold=True)
     close(s)
-
-
-def supplier_collage(s, sup, accent):
-    """Two product tiles over a company panel — the panel takes a factory shot."""
-    bx, bw = 5.95, SW - M - 5.95
-    gap = 0.14
-    tw = (bw - gap) / 2
-    shots = [p['photo'] for p in sup['products']][:2]
-
-    room = 2.30
-    tallest = max(fit_size(photo(n), tw - 0.28, room - 0.28)[1] for n in shots)
-    th = min(room, tallest + 0.34)
-    for i, name in enumerate(shots):
-        x = bx + i * (tw + gap)
-        rect(s, x, 0.84, tw, th, fill=WHITE, radius=0.06, line=RULE)
-        picture(s, photo(name), x + 0.14, 0.98, tw - 0.28, th - 0.28)
-
-    cy = 0.84 + th + gap
-    ch = CONTENT_BOTTOM - cy
-    rect(s, bx, cy, bw, ch, fill=accent, radius=0.06)
-    if sup.get('company_photo'):
-        picture(s, photo(sup['company_photo']), bx + 0.02, cy + 0.02, bw - 0.04,
-                ch - 0.04)
-    else:
-        # no verified factory photography yet — a brand plate holds the slot
-        text(s, bx + 0.28, cy + 0.24, bw - 0.56, 0.60, sup['brand_mark'], size=22,
-             font=HEAD, bold=True, color=WHITE, line_spacing=1.06)
-        rect(s, bx + 0.28, cy + ch - 0.58, 0.60, 0.035, fill=WHITE)
-        text(s, bx + 0.28, cy + ch - 0.44, bw - 0.56, 0.24,
-             'Виробництво · %s' % sup['country'], size=8.5,
-             color=mix(WHITE, accent, 0.85))
 
 
 def slides_products(prs, sup):
