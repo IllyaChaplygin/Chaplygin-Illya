@@ -11,12 +11,28 @@ from PIL import Image, ImageChops, ImageEnhance, ImageFilter, ImageOps
 
 SRC = '/home/user/work/img'
 DST = '/home/user/work/photo'
+# TMK's own quotation. Not kept in the repo — it carries the supplier's bank
+# details. Point this at the file when re-running; the TMK shots are skipped
+# if it is missing.
+KOKIRI_PDF = ('/root/.claude/uploads/c53f34b4-ae43-52db-aeb2-01bdcda48cc3/'
+              '72b3fc9c-Quotation_KOKIRI_260604_Thaifex_2026.pdf')
 MAXPX = 1400
 os.makedirs(DST, exist_ok=True)
 
 
 def load(sheet, row):
     return Image.open('%s/%s__r%02d.png' % (SRC, sheet, row)).convert('RGB')
+
+
+def load_pdf(xref, _cache={}):
+    """Pull one embedded image out of the KOKIRI quotation by its PDF xref."""
+    import io as _io
+
+    import fitz
+    if not _cache:
+        _cache['doc'] = fitz.open(KOKIRI_PDF)
+    info = _cache['doc'].extract_image(xref)
+    return Image.open(_io.BytesIO(info['image'])).convert('RGB')
 
 
 def whiten_border(im, thresh=70):
@@ -165,24 +181,22 @@ def main():
     save(load(TN, 8), 'tn_kakinotane')
     save(load(TN, 19), 'tn_chips')
 
-    # --- TMK / KOKIRI. Brand colour code: green = Original, red = Spicy, purple = Squid.
-    roll = whiten_border(load(TMK, 3))          # left->right: green, red, purple
-    save(slice_h(roll, 3, 0), 'tmk_roll_orig')
-    save(slice_h(roll, 3, 1), 'tmk_roll_spicy')
-    save(slice_h(roll, 3, 2), 'tmk_roll_squid')
-
-    dbl = whiten_border(load(TMK, 4))           # two boxes: green left, red right
-    save(dbl.crop((0, 0, int(dbl.width * 0.56), dbl.height)), 'tmk_dbl_orig')
-    save(dbl.crop((int(dbl.width * 0.42), 0, dbl.width, dbl.height)), 'tmk_dbl_spicy')
-
-    sw = whiten_border(load(TMK, 6))            # left->right: red, green, purple
-    save(slice_h(sw, 3, 1), 'tmk_sw_orig')
-    save(slice_h(sw, 3, 0), 'tmk_sw_spicy')
-    save(slice_h(sw, 3, 2), 'tmk_sw_squid')
-
-    mini = whiten_border(load(TMK, 10))         # green left, red right
-    save(slice_h(mini, 2, 0), 'tmk_mini_orig')
-    save(slice_h(mini, 2, 1), 'tmk_mini_spicy')
+    # --- TMK / KOKIRI, taken from the supplier's own quotation rather than from
+    # the price comparison. Same order of resolution, but each flavour is a
+    # separate, cleanly framed shot instead of a slice cut out of a line-up —
+    # and Double Roll and Mini are markedly better. Quotation row order matches
+    # the flavour order printed beside it, which also confirms the brand colour
+    # code: green = Original, red = Spicy, purple = Squid.
+    if os.path.exists(KOKIRI_PDF):
+        for name, xref in {'tmk_roll_orig': 15, 'tmk_roll_spicy': 16,
+                           'tmk_roll_squid': 17,
+                           'tmk_dbl_orig': 27, 'tmk_dbl_spicy': 26,
+                           'tmk_sw_orig': 33, 'tmk_sw_spicy': 32,
+                           'tmk_sw_squid': 34,
+                           'tmk_mini_orig': 20, 'tmk_mini_spicy': 22}.items():
+            save(load_pdf(xref), name)          # Mini sits on black — save() clears it
+    else:
+        print('WARNING: %s missing, keeping existing TMK shots' % KOKIRI_PDF)
 
     save(load(TMK, 3), 'tmk_line', dark_bg=True)
 
