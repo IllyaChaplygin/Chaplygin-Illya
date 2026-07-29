@@ -17,9 +17,14 @@ from theme import (BODY_TX, CARD_R, CONTENT_BOTTOM, CONTENT_TOP, GOLD, HEAD, INK
 OUT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..',
                                    'Постачальники_снеків_собівартість.pptx'))
 
-# scenarios in ascending cost order; the cheapest is the highlighted row
-SC_ORDER = [(BASE, '40′ контейнер'), ("20'", '20′ контейнер'),
-            ('LCL 34', 'Збірний 34 м³'), ('LCL 17', 'Збірний 17 м³')]
+SC_NAME = {"40'": '40′ контейнер', "20'": '20′ контейнер',
+           'LCL 34': 'Збірний 34 м³', 'LCL 17': 'Збірний 17 м³'}
+
+
+def sc_order(cost):
+    """Scenarios cheapest-first. The workbook's ordering changes between
+    revisions, so it is read off the figures rather than hard-coded."""
+    return sorted(SC_NAME, key=lambda k: cost[k]['usd'])
 
 _page = [0]
 
@@ -33,6 +38,15 @@ def accent_of(sup):
     return SUPPLIER_COLORS[sup['id']]
 
 
+def sections(sup):
+    """Every container scenario priced for this supplier, in slide order."""
+    out = [dict(sheet=sup['sheet'], title=sup['headline'],
+                scenario=sup['scenario'], products=sup['products'])]
+    if sup.get('extra_section'):
+        out.append(sup['extra_section'])
+    return out
+
+
 def costs(sheet, key):
     for row in DATA[sheet]:
         if row['name'] == key:
@@ -41,46 +55,52 @@ def costs(sheet, key):
 
 
 # ================================================================ cost blocks ===
-def cost_stack(s, x, y, w, cost, accent, rh=0.18):
-    """Full-bleed rows across the card; the cheapest scenario is a filled band."""
-    for i, (key, name) in enumerate(SC_ORDER):
+BLOCK_H = 1.13          # label + headline band + three reference rows
+
+
+def cost_block(s, x, y, w, cost, accent, unit, big=False):
+    """Price block with a hard hierarchy.
+
+    The cheapest scenario is the headline figure; the other three sit under it as
+    a reference row. The caption always names the unit the price is for — that is
+    what stops a 2,5 g sachet being read against a 3 kg bag.
+    """
+    # geometry is fixed (BLOCK_H) so cards line up; `big` only scales the type
+    label(s, x + 0.16, y, w - 0.32, 'Собівартість · %s' % unit,
+          color=deepen(accent, 0.9), size=7 if big else 6)
+
+    head = y + 0.20
+    hh = 0.48
+    order = sc_order(cost)
+    v = cost[order[0]]
+    rect(s, x, head, w, hh, fill=accent)
+    text(s, x + 0.16, head + 0.06, w - 0.32, 0.16, SC_NAME[order[0]].upper(),
+         size=6.5 if big else 6, color=WHITE, bold=True, spc=0.9)
+    text(s, x + 0.16, head + 0.21, (w - 0.32) * 0.52, 0.30, fmt_usd(v['usd']),
+         size=15 if big else 13.5, font=HEAD, bold=True, color=WHITE)
+    text(s, x + 0.16 + (w - 0.32) * 0.45, head + 0.25, (w - 0.32) * 0.55, 0.26,
+         fmt_uah(v['uah']), size=11 if big else 10, bold=True, color=WHITE,
+         align=PP_ALIGN.RIGHT)
+
+    rh = 0.15
+    ry = head + hh
+    for i, key in enumerate(order[1:]):
         v = cost[key]
-        yy = y + i * rh
-        hot = key == BASE
-        if hot:
-            rect(s, x, yy, w, rh, fill=accent)
-        elif i:
+        yy = ry + i * rh
+        if i:
             hline(s, x + 0.16, yy, w - 0.32)
-        col = WHITE if hot else BODY_TX
-        text(s, x + 0.14, yy, w * 0.36 - 0.14, rh, name, size=6.5,
-             color=WHITE if hot else MUTED, bold=hot, anchor=MSO_ANCHOR.MIDDLE)
-        text(s, x + w * 0.36, yy, w * 0.30, rh, fmt_usd(v['usd']), size=7.5,
-             color=col, bold=True, align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
-        text(s, x + w * 0.66, yy, w * 0.34 - 0.14, rh, fmt_uah(v['uah']), size=7.5,
-             color=col, bold=True, align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
-
-
-def cost_row(s, x, y, w, h, cost, accent):
-    """Four side-by-side cells, for the roomier two-up cards."""
-    cw = w / 4
-    pale = tint(accent, 0.07)
-    for i, (key, name) in enumerate(SC_ORDER):
-        v = cost[key]
-        cx = x + i * cw
-        hot = key == BASE
-        rect(s, cx, y, cw, h, fill=accent if hot else pale)
-        if not hot and i:
-            rect(s, cx, y + 0.12, 0.01, h - 0.24, fill=WHITE)
-        text(s, cx, y + 0.10, cw, 0.16, name, size=7,
-             color=WHITE if hot else MUTED, bold=True, align=PP_ALIGN.CENTER)
-        text(s, cx, y + 0.29, cw, 0.28, fmt_usd(v['usd']), size=13, font=HEAD,
-             bold=True, color=WHITE if hot else INK, align=PP_ALIGN.CENTER)
-        text(s, cx, y + 0.58, cw, 0.20, fmt_uah(v['uah']), size=8.5, bold=True,
-             color=WHITE if hot else deepen(accent, 0.9), align=PP_ALIGN.CENTER)
+        text(s, x + 0.16, yy, (w - 0.32) * 0.42, rh, SC_NAME[key], size=6.5,
+             color=MUTED, anchor=MSO_ANCHOR.MIDDLE)
+        text(s, x + 0.16 + (w - 0.32) * 0.40, yy, (w - 0.32) * 0.28, rh,
+             fmt_usd(v['usd']), size=7, color=BODY_TX, bold=True,
+             align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
+        text(s, x + 0.16 + (w - 0.32) * 0.68, yy, (w - 0.32) * 0.32, rh,
+             fmt_uah(v['uah']), size=7, color=BODY_TX, bold=True,
+             align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
 
 
 # ====================================================================== cards ===
-def photo_band(page, bw, bh=1.22):
+def photo_band(page, bw, bh=1.10):
     """Height the photo strip needs on this page.
 
     Whole suppliers ship only thumbnail-sized shots. Holding a fixed tall strip
@@ -91,7 +111,7 @@ def photo_band(page, bw, bh=1.22):
     return min(bh, max(0.80, tallest + 0.10))
 
 
-def card_grid(s, x, w, p, cost, accent, band=1.22):
+def card_grid(s, x, w, p, cost, accent, band=1.10):
     y = CONTENT_TOP
     h = CONTENT_BOTTOM - CONTENT_TOP
     rect(s, x, y, w, h, fill=WHITE, radius=CARD_R, line=RULE)
@@ -106,14 +126,13 @@ def card_grid(s, x, w, p, cost, accent, band=1.22):
           color=deepen(accent, 0.9), size=6.5)
     text(s, x + 0.16, top + 0.46, w - 0.32, 0.44, p['title'], size=12, font=HEAD,
          bold=True, color=INK, line_spacing=1.0)
-    text(s, x + 0.16, top + 0.96, w - 0.32, 0.64, p['desc'], size=8, color=BODY_TX,
+    text(s, x + 0.16, top + 0.96, w - 0.32, 0.54, p['desc'], size=8, color=BODY_TX,
          line_spacing=1.22)
 
-    label(s, x + 0.16, y + 2.96, w - 0.32, 'Собівартість за одиницю', size=6)
-    cost_stack(s, x, y + 3.16, w, cost, accent)
+    cost_block(s, x, CONTENT_BOTTOM - BLOCK_H - 0.03, w, cost, accent, p['unit'])
 
 
-def card_duo(s, x, w, p, cost, accent, band=1.34):
+def card_duo(s, x, w, p, cost, accent, band=1.25):
     y = CONTENT_TOP
     h = CONTENT_BOTTOM - CONTENT_TOP
     rect(s, x, y, w, h, fill=WHITE, radius=CARD_R, line=RULE)
@@ -123,16 +142,15 @@ def card_duo(s, x, w, p, cost, accent, band=1.34):
     picture(s, photo(p['photo']), x + 0.30, y + 0.14, w - 0.60, band)
 
     top = y + 0.14 + band
-    label(s, x + 0.30, top + 0.38, w - 0.60, p['badge'], color=deepen(accent, 0.9),
+    label(s, x + 0.30, top + 0.26, w - 0.60, p['badge'], color=deepen(accent, 0.9),
           size=7.5, align=PP_ALIGN.CENTER)
-    text(s, x + 0.30, top + 0.58, w - 0.60, 0.42, p['title'].replace('\n', ' '),
+    text(s, x + 0.30, top + 0.48, w - 0.60, 0.42, p['title'].replace('\n', ' '),
          size=16, font=HEAD, bold=True, color=INK, align=PP_ALIGN.CENTER)
-    text(s, x + 0.55, top + 1.04, w - 1.10, 0.46, p['desc'], size=9, color=BODY_TX,
+    text(s, x + 0.55, top + 0.94, w - 1.10, 0.36, p['desc'], size=9, color=BODY_TX,
          align=PP_ALIGN.CENTER, line_spacing=1.24)
 
-    label(s, x + 0.30, y + 3.06, w - 0.60, 'Собівартість за одиницю', size=6.5,
-          align=PP_ALIGN.CENTER)
-    cost_row(s, x + 0.01, y + 3.24, w - 0.02, 0.80, cost, accent)
+    cost_block(s, x + 0.55, CONTENT_BOTTOM - BLOCK_H - 0.05, w - 1.10, cost, accent,
+               p['unit'], big=True)
 
 
 # ===================================================================== slides ===
@@ -152,9 +170,11 @@ def slide_cover(prs):
          'одиниці товару в доларах і гривні — за всіма сценаріями доставки.',
          size=11.5, color=BODY_TX, line_spacing=1.36)
 
-    text(s, SW - M - 3.0, 0.86, 3.0, 0.20,
-         '4 постачальники · 28 SKU · 4 сценарії доставки', size=8, color=MUTED,
-         align=PP_ALIGN.RIGHT)
+    skus = sum(len({p['title'] for sec in sections(sup) for p in sec['products']})
+               for sup in SUPPLIERS)
+    text(s, SW - M - 3.2, 0.86, 3.2, 0.20,
+         '%d постачальники · %d SKU · 4 сценарії доставки' % (len(SUPPLIERS), skus),
+         size=8, color=MUTED, align=PP_ALIGN.RIGHT)
 
     # staggered tiles, each washed in its supplier's colour
     strip = [('zek_tempura_corn30', 'zek'), ('sk_original', 'singha'),
@@ -235,10 +255,14 @@ def slide_supplier(prs, sup, index):
          color=mix(WHITE, accent, 0.70), bold=True, align=PP_ALIGN.RIGHT)
 
 
-def slides_products(prs, sup):
+VAT_NOTE = ('Собівартість повна: ціна постачальника + логістика + мито + ПДВ 20%. '
+            'Це не ціна продажу.')
+
+
+def slides_products(prs, sup, section):
+    """One section = one container scenario, so every figure on a slide shares a basis."""
     accent = accent_of(sup)
-    items = sup['products']
-    pages, rest = [], list(items)
+    pages, rest = [], list(section['products'])
     while rest:                      # never leave a lone card on the last page
         take = 4 if len(rest) != 6 else 3
         pages.append(rest[:take])
@@ -248,23 +272,32 @@ def slides_products(prs, sup):
         s = blank(prs, accent=accent)
         eyebrow = sup['short'] if len(pages) == 1 else '%s · %d/%d' % (
             sup['short'], idx + 1, len(pages))
-        header(s, sup['headline'], eyebrow=eyebrow, tag=sup['brand'], accent=accent)
+        header(s, section['title'], eyebrow=eyebrow, accent=accent)
+
+        # the container the prices assume, stated on the slide itself
+        cap = section['scenario']
+        pw = min(4.4, 0.058 * len(cap) + 0.44)
+        rect(s, SW - M - pw, 0.58, pw, 0.32, fill=tint(accent, 0.12), radius=0.24)
+        text(s, SW - M - pw, 0.58, pw, 0.32, cap, size=7.5,
+             color=deepen(accent, 0.95), bold=True, align=PP_ALIGN.CENTER,
+             anchor=MSO_ANCHOR.MIDDLE)
+
         n = len(page)
         gap = 0.30 if n <= 2 else 0.20
         w = (SW - 2 * M - gap * (n - 1)) / n
         x0 = (SW - (w * n + gap * (n - 1))) / 2
-        band = (photo_band(page, w - 0.60, 1.34) if n <= 2
+        band = (photo_band(page, w - 0.60, 1.25) if n <= 2
                 else photo_band(page, w - 0.32))
         for i, p in enumerate(page):
-            cost = costs(sup['sheet'], p['key'])
+            cost = costs(section['sheet'], p['key'])
             cx = x0 + i * (w + gap)
             if n <= 2:
                 card_duo(s, cx, w, p, cost, accent, band)
             else:
                 card_grid(s, cx, w, p, cost, accent, band)
-        close(s, sup.get('note') or
-              'Собівартість за одиницю товару. Джерело: SelfCost.xlsx, вкладка «%s».'
-              % sup['sheet'])
+
+        note = VAT_NOTE + (' ' + sup['note'] if sup.get('note') else '')
+        close(s, note + ' Джерело: SelfCost.xlsx, «%s».' % section['sheet'])
 
 
 def main():
@@ -275,7 +308,8 @@ def main():
     slide_cover(prs)
     for i, sup in enumerate(SUPPLIERS, start=1):
         slide_supplier(prs, sup, i)
-        slides_products(prs, sup)
+        for section in sections(sup):
+            slides_products(prs, sup, section)
 
     prs.save(OUT)
     print('saved %s — %d slides' % (OUT, len(prs.slides._sldIdLst)))
