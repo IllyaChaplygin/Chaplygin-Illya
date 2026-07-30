@@ -12,7 +12,7 @@ from catalog import BASE, DATA, SUPPLIERS, photo  # noqa: E402
 from theme import (BODY_TX, CARD_R, CONTENT_BOTTOM, CONTENT_TOP, GOLD, HEAD, INK,  # noqa: E402
                    M, MUTED, RULE, SH, SUPPLIER_COLORS, SW, WHITE, blank, deepen,
                    fit_size, fmt_uah, fmt_usd, footer, header, hline, label, mix,
-                   picture, rect, text, tint)
+                   picture, picture_cover, rect, text, tint)
 
 OUT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..',
                                    'Постачальники_снеків_собівартість.pptx'))
@@ -191,29 +191,64 @@ def slide_cover(prs):
     _page[0] += 1
 
 
-def brand_panel(s, sup, accent):
-    """Full-height colour column with the brand held on a white plate."""
-    px, pw = 5.85, SW - 5.85
-    rect(s, px, 0, pw, SH, fill=accent)
-
-    cx, cw = px + 0.50, pw - 1.00
-    rect(s, cx, 1.10, cw, 2.55, fill=WHITE, radius=0.05)
+def logo_plate(s, x, y, w, h, sup, accent):
+    """White plate holding the real logo, or a typographic mark when none exists."""
+    rect(s, x, y, w, h, fill=WHITE, radius=0.05)
     if sup.get('logo'):
-        picture(s, photo(sup['logo']), cx + 0.30, 1.42, cw - 0.60, 1.00)
+        picture(s, photo(sup['logo']), x + 0.26, y + 0.16, w - 0.52, h - 0.32)
     else:
-        # no logo file for this supplier — a typographic mark, as the avocado deck
-        # sets "SYROS" rather than an image
-        text(s, cx + 0.16, 1.42, cw - 0.32, 1.00, sup['brand_mark'], size=25,
+        # no logo file for this supplier — a typographic mark, the way the avocado
+        # deck sets "SYROS" rather than an image
+        text(s, x + 0.14, y + 0.10, w - 0.28, h - 0.20, sup['brand_mark'], size=24,
              font=HEAD, bold=True, color=deepen(accent, 0.95),
              align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE, line_spacing=1.08)
-    rect(s, cx + (cw - 0.66) / 2, 2.68, 0.66, 0.035, fill=accent)
-    text(s, cx + 0.16, 2.88, cw - 0.32, 0.30, sup.get('tagline', sup['brand']),
-         size=10.5, color=MUTED, align=PP_ALIGN.CENTER)
 
-    label(s, px, 4.04, pw, 'Виробництво', color=mix(WHITE, accent, 0.72), size=7,
+
+def brand_panel(s, sup, accent):
+    """Full-height colour column: company imagery, brand plate, origin."""
+    px, pw = 5.85, SW - 5.85
+    rect(s, px, 0, pw, SH, fill=accent)
+    hero = sup.get('hero')
+
+    if hero == 'bleed':
+        # photography big enough to crop edge to edge; the plate laps its lower edge
+        picture_cover(s, photo(sup['company_photo']), px, 0, pw, 3.36, focus=0.5)
+        rect(s, px, 3.36, pw, 0.06, fill=mix(WHITE, accent, 0.35))
+        logo_plate(s, px + 0.50, 2.78, pw - 1.00, 1.24, sup, accent)
+        text(s, px + 0.50, 4.10, pw - 1.00, 0.20, sup['photo_caption'], size=6.5,
+             color=mix(WHITE, accent, 0.72), italic=True, align=PP_ALIGN.CENTER)
+        cap_y = 4.36
+    elif hero == 'card':
+        # a small supplier shot stays on its own card rather than being stretched
+        logo_plate(s, px + 0.50, 0.62, pw - 1.00, 1.20, sup, accent)
+        cw = pw - 1.00
+        rect(s, px + 0.50, 2.02, cw, 2.00, fill=WHITE, radius=0.05)
+        picture(s, photo(sup['company_photo']), px + 0.58, 2.10, cw - 0.16, 1.60)
+        text(s, px + 0.58, 3.74, cw - 0.16, 0.20, sup['photo_caption'], size=6.5,
+             color=MUTED, italic=True, align=PP_ALIGN.CENTER)
+        cap_y = 4.28
+    else:
+        logo_plate(s, px + 0.50, 1.34, pw - 1.00, 1.60, sup, accent)
+        text(s, px + 0.50, 3.10, pw - 1.00, 0.30, sup.get('tagline', sup['brand']),
+             size=10.5, color=mix(WHITE, accent, 0.80), align=PP_ALIGN.CENTER)
+        cap_y = 4.10
+
+    label(s, px, cap_y, pw, 'Виробництво', color=mix(WHITE, accent, 0.70), size=7,
           align=PP_ALIGN.CENTER, h=0.20)
-    text(s, px, 4.26, pw, 0.30, sup['country'], size=13, font=HEAD, bold=True,
+    text(s, px, cap_y + 0.22, pw, 0.30, sup['country'], size=13, font=HEAD, bold=True,
          color=WHITE, align=PP_ALIGN.CENTER)
+
+
+def cert_strip(s, x, y, w, names, accent):
+    """Certification marks, sized to a common height and laid out on one line."""
+    h = 0.26
+    label(s, x, y, w, 'Сертифікати виробництва', color=deepen(accent, 0.9), size=7)
+    widths = [fit_size(photo(n), w, h)[0] for n in names]
+    gap = min(0.20, max(0.10, (w - sum(widths)) / max(1, len(names) - 1)))
+    cx = x
+    for name, cw in zip(names, widths):
+        picture(s, photo(name), cx, y + 0.20, cw, h)
+        cx += cw + gap
 
 
 def slide_supplier(prs, sup, index):
@@ -226,28 +261,33 @@ def slide_supplier(prs, sup, index):
     label(s, M + 0.42, 0.52, 4.4, 'Профіль постачальника · %02d' % index,
           color=deepen(accent, 0.9), size=8, h=0.26)
 
-    text(s, M, 0.94, 5.05, 1.00, sup['name'], size=26, font=HEAD, color=INK,
+    text(s, M, 0.92, 5.05, 1.00, sup['name'], size=26, font=HEAD, color=INK,
          bold=True, line_spacing=1.08)
-    text(s, M, 2.10, 5.05, 0.30, sup['category'], size=11, color=deepen(accent, 0.9))
+    text(s, M, 2.08, 5.05, 0.30, sup['category'], size=11, color=deepen(accent, 0.9))
 
     cw = 0.062 * len(sup['port']) + 0.44
-    rect(s, M, 2.50, cw, 0.30, fill=tint(accent, 0.12), radius=0.24)
-    text(s, M, 2.50, cw, 0.30, sup['port'], size=8.5, color=deepen(accent, 0.95),
+    rect(s, M, 2.46, cw, 0.30, fill=tint(accent, 0.12), radius=0.24)
+    text(s, M, 2.46, cw, 0.30, sup['port'], size=8.5, color=deepen(accent, 0.95),
          bold=True, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
 
-    label(s, M, 3.04, 5.05, 'Про компанію', color=deepen(accent, 0.9), size=7)
-    text(s, M, 3.24, 5.05, 0.80, sup['summary'], size=10, color=BODY_TX,
-         line_spacing=1.32)
+    label(s, M, 2.96, 5.05, 'Про компанію', color=deepen(accent, 0.9), size=7)
+    text(s, M, 3.16, 5.05, 0.72, sup['summary'], size=10, color=BODY_TX,
+         line_spacing=1.30)
 
+    certs = sup.get('certs')
     tw, gap = 1.62, 0.145
+    sy = 3.94 if certs else 4.16
     for i, (value, cap) in enumerate(sup['stats']):
         x = M + i * (tw + gap)
-        rect(s, x, 4.16, tw, 0.94, fill=WHITE, radius=0.06, line=RULE)
-        rect(s, x, 4.16, tw, 0.05, fill=accent)
-        text(s, x, 4.32, tw, 0.32, value, size=17, font=HEAD, bold=True,
-             color=deepen(accent, 0.95), align=PP_ALIGN.CENTER)
-        text(s, x + 0.10, 4.68, tw - 0.20, 0.36, cap, size=7, color=MUTED,
-             align=PP_ALIGN.CENTER, line_spacing=1.14)
+        th = 0.78 if certs else 0.94
+        rect(s, x, sy, tw, th, fill=WHITE, radius=0.06, line=RULE)
+        rect(s, x, sy, tw, 0.05, fill=accent)
+        text(s, x, sy + 0.14, tw, 0.30, value, size=16 if certs else 17, font=HEAD,
+             bold=True, color=deepen(accent, 0.95), align=PP_ALIGN.CENTER)
+        text(s, x + 0.10, sy + 0.44, tw - 0.20, 0.34, cap, size=6.5 if certs else 7,
+             color=MUTED, align=PP_ALIGN.CENTER, line_spacing=1.12)
+    if certs:
+        cert_strip(s, M, 4.86, 5.05, certs, accent)
 
     # the brand column runs to the slide edge, so the page number rides on it
     _page[0] += 1

@@ -22,6 +22,12 @@ def photo(name):
 SUPPLIERS = [
     dict(
         id='singha',
+        logo='logo_singha',
+        company_photo='plant_singha',
+        hero='card',
+        photo_caption='Виробнича лінія · singhakameda.co.th',
+        certs=['cert_haccp', 'cert_brc', 'cert_halal', 'cert_nsf',
+               'cert_organic', 'cert_sedex'],
         extra_section=dict(
             sheet='SINGHA KAMEDA - Retail+Bulk',
             title='Arare Norimaki — роздріб і BULK',
@@ -81,6 +87,10 @@ SUPPLIERS = [
     ),
     dict(
         id='thainichi',
+        logo='logo_mizuho',
+        company_photo='plant_thainichi',
+        hero='bleed',
+        photo_caption='Продукція Mizuho · thai-nichi.com',
         extra_section=dict(
             sheet='Thai-Nichi - Retail+Bulk',
             title='Norimaki — роздріб і BULK',

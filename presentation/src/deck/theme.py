@@ -146,6 +146,28 @@ def fit_size(path, bw, bh):
     return iw * scale, ih * scale
 
 
+def picture_cover(slide, path, bx, by, bw, bh, focus=0.5):
+    """Fill the box edge to edge, cropping the overflow — for full-bleed hero art.
+
+    python-pptx has no crop-on-insert, so the picture is placed oversized and the
+    shape's own crop fields trim it back to the box.
+    """
+    from PIL import Image
+    with Image.open(path) as im:
+        iw, ih = im.size
+    scale = max(bw / iw, bh / ih)
+    w, h = iw * scale, ih * scale
+    pic = slide.shapes.add_picture(path, Inches(bx), Inches(by), Inches(w), Inches(h))
+    over_w, over_h = (w - bw) / w, (h - bh) / h
+    pic.crop_left = over_w * focus
+    pic.crop_right = over_w * (1 - focus)
+    pic.crop_top = over_h * focus
+    pic.crop_bottom = over_h * (1 - focus)
+    pic.left, pic.top = Inches(bx), Inches(by)
+    pic.width, pic.height = Inches(bw), Inches(bh)
+    return pic
+
+
 def picture(slide, path, bx, by, bw, bh):
     """Fit (contain) inside the box, centred, but never blow a shot up past MIN_DPI.
 
