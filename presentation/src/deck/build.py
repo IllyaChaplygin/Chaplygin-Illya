@@ -5,14 +5,15 @@ import sys
 
 from pptx import Presentation
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
-from pptx.util import Inches
+from pptx.enum.shapes import MSO_SHAPE
+from pptx.util import Inches, Pt
 
 sys.path.insert(0, os.path.dirname(__file__))
 from catalog import BASE, DATA, SUPPLIERS, photo  # noqa: E402
 from theme import (BODY_TX, CARD_R, CONTENT_BOTTOM, CONTENT_TOP, GOLD, HEAD, INK,  # noqa: E402
                    M, MUTED, RULE, SH, SUPPLIER_COLORS, SW, WHITE, blank, deepen,
                    fit_size, fmt_uah, fmt_usd, footer, header, hline, label, mix,
-                   picture, picture_cover, rect, text, tint)
+                   picture, picture_cover, rect, ring, text, tint)
 
 OUT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..',
                                    'Постачальники_снеків_собівартість.pptx'))
@@ -117,19 +118,33 @@ def photo_band(page, bw, bh=1.10):
 def bulk_visual(s, x, y, w, h, p, accent):
     """BULK has no pack shot of its own, and borrowing the retail one misleads.
 
-    Draw the format instead: a large sack carrying the weight, with the retail
-    pack beside it at true relative scale so the jump in size is the message.
+    Draw the format instead: a sack silhouette — trapezoid body bulging under
+    a twisted neck — carrying the weight, with the retail pack beside it at
+    true relative scale so the jump in size reads, not just a coloured block.
     """
     bulk = p['bulk']
     bw = w * 0.46
     bx = x + w * 0.30
-    seal = 0.10
-    rect(s, bx, y + seal, bw, h - seal - 0.04, fill=accent, radius=0.10)
-    rect(s, bx + bw * 0.16, y, bw * 0.68, seal * 1.7, fill=deepen(accent, 0.85),
-         radius=0.4)
-    text(s, bx, y + (h - seal) * 0.42, bw, 0.30, bulk['weight'], size=16, font=HEAD,
+    neck = 0.11
+    body_y = y + neck
+    body_h = h - neck - 0.04
+
+    sack = s.shapes.add_shape(MSO_SHAPE.TRAPEZOID, Inches(bx), Inches(body_y),
+                              Inches(bw), Inches(body_h))
+    sack.adjustments[0] = 0.16
+    sack.fill.solid()
+    sack.fill.fore_color.rgb = accent
+    sack.shadow.inherit = False
+    sack.line.fill.background()
+
+    rect(s, bx + bw * 0.32, y, bw * 0.36, neck * 1.8, fill=deepen(accent, 0.82),
+         radius=0.5)
+    rect(s, bx + bw * 0.5 - 0.006, body_y + body_h * 0.20, 0.012, body_h * 0.64,
+         fill=deepen(accent, 0.88))
+
+    text(s, bx, y + h * 0.46, bw, 0.30, bulk['weight'], size=15, font=HEAD,
          bold=True, color=WHITE, align=PP_ALIGN.CENTER)
-    label(s, bx, y + (h - seal) * 0.66, bw, 'BULK', color=mix(WHITE, accent, 0.75),
+    label(s, bx, y + h * 0.70, bw, 'BULK', color=mix(WHITE, accent, 0.75),
           size=6.5, align=PP_ALIGN.CENTER)
 
     # the retail pack, deliberately small, as the size reference
@@ -241,13 +256,16 @@ def brand_panel(s, sup, accent):
     rect(s, px, 0, pw, SH, fill=accent)
     hero = sup.get('hero')
 
-    if hero == 'panel':
-        # a made surface rather than a photograph — it can run the whole column,
-        # so the plate sits in the middle of it like a label on a wrapper
-        picture_cover(s, photo(sup['company_photo']), px, 0, pw, SH, focus=0.5)
-        logo_plate(s, px + 0.50, 1.62, pw - 1.00, 1.34, sup, accent)
-        text(s, px + 0.50, 3.06, pw - 1.00, 0.20, sup['photo_caption'], size=7,
-             color=mix(WHITE, accent, 0.78), italic=True, align=PP_ALIGN.CENTER)
+    if hero == 'mark':
+        # no verified photography of this supplier exists anywhere, and a
+        # generated stand-in for one reads as fake no matter how it's made.
+        # A quiet medallion carries the column instead — a seal, not a photo.
+        cx, cy = px + pw / 2, 2.50
+        for d, tone, lw in ((4.05, 0.88, 1.6), (3.10, 0.80, 1.2), (2.20, 0.72, 1.0)):
+            ring(s, cx, cy, d, mix(WHITE, accent, tone), lw)
+        logo_plate(s, px + 0.50, 1.86, pw - 1.00, 1.28, sup, accent)
+        text(s, px + 0.50, 3.28, pw - 1.00, 0.20, sup['photo_caption'], size=7.5,
+             color=mix(WHITE, accent, 0.80), italic=True, align=PP_ALIGN.CENTER)
         cap_y = 4.30
     elif hero == 'bleed':
         # photography big enough to crop edge to edge; the plate laps its lower edge
@@ -352,6 +370,20 @@ VAT_NOTE = ('Собівартість повна: ціна постачальн�
             'Це не ціна продажу.')
 
 
+def page_title(page):
+    """A repeated headline on every page of a section reads as padding, so
+    multi-page sections state what's actually on that page — the product
+    line(s) — instead of the same banner four times over. The eyebrow above
+    already carries the brand, so the headline itself stays short enough to
+    never reach the scenario chip that sits in the same row."""
+    fams = []
+    for p in page:
+        fam = p['title'].split('\n')[0]
+        if fam not in fams:
+            fams.append(fam)
+    return ' та '.join(fams)
+
+
 def slides_products(prs, sup, section):
     """One section = one container scenario, so every figure on a slide shares a basis."""
     accent = accent_of(sup)
@@ -365,7 +397,8 @@ def slides_products(prs, sup, section):
         s = blank(prs, accent=accent)
         eyebrow = sup['short'] if len(pages) == 1 else '%s · %d/%d' % (
             sup['short'], idx + 1, len(pages))
-        header(s, section['title'], eyebrow=eyebrow, accent=accent)
+        title = section['title'] if len(pages) == 1 else page_title(page)
+        header(s, title, eyebrow=eyebrow, accent=accent)
 
         # the container the prices assume, stated on the slide itself
         cap = section['scenario']

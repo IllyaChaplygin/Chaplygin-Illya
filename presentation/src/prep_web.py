@@ -8,12 +8,13 @@ they keep the KOKIRI logo from the quotation and a typographic mark.
 import os
 
 import numpy as np
-from PIL import Image, ImageChops, ImageEnhance, ImageFilter, ImageOps
+from PIL import Image, ImageChops, ImageEnhance
 
 SK = '/tmp/web/sk'
 TN = '/tmp/web/tn'
 TMK = '/tmp/web/tmk'
 KK = '/tmp/web/kk'
+KK3 = '/tmp/web/kk3'
 DST = '/home/user/Chaplygin-Illya/presentation/src/photo'
 
 
@@ -112,41 +113,16 @@ def main():
         im = im.crop((0, int(im.height * 0.27), im.width, im.height))
         save(pad(trim_white(im), 0.03), name)
 
-    # --- ZEK: no photography of the plant is published anywhere we can verify,
-    # and their own pack art blurred up still read as smudged lettering. So the
-    # column gets a made surface instead — roasted-nori grain in the supplier's
-    # terracotta. It is decoration, and looks like decoration.
-    save(nori_surface(), 'texture_zek')
+    # Double Roll: the site's own marketing collages carry a clean box shot at
+    # the left before the text and repeated-pouch panels start. 600px source,
+    # a real jump from the 69-73px quotation crop.
+    for name, f in [('tmk_dbl_orig', 'dbl_orig.jpg'), ('tmk_dbl_spicy', 'dbl_spicy.jpg')]:
+        im = Image.open('%s/%s' % (KK3, f)).convert('RGB').crop((15, 175, 180, 468))
+        save(im, name)
 
-
-def nori_surface(w=1100, h=1450, seed=11):
-    """A made surface for the ZEK column — deep terracotta, matte, barely there.
-
-    Reads as pressed paper under raking light: a long diagonal fall-off carries
-    the panel, a wide soft mottle breaks the flatness, and a fine horizontal
-    grain keeps it from looking like a gradient fill. All three are held at low
-    amplitude on purpose — the white brand plate has to stay the loud thing.
-    """
-    rng = np.random.default_rng(seed)
-    yy, xx = np.mgrid[0:h, 0:w]
-
-    # light falls from the top-left corner and drops away across the panel
-    field = 1.0 - (xx / w * 0.42 + yy / h * 0.58)
-    field = 0.20 + 0.72 * field ** 1.25
-
-    mottle = Image.fromarray(
-        np.clip(rng.normal(0.5, 0.5, (h // 90, w // 90)) * 255, 0, 255).astype('uint8'), 'L')
-    mottle = mottle.resize((w, h), Image.BICUBIC).filter(ImageFilter.GaussianBlur(60))
-    field += (np.asarray(mottle).astype(float) / 255 - 0.5) * 0.14
-
-    grain = rng.normal(0, 1, (h, w // 4))
-    grain = np.asarray(Image.fromarray(
-        np.clip(grain * 40 + 128, 0, 255).astype('uint8'), 'L')
-        .resize((w, h), Image.BILINEAR)).astype(float)
-    field += (grain / 255 - 0.5) * 0.07
-
-    grey = Image.fromarray(np.clip(field * 255, 0, 255).astype('uint8'), 'L')
-    return ImageOps.colorize(grey, black=(0x4E, 0x16, 0x0C), white=(0xCB, 0x55, 0x33))
+    # ZEK gets no image at all: no verified photography of the company exists,
+    # and a generated stand-in for one reads as fake no matter how it's made.
+    # Its profile column is built as pure typography in build.py instead.
 
 
 if __name__ == '__main__':

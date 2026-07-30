@@ -85,6 +85,18 @@ def rect(slide, x, y, w, h, fill=None, radius=None, line=None, lw=0.75):
     return sh
 
 
+def ring(slide, cx, cy, d, color, lw=1.4):
+    """A stroked circle, no fill — for a quiet medallion motif on a colour field."""
+    sh = slide.shapes.add_shape(MSO_SHAPE.OVAL, Inches(cx - d / 2), Inches(cy - d / 2),
+                                Inches(d), Inches(d))
+    sh.fill.background()
+    sh.shadow.inherit = False
+    sh.line.color.rgb = color
+    sh.line.width = Pt(lw)
+    sh.text_frame.text = ''
+    return sh
+
+
 def hline(slide, x, y, w, color=RULE):
     return rect(slide, x, y, w, HAIRLINE, fill=color)
 

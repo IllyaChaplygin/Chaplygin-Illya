@@ -223,8 +223,7 @@ SUPPLIERS = [
     ),
     dict(
         id='zek',
-        company_photo='texture_zek',
-        hero='panel',
+        hero='mark',
         photo_caption='ZEK — Zesty Especial Kingdom',
         cert_label='Сировина',
         cert_text='Норі з острова Чеджу (Корея) та плантацій під Вейхаєм',
