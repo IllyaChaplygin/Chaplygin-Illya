@@ -12,6 +12,7 @@ from PIL import Image, ImageChops, ImageEnhance
 
 SK = '/tmp/web/sk'
 TN = '/tmp/web/tn'
+TMK = '/tmp/web/tmk'
 DST = '/home/user/Chaplygin-Illya/presentation/src/photo'
 
 
@@ -74,6 +75,12 @@ def main():
         'logo_mizuho')
     save(Image.open('%s/691c0a_12106c5a50294e338f36ea47980f7ce0_mv2.jpg' % TN),
          'plant_thainichi')
+
+    # --- TMK: their plant, from the KOKIRI site
+    plant = Image.open(
+        '%s/279558619-681682616275854-6421290885006178567-n.jpg' % TMK).convert('RGB')
+    plant = ImageEnhance.Color(plant).enhance(1.12)
+    save(ImageEnhance.Contrast(plant).enhance(1.05), 'plant_tmk')
 
 
 if __name__ == '__main__':

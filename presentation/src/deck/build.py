@@ -228,6 +228,12 @@ def brand_panel(s, sup, accent):
              color=MUTED, italic=True, align=PP_ALIGN.CENTER)
         cap_y = 4.28
     else:
+        # no company imagery for this supplier — give the column depth with a
+        # quiet pattern of overlapping discs a shade off the accent
+        soft = mix(WHITE, accent, 0.08)
+        for cx, cy, d in ((0.10, 0.30, 2.60), (2.70, 1.10, 1.70),
+                          (0.90, 4.10, 2.20), (3.10, 3.60, 1.20)):
+            rect(s, px + cx, cy, d, d, fill=soft, radius=0.5)
         logo_plate(s, px + 0.50, 1.34, pw - 1.00, 1.60, sup, accent)
         text(s, px + 0.50, 3.10, pw - 1.00, 0.30, sup.get('tagline', sup['brand']),
              size=10.5, color=mix(WHITE, accent, 0.80), align=PP_ALIGN.CENTER)
@@ -274,20 +280,27 @@ def slide_supplier(prs, sup, index):
     text(s, M, 3.16, 5.05, 0.72, sup['summary'], size=10, color=BODY_TX,
          line_spacing=1.30)
 
-    certs = sup.get('certs')
+    certs, cert_text = sup.get('certs'), sup.get('cert_text')
     tw, gap = 1.62, 0.145
-    sy = 3.94 if certs else 4.16
+    sy = 3.94 if (certs or cert_text) else 4.16
+    tight = bool(certs or cert_text)
     for i, (value, cap) in enumerate(sup['stats']):
         x = M + i * (tw + gap)
-        th = 0.78 if certs else 0.94
+        th = 0.78 if tight else 0.94
         rect(s, x, sy, tw, th, fill=WHITE, radius=0.06, line=RULE)
         rect(s, x, sy, tw, 0.05, fill=accent)
-        text(s, x, sy + 0.14, tw, 0.30, value, size=16 if certs else 17, font=HEAD,
+        # long values like "$10 млн+" need to step down a size to stay on one line
+        vs = (13.5 if len(value) > 6 else 16) if tight else 17
+        text(s, x, sy + 0.14, tw, 0.30, value, size=vs, font=HEAD,
              bold=True, color=deepen(accent, 0.95), align=PP_ALIGN.CENTER)
-        text(s, x + 0.10, sy + 0.44, tw - 0.20, 0.34, cap, size=6.5 if certs else 7,
+        text(s, x + 0.10, sy + 0.44, tw - 0.20, 0.34, cap, size=6.5 if tight else 7,
              color=MUTED, align=PP_ALIGN.CENTER, line_spacing=1.12)
     if certs:
         cert_strip(s, M, 4.86, 5.05, certs, accent)
+    elif cert_text:
+        label(s, M, 4.86, 5.05, 'Сертифікати виробництва',
+              color=deepen(accent, 0.9), size=7)
+        text(s, M, 5.06, 5.05, 0.22, cert_text, size=9, color=INK, bold=True)
 
     # the brand column runs to the slide edge, so the page number rides on it
     _page[0] += 1
