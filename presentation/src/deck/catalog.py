@@ -46,16 +46,15 @@ SUPPLIERS = [
                      badge='42 г · 24 шт/карт.',
                      desc='Ті самі рисові палички в норі, але з відчутною гостротою '
                      'японського васабі.'),
-                dict(key='Norimaki Original 3 kg x2 — BULK', unit='1 пакет 3 кг',
+                dict(key='Norimaki Original 3 kg x2 — BULK', bulk=dict(weight='3 кг', ref='sk_original', ref_label='42 г'), unit='1 пакет 3 кг',
                      title='Norimaki Original\nBULK 3 кг', photo='sk_original',
                      badge='3 кг · 2 пак/карт.',
                      desc='Той самий продукт у форматі 3 кг — для HoReCa та фасування '
-                     'на місці. На фото — роздрібна фасовка.'),
-                dict(key='Norimaki Wasabi 3 kg x2 — BULK', unit='1 пакет 3 кг',
+                     'на місці.'),
+                dict(key='Norimaki Wasabi 3 kg x2 — BULK', bulk=dict(weight='3 кг', ref='sk_wasabi', ref_label='42 г'), unit='1 пакет 3 кг',
                      title='Norimaki Wasabi\nBULK 3 кг', photo='sk_wasabi',
                      badge='3 кг · 2 пак/карт.',
-                     desc='Васабі у форматі 3 кг — для HoReCa та фасування на місці. '
-                     'На фото — роздрібна фасовка.'),
+                     desc='Васабі у форматі 3 кг — для HoReCa та фасування на місці.'),
             ]),
         scenario='Контейнер везе тільки роздрібну фасовку',
         category='Рисові крекери арарe в норі · Retail',
@@ -109,16 +108,16 @@ SUPPLIERS = [
                      badge='55 г · 36 шт/карт.',
                      desc='Той самий крекер із додаванням васабі. Найбільший пакет '
                      'лінійки — 55 г.'),
-                dict(key='Mizuho Norimaki Original 2,5 kg x2 — BULK',
+                dict(key='Mizuho Norimaki Original 2,5 kg x2 — BULK', bulk=dict(weight='2,5 кг', ref='tn_original', ref_label='50 г'),
                      unit='1 пакет 2,5 кг', title='Norimaki Original\nBULK 2,5 кг',
                      photo='tn_original', badge='2,5 кг · 2 пак/карт.',
                      desc='Той самий крекер у форматі 2,5 кг — для HoReCa та фасування '
-                     'на місці. На фото — роздрібна фасовка.'),
-                dict(key='Mizuho Norimaki Wasabi 2,5 kg x2 — BULK',
+                     'на місці.'),
+                dict(key='Mizuho Norimaki Wasabi 2,5 kg x2 — BULK', bulk=dict(weight='2,5 кг', ref='tn_wasabi', ref_label='55 г'),
                      unit='1 пакет 2,5 кг', title='Norimaki Wasabi\nBULK 2,5 кг',
                      photo='tn_wasabi', badge='2,5 кг · 2 пак/карт.',
-                     desc='Васабі у форматі 2,5 кг — для HoReCa та фасування на місці. '
-                     'На фото — роздрібна фасовка.'),
+                     desc='Васабі у форматі 2,5 кг — для HoReCa та фасування на '
+                     'місці.'),
             ]),
         scenario='Контейнер везе тільки роздрібну фасовку',
         category='Рисові крекери, чипси та протеїнові снеки · Retail',
@@ -224,9 +223,14 @@ SUPPLIERS = [
     ),
     dict(
         id='zek',
-        stats=[('35', 'позицій\nу прайс-листі'),
-               ('3', 'продуктові\nнапрямки'),
-               ('Qingdao', 'порт\nвідвантаження')],
+        company_photo='texture_zek',
+        hero='panel',
+        photo_caption='ZEK — Zesty Especial Kingdom',
+        cert_label='Сировина',
+        cert_text='Норі з острова Чеджу (Корея) та плантацій під Вейхаєм',
+        stats=[('2002', 'рік заснування\nу Вейхаї, Шаньдун'),
+               ('№1', 'частка ринку\nприправленої норі в КНР'),
+               ('16', 'країн\nекспорту')],
         scenario='Розрахунок на контейнер із роздрібною фасовкою',
         tagline='HanJin Food Co. Ltd',
         category='Темпура, сендвічі та присипка з норі · Retail',
@@ -242,9 +246,9 @@ SUPPLIERS = [
         brand_mark='ZEK',
         country='Китай',
         port='FOB Qingdao',
-        summary='Найбільший за глибиною розрахунку постачальник: 14 позицій у трьох '
-                'напрямках — темпура, сендвіч і присипка з норі. Єдиний постачальник '
-                'з відвантаженням із Циндао.',
+        summary='ZEK — «Zesty Especial Kingdom», власний бренд Hanjin Food. Компанія '
+                'заснована 2002 року у Вейхаї, головний офіс із 2014-го — у Шанхаї. '
+                'Партнери групи — тайська Singha Group і корейська SPC Group.',
         products=[
             dict(key='ZEK TEMPURA SEAWEED - Corn 30g', unit='1 пакет 30 г', title='Tempura Seaweed\nCorn',
                  photo='zek_tempura_corn30', badge='30 г · 24 шт/карт.',
