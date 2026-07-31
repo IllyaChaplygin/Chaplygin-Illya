@@ -276,15 +276,16 @@ def brand_panel(s, sup, accent):
         # no photograph of this supplier's plant or office is published anywhere
         # reachable, so rather than fake one, the column becomes a styled flat-lay
         # of their actual product range on the brand colour — real material only,
-        # and rich enough to read as a designed hero, not a bare logo.
-        ring(s, px + pw / 2, 1.92, 3.5, mix(WHITE, accent, 0.86), 1.4)
+        # and sized to fill the column so it reads as a designed hero, not a
+        # cluster of small cards floating in empty space.
+        ring(s, px + pw / 2, 1.78, 3.9, mix(WHITE, accent, 0.84), 1.4)
         mat = mix(WHITE, accent, 0.30)
         for ph, cx, cy, w, h, angle in sup['showcase']:
             floating_card(s, photo(ph), px + cx, cy, w, h, angle=angle, shadow=mat)
-        logo_plate(s, px + 0.70, 3.34, pw - 1.40, 0.80, sup, accent)
-        text(s, px + 0.50, 4.20, pw - 1.00, 0.18, sup['photo_caption'], size=6.8,
-             color=mix(WHITE, accent, 0.80), italic=True, align=PP_ALIGN.CENTER)
-        cap_y = 4.50
+        logo_plate(s, px + 1.02, 3.96, pw - 2.04, 0.62, sup, accent)
+        text(s, px + 0.50, 4.66, pw - 1.00, 0.18, sup['photo_caption'], size=6.8,
+             color=mix(WHITE, accent, 0.82), italic=True, align=PP_ALIGN.CENTER)
+        cap_y = 4.90
     elif hero == 'mark':
         # no verified photography of this supplier exists anywhere, and a
         # generated stand-in for one reads as fake no matter how it's made.

@@ -232,9 +232,9 @@ SUPPLIERS = [
         # (photo, cx-from-column-left, cy, w, h, angle) — a flat-lay of ZEK's
         # real packs; no plant/office photo of this supplier is published anywhere
         # reachable, so the column showcases the product range instead of faking one
-        showcase=[('zek_classic', 2.05, 1.28, 2.55, 1.45, -5),
-                  ('zek_tempura_corn30', 1.16, 2.44, 1.16, 1.52, -9),
-                  ('zek_topping_veg35', 2.98, 2.52, 1.12, 1.48, 10)],
+        showcase=[('zek_classic', 2.08, 1.12, 3.02, 1.66, -4),
+                  ('zek_tempura_corn30', 1.05, 2.72, 1.46, 1.92, -8),
+                  ('zek_topping_veg35', 3.08, 2.82, 1.40, 1.86, 8)],
         photo_caption='Асортимент ZEK · власне паковання',
         cert_label='Сировина',
         cert_text='Норі з острова Чеджу (Корея) та плантацій під Вейхаєм',

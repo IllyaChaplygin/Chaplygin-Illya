@@ -164,7 +164,23 @@ def main():
                                                      threshold=3)), 0.05)
     save(roll_clean((478, 214, 550, 470)), 'tmk_roll_spicy')
     save(roll_clean((738, 600, 812, 876)), 'tmk_roll_orig')
-    # Spicy Squid isn't in that listing either — no better source found for it
+
+    # Spicy Squid has no retail listing anywhere (kokiriseaweed.com sells this
+    # single-roll format only in Original + Spicy). Its one source is the 37x81
+    # quotation thumbnail. Upscaled with a smoothing pass so it at least sits at
+    # the same size as its neighbours instead of a tiny, harder-pixelated crop.
+    KOKIRI_PDF = ('/root/.claude/uploads/c53f34b4-ae43-52db-aeb2-01bdcda48cc3/'
+                  '72b3fc9c-Quotation_KOKIRI_260604_Thaifex_2026.pdf')
+    if os.path.exists(KOKIRI_PDF):
+        import io as _io
+
+        import fitz
+        info = fitz.open(KOKIRI_PDF).extract_image(17)
+        sq = Image.open(_io.BytesIO(info['image'])).convert('RGB')
+        sq = sq.resize((sq.width * 3, sq.height * 3), Image.LANCZOS)
+        sq = sq.filter(ImageFilter.GaussianBlur(0.6))
+        sq = sq.filter(ImageFilter.UnsharpMask(radius=2.0, percent=70, threshold=2))
+        save(pad(trim_white(sq, tol=232), 0.05), 'tmk_roll_squid')
 
     # Double Roll: the site's own marketing collages carry a clean box shot at
     # the left before the text and repeated-pouch panels start. 600px source,
