@@ -28,7 +28,7 @@ SUPPLIERS = [
         logo='logo_singha',
         company_photo='plant_singha',
         hero='card',
-        photo_caption='Виробнича лінія · singhakameda.co.th',
+        photo_caption='Виробничий майданчик · singhakameda.co.th',
         certs=['cert_haccp', 'cert_brc', 'cert_halal', 'cert_nsf',
                'cert_organic', 'cert_sedex'],
         extra_section=dict(

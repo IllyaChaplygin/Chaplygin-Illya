@@ -75,7 +75,10 @@ def main():
                        strip.height))
     save(pad(trim_white(drop_grey(lock))), 'logo_singha')
 
-    plant = Image.open('%s/banner_manufacturing.png' % SK).convert('RGB')
+    # the old crop (banner_manufacturing.png) was a 258x231 thumbnail; the
+    # manufacturing page itself carries this photo collage at real size
+    plant = Image.open('%s/manufacturing-collage.jpg' % SK).convert('RGB')
+    plant = plant.crop((55, 10, 430, 255))
     plant = ImageEnhance.Color(plant).enhance(1.10)
     save(ImageEnhance.Contrast(plant).enhance(1.06), 'plant_singha')
 
