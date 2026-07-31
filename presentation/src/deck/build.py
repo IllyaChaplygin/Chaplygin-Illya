@@ -12,8 +12,8 @@ sys.path.insert(0, os.path.dirname(__file__))
 from catalog import BASE, DATA, SUPPLIERS, photo  # noqa: E402
 from theme import (BODY_TX, CARD_R, CONTENT_BOTTOM, CONTENT_TOP, GOLD, HEAD, INK,  # noqa: E402
                    M, MUTED, RULE, SH, SUPPLIER_COLORS, SW, WHITE, blank, deepen,
-                   fit_size, fmt_uah, fmt_usd, footer, header, hline, label, mix,
-                   picture, picture_cover, rect, ring, text, tint)
+                   fit_size, floating_card, fmt_uah, fmt_usd, footer, header, hline,
+                   label, mix, picture, picture_cover, rect, ring, text, tint)
 
 OUT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..',
                                    'Постачальники_снеків_собівартість.pptx'))
@@ -201,45 +201,55 @@ def card_duo(s, x, w, p, cost, accent, band=1.25):
 
 # ===================================================================== slides ===
 def slide_cover(prs):
-    """Warm, photo-led cover, matching the cream-and-accent language every
-    other slide uses — text up top, then real supplier photography sized to
-    a hero/support rhythm rather than a mechanical row of equal tiles."""
+    """A magazine cover, not a report title page: text and scope on the left,
+    an actual survey of the products themselves — tilted pack shots on a mat,
+    like a flat-lay on a light table — filling the right side. What the deck
+    covers should be visible on its own cover, not just named."""
     s = blank(prs, accent=SUPPLIER_COLORS['singha'])
     seg = SW / len(SUPPLIERS)
     for i, sup in enumerate(SUPPLIERS):
         rect(s, i * seg, 0, seg, 0.07, fill=accent_of(sup))
 
-    label(s, M, 0.86, 6.0, 'Каталог постачальників · 2026', color=GOLD, size=9)
-    text(s, M, 1.16, 8.4, 1.50, 'Азійські снеки\nз водоростей і рису', size=38,
+    lw = 5.35
+    label(s, M, 0.86, lw, 'Каталог постачальників · 2026', color=GOLD, size=9)
+    text(s, M, 1.16, lw, 1.50, 'Азійські снеки\nз водоростей і рису', size=34,
          font=HEAD, color=INK, bold=True, line_spacing=1.10)
-    rect(s, M, 2.86, 1.10, 0.05, fill=SUPPLIER_COLORS['zek'])
-    text(s, M, 3.10, 7.2, 0.70,
+    rect(s, M, 2.72, 1.10, 0.05, fill=SUPPLIER_COLORS['zek'])
+    text(s, M, 2.94, lw, 0.72,
          'Продукти чотирьох постачальників, короткі описи та собівартість\n'
          'одиниці товару в доларах і гривні — за всіма сценаріями доставки.',
          size=11.5, color=BODY_TX, line_spacing=1.36)
 
-    skus = sum(len({p['title'] for sec in sections(sup) for p in sec['products']})
-               for sup in SUPPLIERS)
-    text(s, SW - M - 3.2, 0.86, 3.2, 0.20,
-         '%d постачальники · %d SKU · 4 сценарії доставки' % (len(SUPPLIERS), skus),
-         size=8, color=MUTED, align=PP_ALIGN.RIGHT)
+    counts = {sup['id']: len({p['title'] for sec in sections(sup) for p in sec['products']})
+              for sup in SUPPLIERS}
+    skus = sum(counts.values())
+    ty = 4.10
+    tiles = [(str(len(SUPPLIERS)), 'постачальники'), (str(skus), 'SKU у каталозі'),
+             ('4', 'сценарії доставки')]
+    tw, gap = (lw - 0.16 * (len(tiles) - 1)) / len(tiles), 0.16
+    for i, (value, cap) in enumerate(tiles):
+        x = M + i * (tw + gap)
+        sid = SUPPLIERS[i]['id']
+        rect(s, x, ty, tw, 0.86, fill=WHITE, radius=0.06, line=RULE)
+        rect(s, x, ty, tw, 0.05, fill=SUPPLIER_COLORS[sid])
+        text(s, x, ty + 0.16, tw, 0.34, value, size=16, font=HEAD, bold=True,
+             color=INK, align=PP_ALIGN.CENTER)
+        text(s, x + 0.08, ty + 0.52, tw - 0.16, 0.30, cap, size=6.8, color=MUTED,
+             align=PP_ALIGN.CENTER, line_spacing=1.1)
 
-    cards = [('singha', 'plant_singha', 'Виробництво · Таїланд', 1.3),
-             ('thainichi', 'plant_thainichi', 'Продукція Mizuho', 1.0),
-             ('tmk', 'plant_tmk', 'Фабрика TMK · Таїланд', 1.0),
-             ('zek', 'zek_tempura_corn30', 'ZEK · Китай', 1.3)]
-    gap = 0.18
-    unit = (SW - 2 * M - gap * (len(cards) - 1)) / sum(w for *_, w in cards)
-    y, h, x = 3.92, 1.30, M
-    for sid, ph, cap, wr in cards:
-        accent = SUPPLIER_COLORS[sid]
-        cw = unit * wr
-        rect(s, x, y, cw, h, fill=tint(accent, 0.08), radius=0.06)
-        rect(s, x, y, cw, 0.05, fill=accent)
-        picture(s, photo(ph), x + 0.10, y + 0.13, cw - 0.20, h - 0.44)
-        text(s, x + 0.10, y + h - 0.26, cw - 0.20, 0.20, cap, size=6.8,
-             color=deepen(accent, 0.9), bold=True, align=PP_ALIGN.CENTER)
-        x += cw + gap
+    # the flat-lay: real pack photography from all four suppliers, tilted and
+    # overlapped on the paper rather than lined up in a grid
+    mat = mix(WHITE, GOLD, 0.05)
+    board = [
+        ('sk_original', 6.55, 1.42, 1.28, 1.62, -9),
+        ('tmk_roll_orig', 7.62, 1.16, 0.86, 1.55, 7),
+        ('tn_original', 8.75, 1.55, 1.30, 1.66, 10),
+        ('zek_tempura_corn30', 6.30, 3.55, 1.28, 1.62, 6),
+        ('tmk_sw_orig', 7.55, 3.42, 1.36, 1.62, -6),
+        ('zek_topping_veg35', 8.85, 3.72, 1.18, 1.50, -11),
+    ]
+    for ph, cx, cy, w, h, angle in board:
+        floating_card(s, photo(ph), cx, cy, w, h, angle=angle, shadow=mat)
     _page[0] += 1
 
 
@@ -308,10 +318,10 @@ def brand_panel(s, sup, accent):
          color=WHITE, align=PP_ALIGN.CENTER)
 
 
-def cert_strip(s, x, y, w, names, accent):
+def cert_strip(s, x, y, w, names, accent, caption='Сертифікати виробництва'):
     """Certification marks, sized to a common height and laid out on one line."""
     h = 0.26
-    label(s, x, y, w, 'Сертифікати виробництва', color=deepen(accent, 0.9), size=7)
+    label(s, x, y, w, caption, color=deepen(accent, 0.9), size=7)
     widths = [fit_size(photo(n), w, h)[0] for n in names]
     gap = min(0.20, max(0.10, (w - sum(widths)) / max(1, len(names) - 1)))
     cx = x
@@ -359,7 +369,8 @@ def slide_supplier(prs, sup, index):
         text(s, x + 0.10, sy + 0.44, tw - 0.20, 0.34, cap, size=6.5 if tight else 7,
              color=MUTED, align=PP_ALIGN.CENTER, line_spacing=1.12)
     if certs:
-        cert_strip(s, M, 4.86, 5.05, certs, accent)
+        cert_strip(s, M, 4.86, 5.05, certs, accent,
+                   caption=sup.get('cert_label', 'Сертифікати виробництва'))
     elif cert_text:
         label(s, M, 4.86, 5.05, sup.get('cert_label', 'Сертифікати виробництва'),
               color=deepen(accent, 0.9), size=7)

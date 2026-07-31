@@ -85,6 +85,24 @@ def rect(slide, x, y, w, h, fill=None, radius=None, line=None, lw=0.75):
     return sh
 
 
+def floating_card(slide, path, cx, cy, w, h, angle=0, pad=0.10, shadow=None):
+    """A small product photo on a white mat, tilted like a dropped print —
+    the flat-lay device for showing several products at once without a grid.
+
+    Frame and picture share the same centre, so python-pptx's own per-shape
+    rotation (which pivots on that centre) keeps them visually locked together
+    without needing an actual shape group.
+    """
+    if shadow:
+        rect(slide, cx - w / 2 + 0.035, cy - h / 2 + 0.05, w, h, fill=shadow,
+             radius=0.05).rotation = angle
+    frame = rect(slide, cx - w / 2, cy - h / 2, w, h, fill=WHITE, radius=0.05)
+    frame.rotation = angle
+    pic = picture(slide, path, cx - w / 2 + pad, cy - h / 2 + pad, w - 2 * pad, h - 2 * pad)
+    pic.rotation = angle
+    return frame
+
+
 def ring(slide, cx, cy, d, color, lw=1.4):
     """A stroked circle, no fill — for a quiet medallion motif on a colour field."""
     sh = slide.shapes.add_shape(MSO_SHAPE.OVAL, Inches(cx - d / 2), Inches(cy - d / 2),
