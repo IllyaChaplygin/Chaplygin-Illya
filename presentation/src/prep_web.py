@@ -8,7 +8,7 @@ they keep the KOKIRI logo from the quotation and a typographic mark.
 import os
 
 import numpy as np
-from PIL import Image, ImageChops, ImageEnhance
+from PIL import Image, ImageChops, ImageEnhance, ImageFilter
 
 SK = '/tmp/web/sk'
 TN = '/tmp/web/tn'
@@ -154,8 +154,16 @@ def main():
     # 144 packs, TMK (Thailand) Co., Ltd confirmed on the shipping carton) sells
     # on Lazada — a real 1080px studio shot, against 41-54px quotation crops.
     case = Image.open('%s/roll_case.png' % LZ).convert('RGB')
-    save(case.crop((476, 213, 549, 497)), 'tmk_roll_spicy')
-    save(case.crop((736, 603, 809, 892)), 'tmk_roll_orig')
+
+    def roll_clean(box):
+        # isolate the cleanest single pouch, trim to the pack on its light
+        # ground, and give it a gentle sharpen so it reads crisp on the card
+        im = trim_white(case.crop(box), tol=232)
+        im = ImageEnhance.Contrast(im).enhance(1.04)
+        return pad(im.filter(ImageFilter.UnsharpMask(radius=1.2, percent=60,
+                                                     threshold=3)), 0.05)
+    save(roll_clean((478, 214, 550, 470)), 'tmk_roll_spicy')
+    save(roll_clean((738, 600, 812, 876)), 'tmk_roll_orig')
     # Spicy Squid isn't in that listing either — no better source found for it
 
     # Double Roll: the site's own marketing collages carry a clean box shot at

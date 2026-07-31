@@ -272,7 +272,20 @@ def brand_panel(s, sup, accent):
     rect(s, px, 0, pw, SH, fill=accent)
     hero = sup.get('hero')
 
-    if hero == 'mark':
+    if hero == 'showcase':
+        # no photograph of this supplier's plant or office is published anywhere
+        # reachable, so rather than fake one, the column becomes a styled flat-lay
+        # of their actual product range on the brand colour — real material only,
+        # and rich enough to read as a designed hero, not a bare logo.
+        ring(s, px + pw / 2, 1.92, 3.5, mix(WHITE, accent, 0.86), 1.4)
+        mat = mix(WHITE, accent, 0.30)
+        for ph, cx, cy, w, h, angle in sup['showcase']:
+            floating_card(s, photo(ph), px + cx, cy, w, h, angle=angle, shadow=mat)
+        logo_plate(s, px + 0.70, 3.34, pw - 1.40, 0.80, sup, accent)
+        text(s, px + 0.50, 4.20, pw - 1.00, 0.18, sup['photo_caption'], size=6.8,
+             color=mix(WHITE, accent, 0.80), italic=True, align=PP_ALIGN.CENTER)
+        cap_y = 4.50
+    elif hero == 'mark':
         # no verified photography of this supplier exists anywhere, and a
         # generated stand-in for one reads as fake no matter how it's made.
         # A quiet medallion carries the column instead — a seal, not a photo.
@@ -330,6 +343,24 @@ def cert_strip(s, x, y, w, names, accent, caption='Сертифікати вир
         cx += cw + gap
 
 
+def cert_documents(s, x, y, w, names, captions, accent,
+                   caption='Сертифікати виробництва'):
+    """Real certificate photos on white cards with a caption each — stronger
+    proof than a generic logo, shown big enough to be recognisable."""
+    label(s, x, y, w, caption, color=deepen(accent, 0.9), size=7)
+    n = len(names)
+    gap = 0.09
+    cw = (w - gap * (n - 1)) / n
+    ch = 0.50
+    cy = y + 0.19
+    for i, (name, cap) in enumerate(zip(names, captions)):
+        cx = x + i * (cw + gap)
+        rect(s, cx, cy, cw, ch, fill=WHITE, radius=0.04, line=RULE)
+        picture(s, photo(name), cx + 0.04, cy + 0.03, cw - 0.08, ch - 0.06)
+        text(s, cx, cy + ch + 0.015, cw, 0.12, cap, size=5.6, color=MUTED,
+             align=PP_ALIGN.CENTER)
+
+
 def slide_supplier(prs, sup, index):
     """Company profile: brand column on the right, credentials on the left."""
     accent = accent_of(sup)
@@ -354,9 +385,11 @@ def slide_supplier(prs, sup, index):
          line_spacing=1.30)
 
     certs, cert_text = sup.get('certs'), sup.get('cert_text')
+    cert_docs = sup.get('cert_docs')
+    # the document-style cert row needs more height, so its tiles sit a touch higher
     tw, gap = 1.62, 0.145
-    sy = 3.94 if (certs or cert_text) else 4.16
-    tight = bool(certs or cert_text)
+    sy = 3.80 if cert_docs else (3.94 if (certs or cert_text) else 4.16)
+    tight = bool(certs or cert_text or cert_docs)
     for i, (value, cap) in enumerate(sup['stats']):
         x = M + i * (tw + gap)
         th = 0.78 if tight else 0.94
@@ -368,7 +401,10 @@ def slide_supplier(prs, sup, index):
              bold=True, color=deepen(accent, 0.95), align=PP_ALIGN.CENTER)
         text(s, x + 0.10, sy + 0.44, tw - 0.20, 0.34, cap, size=6.5 if tight else 7,
              color=MUTED, align=PP_ALIGN.CENTER, line_spacing=1.12)
-    if certs:
+    if cert_docs:
+        cert_documents(s, M, 4.66, 5.05, cert_docs, sup['cert_captions'], accent,
+                       caption=sup.get('cert_label', 'Сертифікати виробництва'))
+    elif certs:
         cert_strip(s, M, 4.86, 5.05, certs, accent,
                    caption=sup.get('cert_label', 'Сертифікати виробництва'))
     elif cert_text:
