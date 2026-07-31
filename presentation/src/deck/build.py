@@ -201,39 +201,63 @@ def card_duo(s, x, w, p, cost, accent, band=1.25):
 
 # ===================================================================== slides ===
 def slide_cover(prs):
-    s = blank(prs, accent=SUPPLIER_COLORS['singha'])
-    # the top rule carries every supplier's colour — the deck's range at a glance
-    seg = SW / len(SUPPLIERS)
+    """Editorial report cover: text and stats on paper, a dark contents panel
+    on the right — the same colour-column language every supplier slide uses,
+    so the deck reads as one designed object from the first page."""
+    s = blank(prs, accent=SUPPLIER_COLORS['singha'], rule=False)
+    px, pw = 6.35, SW - 6.35
+    lw = px - M - 0.35                       # usable width on the paper side
+
+    rect(s, px, 0, pw, SH, fill=INK)
+    seg = px / len(SUPPLIERS)                # the multi-supplier rule stops at the panel
     for i, sup in enumerate(SUPPLIERS):
         rect(s, i * seg, 0, seg, 0.07, fill=accent_of(sup))
 
-    label(s, M, 0.86, 6.0, 'Каталог постачальників · 2026', color=GOLD, size=9)
-    text(s, M, 1.18, 8.4, 1.50, 'Азійські снеки\nз водоростей і рису', size=38,
+    label(s, M, 0.86, lw, 'Каталог постачальників · 2026', color=GOLD, size=9)
+    text(s, M, 1.16, lw, 1.50, 'Азійські снеки\nз водоростей і рису', size=36,
          font=HEAD, color=INK, bold=True, line_spacing=1.10)
-    rect(s, M, 2.88, 1.10, 0.05, fill=SUPPLIER_COLORS['zek'])
-    text(s, M, 3.12, 6.6, 0.70,
+    rect(s, M, 2.78, 1.10, 0.05, fill=SUPPLIER_COLORS['zek'])
+    text(s, M, 3.00, lw, 0.70,
          'Продукти чотирьох постачальників, короткі описи та собівартість\n'
          'одиниці товару в доларах і гривні — за всіма сценаріями доставки.',
          size=11.5, color=BODY_TX, line_spacing=1.36)
 
-    skus = sum(len({p['title'] for sec in sections(sup) for p in sec['products']})
-               for sup in SUPPLIERS)
-    text(s, SW - M - 3.2, 0.86, 3.2, 0.20,
-         '%d постачальники · %d SKU · 4 сценарії доставки' % (len(SUPPLIERS), skus),
-         size=8, color=MUTED, align=PP_ALIGN.RIGHT)
+    counts = {sup['id']: len({p['title'] for sec in sections(sup) for p in sec['products']})
+              for sup in SUPPLIERS}
+    skus = sum(counts.values())
+    tiles = [(str(len(SUPPLIERS)), 'постачальники'), (str(skus), 'SKU у каталозі'),
+             ('4', 'сценарії доставки'), ('$ / ₴', 'дві валюти')]
+    tw, gap = (lw - 0.15 * (len(tiles) - 1)) / len(tiles), 0.15
+    for i, (value, cap) in enumerate(tiles):
+        x = M + i * (tw + gap)
+        rect(s, x, 4.02, tw, 0.86, fill=WHITE, radius=0.06, line=RULE)
+        rect(s, x, 4.02, tw, 0.05, fill=SUPPLIER_COLORS[SUPPLIERS[i % 4]['id']])
+        text(s, x, 4.18, tw, 0.34, value, size=16, font=HEAD, bold=True, color=INK,
+             align=PP_ALIGN.CENTER)
+        text(s, x + 0.08, 4.54, tw - 0.16, 0.30, cap, size=6.5, color=MUTED,
+             align=PP_ALIGN.CENTER, line_spacing=1.1)
 
-    # staggered tiles, each washed in its supplier's colour
-    strip = [('zek_tempura_corn30', 'zek'), ('sk_original', 'singha'),
-             ('tn_original', 'thainichi'), ('tmk_roll_orig', 'tmk'),
-             ('zek_topping_veg35', 'zek')]
-    tw, gap = 1.68, 0.20
-    x = M
-    for i, (name, sid) in enumerate(strip):
-        lift = 0.16 if i % 2 else 0.0
-        rect(s, x, 3.98 - lift, tw, 1.34, fill=tint(SUPPLIER_COLORS[sid], 0.10),
-             radius=0.06)
-        picture(s, photo(name), x + 0.12, 4.08 - lift, tw - 0.24, 1.14)
-        x += tw + gap
+    # a huge faint year, bleeding off the panel's own top-right corner
+    ghost = text(s, px + 0.20, -0.62, pw + 0.60, 2.30, '2026', size=170, font=HEAD,
+                bold=True, color=mix(WHITE, INK, 0.10), align=PP_ALIGN.RIGHT)
+
+    label(s, px + 0.45, 1.62, pw - 0.9, 'У цьому каталозі', color=GOLD, size=8)
+    rows = len(SUPPLIERS)
+    row_h = 0.70
+    top = 2.00
+    for i, sup in enumerate(SUPPLIERS):
+        y = top + i * row_h
+        rect(s, px + 0.45, y + 0.05, 0.15, 0.15, fill=accent_of(sup), radius=0.5)
+        text(s, px + 0.72, y - 0.03, pw - 1.15, 0.28, sup['short'], size=13,
+             font=HEAD, bold=True, color=WHITE)
+        text(s, px + 0.72, y + 0.23, pw - 1.15, 0.20, '%d позицій' % counts[sup['id']],
+             size=8, color=mix(WHITE, INK, 0.38))
+        if i < rows - 1:
+            rect(s, px + 0.45, y + row_h - 0.10, pw - 0.9, 0.008,
+                 fill=mix(WHITE, INK, 0.14))
+
+    text(s, px + 0.45, SH - 0.42, pw - 0.9, 0.24, 'FOB Bangkok · FOB Qingdao',
+         size=8, color=mix(WHITE, INK, 0.42), italic=True)
     _page[0] += 1
 
 

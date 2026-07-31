@@ -238,7 +238,7 @@ SUPPLIERS = [
                ('Місткість 20′', '350 – 4 000 картонів'),
                ('Місткість 40′HQ', '500 – 2 370 картонів')],
         sheet='ZEK -Retail',
-        name='HanJin Food Co. Ltd\nбренд ZEK',
+        name='HanJin (Shanghai)\nFood Co., Ltd.',
         short='HanJin · ZEK',
         headline='ZEK — снеки з водорості норі',
         brand='ZEK',
