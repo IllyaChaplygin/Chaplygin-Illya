@@ -159,23 +159,24 @@ function head(s, kicker, title, sub) {
   s.background = { color: INK };
   pic(s, A("assets/cover_bg.jpg"), 0, 0, PW, PH, { fit: "cover" });
 
-  txt(s, "SIAS FRANCE", M, 0.55, 5, 0.3, { size: 11.5, bold: true, color: GOLD_LT, cs: 3 });
-  hairline(s, M, 0.97, 1.5, "8A6F3E");
-  txt(s, "ПРАЙС-КАТАЛОГ ДЛЯ КОМАНДИ  ·  2026", M, 1.12, 6, 0.28, { size: 10, color: "C4B8AA", cs: 1.8 });
+  txt(s, "SIAS FRANCE", M, 0.5, 5, 0.3, { size: 11.5, bold: true, color: GOLD_LT, cs: 3 });
+  hairline(s, M, 0.92, 1.5, "8A6F3E");
+  txt(s, "ПРАЙС-КАТАЛОГ ДЛЯ КОМАНДИ  ·  2026", M, 1.06, 6, 0.28, { size: 10, color: "C4B8AA", cs: 1.8 });
 
-  txt(s, "라면", M, 2.5, 3, 0.62, { font: FONT_KR, bold: true, size: 30, color: GOLD_LT, cs: 4 });
-  txt(s, "CHOI'S", M - 0.05, 3.1, 8, 1.2, { font: FONT_H, bold: true, size: 80, color: "FFFFFF" });
-  txt(s, "RAMYEON", M - 0.05, 4.1, 9.6, 1.25, { font: FONT_H, bold: true, size: 80, color: "FFFFFF" });
+  frFlag(s, PW - M - 1.25, 0.52, 0.5, 0.33);
+  uaFlag(s, PW - M - 0.6, 0.52, 0.5, 0.33);
 
-  hairline(s, M, 5.56, 0.72, GOLD);
-  txt(s, "Корейська локшина швидкого приготування,\nвироблена у Франції", M, 5.74, 7.2, 0.78,
-    { font: FONT_H, italic: true, size: 17, color: "F2EADD", ls: 1.25 });
+  txt(s, "라면", M, 1.5, 3, 0.42, { font: FONT_KR, bold: true, size: 23, color: GOLD_LT, cs: 4 });
+  txt(s, "CHOI'S RAMYEON", M - 0.06, 1.86, 12.4, 1.0, { font: FONT_H, bold: true, size: 64, color: "FFFFFF" });
 
-  txt(s, "6 СМАКІВ · ФОРМАТ BAG      /      6 / 12 / 33 ПАЛЕТИ      /      EUR.1 · 0% МИТО",
-    M, 6.78, 10, 0.28, { size: 10.5, bold: true, color: "E4DACB", cs: 0.8 });
+  hairline(s, M, 2.98, 0.72, GOLD);
+  txt(s, "6 СМАКІВ  ·  ФОРМАТ BAG  ·  112,5–131 Г  ·  20 ШТ/КОРОБ", M, 3.12, 9, 0.26,
+    { size: 10.5, bold: true, color: "E4DACB", cs: 1 });
+  txt(s, "Собівартість пачки для трьох обсягів постачання — 6, 12 та 33 палети (Full Truck).\nВиробництво SIAS у Франції, сертифікат EUR.1: 0% ввізного мита в Україну.",
+    M, 3.46, 9.6, 0.62, { font: FONT_H, italic: true, size: 14.5, color: "EFE5D6", ls: 1.28 });
 
-  frFlag(s, PW - M - 1.25, 6.72, 0.5, 0.33);
-  uaFlag(s, PW - M - 0.6, 6.72, 0.5, 0.33);
+  // the product itself carries the cover
+  pic(s, A("assets/cover_lineup.png"), 0.07, 4.16, 13.2, 3.34, { fit: "contain" });
 }
 
 // ═════════════════════════════════════════════════════════════════════
