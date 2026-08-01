@@ -179,92 +179,49 @@ function head(s, kicker, title, sub) {
   pic(s, A("assets/cover_lineup.png"), 0.07, 4.16, 13.2, 3.34, { fit: "contain" });
 }
 
+
 // ═════════════════════════════════════════════════════════════════════
-// 02 — SIAS FRANCE (compact producer profile)
+// 02 — THE MAKER (full-bleed hero photo + overlapping title block)
 // ═════════════════════════════════════════════════════════════════════
 {
   const s = pres.addSlide();
   s.background = { color: PAPER };
-  rect(s, 8.5, 0, PW - 8.5, PH, { fill: RED });
 
-  head(s, "ВИРОБНИК · 01", "SIAS France", "Choi's Ramyeon · Instant Noodle Bag");
+  // full-bleed hero
+  pic(s, A("assets/factory_hero.jpg"), 0, 0, PW, 4.0, { fit: "cover" });
 
-  roundRect(s, M, 2.0, 2.15, 0.44, { fill: INK, radius: 0.22 });
-  txt(s, "EXW ROYE, FRANCE", M, 2.0, 2.15, 0.44, { align: "center", valign: "middle", size: 9.5, bold: true, color: "FFFFFF", cs: 0.8 });
+  // title block straddling the photo edge
+  roundRect(s, M, 3.02, 4.75, 1.5, { fill: RED, radius: 0.1, shadow: cardShadow() });
+  txt(s, "ВИРОБНИК · 01", M + 0.3, 3.2, 4.2, 0.24, { size: 9.5, bold: true, color: "F7C9CC", cs: 1.6 });
+  txt(s, "SIAS France", M + 0.28, 3.48, 4.2, 0.6, { font: FONT_H, bold: true, size: 30, color: "FFFFFF" });
+  txt(s, "Roye · Hauts-de-France", M + 0.3, 4.08, 4.2, 0.28, { size: 10.5, italic: true, color: "FBD9DC" });
+
+  // korean accent on the cream, beneath the title block
+  txt(s, "최씨라면", M + 0.02, 4.76, 3.2, 0.42, { font: FONT_KR, bold: true, size: 21, color: GOLD, cs: 2 });
 
   txt(s,
-    "Європейська виробнича площадка корейської групи SIAS (на ринку азійської гастрономії з 1997 року). " +
-    "Лінійку Choi's Ramyeon виробляють на заводах у Roye та Wisches за корейськими рецептурами, " +
-    "адаптованими під європейського споживача.",
-    M, 2.68, 7.5, 1.15, { size: 13, color: INK_SOFT, ls: 1.32 });
-
-  hairline(s, M, 4.02, 7.5);
+    "Європейська виробнича площадка корейської групи SIAS: 16 000 м², власна лінія сушеної " +
+    "локшини, сертифікати IFS Food і BRC Food. Choi's Ramyeon виробляють тут за корейськими " +
+    "рецептурами, адаптованими під європейського споживача.",
+    5.65, 4.2, 7.1, 1.3, { size: 12, color: INK_SOFT, ls: 1.32 });
 
   const facts = [
-    ["2020", "рік запуску заводу\nSIAS Roye"],
-    ["16 000 м²", "площа виробничого\nмайданчика"],
-    ["IFS · BRC", "сертифікати\nхарчової безпеки"],
-    ["0 %", "мито в Україну\nза EUR.1"],
+    ["EXW Roye", "умови відвантаження"],
+    ["16 000 м²", "виробнича площадка"],
+    ["IFS · BRC", "харчова безпека"],
+    ["0 %", "мито в Україну за EUR.1"],
   ];
-  const fw = (7.5 - 3 * 0.16) / 4;
+  const fw = (COLW - 3 * 0.18) / 4;
   facts.forEach((f, i) => {
-    const x = M + i * (fw + 0.16);
+    const x = M + i * (fw + 0.18);
     const hot = i === 3;
-    roundRect(s, x, 4.26, fw, 1.24, { fill: hot ? RED : CARD, radius: 0.09, shadow: cardShadow() });
-    txt(s, f[0], x + 0.14, 4.38, fw - 0.28, 0.44, { font: FONT_H, bold: true, size: hot ? 24 : 19, color: hot ? "FFFFFF" : RED });
-    txt(s, f[1], x + 0.14, 4.88, fw - 0.28, 0.55, { size: 8.8, color: hot ? "FBD9DC" : GREY, ls: 1.14 });
+    roundRect(s, x, 5.62, fw, 1.2, { fill: hot ? RED : CARD, radius: 0.09, shadow: cardShadow() });
+    txt(s, f[0], x + 0.2, 5.78, fw - 0.4, 0.42, { font: FONT_H, bold: true, size: hot ? 24 : 20, color: hot ? "FFFFFF" : RED });
+    txt(s, f[1], x + 0.2, 6.26, fw - 0.4, 0.4, { size: 9.5, color: hot ? "FBD9DC" : GREY, ls: 1.14 });
   });
-
-  txt(s, "СЕРТИФІКАТИ", M, 5.78, 4, 0.26, { size: 9.5, bold: true, color: GOLD, cs: 1.5 });
-  pic(s, A("assets/cert_ifs_brc.jpg"), M, 6.08, 1.7, 0.48);
-  pic(s, A("assets/cert_france_relance.jpg"), M + 1.9, 6.0, 0.62, 0.62);
-
-  txt(s, "Made in France — сертифікат EUR.1 дає 0% ввізного мита при розмитненні в Україні.",
-    M, 6.88, 7.5, 0.3, { size: 10, italic: true, color: INK_SOFT });
-
-  // red panel
-  roundRect(s, 8.85, 0.62, 3.9, 1.4, { fill: "FFFFFF", radius: 0.1 });
-  pic(s, A("assets/sias_logo.jpg"), 9.15, 0.92, 3.3, 0.8);
-
-  roundRect(s, 8.85, 2.22, 3.9, 3.25, { fill: "FFFFFF", radius: 0.1 });
-  pic(s, A("assets/factory.jpg"), 9.0, 2.37, 3.6, 2.4, { fit: "cover" });
-  txt(s, "Завод SIAS · Roye, Франція", 9.0, 4.9, 3.6, 0.4, { size: 9.5, italic: true, color: GREY, align: "center" });
-
-  txt(s, "ВИРОБНИЦТВО", 8.85, 5.75, 3.9, 0.28, { align: "center", size: 9.5, bold: true, color: "F7C9CC", cs: 1.6 });
-  txt(s, "Франція", 8.85, 6.02, 3.9, 0.5, { align: "center", font: FONT_H, bold: true, size: 24, color: "FFFFFF" });
-  frFlag(s, 10.3, 6.66, 0.5, 0.33);
-  uaFlag(s, 10.95, 6.66, 0.5, 0.33);
 
   runner(s, 2);
 }
-
-// ═════════════════════════════════════════════════════════════════════
-// 03 — THE RANGE (all six packs, editorial lineup)
-// ═════════════════════════════════════════════════════════════════════
-{
-  const s = pres.addSlide();
-  s.background = { color: PAPER };
-  head(s, "АСОРТИМЕНТ · 02", "Шість смаків", "формат Bag · 20 шт/короб · 80 короб/палета · 1 палета = 1 600 пачок");
-
-  hairline(s, M, 1.9, COLW, GOLD);
-
-  const pw = 1.79, gap = (COLW - 6 * pw) / 5, topY = 2.12, packH = 2.32;
-  SKUS.forEach((sk, i) => {
-    const x = M + i * (pw + gap);
-    pic(s, sk.img, x, topY, pw, packH, { shadow: packShadow() });
-
-    const ty = topY + packH + 0.3;
-    rect(s, x, ty + 0.03, 0.1, 0.1, { fill: sk.accent });
-    txt(s, sk.kr, x + 0.2, ty - 0.03, pw - 0.2, 0.24, { font: FONT_KR, bold: true, size: 10.5, color: sk.accent });
-    txt(s, sk.name, x, ty + 0.28, pw, 0.36, { font: FONT_H, bold: true, size: 16, color: INK });
-    txt(s, sk.weight, x, ty + 0.68, pw, 0.28, { size: 12.5, bold: true, color: RED });
-    hairline(s, x, ty + 1.0, pw * 0.62);
-    txt(s, sk.note, x, ty + 1.1, pw, 0.5, { size: 9, color: GREY, ls: 1.2 });
-  });
-
-  runner(s, 3);
-}
-
 // ═════════════════════════════════════════════════════════════════════
 // 04-06 — ONE SLIDE PER SHIPMENT SCENARIO, ALL SIX SKUs
 // ═════════════════════════════════════════════════════════════════════
@@ -348,14 +305,114 @@ function scenarioSlide(pageNo, chapter, tier, title, lead) {
   runner(s, pageNo);
 }
 
-scenarioSlide(4, "ВАРІАНТ ПОСТАЧАННЯ · 03", "p6",
+scenarioSlide(3, "ВАРІАНТ ПОСТАЧАННЯ · 02", "p6",
   "6 палет", "пробна партія · по 1 палеті на кожен смак");
 
-scenarioSlide(5, "ВАРІАНТ ПОСТАЧАННЯ · 04", "p12",
+scenarioSlide(4, "ВАРІАНТ ПОСТАЧАННЯ · 03", "p12",
   "12 палет", "середній обсяг · акцент на вершкових смаках");
 
-scenarioSlide(6, "ВАРІАНТ ПОСТАЧАННЯ · 05", "p33",
+scenarioSlide(5, "ВАРІАНТ ПОСТАЧАННЯ · 04", "p33",
   "33 палети · Full Truck", "повне авто · найнижча собівартість пачки");
+
+
+// ═════════════════════════════════════════════════════════════════════
+// 06 — CLIENTS & RETAIL NETWORKS
+// ═════════════════════════════════════════════════════════════════════
+{
+  const s = pres.addSlide();
+  s.background = { color: PAPER };
+  head(s, "ПАРТНЕРИ · 05", "Нам довіряють", "рітейл, дистрибуція, HoReCa та meal-kit по всій Європі");
+
+  hairline(s, M, 1.92, COLW, GOLD);
+
+  const LOGOS = [
+    "carrefour", "leclerc", "systemeu", "aldi", "eurospin", "bofrost",
+    "sysco", "hellofresh", "wismettac", "geia", "bibars", "dipsa",
+    "forezia", "ttfoods", "gotiger", "foodex", "senko",
+  ];
+  const cols = 6, gap = 0.16;
+  const cw = (COLW - (cols - 1) * gap) / cols;   // 1.889
+  const chh = 1.16, y0 = 2.16;
+
+  LOGOS.forEach((name, i) => {
+    const c = i % cols, r = Math.floor(i / cols);
+    const x = M + c * (cw + gap);
+    const y = y0 + r * (chh + gap);
+    roundRect(s, x, y, cw, chh, { fill: CARD, radius: 0.09, shadow: cardShadow() });
+    pic(s, A(`logos/${name}.png`), x + 0.2, y + 0.19, cw - 0.4, chh - 0.38);
+  });
+
+  // category strip under the grid
+  const cats = [
+    ["Рітейл-мережі", "Carrefour · E.Leclerc · Système U · ALDI · EuroSpin"],
+    ["Дистрибуція та HoReCa", "Sysco · Wismettac · Dipsa · Geia · Bofrost"],
+    ["Meal-kit та спеціалізовані", "HelloFresh · Forezia · T&T Foods · BiBars"],
+  ];
+  const catW = (COLW - 2 * 0.3) / 3;
+  cats.forEach((c, i) => {
+    const x = M + i * (catW + 0.3);
+    rect(s, x, 6.28, 0.12, 0.12, { fill: RED });
+    txt(s, c[0], x + 0.24, 6.22, catW - 0.24, 0.26, { size: 11, bold: true, color: INK });
+    txt(s, c[1], x + 0.24, 6.48, catW - 0.24, 0.4, { size: 9.2, color: GREY, ls: 1.18 });
+  });
+
+  runner(s, 6);
+}
+
+// ═════════════════════════════════════════════════════════════════════
+// 07 — COMPANY & PRODUCTION (short closing)
+// ═════════════════════════════════════════════════════════════════════
+{
+  const s = pres.addSlide();
+  s.background = { color: PAPER };
+  head(s, "ПРО ВИРОБНИКА · 06", "Компанія та виробництво", "коротко про групу SIAS і завод у Франції");
+
+  hairline(s, M, 1.92, COLW, GOLD);
+
+  // left — key figures
+  const facts = [
+    ["1997", "рік заснування\nгрупи SIAS (Корея)"],
+    ["9", "заводів: 7 у Кореї\nта 2 у Франції"],
+    ["$180 млн", "річний оборот\nгрупи"],
+    ["2 100+", "рецептур і понад\n1 000 клієнтів"],
+  ];
+  const fw = (6.3 - 0.18) / 2, fh = 1.32;
+  facts.forEach((f, i) => {
+    const x = M + (i % 2) * (fw + 0.18);
+    const y = 2.2 + Math.floor(i / 2) * (fh + 0.18);
+    roundRect(s, x, y, fw, fh, { fill: CARD, radius: 0.09, shadow: cardShadow() });
+    txt(s, f[0], x + 0.18, y + 0.16, fw - 0.36, 0.44, { font: FONT_H, bold: true, size: 22, color: RED });
+    txt(s, f[1], x + 0.18, y + 0.66, fw - 0.36, 0.55, { size: 9.5, color: GREY, ls: 1.16 });
+  });
+
+  txt(s,
+    "Choi's Ramyeon виробляють на власному заводі SIAS у Roye (Франція) — 16 000 м² площадки, " +
+    "лінія сушеної локшини завдовжки 150 метрів, від замісу тіста до пакування. " +
+    "Сертифікати IFS Food і BRC Food; походження ЄС дає сертифікат EUR.1 — 0% ввізного мита в Україну.",
+    M, 5.2, 6.3, 1.4, { size: 11.5, color: INK_SOFT, ls: 1.3 });
+
+  // right — production line + certification
+  const rx = 7.2, rw = PW - M - rx;
+  roundRect(s, rx, 2.2, rw, 2.5, { fill: CARD, radius: 0.1, shadow: cardShadow() });
+  pic(s, A("assets/production_line.jpg"), rx + 0.16, 2.36, rw - 0.32, 1.85);
+  txt(s, "Виробнича лінія сушеної локшини · 150 метрів", rx + 0.16, 4.3, rw - 0.32, 0.3,
+    { size: 9.5, italic: true, color: GREY, align: "center" });
+
+  roundRect(s, rx, 4.88, rw, 1.32, { fill: CARD, radius: 0.1, shadow: cardShadow() });
+  txt(s, "СЕРТИФІКАТИ ТА ПОХОДЖЕННЯ", rx + 0.22, 5.02, rw - 0.44, 0.24, { size: 9.5, bold: true, color: GOLD, cs: 1.4 });
+  pic(s, A("assets/cert_ifs_brc.jpg"), rx + 0.22, 5.34, 1.6, 0.46);
+  pic(s, A("assets/cert_france_relance.jpg"), rx + 2.0, 5.28, 0.58, 0.58);
+  frFlag(s, rx + 2.85, 5.44, 0.46, 0.3);
+  txt(s, "→", rx + 3.4, 5.4, 0.3, 0.3, { size: 12, color: GREY });
+  uaFlag(s, rx + 3.75, 5.44, 0.46, 0.3);
+  txt(s, "EUR.1 · 0%", rx + 4.35, 5.42, 1.3, 0.3, { size: 11, bold: true, color: RED });
+
+  roundRect(s, rx, 6.36, rw, 0.62, { fill: INK, radius: 0.09 });
+  txt(s, "EXW ROYE, FRANCE  ·  6 / 12 / 33 ПАЛЕТИ  ·  0% МИТО", rx, 6.36, rw, 0.62,
+    { align: "center", valign: "middle", size: 11, bold: true, color: "FFFFFF", cs: 1 });
+
+  runner(s, 7);
+}
 
 // ═════════════════════════════════════════════════════════════════════
 pres.writeFile({ fileName: A("SIAS_France_Presentation.pptx") })
