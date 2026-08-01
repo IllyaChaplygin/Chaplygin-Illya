@@ -2,25 +2,6 @@ const pptxgen = require("pptxgenjs");
 const path = require("path");
 const A = (p) => path.join(__dirname, p);
 
-// ─────────────────────────────────────────────────────────────────────
-// ONE SYSTEM FOR EVERY PAGE — warm paper, hairlines, a single red
-// ─────────────────────────────────────────────────────────────────────
-const INK      = "17130F";
-const INK_SOFT = "4A423A";
-const PAPER    = "FCFAF6";
-const RED      = "C4101F";
-const GOLD     = "9C7C42";
-const GREY     = "8A8177";
-const HAIR     = "DCD4C6";
-
-const FONT    = "Calibri";
-const FONT_H  = "Cambria";
-const FONT_KR = "Malgun Gothic";
-
-const PW = 13.333, PH = 7.5;
-const M   = 0.72;
-const COL = PW - M * 2;              // 11.893
-
 const pres = new pptxgen();
 pres.layout = "LAYOUT_WIDE";
 
@@ -52,6 +33,31 @@ const SPLIT = {  // pallets per SKU in each shipment
 };
 
 const PER_PALLET = 1600;   // 20 шт/короб × 80 короб/палета
+
+// ─────────────────────────────────────────────────────────────────────
+// PALETTE — lifted straight off the plant's Choi's Ramyeon mural
+// ─────────────────────────────────────────────────────────────────────
+const PINK     = "F04860";   // the painted wall
+const PINK_DK  = "D2354E";
+const PINK_LT  = "F4788C";   // watermark tint on pink
+const YELLOW   = "FDB930";   // noodle
+const IVORY    = "FDF6EC";
+const INK      = "1C1512";
+const INK_SOFT = "4C4038";
+const GREY     = "8A7F76";
+const HAIR     = "E2D6C6";
+const CRIMSON  = "C8102E";   // prices
+
+const FONT    = "Calibri";
+const FONT_H  = "Cambria";
+const FONT_KR = "Malgun Gothic";
+
+const PW = 13.333, PH = 7.5;
+const M   = 0.72;
+const COL = PW - M * 2;
+
+const RIBBON_ASPECT = 17.0;
+const RIB_H = PW / RIBBON_ASPECT;    // 0.784 in
 
 // ─────────────────────────────────────────────────────────────────────
 // PRIMITIVES
@@ -104,42 +110,50 @@ function uaFlag(s, x, y, w, h) {
 
 function folio(s, n, o = {}) {
   if (!o.noLabel)
-    txt(s, "CHOI'S RAMYEON — SIAS FRANCE", M, PH - 0.46, 6, 0.24, { size: 7.5, color: GREY, cs: 2 });
-  txt(s, String(n).padStart(2, "0"), PW - M - 0.9, PH - 0.62, 0.9, 0.42,
-    { size: 21, color: HAIR, align: "right", font: FONT_H, bold: true });
+    txt(s, "CHOI'S RAMYEON — SIAS FRANCE", M, PH - 0.44, 6, 0.24, { size: 7.5, color: GREY, cs: 2 });
+  txt(s, String(n).padStart(2, "0"), PW - M - 0.9, PH - 0.6, 0.9, 0.42,
+    { size: 21, color: "E7DBCB", align: "right", font: FONT_H, bold: true });
 }
 
-function head(s, kicker, title, sub, o = {}) {
-  rule(s, M, 0.62, COL, HAIR);
-  txt(s, kicker, M, 0.76, 7, 0.26, { size: 8.5, bold: true, color: RED, cs: 2.6 });
-  txt(s, title, M - 0.05, 1.06, o.tw || 11.9, 0.82, { font: FONT_H, bold: true, size: o.size || 40, color: INK });
-  if (sub) txt(s, sub, M, 1.96, o.sw || 9.6, 0.3, { size: 11.5, italic: true, color: GOLD, font: FONT_H });
+// The signature: a pink masthead block with the noodle ribbon spilling out of it
+function masthead(s, kicker, title, o = {}) {
+  const blockH = o.blockH || 1.72;
+  rect(s, 0, 0, PW, blockH, { fill: PINK });
+  txt(s, "라면", PW - M - 3.2, blockH - 1.02, 3.2, 0.72,
+    { font: FONT_KR, bold: true, size: 44, color: PINK_LT, align: "right" });
+  txt(s, kicker, M, 0.42, 7, 0.26, { size: 8.5, bold: true, color: YELLOW, cs: 2.6 });
+  if (title)
+    txt(s, title, M - 0.04, 0.72, o.tw || 9.4, 0.74, { font: FONT_H, bold: true, size: o.size || 36, color: "FFFFFF" });
+  pic(s, A("assets/noodle_ribbon.png"), 0, blockH - 0.2, PW, RIB_H);
+  return blockH - 0.2 + RIB_H;    // where the page body may start
 }
 
 // ═════════════════════════════════════════════════════════════════════
-// 01 · COVER — same paper as every other page
+// 01 · COVER
 // ═════════════════════════════════════════════════════════════════════
 {
   const s = pres.addSlide();
-  s.background = { color: PAPER };
+  s.background = { color: IVORY };
+  rect(s, 0, 0, PW, 4.3, { fill: PINK });
 
-  rule(s, M, 0.62, COL, HAIR);
-  txt(s, "SIAS FRANCE · ROYE, ФРАНЦІЯ", M, 0.76, 6, 0.26, { size: 9, bold: true, color: RED, cs: 2.4 });
-  txt(s, "ПРАЙС-КАТАЛОГ · 2026", PW - M - 5, 0.76, 5, 0.26, { size: 9, color: GREY, cs: 2.2, align: "right" });
+  txt(s, "라면", PW - M - 4.2, 1.5, 4.2, 1.6, { font: FONT_KR, bold: true, size: 104, color: PINK_LT, align: "right" });
 
-  txt(s, "라면", M, 1.42, 3, 0.4, { font: FONT_KR, bold: true, size: 19, color: GOLD, cs: 5 });
-  txt(s, "CHOI'S", M - 0.07, 1.72, 8, 0.92, { font: FONT_H, bold: true, size: 58, color: INK });
-  txt(s, "RAMYEON", M - 0.07, 2.52, 9, 0.92, { font: FONT_H, bold: true, size: 58, color: RED });
+  txt(s, "SIAS FRANCE · ROYE, ФРАНЦІЯ", M, 0.5, 6, 0.26, { size: 9, bold: true, color: YELLOW, cs: 2.4 });
+  txt(s, "ПРАЙС-КАТАЛОГ · 2026", PW - M - 5, 0.5, 5, 0.26, { size: 9, color: "FBD3DA", cs: 2.2, align: "right" });
 
-  rule(s, M, 3.6, COL, HAIR);
+  txt(s, "CHOI'S", M - 0.07, 1.42, 8, 0.86, { font: FONT_H, bold: true, size: 54, color: "FFFFFF" });
+  txt(s, "RAMYEON", M - 0.07, 2.18, 9, 0.86, { font: FONT_H, bold: true, size: 54, color: YELLOW });
+
   txt(s,
     "Локшина швидкого приготування у форматі Bag, вироблена у Франції.\n" +
     "Собівартість однієї пачки для трьох обсягів постачання.",
-    M, 3.76, 8.4, 0.64, { font: FONT_H, italic: true, size: 14, color: INK_SOFT, ls: 1.3 });
+    M, 3.1, 8.4, 0.6, { font: FONT_H, italic: true, size: 13.5, color: "FFEFF2", ls: 1.28 });
 
-  const meta = [["6 SKU", M], ["112,5–131 Г", M + 2.35], ["20 ШТ / КОРОБ", M + 5.0], ["EXW ROYE", M + 8.0]];
-  meta.forEach(([t, x]) => txt(s, t, x, 4.62, 2.6, 0.26, { size: 9.5, bold: true, color: INK_SOFT, cs: 1.5 }));
-  txt(s, "EUR.1 · 0% МИТО", PW - M - 2.6, 4.62, 2.6, 0.26, { size: 9.5, bold: true, color: RED, cs: 1.5, align: "right" });
+  const meta = [["6 SKU", M], ["112,5–131 Г", M + 2.3], ["20 ШТ / КОРОБ", M + 4.9], ["EXW ROYE", M + 7.8]];
+  meta.forEach(([t, x]) => txt(s, t, x, 3.86, 2.6, 0.24, { size: 9, bold: true, color: "FFE3E8", cs: 1.4 }));
+  txt(s, "EUR.1 · 0% МИТО", PW - M - 2.6, 3.86, 2.6, 0.24, { size: 9, bold: true, color: YELLOW, cs: 1.4, align: "right" });
+
+  pic(s, A("assets/noodle_ribbon.png"), 0, 4.1, PW, RIB_H);
 
   const lh = 2.5, lw = lh * 4.474;
   pic(s, A("assets/cover_lineup.png"), (PW - lw) / 2, PH - lh, lw, lh);
@@ -150,21 +164,16 @@ function head(s, kicker, title, sub, o = {}) {
 // ═════════════════════════════════════════════════════════════════════
 {
   const s = pres.addSlide();
-  s.background = { color: PAPER };
+  s.background = { color: IVORY };
+  masthead(s, "ВИРОБНИК", "SIAS France · Roye");
 
-  rule(s, M, 0.62, COL, HAIR);
-  txt(s, "ВИРОБНИК", M, 0.76, 6, 0.26, { size: 8.5, bold: true, color: RED, cs: 2.6 });
-
-  txt(s, "SIAS", M - 0.05, 1.12, 4.6, 0.9, { font: FONT_H, bold: true, size: 58, color: INK });
-  txt(s, "France", M - 0.05, 1.96, 4.6, 0.84, { font: FONT_H, bold: true, italic: true, size: 50, color: RED });
-  txt(s, "최씨라면", M, 2.96, 3.4, 0.34, { font: FONT_KR, bold: true, size: 16, color: GOLD, cs: 3 });
-
-  rule(s, M, 3.48, 4.5, HAIR);
+  const top = 2.52;
+  txt(s, "최씨라면", M, top, 3.4, 0.34, { font: FONT_KR, bold: true, size: 16, color: PINK_DK, cs: 3 });
   txt(s,
     "Завод у Roye — європейська площадка корейської групи SIAS, що працює " +
     "з 1997 року. Лінійку Choi's Ramyeon виробляють тут за оригінальними " +
     "корейськими рецептурами.",
-    M, 3.62, 4.5, 0.86, { size: 11.5, color: INK_SOFT, ls: 1.32 });
+    M, top + 0.46, 5.5, 0.9, { size: 11.5, color: INK_SOFT, ls: 1.32 });
 
   const facts = [
     ["16 000 м²", "виробнича площадка", false],
@@ -172,21 +181,20 @@ function head(s, kicker, title, sub, o = {}) {
     ["EXW Roye", "умови відвантаження", false],
     ["0 %", "ввізного мита в Україну · EUR.1", true],
   ];
-  let fy = 4.66;
+  let fy = top + 1.5;
   facts.forEach((f) => {
-    rule(s, M, fy, 4.5, HAIR);
-    txt(s, f[0], M, fy + 0.13, 2.0, 0.34, { font: FONT_H, bold: true, size: f[2] ? 19 : 16, color: f[2] ? RED : INK });
-    txt(s, f[1], M + 1.9, fy + 0.2, 2.6, 0.26, { size: 9, color: GREY, align: "right" });
-    fy += 0.54;
+    rule(s, M, fy, 5.5, HAIR);
+    txt(s, f[0], M, fy + 0.13, 2.2, 0.34, { font: FONT_H, bold: true, size: f[2] ? 20 : 16, color: f[2] ? PINK_DK : INK });
+    txt(s, f[1], M + 2.2, fy + 0.2, 3.3, 0.26, { size: 9, color: GREY, align: "right" });
+    fy += 0.56;
   });
-  rule(s, M, fy, 4.5, HAIR);
+  rule(s, M, fy, 5.5, HAIR);
 
-  // photograph — the plant's Choi's Ramyeon mural
-  pic(s, A("assets/plant_mural.jpg"), 5.95, 1.12, 6.66, 4.79, { fit: "cover" });
-  rule(s, 5.95, 6.08, 6.66, HAIR);
-  txt(s, "Завод SIAS · Roye, Hauts-de-France", 5.95, 6.2, 4.4, 0.28, { size: 9.5, italic: true, color: GREY });
-  frFlag(s, PW - M - 1.18, 6.18, 0.46, 0.3);
-  uaFlag(s, PW - M - 0.46, 6.18, 0.46, 0.3);
+  const px = 6.62, pw = PW - M - px, ph = pw / 1.392;
+  pic(s, A("assets/plant_mural.jpg"), px, top, pw, ph, { fit: "cover" });
+  txt(s, "Завод SIAS · Roye, Hauts-de-France", px, top + ph + 0.14, 2.6, 0.28, { size: 9.5, italic: true, color: GREY });
+  frFlag(s, px + 2.72, top + ph + 0.12, 0.46, 0.3);
+  uaFlag(s, px + 3.3, top + ph + 0.12, 0.46, 0.3);
 
   folio(s, 2);
 }
@@ -196,16 +204,16 @@ function head(s, kicker, title, sub, o = {}) {
 // ═════════════════════════════════════════════════════════════════════
 function volumeSlide(page, kicker, tier, big, small, lead) {
   const s = pres.addSlide();
-  s.background = { color: PAPER };
+  s.background = { color: IVORY };
 
   const pallets = Object.values(SPLIT[tier]).reduce((a, b) => a + b, 0);
+  const blockH = 1.98;
+  rect(s, 0, 0, PW, blockH, { fill: PINK });
+  txt(s, kicker, M, 0.4, 7, 0.26, { size: 8.5, bold: true, color: YELLOW, cs: 2.6 });
 
-  rule(s, M, 0.62, COL, HAIR);
-  txt(s, kicker, M, 0.76, 7, 0.26, { size: 8.5, bold: true, color: RED, cs: 2.6 });
-
-  txt(s, big, M - 0.06, 1.0, 3.2, 0.94, { font: FONT_H, bold: true, size: 60, color: INK });
-  txt(s, small, M + 2.45, 1.38, 4.6, 0.42, { font: FONT_H, italic: true, size: 21, color: RED });
-  txt(s, lead, M, 1.98, 6.6, 0.3, { size: 11, italic: true, color: GOLD, font: FONT_H });
+  txt(s, big, M - 0.06, 0.66, 3.2, 0.9, { font: FONT_H, bold: true, size: 56, color: "FFFFFF" });
+  txt(s, small, M + 2.3, 1.0, 4.6, 0.42, { font: FONT_H, italic: true, size: 20, color: YELLOW });
+  txt(s, lead, M, 1.56, 7.2, 0.3, { size: 10.5, italic: true, color: "FFE3E8", font: FONT_H });
 
   const tot = [
     [num(pallets), "палет у постачанні"],
@@ -214,18 +222,18 @@ function volumeSlide(page, kicker, tier, big, small, lead) {
   ];
   tot.forEach((t, i) => {
     const x = PW - M - (3 - i) * 2.0;
-    txt(s, t[0], x, 1.14, 1.85, 0.44, { font: FONT_H, bold: true, size: 22, color: i === 2 ? RED : INK, align: "right" });
-    txt(s, t[1], x, 1.62, 1.85, 0.26, { size: 8.5, color: GREY, align: "right", cs: 0.6 });
+    txt(s, t[0], x, 0.72, 1.85, 0.44, { font: FONT_H, bold: true, size: 22, color: i === 2 ? YELLOW : "FFFFFF", align: "right" });
+    txt(s, t[1], x, 1.2, 1.85, 0.26, { size: 8.5, color: "FBD3DA", align: "right", cs: 0.6 });
   });
 
-  rule(s, M, 2.42, COL, GOLD);
+  pic(s, A("assets/noodle_ribbon.png"), 0, blockH - 0.2, PW, RIB_H);
 
-  const gx = 0.35, cw = (COL - 2 * gx) / 3, ch = 2.02, y0 = 2.64;
+  const gx = 0.35, cw = (COL - 2 * gx) / 3, ch = 2.04, y0 = 2.68;
 
   SKUS.forEach((sk, i) => {
     const c = i % 3, r = Math.floor(i / 3);
     const x = M + c * (cw + gx);
-    const y = y0 + r * (ch + 0.18);
+    const y = y0 + r * (ch + 0.16);
     const [e, u] = COST[sk.key][tier];
     const pal = SPLIT[tier][sk.key];
 
@@ -234,16 +242,15 @@ function volumeSlide(page, kicker, tier, big, small, lead) {
     const tx = x + 1.42, tw = cw - 1.42;
     txt(s, "INSTANT NOODLE · RAMEN BAG", tx, y + 0.03, tw, 0.18, { size: 7, color: GREY, cs: 1.4 });
     txt(s, sk.name, tx, y + 0.21, tw, 0.44, { font: FONT_H, bold: true, size: 13.5, color: INK, ls: 1.0 });
-    txt(s, sk.kr + "   ·   " + sk.g, tx, y + 0.68, tw, 0.22, { font: FONT_KR, size: 9.5, color: GOLD, cs: 0.6 });
+    txt(s, sk.kr + "   ·   " + sk.g, tx, y + 0.68, tw, 0.22, { font: FONT_KR, size: 9.5, color: PINK_DK, cs: 0.6 });
 
-    // volume for this SKU — the pallet split, stated plainly
     rule(s, tx, y + 0.94, tw - 0.08, HAIR);
-    rect(s, tx, y + 1.06, 0.09, 0.09, { fill: RED });
+    rect(s, tx, y + 1.06, 0.09, 0.09, { fill: PINK });
     txt(s, pal + " " + palletWord(pal), tx + 0.19, y + 1.0, 1.15, 0.24, { size: 11.5, bold: true, color: INK });
     txt(s, num(pal * PER_PALLET) + " пачок", tx + 1.32, y + 1.04, tw - 1.4, 0.22, { size: 8.5, color: GREY, align: "right" });
 
-    txt(s, "СОБІВАРТІСТЬ ЗА 1 ПАЧКУ", tx, y + 1.34, tw, 0.18, { size: 6.8, bold: true, color: GOLD, cs: 1.2 });
-    txt(s, eur(e), tx, y + 1.52, 1.25, 0.4, { font: FONT_H, bold: true, size: 23, color: RED });
+    txt(s, "СОБІВАРТІСТЬ ЗА 1 ПАЧКУ", tx, y + 1.34, tw, 0.18, { size: 6.8, bold: true, color: PINK_DK, cs: 1.2 });
+    txt(s, eur(e), tx, y + 1.52, 1.25, 0.4, { font: FONT_H, bold: true, size: 23, color: CRIMSON });
     txt(s, uah(u), tx + 1.25, y + 1.64, tw - 1.33, 0.24, { size: 10.5, color: INK_SOFT, align: "right" });
   });
 
@@ -268,12 +275,13 @@ volumeSlide(5, "ОБСЯГ ПОСТАЧАННЯ · 03", "p33", "33", "палет
 // ═════════════════════════════════════════════════════════════════════
 {
   const s = pres.addSlide();
-  s.background = { color: PAPER };
-  head(s, "РИНОК", "Де представлена продукція",
-    "роздрібні мережі та дистриб'ютори, з якими працює SIAS", { size: 38 });
+  s.background = { color: IVORY };
+  masthead(s, "РИНОК", "Де представлена продукція", { size: 34, tw: 9.4 });
 
-  rule(s, M, 2.46, COL, GOLD);
-  pic(s, A("assets/logo_wall.png"), M, 2.72, COL, COL / 2.865);
+  txt(s, "роздрібні мережі та дистриб'ютори, з якими працює SIAS",
+    M, 2.56, 9.6, 0.3, { size: 11, italic: true, color: GREY, font: FONT_H });
+
+  pic(s, A("assets/logo_wall.png"), M, 3.0, COL, COL / 2.936);
 
   folio(s, 6);
 }
