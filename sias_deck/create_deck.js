@@ -187,23 +187,23 @@ function head(s, kicker, title, sub) {
   const s = pres.addSlide();
   s.background = { color: PAPER };
 
-  // full-bleed hero
-  pic(s, A("assets/factory_hero.jpg"), 0, 0, PW, 4.0, { fit: "cover" });
+  // full-bleed hero — the plant's Choi's Ramyeon mural
+  pic(s, A("assets/factory_hero.jpg"), 0, 0, PW, 4.6, { fit: "cover" });
 
   // title block straddling the photo edge
-  roundRect(s, M, 3.02, 4.75, 1.5, { fill: RED, radius: 0.1, shadow: cardShadow() });
-  txt(s, "ВИРОБНИК · 01", M + 0.3, 3.2, 4.2, 0.24, { size: 9.5, bold: true, color: "F7C9CC", cs: 1.6 });
-  txt(s, "SIAS France", M + 0.28, 3.48, 4.2, 0.6, { font: FONT_H, bold: true, size: 30, color: "FFFFFF" });
-  txt(s, "Roye · Hauts-de-France", M + 0.3, 4.08, 4.2, 0.28, { size: 10.5, italic: true, color: "FBD9DC" });
+  roundRect(s, M, 3.66, 4.75, 1.5, { fill: RED, radius: 0.1, shadow: cardShadow() });
+  txt(s, "ВИРОБНИК · 01", M + 0.3, 3.84, 4.2, 0.24, { size: 9.5, bold: true, color: "F7C9CC", cs: 1.6 });
+  txt(s, "SIAS France", M + 0.28, 4.12, 4.2, 0.6, { font: FONT_H, bold: true, size: 30, color: "FFFFFF" });
+  txt(s, "Roye · Hauts-de-France", M + 0.3, 4.72, 4.2, 0.28, { size: 10.5, italic: true, color: "FBD9DC" });
 
   // korean accent on the cream, beneath the title block
-  txt(s, "최씨라면", M + 0.02, 4.76, 3.2, 0.42, { font: FONT_KR, bold: true, size: 21, color: GOLD, cs: 2 });
+  txt(s, "최씨라면", M + 0.02, 5.34, 3.2, 0.42, { font: FONT_KR, bold: true, size: 21, color: GOLD, cs: 2 });
 
   txt(s,
     "Європейська виробнича площадка корейської групи SIAS: 16 000 м², власна лінія сушеної " +
     "локшини, сертифікати IFS Food і BRC Food. Choi's Ramyeon виробляють тут за корейськими " +
     "рецептурами, адаптованими під європейського споживача.",
-    5.65, 4.2, 7.1, 1.3, { size: 12, color: INK_SOFT, ls: 1.32 });
+    5.65, 4.8, 7.1, 0.95, { size: 12, color: INK_SOFT, ls: 1.32 });
 
   const facts = [
     ["EXW Roye", "умови відвантаження"],
@@ -215,9 +215,9 @@ function head(s, kicker, title, sub) {
   facts.forEach((f, i) => {
     const x = M + i * (fw + 0.18);
     const hot = i === 3;
-    roundRect(s, x, 5.62, fw, 1.2, { fill: hot ? RED : CARD, radius: 0.09, shadow: cardShadow() });
-    txt(s, f[0], x + 0.2, 5.78, fw - 0.4, 0.42, { font: FONT_H, bold: true, size: hot ? 24 : 20, color: hot ? "FFFFFF" : RED });
-    txt(s, f[1], x + 0.2, 6.26, fw - 0.4, 0.4, { size: 9.5, color: hot ? "FBD9DC" : GREY, ls: 1.14 });
+    roundRect(s, x, 5.88, fw, 1.15, { fill: hot ? RED : CARD, radius: 0.09, shadow: cardShadow() });
+    txt(s, f[0], x + 0.2, 6.02, fw - 0.4, 0.4, { font: FONT_H, bold: true, size: hot ? 23 : 19, color: hot ? "FFFFFF" : RED });
+    txt(s, f[1], x + 0.2, 6.46, fw - 0.4, 0.38, { size: 9.5, color: hot ? "FBD9DC" : GREY, ls: 1.14 });
   });
 
   runner(s, 2);
@@ -321,7 +321,8 @@ scenarioSlide(5, "ВАРІАНТ ПОСТАЧАННЯ · 04", "p33",
 {
   const s = pres.addSlide();
   s.background = { color: PAPER };
-  head(s, "ПАРТНЕРИ · 05", "Нам довіряють", "рітейл, дистрибуція, HoReCa та meal-kit по всій Європі");
+  head(s, "ДИСТРИБУЦІЯ · 05", "Де представлена продукція",
+    "мережі, дистриб'ютори та HoReCa Європи, які працюють із SIAS");
 
   hairline(s, M, 1.92, COLW, GOLD);
 
