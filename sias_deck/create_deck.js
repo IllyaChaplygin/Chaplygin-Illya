@@ -35,17 +35,15 @@ const SPLIT = {  // pallets per SKU in each shipment
 const PER_PALLET = 1600;   // 20 шт/короб × 80 короб/палета
 
 // ─────────────────────────────────────────────────────────────────────
-// DARK, PRODUCT-FORWARD — colour comes from the packs, not the page
-// (Buldak-style presentation, SIAS label energy)
+// DARK BUT ALIVE — warm ember ground, SIAS flames and characters as the
+// personality, colour otherwise reserved for the packs
 // ─────────────────────────────────────────────────────────────────────
-const BG      = "141110";   // warm near-black
-const PANEL   = "1F1A17";
 const CREAM   = "F6F1E9";
 const MUTED   = "9C9088";
 const FAINT   = "5E554E";
-const HAIR    = "312A26";
-const CORAL   = "F0485F";   // SIAS red, for price only
-const AMBER   = "F5A623";   // noodle, for small labels
+const HAIR    = "342C27";
+const CORAL   = "F0485F";
+const AMBER   = "F5A623";
 const PAPER   = "F6F1E9";
 
 const FONT    = "Arial";
@@ -54,6 +52,8 @@ const FONT_KR = "Malgun Gothic";
 const PW = 13.333, PH = 7.5;
 const M   = 0.78;
 const COL = PW - M * 2;
+
+const BGIMG = () => A("assets/bg_dark.jpg");
 
 // ─────────────────────────────────────────────────────────────────────
 function rect(s, x, y, w, h, o = {}) {
@@ -83,6 +83,8 @@ function pic(s, p, x, y, w, h, o = {}) {
   s.addImage(im);
 }
 
+function page(s) { s.background = { color: "141110" }; pic(s, BGIMG(), 0, 0, PW, PH, { fit: "cover" }); }
+
 const rule = (s, x, y, w, c) => rect(s, x, y, w, 0.009, { fill: c || HAIR });
 const eur = (n) => n.toFixed(2).replace(".", ",") + " €";
 const uah = (n) => n.toFixed(2).replace(".", ",") + " ₴";
@@ -107,7 +109,6 @@ function folio(s, n, o = {}) {
     { size: 15, color: FAINT, align: "right", bold: true });
 }
 
-// page head: hairline, amber kicker, heavy uppercase headline
 function head(s, kicker, title, o = {}) {
   rule(s, M, 0.6, COL);
   txt(s, kicker, M, 0.74, 7, 0.24, { size: 8, bold: true, color: AMBER, cs: 2.8 });
@@ -119,32 +120,39 @@ function head(s, kicker, title, o = {}) {
 // ═════════════════════════════════════════════════════════════════════
 {
   const s = pres.addSlide();
-  s.background = { color: BG };
+  page(s);
 
-  rule(s, M, 0.6, COL);
-  txt(s, "SIAS FRANCE · ROYE", M, 0.74, 6, 0.24, { size: 8, bold: true, color: AMBER, cs: 2.8 });
-  txt(s, "ПРАЙС-КАТАЛОГ · 2026", PW - M - 5, 0.74, 5, 0.24, { size: 8, color: MUTED, cs: 2.4, align: "right" });
+  pic(s, A("assets/sias_logo.png"), M, 0.52, 1.5, 0.64);
+  txt(s, "ВИРОБНИК · SIAS FRANCE, ROYE", M + 1.72, 0.72, 5, 0.24, { size: 8.5, bold: true, color: AMBER, cs: 2.4 });
+  txt(s, "ПРАЙС-КАТАЛОГ · 2026", PW - M - 5, 0.72, 5, 0.24, { size: 8.5, color: MUTED, cs: 2.2, align: "right" });
+  rule(s, M, 1.34, COL);
 
-  txt(s, "최씨라면", M, 1.34, 4, 0.36, { font: FONT_KR, bold: true, size: 15, color: CORAL, cs: 3 });
-  txt(s, "CHOI'S RAMYEON", M - 0.05, 1.7, 11.6, 1.0, { size: 66, bold: true, color: CREAM, cs: -2 });
+  txt(s, "최씨라면", M, 1.56, 4, 0.34, { font: FONT_KR, bold: true, size: 14, color: CORAL, cs: 3 });
+  txt(s, "CHOI'S RAMYEON", M - 0.05, 1.88, 10.4, 0.96, { size: 62, bold: true, color: CREAM, cs: -2 });
 
-  txt(s, "Локшина швидкого приготування, вироблена у Франції.", M, 2.84, 8.6, 0.3,
-    { size: 13.5, color: MUTED });
-  txt(s, "Собівартість однієї пачки для трьох обсягів постачання.", M, 3.14, 8.6, 0.3,
-    { size: 13.5, color: MUTED });
+  txt(s, "Локшина швидкого приготування від корейської групи SIAS,", M, 2.94, 8.8, 0.3, { size: 13, color: MUTED });
+  txt(s, "вироблена на власному заводі у Франції.", M, 3.24, 8.8, 0.3, { size: 13, color: MUTED });
 
-  pic(s, A("assets/noodle_line.png"), M, 3.66, COL, COL / 37.778);
+  // the point that matters commercially
+  rect(s, M, 3.74, 0.055, 0.5, { fill: CORAL });
+  txt(s, "SIAS — виробника цього рівня складно знайти на ринку.", M + 0.24, 3.74, 8.6, 0.26,
+    { size: 12, bold: true, color: CREAM });
+  txt(s, "Прямий контракт із заводом, без посередників.", M + 0.24, 4.0, 8.6, 0.26, { size: 12, color: MUTED });
 
-  const meta = [["6", "SKU"], ["112,5–131", "ГРАМІВ"], ["20", "ШТ / КОРОБ"], ["0 %", "МИТО · EUR.1"]];
+  pic(s, A("assets/noodle_line.png"), M, 4.46, COL, COL / 37.778);
+
+  const meta = [["6", "SKU"], ["112,5–131", "ГРАМІВ"], ["0 %", "МИТО · EUR.1"]];
   meta.forEach((mt, i) => {
-    const x = M + i * 2.5;
-    txt(s, mt[0], x, 3.92, 2.3, 0.36, { size: 21, bold: true, color: i === 3 ? CORAL : CREAM });
-    txt(s, mt[1], x, 4.3, 2.3, 0.22, { size: 8, color: MUTED, cs: 1.4 });
+    const x = M + i * 2.6;
+    txt(s, mt[0], x, 4.66, 2.4, 0.34, { size: 20, bold: true, color: i === 2 ? CORAL : CREAM });
+    txt(s, mt[1], x, 5.02, 2.4, 0.22, { size: 8, color: MUTED, cs: 1.4 });
   });
-  txt(s, "EXW ROYE, FRANCE", PW - M - 3, 3.98, 3, 0.26, { size: 9.5, bold: true, color: MUTED, cs: 1.6, align: "right" });
+  txt(s, "EXW ROYE, FRANCE", PW - M - 3, 4.72, 3, 0.26, { size: 9.5, bold: true, color: MUTED, cs: 1.6, align: "right" });
+
+  pic(s, A("assets/mascot_panel.jpg"), 10.62, 1.62, 1.95, 2.59);
 
   const lw = COL + 0.9, lh = lw / 4.359;
-  pic(s, A("assets/lineup_dark.png"), (PW - lw) / 2, PH - lh - 0.16, lw, lh);
+  pic(s, A("assets/lineup_dark.png"), (PW - lw) / 2, PH - lh - 0.06, lw, lh);
 }
 
 // ═════════════════════════════════════════════════════════════════════
@@ -152,7 +160,7 @@ function head(s, kicker, title, o = {}) {
 // ═════════════════════════════════════════════════════════════════════
 {
   const s = pres.addSlide();
-  s.background = { color: BG };
+  page(s);
   head(s, "ВИРОБНИК", "SIAS FRANCE · ROYE");
 
   const top = 2.06;
@@ -188,16 +196,17 @@ function head(s, kicker, title, o = {}) {
 // ═════════════════════════════════════════════════════════════════════
 // 03-05 · SHIPMENT VOLUMES
 // ═════════════════════════════════════════════════════════════════════
-function volumeSlide(page, kicker, tier, big, small, lead) {
+function volumeSlide(page_no, kicker, tier, big, small, lead) {
   const s = pres.addSlide();
-  s.background = { color: BG };
+  page(s);
 
   const pallets = Object.values(SPLIT[tier]).reduce((a, b) => a + b, 0);
 
   rule(s, M, 0.6, COL);
   txt(s, kicker, M, 0.74, 7, 0.24, { size: 8, bold: true, color: AMBER, cs: 2.8 });
 
-  txt(s, big + " " + small, M - 0.03, 1.0, 7.4, 0.74, { size: 40, bold: true, color: CREAM, cs: -1 });
+  pic(s, A("assets/flames.png"), M, 0.98, 0.52, 0.64);
+  txt(s, big + " " + small, M + 0.66, 1.0, 5.1, 0.74, { size: 40, bold: true, color: CREAM, cs: -1 });
   txt(s, lead, M, 1.82, 7.4, 0.28, { size: 11, color: MUTED });
 
   const tot = [
@@ -242,24 +251,23 @@ function volumeSlide(page, kicker, tier, big, small, lead) {
     "Собівартість однієї пачки включає ціну EXW Roye, логістику, брокерські послуги, митне оформлення та ПДВ-передфінансування · мито 0% за EUR.1 · курс 1 € ≈ 51,2 ₴",
     M, 7.08, 11.2, 0.22, { size: 7.5, color: FAINT });
 
-  folio(s, page, { noLabel: true });
+  folio(s, page_no, { noLabel: true });
 }
 
 volumeSlide(3, "ОБСЯГ ПОСТАЧАННЯ · 01", "p6",  "6",  "ПАЛЕТ",
   "Пробна партія — по одній палеті на кожен смак.");
 volumeSlide(4, "ОБСЯГ ПОСТАЧАННЯ · 02", "p12", "12", "ПАЛЕТ",
   "Робочий обсяг з акцентом на вершкових смаках — Gouda та Carbonara.");
-volumeSlide(5, "ОБСЯГ ПОСТАЧАННЯ · 03", "p33", "33", "ПАЛЕТИ · FULL TRUCK",
-  "Повне авто — найнижча собівартість пачки.");
+volumeSlide(5, "ОБСЯГ ПОСТАЧАННЯ · 03", "p33", "33", "ПАЛЕТИ",
+  "Повне авто (Full Truck) — найнижча собівартість пачки.");
 
 // ═════════════════════════════════════════════════════════════════════
 // 06 · WHERE THE PRODUCT IS SOLD
 // ═════════════════════════════════════════════════════════════════════
 {
   const s = pres.addSlide();
-  s.background = { color: BG };
+  page(s);
   head(s, "РИНОК", "ДЕ ПРЕДСТАВЛЕНА ПРОДУКЦІЯ");
-
   txt(s, "роздрібні мережі та дистриб'ютори, з якими працює SIAS",
     M, 1.82, 9.6, 0.28, { size: 11, color: MUTED });
 
@@ -268,6 +276,58 @@ volumeSlide(5, "ОБСЯГ ПОСТАЧАННЯ · 03", "p33", "33", "ПАЛЕТ
   pic(s, A("assets/logo_wall.png"), M, 2.5, ww, wh);
 
   folio(s, 6);
+}
+
+// ═════════════════════════════════════════════════════════════════════
+// 07 · MADE IN THE EU, BUILT THE KOREAN WAY
+// ═════════════════════════════════════════════════════════════════════
+{
+  const s = pres.addSlide();
+  page(s);
+  head(s, "ВИРОБНИЦТВО", "ЗАВОД У ЄС — ТЕХНОЛОГІЯ З КОРЕЇ", { size: 30 });
+
+  txt(s, "Змінилася географія, а не технологія: рецептури, обладнання та стандарти перенесені з корейських заводів групи.",
+    M, 1.86, 10.4, 0.28, { size: 11.5, color: MUTED });
+
+  rule(s, M, 2.26, COL);
+
+  // the 150 m line
+  pic(s, A("assets/line150.png"), M - 0.1, 2.42, 7.4, 2.34);
+  txt(s, "ЛІНІЯ 150 МЕТРІВ", M, 4.74, 4, 0.24, { size: 9, bold: true, color: AMBER, cs: 1.8 });
+  txt(s, "Три послідовні процеси по 50 м: заміс тіста → формування пружної\nлокшини → сушіння та пакування.",
+    M, 4.98, 6.6, 0.54, { size: 10.5, color: MUTED, ls: 1.3 });
+
+  const pts = [
+    ["KNOW-HOW З КОРЕЇ", "Рецептури, обладнання та виробничі процеси перенесені з корейських майданчиків SIAS — у групі їх сім."],
+    ["ТОЙ САМИЙ КОНТРОЛЬ", "Тести та інспекції на кожному етапі за корейським стандартом якості."],
+    ["КОРЕЙСЬКІ СОУСИ ТА СМАКИ", "Власні рецептури соусів і приправ — смак не адаптований під «європейську» версію."],
+  ];
+  let py = 2.44;
+  pts.forEach((p) => {
+    rect(s, 8.5, py + 0.06, 0.09, 0.09, { fill: CORAL });
+    txt(s, p[0], 8.72, py, 4.1, 0.24, { size: 10, bold: true, color: CREAM, cs: 0.6 });
+    txt(s, p[1], 8.72, py + 0.26, 4.1, 0.62, { size: 9.5, color: MUTED, ls: 1.3 });
+    py += 1.02;
+  });
+
+  // the commercial consequence of making it inside the EU
+  rect(s, 8.5, 5.62, 4.05, 1.16, { fill: "20191A", round: 0.08 });
+  rect(s, 8.5, 5.62, 0.06, 1.16, { fill: CORAL });
+  txt(s, "ВИРОБНИЦТВО В ЄС", 8.74, 5.78, 3.6, 0.22, { size: 8.5, bold: true, color: AMBER, cs: 1.6 });
+  txt(s, "Без морського фрахту, коротке плече доставки та сертифікат EUR.1 — 0% ввізного мита в Україну.",
+    8.74, 6.04, 3.66, 0.6, { size: 9.5, color: MUTED, ls: 1.3 });
+
+  pic(s, A("assets/mascot_panel2.jpg"), M, 5.72, 1.0, 1.32);
+
+  txt(s, "Made in France · savoir-faire coréen", M + 1.2, 5.8, 5.2, 0.26, { size: 10, italic: true, color: FAINT });
+  frFlag(s, M + 1.2, 6.24, 0.44, 0.29);
+  txt(s, "+", M + 1.74, 6.22, 0.3, 0.3, { size: 12, color: MUTED });
+  rect(s, M + 2.06, 6.24, 0.44, 0.29, { fill: "FFFFFF" });
+  txt(s, "KR", M + 2.06, 6.24, 0.44, 0.29, { size: 9, bold: true, color: "C60C30", align: "center", valign: "middle" });
+  txt(s, "→", M + 2.64, 6.22, 0.3, 0.3, { size: 12, color: MUTED });
+  uaFlag(s, M + 2.98, 6.24, 0.44, 0.29);
+
+  folio(s, 7);
 }
 
 // ═════════════════════════════════════════════════════════════════════
