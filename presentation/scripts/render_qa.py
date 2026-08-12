@@ -13,16 +13,20 @@ EMU = 914400
 DPI = 110
 
 FONTS = {
-    ("Calibri", False): "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
-    ("Calibri", True): "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
-    ("Cambria", False): "/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf",
-    ("Cambria", True): "/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf",
+    ("Calibri", False, False): "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+    ("Calibri", True, False): "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+    ("Calibri", False, True): "/usr/share/fonts/truetype/liberation/LiberationSans-Italic.ttf",
+    ("Calibri", True, True): "/usr/share/fonts/truetype/liberation/LiberationSans-BoldItalic.ttf",
+    ("Cambria", False, False): "/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf",
+    ("Cambria", True, False): "/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf",
+    ("Cambria", False, True): "/usr/share/fonts/truetype/liberation/LiberationSerif-Italic.ttf",
+    ("Cambria", True, True): "/usr/share/fonts/truetype/liberation/LiberationSerif-BoldItalic.ttf",
 }
 _cache = {}
 
 
-def font(name, bold, pt):
-    key = (name if name in ("Cambria",) else "Calibri", bool(bold))
+def font(name, bold, pt, italic=False):
+    key = (name if name in ("Cambria",) else "Calibri", bool(bold), bool(italic))
     px = max(6, round(pt * DPI / 72))
     ck = key + (px,)
     if ck not in _cache:
@@ -51,6 +55,17 @@ def shape_fill(shp):
     return None
 
 
+def shape_outline(shp):
+    try:
+        ln = shp.line
+        if ln.fill.type == 1:
+            w = ln.width.pt if ln.width else 1
+            return rgb(ln.color), max(1, round(w))
+    except Exception:
+        pass
+    return None
+
+
 def draw_shape(d, img, shp, ox=0, oy=0):
     try:
         x, y = px(shp.left) + ox, px(shp.top) + oy
@@ -61,11 +76,13 @@ def draw_shape(d, img, shp, ox=0, oy=0):
 
     if "PICTURE" in st:
         try:
-            im = Image.open(__import__("io").BytesIO(shp.image.blob)).convert("RGB")
+            im = Image.open(__import__("io").BytesIO(shp.image.blob))
             im = im.resize((max(1, round(w)), max(1, round(h))), Image.LANCZOS)
-            img.paste(im, (round(x), round(y)))
-            d.rectangle([x, y, x + w, y + h], outline=(150, 150, 150))
-        except Exception as e:
+            if im.mode == "RGBA":
+                img.paste(im, (round(x), round(y)), im)      # honour alpha, like PowerPoint does
+            else:
+                img.paste(im.convert("RGB"), (round(x), round(y)))
+        except Exception:
             d.rectangle([x, y, x + w, y + h], fill=(200, 200, 200))
         return
 
@@ -74,19 +91,23 @@ def draw_shape(d, img, shp, ox=0, oy=0):
         return
 
     fill = shape_fill(shp)
-    if fill:
+    outline = shape_outline(shp)
+    if fill or outline:
         name = (shp.name or "").lower()
         try:
             adj = shp.adjustments[0] if len(shp.adjustments) else 0
         except Exception:
             adj = 0
+        ol_color, ol_w = outline if outline else (None, 0)
         if "oval" in name:
-            d.ellipse([x, y, x + w, y + h], fill=fill)
+            d.ellipse([x, y, x + w, y + h], fill=fill, outline=ol_color, width=ol_w)
         elif "rounded" in name:
             r = max(2, min(w, h) * (adj if adj else 0.1))
-            d.rounded_rectangle([x, y, x + w, y + h], radius=r, fill=fill)
+            d.rounded_rectangle([x, y, x + w, y + h], radius=r, fill=fill, outline=ol_color, width=ol_w)
+        elif "isosceles" in name or "triangle" in name:
+            d.polygon([(x + w / 2, y), (x + w, y + h), (x, y + h)], fill=fill, outline=ol_color)
         else:
-            d.rectangle([x, y, x + w, y + h], fill=fill)
+            d.rectangle([x, y, x + w, y + h], fill=fill, outline=ol_color, width=ol_w)
 
     if not shp.has_text_frame:
         return
@@ -103,6 +124,7 @@ def draw_shape(d, img, shp, ox=0, oy=0):
             "text": "".join(r.text for r in runs),
             "pt": pt,
             "bold": bool(r0.font.bold),
+            "italic": bool(r0.font.italic),
             "name": r0.font.name or "Calibri",
             "color": rgb(r0.font.color, (30, 30, 30)),
             "align": p.alignment,
@@ -117,7 +139,7 @@ def draw_shape(d, img, shp, ox=0, oy=0):
 
     lines = []
     for p in paras:
-        f = font(p["name"], p["bold"], p["pt"])
+        f = font(p["name"], p["bold"], p["pt"], p["italic"])
         words = p["text"].split(" ")
         cur = ""
         wrapped = []
