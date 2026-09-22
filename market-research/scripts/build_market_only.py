@@ -1,8 +1,7 @@
 """Готовий рис · Україна — дослідження ринку.
 
-Чотири питання і нічого понад них: хто представлений, яка упаковка, яка ціна,
-де представлено. Жодних наших позицій, собівартості чи цінових сценаріїв —
-полична ціна рахується окремо.
+Чотири питання: хто представлений, яка упаковка, яка ціна, де представлено.
+Без наших позицій і без статусів наявності — тільки склад ринку.
 
 Фірмовий стиль Morskyi Dim: темно-синій #303A5D, помаранчевий #F9A50B,
 хвильовий патерн і логотип із оглядової колоди Nissin.
@@ -28,6 +27,8 @@ TEAL   = RGBColor(0x1E, 0x9E, 0xA6)
 CORAL  = RGBColor(0xE2, 0x56, 0x4B)
 GREEN  = RGBColor(0x37, 0xA1, 0x69)
 PLUM   = RGBColor(0x7B, 0x5E, 0xA7)
+ROSE   = RGBColor(0xC9, 0x4F, 0x7C)
+SLATE  = RGBColor(0x5B, 0x6B, 0x8C)
 WHITE  = RGBColor(0xFF, 0xFF, 0xFF)
 MIST   = RGBColor(0xF1, 0xF4, 0xFA)
 MIST_D = RGBColor(0xE2, 0xE8, 0xF3)
@@ -43,31 +44,35 @@ prs.slide_width, prs.slide_height = Inches(W), Inches(H)
 BLANK = prs.slide_layouts[6]
 PG = {"n": 0}
 
+# ── дані: (грамів, грн) по кожній перевіреній картці ──────────────────────
+DATA = {
+    "Ben's Original": [(250, 45), (250, 89.99), (250, 89.99), (250, 89.99),
+                       (250, 89.99), (220, 89.99), (220, 100), (220, 109),
+                       (240, 139), (220, 139), (220, 144), (220, 144),
+                       (220, 149), (220, 179)],
+    "Bibigo":      [(210, 135), (210, 184), (210, 189)],
+    "Clearspring": [(250, 252)],
+    "Portion":     [(350, 109)],
+    "Ottogi":      [(269, 334), (310, 260), (320, 356), (247, 320), (269, 334),
+                    (280, 289), (280, 260), (310, 252), (269, 252), (247, 225),
+                    (320, 252), (280, 255)],
+    "Haidilao":    [(187, 680), (272, 799), (272, 799), (272, 770), (175, 650),
+                    (181, 650), (187, 650)],
+    "Travellunch": [(125, 275), (125, 295), (125, 515), (125, 567), (250, 702),
+                    (250, 811), (250, 889)],
+}
+CORE = ("Ben's Original", "Bibigo", "Clearspring", "Portion", "Ottogi")
 
-# ── дані дослідження ──────────────────────────────────────────────────────
-# (бренд, варіант, канал, грамів, грн, у наявності)
-CARDS = [
-    ("Ben's Original", "Long Grain",        "Сільпо",     250, 45.00, False),
-    ("Ben's Original", "Basmati",           "Сільпо",     250, 89.99, False),
-    ("Ben's Original", "Mediterran",        "Сільпо",     250, 89.99, False),
-    ("Ben's Original", "Risi Bisi",         "Сільпо",     250, 89.99, False),
-    ("Ben's Original", "Indian Curry",      "Сільпо",     250, 89.99, False),
-    ("Ben's Original", "Curry з сочевицею", "Сільпо",     220, 89.99, False),
-    ("Ben's Original", "Basmati",           "MAUDAU",     220, 100.00, False),
-    ("Ben's Original", "Mexikanisch",       "Сільпо",     220, 109.00, False),
-    ("Ben's Original", "Bio Basmati",       "Edison Lee", 240, 139.00, None),
-    ("Ben's Original", "Long Grain",        "Edison Lee", 220, 139.00, None),
-    ("Bibigo",         "Білий рис",         "Смак Кореї", 210, 135.00, True),
-    ("Ben's Original", "Curryreis Indien",  "Сільпо",     220, 144.00, False),
-    ("Ben's Original", "Basmati",           "Сільпо",     220, 144.00, False),
-    ("Ben's Original", "Для боулів",        "Сільпо",     220, 149.00, False),
-    ("Ben's Original", "Sweet Chili",       "Сільпо",     220, 179.00, False),
-    ("Bibigo",         "Білий рис",         "Rozetka",    210, 184.00, False),
-    ("Bibigo",         "Білий рис",         "Prom",       210, 189.00, False),
-    ("Clearspring",    "Brown & Wild",      "MAUDAU",     250, 252.00, False),
-]
-PER = sorted(p / g * 100 for *_, g, p, _ in CARDS)
-PER_MIN, PER_MED, PER_MAX = PER[0], st.median(PER), PER[-1]
+
+def rng(brand):
+    per = sorted(p / g * 100 for g, p in DATA[brand])
+    pk = sorted(p for g, p in DATA[brand])
+    return per[0], per[-1], pk[0], pk[-1], len(DATA[brand])
+
+
+CORE_PER = sorted(p / g * 100 for b in CORE for g, p in DATA[b])
+CORE_MED = st.median(CORE_PER)
+N_CARDS = sum(len(v) for v in DATA.values())
 
 
 # ── примітиви ─────────────────────────────────────────────────────────────
@@ -87,6 +92,10 @@ def rect(s, x, y, w, h, fill, line=None, lw=1.0, rounded=False, adj=0.10):
     if rounded:
         sh.adjustments[0] = adj
     return sh
+
+
+def dot(s, cx, cy, d, fill):
+    return rect(s, cx - d / 2, cy - d / 2, d, d, fill, rounded=True, adj=0.5)
 
 
 def text(s, x, y, w, h, body, size=11, bold=False, italic=False, color=INK,
@@ -150,11 +159,11 @@ def header(s, eyebrow, title, dek=None):
     text(s, W - M - 0.70, 0.44, 0.70, 0.36, f"{PG['n']:02d}", size=17, bold=True,
          color=NAVY_L, align=PP_ALIGN.RIGHT)
     if dek:
-        text(s, M, HDR + 0.30, 11.9, 0.34, dek, size=12.5, color=GREY, line=1.20)
+        text(s, M, HDR + 0.28, 11.9, 0.34, dek, size=12.5, color=GREY, line=1.20)
 
 
 def foot(s, src):
-    text(s, M, 7.04, 11.9, 0.26, src, size=8, color=GREY, line=1.14)
+    text(s, M, 7.06, 11.9, 0.26, src, size=8, color=GREY, line=1.14)
 
 
 def pill(s, x, y, label, bg=GREEN, w=None, size=8.5, fg=WHITE):
@@ -176,11 +185,14 @@ def kpi(s, x, y, w, value, unit, label, sub, accent=ORANGE):
 
 
 def qtag(s, x, y, letter, word):
-    """Позначка питання дослідження — ХТО / УПАКОВКА / ЦІНА / ДЕ."""
     rect(s, x, y, 0.30, 0.30, ORANGE, rounded=True, adj=0.5)
     text(s, x, y, 0.30, 0.30, letter, size=12, bold=True, color=NAVY,
          align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-    text(s, x + 0.40, y + 0.03, 2.20, 0.26, word, size=10, bold=True, color=ORANGE)
+    text(s, x + 0.40, y + 0.03, 3.20, 0.26, word, size=10, bold=True, color=ORANGE)
+
+
+def num(v, d=0):
+    return f"{v:.{d}f}".replace(".", ",")
 
 
 # ══ 01 · ОБКЛАДИНКА ═══════════════════════════════════════════════════════
@@ -192,17 +204,13 @@ text(s, M, 2.34, 7.00, 0.34, "ДОСЛІДЖЕННЯ РИНКУ · ВЕРЕСЕ�
      bold=True, color=AMBER)
 text(s, M, 2.78, 7.20, 1.70, "Готовий рис\nв Україні", size=46, bold=True,
      color=WHITE, line=1.04)
-text(s, M, 4.52, 6.60, 0.36, "Хто представлений · яка упаковка · яка ціна · де представлено",
+text(s, M, 4.52, 6.80, 0.36, "Хто представлений · яка упаковка · яка ціна · де представлено",
      size=14.5, color=RGBColor(0xC6, 0xCE, 0xE2))
-rect(s, M, 5.10, 5.90, 0.055, RGBColor(0x55, 0x60, 0x8C))
-text(s, M, 5.32, 6.60, 0.80,
-     "Зріз відкритих українських онлайн-вітрин: 22 вересня 2026 р.\n"
-     "18 перевірених карток товару · 5 компаній · 6 каналів",
+rect(s, M, 5.12, 5.90, 0.055, RGBColor(0x55, 0x60, 0x8C))
+text(s, M, 5.34, 6.80, 0.80,
+     f"9 брендів · {N_CARDS} перевірених карток товару · 16 каналів продажу\n"
+     "Зріз відкритих українських онлайн-вітрин: 22 вересня 2026 р.",
      size=11.5, color=RGBColor(0x9F, 0xA9, 0xC4), line=1.40)
-rect(s, M, 6.40, 5.90, 0.60, RGBColor(0x26, 0x2F, 0x4D), rounded=True, adj=0.20)
-text(s, M + 0.26, 6.52, 5.40, 0.36,
-     "Полична ціна власного продукту в це дослідження не входить.",
-     size=10, italic=True, color=RGBColor(0xB9, 0xC2, 0xDA))
 
 for im, x, y, w, h in [("md/bens_basmati250.jpg", 8.26, 1.22, 2.35, 2.62),
                        ("md/bibigo_bowl.jpg",    10.78, 1.60, 2.35, 2.24),
@@ -211,88 +219,101 @@ for im, x, y, w, h in [("md/bens_basmati250.jpg", 8.26, 1.22, 2.35, 2.62),
     rect(s, x, y, w, h, WHITE, rounded=True, adj=0.06)
     pic(s, im, x + 0.16, y + 0.14, w - 0.32, h - 0.28)
 rect(s, 8.26, 6.22, 4.87, 0.78, RGBColor(0x26, 0x2F, 0x4D), rounded=True, adj=0.16)
-text(s, 8.58, 6.34, 4.30, 0.56,
-     [[("Ben's Original · Bibigo · Clearspring · Ottogi · Portion",
-        {"bold": True, "color": WHITE})]], size=11, line=1.24)
+text(s, 8.52, 6.34, 4.40, 0.56,
+     "Ben's Original · Bibigo · Clearspring · Ottogi · Portion\n"
+     "Haidilao · Mo Xiao Xian · Travellunch · SubliMate",
+     size=10, bold=True, color=WHITE, line=1.30)
 
 # ══ 02 · КАРТА РИНКУ ══════════════════════════════════════════════════════
 s = slide()
 header(s, "КАРТА РИНКУ", "Що показав зріз вітрин",
-       "Чотири питання дослідження та короткі відповіді на кожне.")
+       "Чотири питання дослідження та коротка відповідь на кожне.")
 for i, (v, u, lb, sub, c) in enumerate([
-        ("5", "ХТО", "компаній у категорії",
-         "Ben's Original, Bibigo, Clearspring, Ottogi, Portion", ORANGE),
-        ("220–250", "УПАКОВКА", "грамів — основний пауч",
-         "12 із 14 порівнянних варіантів", TEAL),
-        ("18–101", "ЦІНА", "грн за 100 г",
-         f"медіана {PER_MED:.1f} грн; за упаковку 45–252 грн".replace(".", ","), PLUM),
-        ("6", "ДЕ", "перевірених каналів",
-         "мережа, маркетплейси та спеціалізований онлайн", GREEN)]):
-    kpi(s, M + i * 3.07, 2.06, 2.82, v, u, lb, sub, c)
+        ("9", "ХТО", "брендів у категорії та поруч",
+         "5 — готовий рис, 4 — суміжні технології", ORANGE),
+        ("210–350", "УПАКОВКА", "грамів",
+         "пауч, лоток-чаша та висока чаша", TEAL),
+        ("18–130", "ЦІНА", "грн за 100 г",
+         f"медіана {num(CORE_MED)} грн; за упаковку 45–356 грн", PLUM),
+        ("16", "ДЕ", "каналів продажу",
+         "мережа, маркетплейси, спеціалізований онлайн", GREEN)]):
+    kpi(s, M + i * 3.07, 2.04, 2.82, v, u, lb, sub, c)
 
-rect(s, M, 4.76, 11.98, 1.92, MIST, rounded=True, adj=0.07)
-rect(s, M, 4.76, 0.10, 1.92, ORANGE, rounded=True, adj=0.5)
-text(s, M + 0.42, 5.02, 5.60, 0.34, "Що ще показав зріз", size=16, bold=True, color=NAVY)
-yy = 5.48
-for t in ["Ben's Original формує 13 із 18 перевірених карток.",
-          "Лише 1 позиція з 18 мала підтверджений залишок.",
-          "Жодної позиції не знайдено в АТБ, Novus, Metro, Varus, Auchan."]:
-    rect(s, M + 0.42, yy + 0.09, 0.09, 0.09, ORANGE, rounded=True, adj=0.5)
-    text(s, M + 0.66, yy, 5.40, 0.30, t, size=11, color=INK)
+rect(s, M, 4.72, 11.98, 1.92, MIST, rounded=True, adj=0.07)
+rect(s, M, 4.72, 0.10, 1.92, ORANGE, rounded=True, adj=0.5)
+text(s, M + 0.42, 4.98, 5.60, 0.34, "Структура пропозиції", size=16, bold=True, color=NAVY)
+yy = 5.44
+for t, c in [("Гарніри — чистий рис у пауці: Ben's Original, Clearspring.", ORANGE),
+             ("Рис у чаші: Bibigo — білий рис, Ottogi — рис із наповнювачем.", GREEN),
+             ("Суміжні технології: саморозігрів, сублімація — інша ціна й повід.", PLUM)]:
+    dot(s, M + 0.48, yy + 0.13, 0.13, c)
+    text(s, M + 0.70, yy, 5.40, 0.30, t, size=11, color=INK)
     yy += 0.38
-rect(s, 7.60, 5.06, 0.04, 1.32, MIST_D)
-text(s, 7.94, 5.02, 4.36, 1.36,
-     "Основа — онлайн-асортимент. Частота SKU не дорівнює частці продажів, "
-     "а ціна картки без залишку є орієнтиром каталогу, а не доступною "
-     "пропозицією. Офлайн-полиця не перевірялася.",
+rect(s, 7.60, 5.02, 0.04, 1.32, MIST_D)
+text(s, 7.94, 4.98, 4.36, 1.36,
+     "Основа — онлайн-асортимент відкритих вітрин. Частота карток не дорівнює "
+     "частці продажів: один товар може бути виставлений у кількох продавців "
+     "за різними цінами.",
      size=11, color=GREY, line=1.32)
-foot(s, "Джерела: S1–S11 · перевірені картки українських онлайн-вітрин, 22.09.2026.")
+foot(s, "Джерело: перевірені картки українських онлайн-вітрин, 22.09.2026.")
 
 # ══ 03 · ХТО · СЕГМЕНТИ ═══════════════════════════════════════════════════
 s = slide()
-header(s, "ХТО ПРЕДСТАВЛЕНИЙ · 1/3", "Три сегменти категорії",
-       "Готовий рис на українських вітринах розпадається на три різні пропозиції.")
-qtag(s, M, 1.98, "1", "ХТО ПРЕДСТАВЛЕНИЙ")
-SEG = [("md/bens_basmati250.jpg", "ПОВСЯКДЕННИЙ ГАРНІР", "Ben's Original · Bibigo",
-        "Чистий рис або легкий смак.\nПауч 220–250 г, лоток-чаша 210 г.",
-        "14 карток", ORANGE),
-       ("md/clearspring.jpg", "ОРГАНІЧНИЙ ПРЕМІУМ", "Clearspring",
-        "Суміш рисів із соусом tamari.\nПауч 250 г.", "1 картка", TEAL),
-       ("md/ottogi_burger.jpg", "ПОВНОЦІННА СТРАВА", "Ottogi · Portion",
-        "Рис із наповнювачем.\nЧаша 217–315 г, лоток 350 г.", "7 карток", PLUM)]
+header(s, "ХТО ПРЕДСТАВЛЕНИЙ · 1/4", "Три способи продати готовий рис",
+       "Сегменти відрізняються не смаком, а технологією та поводом споживання.")
+qtag(s, M, 1.94, "1", "ХТО ПРЕДСТАВЛЕНИЙ")
+SEG = [("md/bens_basmati250.jpg", "ГАРНІР У ПАУЧІ", "Ben's Original · Clearspring",
+        "Чистий рис або легкий смак.\nПауч 220–250 г, розігрів 2 хв.",
+        "15 карток · 18–101 грн/100 г", ORANGE),
+       ("md/bibigo_bowl.jpg", "РИС У ЧАШІ", "Bibigo · Ottogi · Portion",
+        "Біла основа або рис із наповнювачем.\nЛоток-чаша 210–350 г.",
+        "16 карток · 31–130 грн/100 г", GREEN),
+       (None, "СУМІЖНІ ТЕХНОЛОГІЇ", "Haidilao · Mo Xiao Xian\nTravellunch · SubliMate",
+        "Саморозігрів і сублімація.\nІнший повід, інша цінова ліга.",
+        "14 карток · 220–454 грн/100 г", PLUM)]
 for i, (img, kind, brands, desc, n, c) in enumerate(SEG):
     x = M + i * 4.10
-    rect(s, x, 2.44, 3.84, 4.24, MIST if i == 0 else WHITE,
-         line=None if i == 0 else MIST_D, lw=1.2, rounded=True, adj=0.05)
-    rect(s, x, 2.44, 3.84, 0.10, c, rounded=True, adj=0.5)
-    rect(s, x + 0.20, 2.70, 3.44, 1.78, WHITE, rounded=True, adj=0.05)
-    pic(s, img, x + 0.34, 2.78, 3.16, 1.62)
-    text(s, x + 0.32, 4.62, 3.20, 0.24, kind, size=9, bold=True, color=c)
-    text(s, x + 0.32, 4.90, 3.20, 0.34, brands, size=15, bold=True, color=NAVY)
-    text(s, x + 0.32, 5.32, 3.20, 0.72, desc, size=11, color=GREY, line=1.30)
-    pill(s, x + 0.32, 6.14, n, c)
-foot(s, "Джерела: S1, S2, S3, S9, S11 · фото — картки товарів відповідних магазинів.")
+    rect(s, x, 2.40, 3.84, 4.28, MIST if i < 2 else WHITE,
+         line=None if i < 2 else MIST_D, lw=1.2, rounded=True, adj=0.05)
+    rect(s, x, 2.40, 3.84, 0.10, c, rounded=True, adj=0.5)
+    rect(s, x + 0.20, 2.66, 3.44, 1.72, WHITE, rounded=True, adj=0.05)
+    if img:
+        pic(s, img, x + 0.34, 2.74, 3.16, 1.56)
+    else:
+        text(s, x + 0.20, 3.34, 3.44, 0.26, "ПАКШОТІВ НЕМАЄ", size=9.5, bold=True,
+             color=GREY, align=PP_ALIGN.CENTER)
+        text(s, x + 0.20, 3.60, 3.44, 0.24, "на картках цих продавців", size=9,
+             color=GREY, align=PP_ALIGN.CENTER)
+    text(s, x + 0.32, 4.52, 3.20, 0.24, kind, size=9.5, bold=True, color=c)
+    text(s, x + 0.32, 4.80, 3.20, 0.54, brands, size=14, bold=True, color=NAVY, line=1.14)
+    text(s, x + 0.32, 5.44, 3.20, 0.72, desc, size=11, color=GREY, line=1.30)
+    rect(s, x + 0.32, 6.18, 3.20, 0.02, MIST_D)
+    text(s, x + 0.32, 6.30, 3.20, 0.26, n, size=10.5, bold=True, color=c)
+foot(s, "Джерело: картки товарів українських онлайн-вітрин, 22.09.2026. "
+        "Ціни за 100 г — наш розрахунок за масою та ціною картки.")
 
-# ══ 04 · ХТО · КОМПАНІЇ ═══════════════════════════════════════════════════
+# ══ 04 · ХТО · БРЕНДИ ГОТОВОГО РИСУ ═══════════════════════════════════════
 s = slide()
-header(s, "ХТО ПРЕДСТАВЛЕНИЙ · 2/3", "П'ять компаній формують усю пропозицію",
-       "Найширша лінійка — у Ben's Original. Частки продажів не встановлені.")
-qtag(s, M, 1.98, "1", "ХТО ПРЕДСТАВЛЕНИЙ")
-PL = [("md/bens_lang220.jpg", "Ben's Original", "Mars", "13 карток",
-       "Пауч 220 / 240 / 250 г", "Сільпо · MAUDAU · Edison Lee", ORANGE),
-      ("md/ottogi_kimchi.jpg", "Ottogi", "Республіка Корея", "6 карток",
-       "Чаша 217–315 г", "Pulsar · продавці Rozetka", PLUM),
-      ("md/bibigo_bowl2.jpg", "Bibigo", "CJ CheilJedang", "3 картки",
-       "Лоток-чаша 210 г", "Смак Кореї · Rozetka · Prom", GREEN),
-      ("md/clearspring.jpg", "Clearspring", "Велика Британія", "1 картка",
-       "Пауч 250 г", "MAUDAU", TEAL),
-      (None, "Portion", "«Пирятинський делікатес»", "1 картка",
-       "Лоток 350 г · 109 грн", "Rozetka", NAVY_L)]
-for lx, lw, lb in [(M + 1.52, 2.50, "БРЕНД І ВЛАСНИК"), (M + 4.20, 2.40, "ФОРМАТ"),
-                   (M + 6.70, 3.30, "КАНАЛИ"), (M + 10.30, 1.00, "КАРТОК")]:
-    text(s, lx, 2.30, lw, 0.24, lb, size=8.5, bold=True, color=GREY)
-for i, (img, brand, owner, n, fmt, chan, c) in enumerate(PL):
-    y = 2.60 + i * 0.86
+header(s, "ХТО ПРЕДСТАВЛЕНИЙ · 2/4", "П'ять брендів готового рису",
+       "Кожен займає власну нішу за форматом, походженням і ціною.")
+qtag(s, M, 1.94, "1", "ХТО ПРЕДСТАВЛЕНИЙ")
+BR = [("md/bens_lang220.jpg", "Ben's Original", "Mars · ЄС", "Пауч 220 / 240 / 250 г",
+       "Найширша лінійка: 11 смаків", ORANGE),
+      ("md/ottogi_kimchi.jpg", "Ottogi", "Корея", "Чаша 217–320 г",
+       "Рис із наповнювачем, 10 страв", PLUM),
+      ("md/bibigo_bowl2.jpg", "Bibigo", "CJ CheilJedang · Корея", "Лоток-чаша 210 г",
+       "Білий рис без добавок", GREEN),
+      ("md/clearspring.jpg", "Clearspring", "Велика Британія", "Пауч 250 г",
+       "Органіка: суміш рисів із tamari", TEAL),
+      (None, "Portion", "Пирятинський делікатес · Україна", "Лоток 350 г",
+       "Єдиний український виробник", ROSE)]
+for lx, lw, lb in [(M + 1.52, 2.90, "БРЕНД І ПОХОДЖЕННЯ"), (M + 4.60, 2.60, "ФОРМАТ"),
+                   (M + 7.30, 3.10, "ЩО САМЕ"), (M + 10.50, 1.70, "ГРН ЗА УПАКОВКУ")]:
+    text(s, lx, 2.34, lw, 0.24, lb, size=8.5, bold=True, color=GREY,
+         align=PP_ALIGN.RIGHT if "ГРН" in lb else PP_ALIGN.LEFT)
+for i, (img, brand, origin, fmt, what, c) in enumerate(BR):
+    y = 2.64 + i * 0.86
+    lo, hi, pk_lo, pk_hi, n = rng(brand)
     rect(s, M, y, 11.98, 0.80, MIST if i % 2 == 0 else WHITE, rounded=True, adj=0.16)
     rect(s, M, y, 0.09, 0.80, c, rounded=True, adj=0.5)
     rect(s, M + 0.22, y + 0.08, 1.02, 0.64, WHITE, rounded=True, adj=0.12)
@@ -301,21 +322,61 @@ for i, (img, brand, owner, n, fmt, chan, c) in enumerate(PL):
     else:
         text(s, M + 0.22, y + 0.28, 1.02, 0.24, "фото\nнемає", size=7, color=GREY,
              align=PP_ALIGN.CENTER, line=1.10)
-    text(s, M + 1.52, y + 0.14, 2.60, 0.28, brand, size=13.5, bold=True, color=NAVY)
-    text(s, M + 1.52, y + 0.44, 2.60, 0.24, owner, size=9, color=GREY)
-    text(s, M + 4.20, y + 0.26, 2.40, 0.28, fmt, size=11, color=INK)
-    text(s, M + 6.70, y + 0.26, 3.40, 0.28, chan, size=11, color=INK)
-    pill(s, M + 10.30, y + 0.27, n, c, w=1.00, size=9)
-rect(s, M, 6.98, 11.98, 0.02, MIST_D)
-text(s, M, 7.08, 11.98, 0.26,
-     "Сумарно 18 перевірених карток гарнірів (Ben's Original, Bibigo, Clearspring) "
-     "і 7 карток страв із наповнювачем (Ottogi, Portion).",
-     size=8.5, color=GREY, line=1.16)
+    text(s, M + 1.52, y + 0.13, 3.00, 0.28, brand, size=13.5, bold=True, color=NAVY)
+    text(s, M + 1.52, y + 0.44, 3.00, 0.24, origin, size=9, color=GREY)
+    text(s, M + 4.60, y + 0.26, 2.60, 0.28, fmt, size=11, color=INK)
+    text(s, M + 7.30, y + 0.26, 3.10, 0.28, what, size=11, color=INK)
+    rng_txt = (f"{pk_lo:g} – {pk_hi:g}" if pk_lo != pk_hi else f"{pk_lo:g}")
+    text(s, M + 10.40, y + 0.16, 1.80, 0.34, rng_txt.replace(".", ","), size=14,
+         bold=True, color=c, align=PP_ALIGN.RIGHT)
+    text(s, M + 10.40, y + 0.50, 1.80, 0.22, f"{n} карток", size=8.5, color=GREY,
+         align=PP_ALIGN.RIGHT)
+foot(s, "Джерела: Сільпо, MAUDAU, Edison Lee, Смак Кореї, Rozetka, Prom, Pulsar, "
+        "Апетітаріум, Gurmissimo, Тайякі Март — 22.09.2026.")
 
-# ══ 05 · ХТО · ГЛИБИНА ASSORTMENT ═════════════════════════════════════════
+# ══ 05 · ХТО · СУМІЖНІ ТЕХНОЛОГІЇ ═════════════════════════════════════════
 s = slide()
-header(s, "ХТО ПРЕДСТАВЛЕНИЙ · 3/3", "Ben's Original: 11 варіантів у каталозі «Сільпо»",
-       "Найглибша лінійка категорії. Усі одинадцять позначені як відсутні.")
+header(s, "ХТО ПРЕДСТАВЛЕНИЙ · 3/4", "Чотири бренди поруч із категорією",
+       "Їх видає той самий пошук, але це інша технологія та інша цінова ліга.")
+qtag(s, M, 1.94, "1", "ХТО ПРЕДСТАВЛЕНИЙ")
+NEAR = [(None, "Haidilao", "Китай", "САМОРОЗІГРІВ",
+         "Чаша 175–272 г із хімічним нагрівачем", "650 – 799 грн", "283–371", PLUM),
+        (None, "Mo Xiao Xian", "Китай", "ШВИДКЕ ПРИГОТУВАННЯ",
+         "Instant Rice 275 г, окріп", "ціну не вказано", "—", SLATE),
+        (None, "Travellunch", "Німеччина", "СУБЛІМАЦІЯ",
+         "Пакет 125 / 250 г, потребує окропу", "275 – 889 грн", "220–454", TEAL),
+        (None, "SubliMate", "Україна", "СУБЛІМАЦІЯ",
+         "Порційний пакет, туристичний канал", "ціна за запитом", "—", CORAL)]
+for i, (img, brand, origin, tech, what, price, per, c) in enumerate(NEAR):
+    x = M + (i % 2) * 6.12
+    y = 2.42 + (i // 2) * 2.16
+    rect(s, x, y, 5.86, 1.96, WHITE, line=MIST_D, lw=1.2, rounded=True, adj=0.07)
+    rect(s, x, y, 5.86, 0.09, c, rounded=True, adj=0.5)
+    rect(s, x + 0.22, y + 0.24, 1.50, 1.48, MIST, rounded=True, adj=0.08)
+    if img:
+        pic(s, img, x + 0.30, y + 0.30, 1.34, 1.36)
+    else:
+        text(s, x + 0.22, y + 0.86, 1.50, 0.24, "фото\nнемає", size=8, color=GREY,
+             align=PP_ALIGN.CENTER, line=1.12)
+    text(s, x + 1.92, y + 0.28, 2.60, 0.30, brand, size=15, bold=True, color=NAVY)
+    text(s, x + 1.92, y + 0.60, 2.60, 0.24, origin, size=9.5, color=GREY)
+    pill(s, x + 1.92, y + 0.90, tech, c, size=8)
+    text(s, x + 1.92, y + 1.28, 3.70, 0.44, what, size=10, color=GREY, line=1.22)
+    text(s, x + 4.00, y + 0.26, 1.66, 0.30, price, size=13, bold=True, color=c,
+         align=PP_ALIGN.RIGHT)
+    text(s, x + 4.00, y + 0.58, 1.66, 0.24,
+         (per + " грн/100 г") if per != "—" else "", size=8.5, color=GREY,
+         align=PP_ALIGN.RIGHT)
+rect(s, M, 6.70, 11.98, 0.02, MIST_D)
+text(s, M, 6.80, 11.98, 0.26,
+     "Канали: Daruy, Tactico, ALANTUR, ForCamp, Highlander, Військторг Гайдамака — "
+     "переважно туристичні та військові магазини, а не продуктова роздріб.",
+     size=9, color=GREY, line=1.16)
+
+# ══ 06 · ХТО · BEN'S ORIGINAL ═════════════════════════════════════════════
+s = slide()
+header(s, "ХТО ПРЕДСТАВЛЕНИЙ · 4/4", "Ben's Original: 11 смаків — найглибша лінійка",
+       "Для порівняння: у решти брендів гарнірів по одному-трьох варіантах.")
 WALL = [("md/bens_basmati250.jpg", "Basmati", "250 г", "89,99"),
         ("md/bens_mediterran.jpg", "Mediterran", "250 г", "89,99"),
         ("md/bens_longgrain.jpg", "Long Grain", "250 г", "45"),
@@ -331,7 +392,7 @@ cw, gap = 1.60, 0.14
 for i, (img, nm, g, p) in enumerate(WALL):
     col = i if i < 7 else i - 7
     x = M + col * (cw + gap)
-    y = 2.06 if i < 7 else 4.54
+    y = 2.04 if i < 7 else 4.52
     rect(s, x, y, cw, 2.30, WHITE, line=MIST_D, lw=1.0, rounded=True, adj=0.08)
     rect(s, x + 0.10, y + 0.10, cw - 0.20, 1.26, MIST, rounded=True, adj=0.08)
     pic(s, img, x + 0.16, y + 0.14, cw - 0.32, 1.18)
@@ -340,318 +401,255 @@ for i, (img, nm, g, p) in enumerate(WALL):
     text(s, x + 0.12, y + 1.82, cw - 0.24, 0.22, g, size=8, color=GREY)
     text(s, x + 0.12, y + 2.02, cw - 0.24, 0.22, p + " грн", size=10.5, bold=True,
          color=ORANGE)
-
-rect(s, 7.66, 4.54, 4.98, 2.30, NAVY, rounded=True, adj=0.07)
-rect(s, 7.66, 4.54, 0.09, 2.30, ORANGE, rounded=True, adj=0.5)
-text(s, 8.02, 4.78, 4.36, 0.30, "Розподіл цін лінійки", size=15, bold=True, color=AMBER)
-for i, (lb, vl, sub) in enumerate([("250 г", "45 – 89,99 грн", "5 варіантів"),
-                                   ("220 г", "89,99 – 179 грн", "6 варіантів")]):
-    yy = 5.22 + i * 0.66
+rect(s, 7.66, 4.52, 4.98, 2.30, NAVY, rounded=True, adj=0.07)
+rect(s, 7.66, 4.52, 0.09, 2.30, ORANGE, rounded=True, adj=0.5)
+text(s, 8.02, 4.76, 4.36, 0.30, "Дві вагові платформи", size=15, bold=True, color=AMBER)
+for i, (lb, vl, sub) in enumerate([("250 г", "45 – 89,99 грн", "5 смаків"),
+                                   ("220 г", "89,99 – 179 грн", "6 смаків")]):
+    yy = 5.20 + i * 0.62
     text(s, 8.02, yy, 0.90, 0.30, lb, size=13, bold=True, color=WHITE)
     text(s, 8.96, yy + 0.02, 2.10, 0.28, vl, size=12, bold=True, color=WHITE)
     text(s, 11.12, yy + 0.04, 1.30, 0.26, sub, size=9.5, color=RGBColor(0x9F, 0xA9, 0xC4))
-text(s, 8.02, 6.42, 4.36, 0.26, "Ціни — картки «Сільпо» на 22.09.2026",
-     size=9, color=RGBColor(0x9F, 0xA9, 0xC4))
-foot(s, "Джерело: S1 · каталог «Сільпо», 11 карток Ben's Original.")
+text(s, 8.02, 6.32, 4.36, 0.40,
+     "Плюс Bio Basmati 240 г і Long Grain 220 г у спеціалізованому онлайні.",
+     size=10, color=RGBColor(0x9F, 0xA9, 0xC4), line=1.22)
+foot(s, "Джерела: каталог «Сільпо» (11 карток), MAUDAU, Edison Lee — 22.09.2026.")
 
-# ══ 06 · УПАКОВКА · ГРАМАЖ ════════════════════════════════════════════════
+# ══ 07 · ХТО · OTTOGI ═════════════════════════════════════════════════════
 s = slide()
-header(s, "ЯКА УПАКОВКА · 1/2", "Пауч 220–250 г — основний формат",
-       "14 порівнянних варіантів гарнірів; страви з наповнювачем рахуються окремо.")
-qtag(s, M, 1.98, "2", "ЯКА УПАКОВКА")
-BARS = [("220 г", 6, ORANGE), ("250 г", 6, ORANGE), ("210 г", 1, GREEN), ("240 г", 1, TEAL)]
-text(s, M, 2.48, 4.60, 0.26, "РОЗПОДІЛ ЗА МАСОЮ, ВАРІАНТІВ", size=9.5, bold=True,
-     color=GREY)
-yy = 2.90
-for lb, n, c in BARS:
-    text(s, M, yy, 0.86, 0.34, lb, size=13, bold=True, color=NAVY, anchor=MSO_ANCHOR.MIDDLE)
-    rect(s, M + 0.96, yy + 0.05, 3.60, 0.24, MIST, rounded=True, adj=0.5)
-    rect(s, M + 0.96, yy + 0.05, 0.60 * n, 0.24, c, rounded=True, adj=0.5)
-    text(s, M + 4.70, yy, 0.50, 0.34, str(n), size=13, bold=True, color=c,
+header(s, "OTTOGI · ГЛИБИНА ЛІНІЙКИ", "Ottogi: 10 страв у чаші, ціна залежить від продавця",
+       "Другий за глибиною бренд категорії. Один товар трапляється у чотирьох продавців.")
+OT = [("md/ottogi_chicken.jpg", "Гострі курячі ребра", "310 г", "255 – 260"),
+      ("md/ottogi_hamburg.jpg", "Гамбурзький стейк", "315 г", "255"),
+      ("md/ottogi_octopus.jpg", "Гострий восьминіг", "280 г", "255 – 289"),
+      ("md/ottogi_jjampong.jpg", "Jin Jjampong", "217,5 г", "255"),
+      ("md/ottogi_tuna.jpg", "Тунець і майонез", "247 г", "225 – 320"),
+      ("md/ottogi_kimchi.jpg", "Кімчі й тунець", "310 г", "255")]
+for i, (img, nm, g, p) in enumerate(OT):
+    x = M + (i % 3) * 3.00
+    y = 2.04 + (i // 3) * 2.36
+    rect(s, x, y, 2.72, 2.20, WHITE, line=MIST_D, lw=1.0, rounded=True, adj=0.07)
+    rect(s, x + 0.12, y + 0.12, 2.48, 1.16, MIST, rounded=True, adj=0.08)
+    pic(s, img, x + 0.20, y + 0.16, 2.32, 1.08)
+    text(s, x + 0.18, y + 1.38, 2.36, 0.32, nm, size=9.5, bold=True, color=NAVY, line=1.10)
+    text(s, x + 0.18, y + 1.72, 2.36, 0.22, g, size=8.5, color=GREY)
+    text(s, x + 0.18, y + 1.92, 2.36, 0.24, p + " грн", size=11, bold=True, color=PLUM)
+
+rect(s, 9.68, 2.04, 2.96, 4.52, MIST, rounded=True, adj=0.06)
+rect(s, 9.68, 2.04, 2.96, 0.10, PLUM, rounded=True, adj=0.5)
+text(s, 9.96, 2.32, 2.44, 0.30, "Ще 4 смаки", size=14, bold=True, color=NAVY)
+text(s, 9.96, 2.66, 2.44, 0.30, "без фото на картках", size=9.5, color=GREY)
+yy = 3.10
+for nm, g, p in [("Пібімпаб", "269 г", "252 – 334"), ("Гостра свинина", "269 г", "334"),
+                 ("Свинина", "310 г", "252"), ("Бульгогі / яловичина", "320 г", "252 – 356")]:
+    text(s, 9.96, yy, 2.44, 0.24, nm, size=10.5, bold=True, color=INK)
+    text(s, 9.96, yy + 0.22, 1.10, 0.22, g, size=8.5, color=GREY)
+    text(s, 11.10, yy + 0.20, 1.30, 0.24, p + " грн", size=9.5, bold=True, color=PLUM,
+         align=PP_ALIGN.RIGHT)
+    yy += 0.62
+rect(s, 9.96, 5.66, 2.44, 0.02, MIST_D)
+text(s, 9.96, 5.80, 2.44, 0.62,
+     "Розкид цін на один товар — до 42 % між продавцями.",
+     size=10, bold=True, color=PLUM, line=1.24)
+foot(s, "Джерела: Pulsar, Апетітаріум, Gurmissimo, Тайякі Март, Rozetka — 22.09.2026.")
+
+# ══ 08 · УПАКОВКА · ГРАМАЖ ════════════════════════════════════════════════
+s = slide()
+header(s, "ЯКА УПАКОВКА · 1/2", "Два вагові кластери: 210–250 г і 247–350 г",
+       "Гарніри тримаються 220–250 г, страви з наповнювачем важчі за визначенням.")
+qtag(s, M, 1.94, "2", "ЯКА УПАКОВКА")
+BARS = [("220 г", 6, "Ben's Original", ORANGE), ("250 г", 6, "Ben's · Clearspring", ORANGE),
+        ("210 г", 1, "Bibigo", GREEN), ("240 г", 1, "Ben's Bio", ORANGE),
+        ("247–320 г", 10, "Ottogi", PLUM), ("350 г", 1, "Portion", ROSE)]
+text(s, M, 2.42, 5.60, 0.26, "ВАРІАНТІВ У КОЖНІЙ ВАЗІ", size=9.5, bold=True, color=GREY)
+yy = 2.78
+for lb, n, who, c in BARS:
+    text(s, M, yy, 1.20, 0.34, lb, size=12.5, bold=True, color=NAVY,
          anchor=MSO_ANCHOR.MIDDLE)
-    yy += 0.60
-rect(s, M, 5.42, 5.34, 1.26, NAVY, rounded=True, adj=0.08)
-text(s, M + 0.34, 5.60, 4.70, 0.32, "13 паучів / 1 лоток-чаша", size=15.5, bold=True,
-     color=AMBER)
-text(s, M + 0.34, 5.98, 4.70, 0.56,
+    rect(s, M + 1.30, yy + 0.07, 3.00, 0.22, MIST, rounded=True, adj=0.5)
+    rect(s, M + 1.30, yy + 0.07, max(0.18, 0.29 * n), 0.22, c, rounded=True, adj=0.5)
+    text(s, M + 4.42, yy, 0.40, 0.34, str(n), size=12.5, bold=True, color=c,
+         anchor=MSO_ANCHOR.MIDDLE)
+    text(s, M + 4.92, yy, 2.00, 0.34, who, size=9.5, color=GREY, anchor=MSO_ANCHOR.MIDDLE)
+    yy += 0.58
+rect(s, M, 6.26, 6.70, 0.62, MIST, rounded=True, adj=0.22)
+text(s, M + 0.28, 6.38, 6.20, 0.40,
      "Одного лідера за грамажем немає: 220 і 250 г представлені порівну.",
-     size=11, color=RGBColor(0xC6, 0xCE, 0xE2), line=1.28)
+     size=11, bold=True, color=NAVY)
 
-GAL = [("md/bens_basmati220.jpg", "220 г", "6 варіантів"),
-       ("md/bens_basmati250.jpg", "250 г", "6 варіантів"),
-       ("md/bibigo_bowl.jpg", "210 г", "1 варіант"),
-       ("md/bens_bio240.jpg", "240 г", "1 варіант")]
+GAL = [("md/bens_basmati220.jpg", "220 г", "пауч"), ("md/bens_basmati250.jpg", "250 г", "пауч"),
+       ("md/bibigo_bowl.jpg", "210 г", "лоток-чаша"), ("md/ottogi_octopus.jpg", "280 г", "чаша")]
 for i, (img, cap, n) in enumerate(GAL):
-    x = 6.50 + (i % 2) * 3.28
+    x = 7.66 + (i % 2) * 2.52
     y = 2.42 + (i // 2) * 2.26
-    rect(s, x, y, 3.06, 2.06, MIST, rounded=True, adj=0.07)
-    pic(s, img, x + 0.18, y + 0.12, 2.70, 1.44)
-    text(s, x, y + 1.58, 3.06, 0.26, cap, size=12, bold=True, color=NAVY,
+    rect(s, x, y, 2.30, 2.06, MIST, rounded=True, adj=0.07)
+    pic(s, img, x + 0.16, y + 0.12, 1.98, 1.42)
+    text(s, x, y + 1.58, 2.30, 0.26, cap, size=12, bold=True, color=NAVY,
          align=PP_ALIGN.CENTER)
-    text(s, x, y + 1.80, 3.06, 0.22, n, size=9, color=GREY, align=PP_ALIGN.CENTER)
-foot(s, "Джерела: S1, S2, S3, S5 · маса за картками товарів, 22.09.2026. "
-        "Long Grain 220 / 250 г виключено зі статистики маси через суперечність картки.")
+    text(s, x, y + 1.80, 2.30, 0.22, n, size=9, color=GREY, align=PP_ALIGN.CENTER)
+foot(s, "Джерело: маса за картками товарів, 22.09.2026. Суміжні технології "
+        "(саморозігрів, сублімація) у цей розподіл не входять.")
 
-# ══ 07 · УПАКОВКА · ТИПИ ══════════════════════════════════════════════════
+# ══ 09 · УПАКОВКА · ТИПИ ══════════════════════════════════════════════════
 s = slide()
 header(s, "ЯКА УПАКОВКА · 2/2", "Три типи паковання на вітрині",
-       "Тип упаковки визначає і спосіб споживання, і полицю, на яку товар потрапляє.")
-qtag(s, M, 1.98, "2", "ЯКА УПАКОВКА")
-TYPES = [("md/bens_basmati250.jpg", "ПАУЧ", "220 · 240 · 250 г", "14 із 18 карток",
-          ["Ben's Original", "Clearspring"], "Плаский реторт-пауч.",
-          "Гарнір, що висипається у тарілку.", ORANGE),
-         ("md/bibigo_bowl.jpg", "ЛОТОК-ЧАША", "210 г", "4 із 18 карток",
-          ["Bibigo"], "Жорстка чаша з плівкою. Один товар\nу трьох каналах.",
-          "Їдять просто з упаковки.", GREEN),
-         ("md/ottogi_octopus.jpg", "ЧАША ЗІ СТРАВОЮ", "217 – 315 г", "6 карток окремо",
-          ["Ottogi"], "Висока чаша, рис із наповнювачем.",
-          "Самостійний обід, не гарнір.", PLUM)]
-for i, (img, kind, mass, share, brands, pack, use, c) in enumerate(TYPES):
+       "Тип паковання визначає і спосіб споживання, і полицю, на яку товар потрапляє.")
+qtag(s, M, 1.94, "2", "ЯКА УПАКОВКА")
+TYPES = [("md/bens_basmati250.jpg", "ПАУЧ", "220 · 240 · 250 г",
+          "Ben's Original · Clearspring", "Плаский реторт-пауч.",
+          "Рис висипається у тарілку.", "15 карток", ORANGE),
+         ("md/bibigo_bowl.jpg", "ЛОТОК-ЧАША", "210 г",
+          "Bibigo", "Пласка чаша з плівкою.",
+          "Білий рис, їдять з упаковки.", "3 картки", GREEN),
+         ("md/ottogi_octopus.jpg", "ВИСОКА ЧАША", "217 – 350 г",
+          "Ottogi · Portion", "Глибока чаша з наповнювачем.",
+          "Самостійний обід, не гарнір.", "13 карток", PLUM)]
+for i, (img, kind, mass, brands, pack, use, share, c) in enumerate(TYPES):
     x = M + i * 4.10
-    rect(s, x, 2.44, 3.84, 4.24, WHITE, line=MIST_D, lw=1.2, rounded=True, adj=0.05)
-    rect(s, x, 2.44, 3.84, 0.10, c, rounded=True, adj=0.5)
-    rect(s, x + 0.20, 2.70, 3.44, 1.60, MIST, rounded=True, adj=0.05)
-    pic(s, img, x + 0.34, 2.78, 3.16, 1.44)
-    text(s, x + 0.32, 4.44, 3.20, 0.30, kind, size=14, bold=True, color=c)
-    text(s, x + 0.32, 4.78, 3.20, 0.28, mass, size=13, bold=True, color=NAVY)
-    rect(s, x + 0.32, 5.14, 3.20, 0.02, MIST_D)
-    text(s, x + 0.32, 5.26, 3.20, 0.26, " · ".join(brands), size=10.5, bold=True,
-         color=INK)
-    text(s, x + 0.32, 5.56, 3.20, 0.30, pack, size=10, color=GREY, line=1.22)
-    text(s, x + 0.32, 5.88, 3.20, 0.30, use, size=10, color=GREY, line=1.22)
-    pill(s, x + 0.32, 6.26, share, c, size=8)
-foot(s, "Джерела: S1, S2, S3, S5, S9, S11 · тип паковання за фото та описом карток, 22.09.2026.")
+    rect(s, x, 2.40, 3.84, 4.28, WHITE, line=MIST_D, lw=1.2, rounded=True, adj=0.05)
+    rect(s, x, 2.40, 3.84, 0.10, c, rounded=True, adj=0.5)
+    rect(s, x + 0.20, 2.66, 3.44, 1.58, MIST, rounded=True, adj=0.05)
+    pic(s, img, x + 0.34, 2.74, 3.16, 1.42)
+    text(s, x + 0.32, 4.38, 3.20, 0.30, kind, size=14, bold=True, color=c)
+    text(s, x + 0.32, 4.72, 3.20, 0.28, mass, size=13, bold=True, color=NAVY)
+    rect(s, x + 0.32, 5.08, 3.20, 0.02, MIST_D)
+    text(s, x + 0.32, 5.20, 3.20, 0.26, brands, size=10.5, bold=True, color=INK)
+    text(s, x + 0.32, 5.50, 3.20, 0.28, pack, size=10, color=GREY, line=1.22)
+    text(s, x + 0.32, 5.82, 3.20, 0.28, use, size=10, color=GREY, line=1.22)
+    pill(s, x + 0.32, 6.22, share, c, size=8)
+foot(s, "Джерело: тип паковання за фото та описом карток, 22.09.2026.")
 
-# ══ 08 · ЦІНА · ЗА УПАКОВКУ ═══════════════════════════════════════════════
+# ══ 10 · ЦІНА · ЗА УПАКОВКУ ═══════════════════════════════════════════════
 s = slide()
-header(s, "ЯКА ЦІНА · 1/2", "За упаковку: від 45 до 252 грн",
-       "Ціна картки без залишку є орієнтиром каталогу, а не доступною пропозицією.")
-qtag(s, M, 1.98, "3", "ЯКА ЦІНА")
-ROWS = [("md/bens_longgrain.jpg", "Ben's Long Grain", "Сільпо · 250 г", 45, 18.00, False),
-        ("md/bens_basmati250.jpg", "Ben's Basmati", "Сільпо · 250 г", 89.99, 36.00, False),
-        ("md/bens_basmati220.jpg", "Ben's Basmati", "MAUDAU · 220 г", 100, 45.45, False),
-        ("md/bibigo_bowl.jpg", "Bibigo білий рис", "Смак Кореї · 210 г", 135, 64.29, True),
-        ("md/bens_bio240.jpg", "Ben's Bio Basmati", "Edison Lee · 240 г", 139, 57.92, None),
-        ("md/bens_sweetchili.jpg", "Ben's Sweet Chili", "Сільпо · 220 г", 179, 81.36, False),
-        ("md/bibigo_bowl2.jpg", "Bibigo білий рис", "Prom · 210 г", 189, 90.00, False),
-        ("md/clearspring.jpg", "Clearspring Brown & Wild", "MAUDAU · 250 г", 252, 100.80, False)]
-MAXP, BX, BW = 260.0, 5.40, 4.30
-yy = 2.38
-for img, nm, chan, price, per, ok in ROWS:
-    rect(s, M, yy, 11.98, 0.54, MIST if ok else WHITE,
-         line=None if ok else MIST_D, lw=1.0, rounded=True, adj=0.26)
-    rect(s, M + 0.08, yy + 0.05, 0.56, 0.44, WHITE, rounded=True, adj=0.16)
-    pic(s, img, M + 0.11, yy + 0.07, 0.50, 0.40)
-    text(s, M + 0.80, yy + 0.04, 2.60, 0.24, nm, size=11, bold=True, color=NAVY)
-    text(s, M + 0.80, yy + 0.28, 2.60, 0.22, chan, size=8.5, color=GREY)
-    c = GREEN if ok else (GREY if ok is None else CORAL)
-    rect(s, BX, yy + 0.20, BW, 0.14, MIST_D, rounded=True, adj=0.5)
-    rect(s, BX, yy + 0.20, max(0.12, BW * price / MAXP), 0.14,
-         ORANGE if ok else (NAVY_L if ok is None else RGBColor(0xC3, 0xCB, 0xDC)),
-         rounded=True, adj=0.5)
-    ptxt = f"{price:g}".replace(".", ",") + " грн"
-    text(s, 10.00, yy + 0.08, 1.10, 0.36, ptxt, size=13, bold=True, color=NAVY,
+header(s, "ЯКА ЦІНА · 1/2", "За упаковку: від 45 до 356 грн",
+       "Крайні точки кожного бренду. Один товар у різних продавців має різну ціну.")
+qtag(s, M, 1.94, "3", "ЯКА ЦІНА")
+ROWS = [("md/bens_longgrain.jpg", "Ben's Long Grain", "250 г · Сільпо", 45, ORANGE),
+        ("md/bens_basmati250.jpg", "Ben's Basmati", "250 г · Сільпо", 90, ORANGE),
+        (None, "Portion рис із куркою", "350 г · Rozetka", 109, ROSE),
+        ("md/bibigo_bowl.jpg", "Bibigo білий рис", "210 г · Смак Кореї", 135, GREEN),
+        ("md/bens_sweetchili.jpg", "Ben's Sweet Chili", "220 г · Сільпо", 179, ORANGE),
+        ("md/bibigo_bowl2.jpg", "Bibigo білий рис", "210 г · Prom", 189, GREEN),
+        ("md/ottogi_tuna.jpg", "Ottogi тунець", "247 г · Тайякі Март", 225, PLUM),
+        ("md/clearspring.jpg", "Clearspring Brown & Wild", "250 г · MAUDAU", 252, TEAL),
+        ("md/ottogi_hamburg.jpg", "Ottogi яловичина", "320 г · Апетітаріум", 356, PLUM)]
+MAXP, BX, BW = 370.0, 5.20, 4.60
+yy = 2.36
+for img, nm, chan, price, c in ROWS:
+    rect(s, M, yy, 11.98, 0.48, MIST if yy == 2.36 else WHITE,
+         line=None if yy == 2.36 else MIST_D, lw=1.0, rounded=True, adj=0.28)
+    rect(s, M + 0.08, yy + 0.05, 0.50, 0.38, WHITE, rounded=True, adj=0.16)
+    if img:
+        pic(s, img, M + 0.11, yy + 0.07, 0.44, 0.34)
+    text(s, M + 0.72, yy + 0.02, 2.90, 0.24, nm, size=11, bold=True, color=NAVY)
+    text(s, M + 0.72, yy + 0.25, 2.90, 0.22, chan, size=8.5, color=GREY)
+    rect(s, BX, yy + 0.17, BW, 0.14, MIST_D, rounded=True, adj=0.5)
+    rect(s, BX, yy + 0.17, max(0.12, BW * price / MAXP), 0.14, c, rounded=True, adj=0.5)
+    text(s, 10.20, yy + 0.06, 1.24, 0.34, f"{price} грн", size=13, bold=True, color=NAVY,
          align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
-    text(s, 11.18, yy + 0.10, 1.04, 0.32, f"{per:.2f}".replace(".", ",") + " /100 г",
-         size=9.5, bold=True, color=ORANGE, align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
-    pill(s, 12.32, yy + 0.14, "Є" if ok else ("?" if ok is None else "НЕМАЄ"), c,
-         w=0.66, size=7.5)
-    yy += 0.565
-text(s, M, 6.96, 11.98, 0.26,
-     "Показано 8 із 18 карток — крайні точки та ключові канали; повний перелік — слайд 05. "
-     "Онлайн-ціни без доставки.", size=8.5, color=GREY, line=1.16)
+    per = price / dict(zip([r[1] for r in ROWS], [250, 250, 350, 210, 220, 210, 247, 250, 320]))[nm] * 100
+    yy += 0.505
+for t in (0, 100, 200, 300):
+    x = BX + BW * t / MAXP
+    rect(s, x, 6.92, 0.02, 0.12, MIST_D)
+    text(s, x - 0.34, 7.06, 0.68, 0.22, str(t), size=8.5, color=GREY, align=PP_ALIGN.CENTER)
+text(s, BX + BW + 0.10, 7.04, 1.40, 0.24, "грн за упаковку", size=8.5, bold=True, color=GREY)
 
-# ══ 09 · ЦІНА · ЗА 100 Г ══════════════════════════════════════════════════
+# ══ 11 · ЦІНА · ЗА 100 Г ══════════════════════════════════════════════════
 s = slide()
-header(s, "ЯКА ЦІНА · 2/2", f"За 100 грамів: від 18 до 101 грн",
-       f"Медіана {PER_MED:.1f} грн за 100 г. Розкид у 5,6 раза — це різні сегменти, "
-       f"а не різні ціни на один товар.".replace(".", ",", 1))
-qtag(s, M, 1.98, "3", "ЯКА ЦІНА")
+header(s, "ЯКА ЦІНА · 2/2", "За 100 грамів: кожен бренд у своєму коридорі",
+       "Смуга показує розкид цін бренду; цифри — крайні точки в грн за 100 г.")
+qtag(s, M, 1.94, "3", "ЯКА ЦІНА")
 
-BR_COLOR = {"Ben's Original": ORANGE, "Bibigo": GREEN,
-            "Clearspring": TEAL, "Ottogi": PLUM}
-pts = sorted(((p / g * 100, b, v, ch, g, p) for b, v, ch, g, p, _ in CARDS))
-AX_X, AX_W, AX_Y = M + 0.40, 11.10, 5.86
-LO, HI = 0.0, 110.0
+LO, HI = 0.0, 140.0
+AX_X, AX_W = 4.10, 7.10
+BRND = [("md/bens_longgrain.jpg", "Ben's Original", "пауч 220–250 г", ORANGE),
+        ("md/bibigo_bowl.jpg", "Bibigo", "чаша 210 г", GREEN),
+        ("md/clearspring.jpg", "Clearspring", "пауч 250 г", TEAL),
+        (None, "Portion", "лоток 350 г", ROSE),
+        ("md/ottogi_octopus.jpg", "Ottogi", "чаша 217–320 г", PLUM)]
 
 
-def ax(v):
+def axx(v):
     return AX_X + AX_W * (v - LO) / (HI - LO)
 
 
-rect(s, M, 3.02, 11.98, 3.30, MIST, rounded=True, adj=0.05)
-rect(s, AX_X, AX_Y, AX_W, 0.03, RGBColor(0xB0, 0xBA, 0xD2))
-for t in range(0, 111, 10):
-    rect(s, ax(t), AX_Y, 0.02, 0.13, RGBColor(0xB0, 0xBA, 0xD2))
-    text(s, ax(t) - 0.32, AX_Y + 0.20, 0.64, 0.24, str(t), size=9.5, color=GREY,
+rect(s, M, 2.34, 11.98, 3.52, MIST, rounded=True, adj=0.05)
+for t in range(0, 141, 20):
+    rect(s, axx(t), 2.52, 0.015, 3.06, RGBColor(0xDC, 0xE2, 0xEE))
+    text(s, axx(t) - 0.36, 5.60, 0.72, 0.24, str(t), size=9.5, color=GREY,
          align=PP_ALIGN.CENTER)
-text(s, AX_X, 3.20, 3.40, 0.24, "ГРН ЗА 100 ГРАМІВ", size=9, bold=True, color=GREY)
+text(s, M + 0.84, 5.56, 3.20, 0.24, "ГРН ЗА 100 ГРАМІВ", size=9, bold=True, color=GREY)
 
-# бджолиний рій: крапки піднімаються від осі, підпис праворуч від крапки
-lanes = [-9.0] * 10
-for per, b, v, ch, g, p in pts:
-    x = ax(per)
-    lane = 0
-    while lane < 9 and lanes[lane] > x - 0.62:
-        lane += 1
-    lanes[lane] = x
-    y = AX_Y - 0.36 - lane * 0.34
-    c = BR_COLOR.get(b, GREY)
-    rect(s, x - 0.009, y + 0.16, 0.018, AX_Y - y - 0.16, RGBColor(0xCF, 0xD7, 0xE8))
-    rect(s, x - 0.085, y, 0.17, 0.17, c, rounded=True, adj=0.5)
-    text(s, x + 0.14, y - 0.02, 0.66, 0.22, f"{per:.0f}", size=9, bold=True, color=c)
+yy = 2.96
+for img, brand, fmt, c in BRND:
+    lo, hi, *_ = rng(brand)
+    rect(s, M + 0.18, yy - 0.19, 0.52, 0.40, WHITE, rounded=True, adj=0.16)
+    if img:
+        pic(s, img, M + 0.21, yy - 0.17, 0.46, 0.36)
+    text(s, M + 0.84, yy - 0.20, 2.10, 0.26, brand, size=12, bold=True, color=NAVY)
+    text(s, M + 0.84, yy + 0.04, 2.10, 0.22, fmt, size=8.5, color=GREY)
+    x0, x1 = axx(lo), axx(hi)
+    if x1 - x0 < 0.16:                       # один рівень ціни
+        dot(s, x0, yy, 0.22, c)
+        text(s, x0 - 0.60, yy - 0.44, 1.20, 0.24, num(lo), size=11, bold=True,
+             color=c, align=PP_ALIGN.CENTER)
+    else:
+        rect(s, x0, yy - 0.075, x1 - x0, 0.15, c, rounded=True, adj=0.5)
+        dot(s, x0, yy, 0.22, c); dot(s, x1, yy, 0.22, c)
+        text(s, x0 - 0.62, yy - 0.44, 1.20, 0.24, num(lo), size=11, bold=True,
+             color=c, align=PP_ALIGN.CENTER)
+        text(s, x1 - 0.58, yy - 0.44, 1.20, 0.24, num(hi), size=11, bold=True,
+             color=c, align=PP_ALIGN.CENTER)
+    yy += 0.58
 
-# три цінові смуги — підказка, як читати рій
-BANDS = [("до 45 грн", "великі паучі та акційні залишки", 5, ORANGE),
-         ("45 – 70 грн", "основна маса лінійок Ben's і Bibigo", 9, TEAL),
-         ("понад 80 грн", "преміум і націнка маркетплейсів", 4, PLUM)]
-bx = M
-for lb, sub, n, c in BANDS:
-    rect(s, bx, 2.38, 3.90, 0.52, WHITE, line=MIST_D, lw=1.0, rounded=True, adj=0.22)
-    rect(s, bx, 2.38, 0.08, 0.52, c, rounded=True, adj=0.5)
-    text(s, bx + 0.24, 2.46, 1.30, 0.24, lb, size=11.5, bold=True, color=NAVY)
-    text(s, bx + 0.24, 2.68, 3.40, 0.20, sub, size=8.5, color=GREY)
-    text(s, bx + 3.00, 2.48, 0.72, 0.28, str(n), size=15, bold=True, color=c,
-         align=PP_ALIGN.RIGHT)
-    bx += 4.04
+rect(s, M, 6.06, 5.80, 0.80, NAVY, rounded=True, adj=0.16)
+text(s, M + 0.28, 6.18, 5.30, 0.56,
+     [[("Медіана категорії — ", {"color": RGBColor(0xC6, 0xCE, 0xE2)}),
+       (f"{num(CORE_MED)} грн за 100 г", {"bold": True, "color": AMBER}),
+       (f" · 31 картка п'яти брендів", {"color": RGBColor(0xC6, 0xCE, 0xE2)})]],
+     size=12)
+rect(s, 6.86, 6.06, 5.78, 0.80, MIST, rounded=True, adj=0.16)
+rect(s, 6.86, 6.06, 0.09, 0.80, PLUM, rounded=True, adj=0.5)
+text(s, 7.16, 6.16, 5.30, 0.60,
+     "Поза шкалою: саморозігрівальний Haidilao 283–371 і сублімований "
+     "Travellunch 220–454 грн за 100 г.", size=10.5, color=INK, line=1.24)
+foot(s, "Розрахунок за масою та ціною карток, 22.09.2026. Смуга — від мінімальної "
+        "до максимальної ціни бренду за 100 г.")
 
-# легенда
-lx = M + 0.40
-for b, c in BR_COLOR.items():
-    if b == "Ottogi":
-        continue
-    rect(s, lx, 6.52, 0.15, 0.15, c, rounded=True, adj=0.5)
-    text(s, lx + 0.24, 6.46, 1.80, 0.26, b, size=10.5, bold=True, color=INK)
-    lx += 2.10
-text(s, 7.60, 6.44, 4.72, 0.30,
-     f"n = {len(pts)} карток · мін {PER_MIN:.0f} · медіана {PER_MED:.1f} · макс {PER_MAX:.1f}"
-     .replace(".", ","), size=10.5, bold=True, color=NAVY, align=PP_ALIGN.RIGHT)
-foot(s, "Джерела: S1–S8 · розрахунок за масою та ціною карток, 22.09.2026. "
-        "Страви Ottogi (81–117 грн/100 г) не входять до вибірки гарнірів — див. слайд 12.")
-
-# ══ 10 · ДЕ · КАНАЛИ ══════════════════════════════════════════════════════
+# ══ 12 · ДЕ ПРЕДСТАВЛЕНО ══════════════════════════════════════════════════
 s = slide()
-header(s, "ДЕ ПРЕДСТАВЛЕНО · 1/2", "Шість каналів: мережа, маркетплейси, спеціалізований онлайн",
-       "Наявність на дату перевірки 22.09.2026; «Сільпо» перевірено без вибору адреси.")
-qtag(s, M, 1.98, "4", "ДЕ ПРЕДСТАВЛЕНО")
-CH = [("Сільпо", "Мережа супермаркетів", "11 SKU Ben's Original",
-       "УСІ БЕЗ ЗАЛИШКУ", CORAL),
-      ("MAUDAU", "Онлайн-супермаркет", "Ben's Basmati 220 г · Clearspring",
-       "БЕЗ ЗАЛИШКУ", CORAL),
-      ("Смак Кореї", "Спеціалізований онлайн", "Bibigo 210 г",
-       "У НАЯВНОСТІ · 8 УП.", GREEN),
-      ("Edison Lee", "Спеціалізований онлайн", "Ben's Bio 240 г · Long Grain 220 г",
-       "СКЛАД НЕ ПІДТВЕРДЖЕНО", GREY),
-      ("Rozetka · Prom", "Маркетплейси", "Bibigo · страви Ottogi · Portion",
-       "КАРТКИ НЕДОСТУПНІ", CORAL),
-      ("Pulsar", "Спеціалізований онлайн", "6 рисових страв Ottogi",
-       "УСІ БЕЗ ЗАЛИШКУ", CORAL)]
-for i, (nm, kind, what, st_, c) in enumerate(CH):
-    x = M + (i % 3) * 4.05
-    y = 2.44 + (i // 3) * 1.76
-    rect(s, x, y, 3.78, 1.54, WHITE, line=MIST_D, lw=1.2, rounded=True, adj=0.10)
-    rect(s, x, y, 3.78, 0.09, c, rounded=True, adj=0.5)
-    text(s, x + 0.28, y + 0.24, 3.20, 0.32, nm, size=15, bold=True, color=NAVY)
-    text(s, x + 0.28, y + 0.58, 3.20, 0.24, kind.upper(), size=8, bold=True, color=c)
-    text(s, x + 0.28, y + 0.84, 3.20, 0.34, what, size=10, color=GREY, line=1.18)
-    pill(s, x + 0.28, y + 1.18, st_, c, size=8)
-rect(s, M, 6.12, 11.98, 0.72, MIST, rounded=True, adj=0.18)
-rect(s, M, 6.12, 0.09, 0.72, ORANGE, rounded=True, adj=0.5)
-text(s, M + 0.34, 6.26, 11.30, 0.46,
-     [[("Не знайдено пошуком: ", {"bold": True, "color": NAVY}),
-       ("АТБ · Novus · Metro · Varus · Auchan · Fozzy · Таврія В. Це не доказ "
-        "відсутності в мережі — перевірка велася онлайн, без обходу полиці.",
-        {"color": GREY})]], size=11)
-foot(s, "Джерела: S1–S10 · зріз 22.09.2026.")
-
-# ══ 11 · ДЕ · НАЯВНІСТЬ ═══════════════════════════════════════════════════
-s = slide()
-header(s, "ДЕ ПРЕДСТАВЛЕНО · 2/2", "Асортимент є на вітрині, товару на складі — майже немає",
-       "Із 18 перевірених карток гарнірів залишок підтверджено лише в однієї.")
-qtag(s, M, 1.98, "4", "ДЕ ПРЕДСТАВЛЕНО")
-for i, (v, u, lb, sub, c) in enumerate([
-        ("1", "У НАЯВНОСТІ", "Bibigo 210 г · «Смак Кореї»", "8 упаковок на 22.09.2026", GREEN),
-        ("2", "НЕ ПІДТВЕРДЖЕНО", "Edison Lee", "склад продавця не підтверджено", GREY),
-        ("15", "БЕЗ ЗАЛИШКУ", "решта карток гарнірів", "ціна лишається в каталозі", CORAL),
-        ("6", "БЕЗ ЗАЛИШКУ", "страви Ottogi у Pulsar", "усі шість карток", PLUM)]):
-    kpi(s, M + i * 3.07, 2.44, 2.82, v, u, lb, sub, c)
-
-rect(s, M, 5.14, 11.98, 1.54, NAVY, rounded=True, adj=0.07)
-rect(s, M, 5.14, 0.10, 1.54, ORANGE, rounded=True, adj=0.5)
-text(s, M + 0.42, 5.36, 5.40, 0.32, "Як читати цю картину", size=15, bold=True, color=AMBER)
-text(s, M + 0.42, 5.76, 5.40, 0.76,
-     "Каталоги мереж і маркетплейсів категорію знають і тримають. "
-     "Товарного покриття за цими картками немає.",
-     size=11.5, color=WHITE, line=1.30)
-rect(s, 7.30, 5.40, 0.04, 1.02, NAVY_L)
-text(s, 7.64, 5.36, 4.70, 1.16,
-     "Причина відсутності залишку — постачання чи обіговість — із відкритих "
-     "даних не встановлюється. Це питання до самих мереж і дистриб'юторів.",
-     size=11, color=RGBColor(0xB9, 0xC2, 0xDA), line=1.30)
-foot(s, "Джерела: S1–S11 · статус наявності за картками на 22.09.2026.")
-
-# ══ 12 · ДОДАТОК · OTTOGI ═════════════════════════════════════════════════
-s = slide()
-header(s, "ДОДАТОК · СУМІЖНИЙ СЕГМЕНТ", "Страви Ottogi: єдина ціна 255 грн на шість позицій",
-       "Рис із наповнювачем — окремий сегмент; у статистику гарнірів не входить.")
-OT = [("md/ottogi_chicken.jpg", "Гостра курка", "310/315* г", 255, 82.3),
-      ("md/ottogi_hamburg.jpg", "Гамбурзький стейк", "315 г", 255, 81.0),
-      ("md/ottogi_octopus.jpg", "Гострий восьминіг", "280 г", 255, 91.1),
-      ("md/ottogi_jjampong.jpg", "Jin Jjampong", "217,5 г", 255, 117.2),
-      ("md/ottogi_tuna.jpg", "Тунець і майонез", "247 г", 255, 103.2),
-      ("md/ottogi_kimchi.jpg", "Кімчі й тунець", "310 г", 255, 82.3)]
-for i, (img, nm, g, p, per) in enumerate(OT):
-    x = M + (i % 3) * 4.10
-    y = 2.20 + (i // 3) * 2.32
-    rect(s, x, y, 3.84, 2.10, WHITE, line=MIST_D, lw=1.2, rounded=True, adj=0.07)
-    rect(s, x + 0.14, y + 0.12, 1.80, 1.86, MIST, rounded=True, adj=0.07)
-    pic(s, img, x + 0.20, y + 0.18, 1.68, 1.74)
-    text(s, x + 2.08, y + 0.30, 1.62, 0.40, nm, size=11.5, bold=True, color=NAVY,
-         line=1.12)
-    text(s, x + 2.08, y + 0.78, 1.62, 0.24, g, size=9.5, color=GREY)
-    text(s, x + 2.08, y + 1.04, 1.62, 0.32, "255 грн", size=15, bold=True, color=PLUM)
-    text(s, x + 2.08, y + 1.38, 1.62, 0.24,
-         f"{per:.1f}".replace(".", ",") + " /100 г", size=9.5, bold=True, color=ORANGE)
-    pill(s, x + 2.08, y + 1.66, "НЕМАЄ", CORAL, w=0.86, size=8)
-text(s, M, 6.82, 11.98, 0.30,
-     "* Яловичина / бульгогі та свинина 269 / 310 г на Rozetka: ідентичність SKU потребує "
-     "звірки EAN та етикетки. Повторні пропозиції продавців не рахуються окремими SKU.",
-     size=8.5, color=GREY, line=1.16)
-foot(s, "Джерела: O01–O06, S10, R01–R12 · картки Pulsar і продавців Rozetka, 22.09.2026.")
-
-# ══ 13 · МЕТОДОЛОГІЯ ══════════════════════════════════════════════════════
-s = slide()
-header(s, "МЕТОДОЛОГІЯ", "Основа дослідження та межі висновків",
-       "Відкриті українські онлайн-вітрини, зріз на 22 вересня 2026 року.")
-COLS = [("ЩО ПЕРЕВІРЕНО", ORANGE,
-         ["Сільпо · MAUDAU · Смак Кореї", "Edison Lee · Rozetka · Prom · Pulsar",
-          "18 карток гарнірів", "6 карток страв Ottogi",
-          "Маса, ціна, канал, наявність"]),
-        ("ЩО НЕ ПЕРЕВІРЕНО", CORAL,
-         ["АТБ · Novus · Metro · Varus", "Auchan · Fozzy · Таврія В",
-          "Офлайн-полиця в жодній мережі", "Фактичні продажі та обіговість",
-          "Причина відсутності залишку"]),
-        ("МЕЖІ ВИСНОВКІВ", TEAL,
-         ["Частота SKU ≠ частка продажів", "Ціна без залишку — орієнтир каталогу",
-          "Відсутність у пошуку ≠ відсутність у мережі",
-          "Long Grain виключено зі статистики маси",
-          "Доля ринку жодного бренду не встановлена"])]
-for i, (title, c, items) in enumerate(COLS):
-    x = M + i * 4.10
-    rect(s, x, 2.06, 3.84, 4.10, WHITE, line=MIST_D, lw=1.2, rounded=True, adj=0.06)
-    rect(s, x, 2.06, 3.84, 0.10, c, rounded=True, adj=0.5)
-    text(s, x + 0.30, 2.34, 3.24, 0.30, title, size=11, bold=True, color=c)
-    yy = 2.78
-    for it in items:
-        rect(s, x + 0.30, yy + 0.09, 0.09, 0.09, c, rounded=True, adj=0.5)
-        text(s, x + 0.54, yy, 3.00, 0.52, it, size=10.5, color=INK, line=1.24)
-        yy += 0.62
-rect(s, M, 6.30, 11.98, 0.54, MIST, rounded=True, adj=0.22)
-text(s, M + 0.34, 6.42, 11.30, 0.32,
-     "Точні посилання — у примітках відповідних слайдів. Полична ціна власного "
-     "продукту в це дослідження не входить і рахується окремо.",
-     size=10.5, color=GREY)
-foot(s, "Morskyi Dim · дослідження ринку · вересень 2026.")
+header(s, "ДЕ ПРЕДСТАВЛЕНО", "Шістнадцять каналів: від мережі до туристичних магазинів",
+       "Категорія майже повністю живе в онлайні — мережева роздріб представлена одним гравцем.")
+qtag(s, M, 1.94, "4", "ДЕ ПРЕДСТАВЛЕНО")
+GROUPS = [("МЕРЕЖЕВА РОЗДРІБ", ORANGE, ["Сільпо"],
+           "Ben's Original — 11 смаків у каталозі"),
+          ("ОНЛАЙН-СУПЕРМАРКЕТИ", GREEN, ["MAUDAU", "Rozetka", "Prom"],
+           "Ben's Original · Clearspring · Bibigo · Ottogi · Portion"),
+          ("СПЕЦІАЛІЗОВАНИЙ АЗІЙСЬКИЙ", PLUM,
+           ["Смак Кореї", "Тайякі Март", "Pulsar", "Апетітаріум", "Gurmissimo", "Edison Lee"],
+           "Bibigo · Ottogi · Ben's Original"),
+          ("ТУРИСТИЧНІ ТА ВІЙСЬКОВІ", TEAL,
+           ["Daruy", "Tactico", "ALANTUR", "ForCamp", "Highlander", "Військторг Гайдамака"],
+           "Haidilao · Travellunch · SubliMate")]
+yy = 2.40
+for title, c, chans, what in GROUPS:
+    rect(s, M, yy, 11.98, 1.02, MIST if yy in (2.40, 4.58) else WHITE, rounded=True, adj=0.14)
+    rect(s, M, yy, 0.09, 1.02, c, rounded=True, adj=0.5)
+    text(s, M + 0.30, yy + 0.16, 3.00, 0.26, title, size=10, bold=True, color=c)
+    text(s, M + 0.30, yy + 0.46, 3.30, 0.40, what, size=10, color=GREY, line=1.20)
+    cx = M + 3.90
+    for ch in chans:
+        w = pill(s, cx, yy + 0.36, ch, c, size=9)
+        cx += w + 0.16
+    text(s, M + 11.20, yy + 0.34, 0.62, 0.34, str(len(chans)), size=17, bold=True,
+         color=c, align=PP_ALIGN.RIGHT)
+    yy += 1.09
+rect(s, M, 6.82, 11.98, 0.02, MIST_D)
+text(s, M, 6.94, 11.98, 0.30,
+     "У пошуку не знайдено порівнянних позицій в АТБ, Novus, Metro, Varus, Auchan, "
+     "Fozzy та «Таврія В». Перевірка велася онлайн, без обходу полиці.",
+     size=9, color=GREY, line=1.16)
 
 prs.save("Gotovyi_Rys_Doslidzhennia_Rynku.pptx")
-print("saved Gotovyi_Rys_Doslidzhennia_Rynku.pptx ·", len(prs.slides._sldIdLst), "slides")
+print("saved ·", len(prs.slides._sldIdLst), "slides")
