@@ -1,0 +1,848 @@
+[
+ {
+  "name": "Рибний соус з тихоокеанської піщанки 250 г ТМ “O’FOOD”",
+  "price": 130.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sousi-specii-rus/rybnyj-sous-z-tyhookeanskoyi-pishhanky-250-g-tm-ofood/"
+ },
+ {
+  "name": "Сироп кукурудзяний 700 г ТМ “O’FOOD”",
+  "price": 170.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sousi-specii-rus/syrop-kukurudzyanyj-700-g-tm-ofood/"
+ },
+ {
+  "name": "Екстракт червоного женьшеню 10г*5шт  홍삼진고바이탈스틱",
+  "price": 500.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/ekstrakt-chervonogo-zhenshenyu-10g5sht-%ed%99%8d%ec%82%bc%ec%a7%84%ea%b3%a0%eb%b0%94%ec%9d%b4%ed%83%88%ec%8a%a4%ed%8b%b1/"
+ },
+ {
+  "name": "Токпоккі BBOM розе 147г",
+  "price": 170.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/tokpokki-bbom-roze-147g/"
+ },
+ {
+  "name": "Токпоккі BBOM солодкий 145г",
+  "price": 160.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/tokpokki-bbom-solodkyj-145g/"
+ },
+ {
+  "name": "Енергетичний  напій  Login your day 500мл",
+  "price": 85.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/energetychnyj-napij-login-your-day-500ml/"
+ },
+ {
+  "name": "Комбуча зі смаком полуниці 5г*10шт",
+  "price": 315.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/kombucha-zi-smakom-polunyczi-5g10sht/"
+ },
+ {
+  "name": "Комбуча сяйво мускату 5г*10шт",
+  "price": 315.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/kombucha-syajvo-muskatu-5g10shtbts-%ec%bd%a4%eb%b6%80%ec%b0%a8-%ec%83%a4%ec%9d%b8%eb%a8%b8%ec%8a%a4%ec%ba%a3/"
+ },
+ {
+  "name": "Рисові токпокі 600г BBOM",
+  "price": 290.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/rysovi-tokpoki-600g-bbom%eb%96%a1%eb%b3%b6%ec%9d%b4%eb%96%a1/"
+ },
+ {
+  "name": "Токпокі зі смаком сиру в стакані 120г Wonderpokki",
+  "price": 160.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/tokpoki-zi-smakom-syru-v-stakani-120g-wonderpokki/"
+ },
+ {
+  "name": "Токпокі дуже гострий в стакані 120г Wonderpokki",
+  "price": 160.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/tokpoki-duzhe-gostryj-v-stakani-120g-wonderpokki%ec%9b%90%eb%8d%94%eb%bd%80%eb%81%bc-%eb%b6%88%eb%8b%ad-%ec%bb%b5%eb%96%a1%eb%b3%b6%ec%9d%b4/"
+ },
+ {
+  "name": "Токпокі Розе в стакані 120г Wonderpokki",
+  "price": 160.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/tokpoki-roze-v-stakani-120g-wonderpokki%ec%9b%90%eb%8d%94%eb%bd%80%eb%81%bc-%eb%a1%9c%ec%a0%9c-%ec%bb%b5%eb%96%a1%eb%b3%b6%ec%9d%b4/"
+ },
+ {
+  "name": "Токпокі зі смаком чаджан в стакані 120г Wonderpokki",
+  "price": 160.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/tokpoki-zi-smakom-chadzhan-v-stakani-120g-wonderpokki%ec%9b%90%eb%8d%94%eb%bd%80%eb%81%bc-%ec%a7%9c%ec%9e%a5-%ec%bb%b5%eb%96%a1%eb%b3%b6%ec%9d%b4/"
+ },
+ {
+  "name": "Токпокі Wonderpokki солодко-гострий 120г",
+  "price": 160.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/tokpoki-wonderpokki-solodko-gostryj-120g%ec%9b%90%eb%8d%94%eb%bd%80%eb%81%bc%eb%a7%a4%ec%bd%a4%ec%bb%b5%eb%96%a1%eb%b3%b6%ec%9d%b4/"
+ },
+ {
+  "name": "Рамьон  зі смаком сиру чеддер 111г",
+  "price": 95.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/ramon-zi-smakom-syru-chedder-111g-cheesy-ramen_%ec%b2%b4%eb%8b%a4/"
+ },
+ {
+  "name": "Рамьон  зі смаком сиру гострий 111г",
+  "price": 95.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/ramon-zi-smakom-syru-gostryj-111g-cheesy-ramen_%ec%8a%a4%ed%8c%8c%ec%9d%b4%ec%8b%9c/"
+ },
+ {
+  "name": "Рамьон  зі смаком сиру чеддер та маскарпоне без бульйону 110г",
+  "price": 105.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/ramon-zi-smakom-syru-chedder-ta-maskarpone-bez-buljonu-110g-cheesy-ramen%eb%b3%b6%ec%9d%8c_%ec%b2%b4%eb%8b%a4%eb%a7%88%ec%8a%a4%ec%b9%b4%ed%8f%ac%eb%84%a4/"
+ },
+ {
+  "name": "Рамьон зі смаком сиру чеддер та чілі без бульйону 120г",
+  "price": 110.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/ramon-zi-smakom-syru-chedder-ta-chili-bez-buljonu-120g-cheesy-ramen%eb%b3%b6%ec%9d%8c_%ec%8a%a4%ed%8c%8c%ec%9d%b4%ec%8b%9c%ec%b9%a0%eb%a6%ac%ec%b2%b4%eb%8b%a4/"
+ },
+ {
+  "name": "ШИН РАМЬОН Том ям 123г",
+  "price": 105.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/shyn-ramon-tom-yam-123g-%ec%8b%a0%eb%9d%bc%eb%a9%b4%eb%98%a0%ec%96%91/"
+ },
+ {
+  "name": "ШИН РАМЬОН toomba з гострим сирно-вершковим смаком 137г",
+  "price": 105.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/shyn-ramon-toomba-z-gostrym-syrno-vershkovym-smakom-137g-%ec%8b%a0%eb%9d%bc%eb%a9%b4-%ed%88%bc%eb%b0%94/"
+ },
+ {
+  "name": "Червоний перец пластівці 500g",
+  "price": 350.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sousi-specii-rus/chervonyj-perecz-plastivczi-500g/"
+ },
+ {
+  "name": "Рисова локшина Калькуксу без глютену 300г",
+  "price": 340.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/rysova-lokshyna-kalkuksu-bez-glyutenu-300gnaturevil-flat-rice-noodle-300g/"
+ },
+ {
+  "name": "Рисова локшина Сомьон без глютену",
+  "price": 340.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/rysova-lokshyna-somon-bez-glyutenunaturevil-thin-rice-noodle-300g/"
+ },
+ {
+  "name": "Напій алоє 180 мл",
+  "price": 75.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/napij-aloye-180-ml%ec%82%b0%ec%95%bd%ec%b4%8c-%ec%95%8c%eb%a1%9c%ec%97%90%ec%9d%8c%eb%a3%8c/"
+ },
+ {
+  "name": "Сливовий напій 180 мл",
+  "price": 75.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/slyvovyj-napij-180-ml%ec%82%b0%ec%95%bd%ec%b4%8c-%eb%a7%a4%ec%8b%a4-%ec%9d%8c%eb%a3%8c/"
+ },
+ {
+  "name": "Грушевий напій 240 мл",
+  "price": 75.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/grushevyj-napij-240-ml%ec%83%9d%eb%b0%b0/"
+ },
+ {
+  "name": "Зелений чай Юджа Ade 170 мл",
+  "price": 75.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/zelenyj-chaj-yudzha-ade-170-ml%ec%9c%a0%ec%9e%90%ea%b7%b8%eb%a6%b0%ed%8b%b0%ec%97%90%ec%9d%b4%eb%93%9c-170ml/"
+ },
+ {
+  "name": "Холодний напій юджа 170мл",
+  "price": 75.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/holodnyj-napij-yudzha-170ml%ec%9c%a0%ec%9e%90%ec%97%90%ec%9d%b4%eb%93%9c-170ml/"
+ },
+ {
+  "name": "Суміш Ходзіча без цукру 70г(10г*7шт) 제로슈가 호지차 블렌드 7T",
+  "price": 190.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/sumish-hodzicha-bez-czukru-70g10g7sht%ec%a0%9c%eb%a1%9c%ec%8a%88%ea%b0%80-%ed%98%b8%ec%a7%80%ec%b0%a8-%eb%b8%94%eb%a0%8c%eb%93%9c-7t/"
+ },
+ {
+  "name": "Санхвача без цукру 300г(15г*20шт) 제로슈가 쌍화차 20T",
+  "price": 235.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/sanhvacha-bez-czukru-300g15g20sht%ec%a0%9c%eb%a1%9c%ec%8a%88%ea%b0%80-%ec%8c%8d%ed%99%94%ec%b0%a8-20t/"
+ },
+ {
+  "name": "Суміш Ерл грей без цукру 70г(10г*7шт) 제로슈가얼그레이블랜드 7T",
+  "price": 190.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/sumish-erl-grej-bez-czukru-70g10g7sht%ec%a0%9c%eb%a1%9c%ec%8a%88%ea%b0%80%ec%96%bc%ea%b7%b8%eb%a0%88%ec%9d%b4%eb%b8%94%eb%9e%9c%eb%93%9c-7t/"
+ },
+ {
+  "name": "Рамьон Бул даккалбі зі смаком сиру 135г   불닭갈비 볶음라면(치즈) Термін до 26.10.2026 р.",
+  "price": 70.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/ramon-bul-dakkalbi-zi-smakom-syru-135g-%eb%b6%88%eb%8b%ad%ea%b0%88%eb%b9%84-%eb%b3%b6%ec%9d%8c%eb%9d%bc%eb%a9%b4%ec%b9%98%ec%a6%88/"
+ },
+ {
+  "name": "Рамьон Бул даккалбі зі смаком карбонара 135г  불닭갈비맛 볶음라면(까르보나라) Термін до 26.10.2026 р",
+  "price": 70.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/ramon-bul-dakkalbi-zi-smakom-karbonara-135g%eb%b6%88%eb%8b%ad%ea%b0%88%eb%b9%84%eb%a7%9b-%eb%b3%b6%ec%9d%8c%eb%9d%bc%eb%a9%b4%ea%b9%8c%eb%a5%b4%eb%b3%b4%eb%82%98%eb%9d%bc/"
+ },
+ {
+  "name": "Рамьон Бул даккалбі оригінальний124   불닭갈비맛 볶음라면(오리지날) Термін до 26.10.2026 р.",
+  "price": 70.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/ramon-bul-dakkalbi-oryginalnyj124-%eb%b6%88%eb%8b%ad%ea%b0%88%eb%b9%84%eb%a7%9b-%eb%b3%b6%ec%9d%8c%eb%9d%bc%eb%a9%b4%ec%98%a4%eb%a6%ac%ec%a7%80%eb%82%a0/"
+ },
+ {
+  "name": "Цитроновий чай зі стевіею 450 г. (15г*30шт) Stevia Honey Citron Tea",
+  "price": 900.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/czytronovyj-chaj-zi-stevieyu-450-g-15g30shtstevia-honey-citron-tea/"
+ },
+ {
+  "name": "Чай Ссанхва без цукру зі стевіею 450 г. (15г*30шт) Stevia Zero Sugar Ssanghwa Tea",
+  "price": 900.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/chaj-ssanhva-bez-czukru-zi-stevieyu-450-g-15g30shtstevia-zero-sugar-ssanghwa-tea/"
+ },
+ {
+  "name": "Дріп кава  Colombia Supremo",
+  "price": 280.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/drip-kava-colombia-supremo/"
+ },
+ {
+  "name": "Дріп кава  Brazil Cerrado NY2",
+  "price": 280.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/drip-kava-brazil-cerrado-ny2/"
+ },
+ {
+  "name": "Напій кавовий Café Mcnulty Ice Americano Black",
+  "price": 55.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/napij-kavovyj-cafe-mcnulty-ice-americano-black/"
+ },
+ {
+  "name": "Напій кавовий Café Mcnulty Ice Americano зі смаком лісового горіха",
+  "price": 55.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/napij-kavovyj-cafe-mcnulty-ice-americano-zi-smakom-lisovogo-goriha/"
+ },
+ {
+  "name": "Напій кавовий Café Mcnulty Ice Americano солодкий",
+  "price": 55.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/napij-kavovyj-cafe-mcnulty-ice-americano-solodkyj/"
+ },
+ {
+  "name": "Напій Café Mcnulty Green grape Ade 190мл",
+  "price": 55.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/napij-cafe-mcnulty-green-grape-ade-190ml/"
+ },
+ {
+  "name": "Напій Café Mcnulty Blue lemon Ade 190мл",
+  "price": 55.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/napij-cafe-mcnulty-blue-lemon-ade-190ml/"
+ },
+ {
+  "name": "Шин рамьон стір-фрай зі смаком сиру   신라면볶음면치즈",
+  "price": 105.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/shyn-ramon-stir-fraj-zi-smakom-syru-%ec%8b%a0%eb%9d%bc%eb%a9%b4%eb%b3%b6%ec%9d%8c%eb%a9%b4%ec%b9%98%ec%a6%88/"
+ },
+ {
+  "name": "Шин рамьон зі смаком курки гострий   신라면spicy chicken",
+  "price": 95.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/shyn-ramon-zi-smakom-kurky-gostryj-%ec%8b%a0%eb%9d%bc%eb%a9%b4spicy-chicken/"
+ },
+ {
+  "name": "Суміш для корейських млинців паджон 500г  부침가루",
+  "price": 145.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sousi-specii-rus/sumish-dlya-korejskyh-mlyncziv-padzhon-500g-%eb%b6%80%ec%b9%a8%ea%b0%80%eb%a3%a8/"
+ },
+ {
+  "name": "Рамьон зі смаком сиру stir-fried гострий 130г 보들보들치즈 볶음면 Spicy",
+  "price": 95.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/ramon-zi-smakom-syru-stir-fried-gostryj-130g%eb%b3%b4%eb%93%a4%eb%b3%b4%eb%93%a4%ec%b9%98%ec%a6%88-%eb%b3%b6%ec%9d%8c%eb%a9%b4-spicy/"
+ },
+ {
+  "name": "Рамьон зі смаком сиру stir-fried середньогострий 120г 보들보들치즈 볶음면",
+  "price": 105.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/ramon-zi-smakom-syru-stir-fried-serednogostryj-120g%eb%b3%b4%eb%93%a4%eb%b3%b4%eb%93%a4%ec%b9%98%ec%a6%88-%eb%b3%b6%ec%9d%8c%eb%a9%b4/"
+ },
+ {
+  "name": "Желе кавун 56г JELLYCIOUS – Watermelon Термін до 21.10.2026 р.",
+  "price": 40.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sneki-rus/zhele-kavun-56gjellycious-watermelon/"
+ },
+ {
+  "name": "Токпокі зі смаком карбонара в стакані 120г Yopokki Carbonara Topokki Cup",
+  "price": 160.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/tokpoki-zi-smakom-karbonara-v-stakani-120gyopokki-carbonara-topokki-cup/"
+ },
+ {
+  "name": "Холодний чай сяйво мускату без цукру 13г*10шт Zero sugar iced tea shine muscat",
+  "price": 215.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/holodnyj-chaj-syajvo-muskatu-bez-czukru-13g10shtzero-sugar-iced-tea-shine-muscat/"
+ },
+ {
+  "name": "Холодний чай зі смаком персика без цукру 13г*10шт Zero sugar iced tea peach",
+  "price": 215.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/holodnyj-chaj-zi-smakom-persyka-bez-czukru-13g10shtzero-sugar-iced-tea-peach/"
+ },
+ {
+  "name": "Комбуча зі смаком лайму 5г*10шт BTS Kombucha lime",
+  "price": 315.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/kombucha-zi-smakom-lajmu-5g10shtbts-kombucha-lime/"
+ },
+ {
+  "name": "Комбуча зі смаком грейпфрута 5г*10шт BTS Kombucha grapefruit",
+  "price": 315.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/kombucha-zi-smakom-grejpfruta-5g10shtbts-kombucha-grapefrut/"
+ },
+ {
+  "name": "Комбуча зі смаком лимона 5г*10шт BTS KOMBUCHA LEMON",
+  "price": 315.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/kombucha-zi-smakom-lymona-5g10shtbts-kombucha-lemon/"
+ },
+ {
+  "name": "Безалкогольний напій  Піна Колада 500мл  Pina Colada",
+  "price": 85.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/bezalkogolnyj-napij-pina-kolada-500ml-pina-colada/"
+ },
+ {
+  "name": "Чапагурі 114г   짜파구리",
+  "price": 125.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/chapaguri-114g-%ec%a7%9c%ed%8c%8c%ea%b5%ac%eb%a6%ac/"
+ },
+ {
+  "name": "Шин рамьон покиммьон 131г   신라면볶음면",
+  "price": 95.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/shyn-ramon-pokymon-131g-%ec%8b%a0%eb%9d%bc%eb%a9%b4%eb%b3%b6%ec%9d%8c%eb%a9%b4/"
+ },
+ {
+  "name": "Пеперо білий шоколад  32г White cookie pepero (32g)",
+  "price": 80.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sneki-rus/pepero-bilyj-shokolad-32gwhite-cookie-pepero-32g/"
+ },
+ {
+  "name": "Рисова локшина зі смаком яловичини 93,5",
+  "price": 105.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/rysova-lokshyna-zi-smakom-yalovychyny-935/"
+ },
+ {
+  "name": "Рисова локшина зі смаком кімчі 92г   Rice Noodle (Kimchi Flavour) 92g",
+  "price": 105.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/rysova-lokshyna-zi-smakom-kimchi-92g-rice-noodle-kimchi-flavour-92g/"
+ },
+ {
+  "name": "Рисова локшина оригінальна 92г   Rice Noodle anchovy flavor 92g",
+  "price": 105.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/rysova-lokshyna-oryginalna-92g-rice-noodle-anchovy-flavor-92g/"
+ },
+ {
+  "name": "Корейський напій Соджу зі смаком персика 360мл Soju peach",
+  "price": 0.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/sodzhu/korejskyj-napij-sodzhu-zi-smakom-persykasoju-peach/"
+ },
+ {
+  "name": "Кімчі класичнийй 150г   CJ Bibigo Kimchi 150g",
+  "price": 165.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/konservirovanie-marinovanie-produkti-rus/kimchi-klasychnyjj-150g-cj-bibigo-kimchi-150g/"
+ },
+ {
+  "name": "Токпокі зі смаком сиру в стакані 125г   CJ Bibigo Tteokpokki_Cup Cheese Термін до 11.10.2026 р.",
+  "price": 80.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/tokpoki-zi-smakom-syru-v-stakani-125g-cj-bibigo-tteokpokki_cup-cheese/"
+ },
+ {
+  "name": "Токпокі гострі в стакані 125г  CJ Bibigo Tteokpokki_Cup Spicy Термін до 13.10.2026 р.",
+  "price": 80.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/tokpoki-gostri-v-stakani-125g-cj-bibigo-tteokpokki_cup-spicy/"
+ },
+ {
+  "name": "Токпокі оригінальні в стакані 125г  CJ Bibigo Tteokpokki_Cup_Original Термін до 11.10.2026 р.",
+  "price": 80.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/tokpoki-oryginalni-v-stakani-125g-cj-bibigo-tteokpokki_cup_original/"
+ },
+ {
+  "name": "Токпоккі гостро-солодкий 140гр Yopokki sweet",
+  "price": 160.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/tokpokki-gostro-solodkyj-140gryopokki-sweet-1%ec%9d%b8%eb%b6%84%ec%98%81%ed%92%8d-%ec%9a%94%eb%bd%80%eb%81%bc%eb%a7%a4%ec%bd%a4%eb%8b%ac%ec%bd%a4-%eb%96%a1%eb%b3%b6%ec%9d%b4/"
+ },
+ {
+  "name": "Токпоккі гостро-солодкий 140г в стакані 영풍 요뽀끼 컵",
+  "price": 160.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/tokpokki-gostro-solodkyj-140g-v-stakani%ec%98%81%ed%92%8d-%ec%9a%94%eb%bd%80%eb%81%bc-%ec%bb%b5%eb%a7%a4%ec%bd%a4%eb%8b%ac%ec%bd%a4-%eb%96%a1%eb%b3%b6%ec%9d%b4/"
+ },
+ {
+  "name": "Напій алое зі смаком гранату 500мл Aloe drink Pomegranate",
+  "price": 85.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/napij-aloe-zi-smakom-granatu-500mlaloe-drink-pomegranate/"
+ },
+ {
+  "name": "Напій алое зі смаком манго 500мл Aloe drink Mango",
+  "price": 85.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/napij-aloe-zi-smakom-mango-500mlaloe-drink-mango/"
+ },
+ {
+  "name": "Напій алое вера  500мл Aloe drink Original",
+  "price": 85.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/aloe-500mlaloe-drink-original/"
+ },
+ {
+  "name": "Мійок 50г   자른미역 50g",
+  "price": 235.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/vodorosli-sushenie-produkti-rus/mijok-50g%ec%9e%90%eb%a5%b8%eb%af%b8%ec%97%ad-50g/"
+ },
+ {
+  "name": "Соус для токпокі 150г 다담 떡볶이 양념 Термін до 19.10.2026 р.",
+  "price": 90.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sousi-specii-rus/sous-dlya-tokpoki-150g%eb%8b%a4%eb%8b%b4-%eb%96%a1%eb%b3%b6%ec%9d%b4-%ec%96%91%eb%85%90/"
+ },
+ {
+  "name": "Екстракт червоного женьшеню 10г*30шт  홍삼진고바이탈스틱",
+  "price": 2500.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/ekstrakt-chervonogo-zhenshenya-10ml30sht-%ed%99%8d%ec%82%bc%ec%9c%bc%eb%a1%9c-%ec%97%90%eb%84%88%ec%a7%80%ed%83%80%ec%9e%84/"
+ },
+ {
+  "name": "Сун рамьон овочевий 112г",
+  "price": 85.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/sun-ramon-ovochevij-112g/"
+ },
+ {
+  "name": "Газований напій манго 350мл 음료 – 망고소다",
+  "price": 75.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/gazovanij-napij-mango-350ml%ec%9d%8c%eb%a3%8c-%eb%a7%9d%ea%b3%a0%ec%86%8c%eb%8b%a4/"
+ },
+ {
+  "name": "Газований напій диня 350мл 음료 – 멜론소다",
+  "price": 75.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/gazovanij-napij-dinya-350ml%ec%9d%8c%eb%a3%8c-%eb%a9%9c%eb%a1%a0%ec%86%8c%eb%8b%a4/"
+ },
+ {
+  "name": "Газований напій кавун 350мл 음료 – 수박소다",
+  "price": 75.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/gazovanij-napij-kavun-350ml%ec%9d%8c%eb%a3%8c-%ec%88%98%eb%b0%95%ec%86%8c%eb%8b%a4/"
+ },
+ {
+  "name": "Соєва паста Самджан 170г  해찬들 쌈장 170g Термін до 19.10.2026 р.",
+  "price": 90.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sousi-specii-rus/soyeva-pasta-samdzhan-170g%ed%95%b4%ec%b0%ac%eb%93%a4-%ec%8c%88%ec%9e%a5-170g/"
+ },
+ {
+  "name": "Газований напій каламансі 350мл 음료 – 칼라만시소다",
+  "price": 75.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/gazovanij-napij-kalamansi-350ml%ec%9d%8c%eb%a3%8c-%ec%b9%bc%eb%9d%bc%eb%a7%8c%ec%8b%9c%ec%86%8c%eb%8b%a4/"
+ },
+ {
+  "name": "Газований напій слива 350мл 음료 – 자두소다",
+  "price": 75.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/gazovanij-napij-sliva-350ml%ec%9d%8c%eb%a3%8c-%ec%9e%90%eb%91%90%ec%86%8c%eb%8b%a4/"
+ },
+ {
+  "name": "Водорості кім BBQ  4г 김스낵 BBQ",
+  "price": 45.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/vodorosli-sushenie-produkti-rus/vodorosti-kim-bbq-4g%ea%b9%80%ec%8a%a4%eb%82%b5-bbq/"
+ },
+ {
+  "name": "Водорості кім оригінальні 4г 김스낵 Original",
+  "price": 45.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/vodorosli-sushenie-produkti-rus/vodorosti-kim-originalni-4g%ea%b9%80%ec%8a%a4%eb%82%b5-original/"
+ },
+ {
+  "name": "Цукерки кавові льодяники 80г 커피캔디",
+  "price": 120.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sneki-rus/czukerki-kavovi-lodyaniki-80g%ec%bb%a4%ed%94%bc%ec%ba%94%eb%94%94/"
+ },
+ {
+  "name": "Цукерки льодяники мікс 80г  종합캔디",
+  "price": 120.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sneki-rus/czukerki-lodyaniki-miks-80g-%ec%a2%85%ed%95%a9%ec%ba%94%eb%94%94/"
+ },
+ {
+  "name": "Цукерки цитронові льодяники 80г 유자캔디",
+  "price": 120.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sneki-rus/czukerki-czitronovi-lodyaniki-80g%ec%9c%a0%ec%9e%90%ec%ba%94%eb%94%94/"
+ },
+ {
+  "name": "Цукерки зі смаком зеленого чаю 80г 녹차캔디",
+  "price": 120.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sneki-rus/czukerki-zi-smakom-zelenogo-chayu-80g%eb%85%b9%ec%b0%a8%ec%ba%94%eb%94%94/"
+ },
+ {
+  "name": "Цукерки женьшеневі льодяники 80г 인삼캔디",
+  "price": 120.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sneki-rus/czukerki-zhenshenevi-lodyaniki-100g%ec%9d%b8%ec%82%bc%ec%ba%94%eb%94%94/"
+ },
+ {
+  "name": "Корейський напій Соджу зі смаком сливи 360мл  Soju plum",
+  "price": 0.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/sodzhu/sodzhu-zi-smakom-slivi-soju-plum/"
+ },
+ {
+  "name": "Корейський напій Соджу зі смаком грейпфрута 360мл Soju grapefruit",
+  "price": 0.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/sodzhu/sodzhu-zi-smakom-grejpfrutasoju-grapefruit/"
+ },
+ {
+  "name": "Корейський напій Соджу зі смаком полуниці 360мл Soju strawberry",
+  "price": 0.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/sodzhu/sodzhu-zi-smakom-poluniczisoju-strawberry/"
+ },
+ {
+  "name": "Соджу Джинро зелений виноград 360мл   진로 청포도에 이슬 소주",
+  "price": 0.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/sodzhu/sodzhu-dzhinro-zelenij-vinograd-360ml/"
+ },
+ {
+  "name": "Чокопай 6шт   초코파이 Lotte",
+  "price": 145.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sneki-rus/chokopaj-6sht/"
+ },
+ {
+  "name": "Чокопай какао 6шт   롯데 초코파이 카카오",
+  "price": 145.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sneki-rus/chokopaj-kakao-6sht/"
+ },
+ {
+  "name": "Чай з солодкого гарбуза та дикого ямсу 510г  녹차원 단호박마차",
+  "price": 780.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/chaj-z-solodkogo-garbuza-ta-dikogo-yamsu/"
+ },
+ {
+  "name": "Йоль рамьон 120г    오뚜기 열라면",
+  "price": 85.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/jol-ramon-120g/"
+ },
+ {
+  "name": "Кімчі рамьон 120г   오뚜기 김치라면",
+  "price": 85.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/kimchi-ramon-120g/"
+ },
+ {
+  "name": "Джин рамьон Чампон 130г  진라면 짬뽕",
+  "price": 135.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/jin-ramen-champon-130g/"
+ },
+ {
+  "name": "Кімчі смажена 160г    Kimchi",
+  "price": 165.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/konservirovanie-marinovanie-produkti-rus/kimchi-zharenyj-160g-kimchi/"
+ },
+ {
+  "name": "Кімчі класична 160 г  Kimchi 160g",
+  "price": 165.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/konservirovanie-marinovanie-produkti-rus/kimchi-narezanyj-160-g-kimchi-160g/"
+ },
+ {
+  "name": "Снек йопокки зі смаком васабі 50г  떡볶이스낵 와사비",
+  "price": 120.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sneki-rus/snek-jopokki-zi-smakom-vasabi-50g/"
+ },
+ {
+  "name": "Anytime молоко-м’ята без цукру 60 г",
+  "price": 120.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sneki-rus/ledenczy-anytime-milk-mint-lotte-60g/"
+ },
+ {
+  "name": "Дашима 100г  다시마",
+  "price": 355.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/vodorosli-sushenie-produkti-rus/dashima-300g/"
+ },
+ {
+  "name": "Кунжутна олія 160мл  오뚜기참기름",
+  "price": 340.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sousi-specii-rus/kunzhutnoe-maslo-ottogi-320ml/"
+ },
+ {
+  "name": "Набір для самгетан 70г  삼계탕 국물재료",
+  "price": 180.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sousi-specii-rus/nabor-dlya-samgetan-aram-utong-72g/"
+ },
+ {
+  "name": "Сіль для кімчі 1кг  천일염 굵은입자",
+  "price": 440.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sousi-specii-rus/sol-dlya-kimchi-chung-jung-one-2500g/"
+ },
+ {
+  "name": "Порошок Карі (mild) 100г  카레가루 (순한맛)",
+  "price": 120.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sousi-specii-rus/poroshok-karri-mild-ottogi-100g/"
+ },
+ {
+  "name": "Пудра для приготування соуса Чаджан 100г  짜장가루",
+  "price": 160.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sousi-specii-rus/pudra-dlya-prigotovleniya-sousa-chachzhan-ottogi-100g/"
+ },
+ {
+  "name": "Чокопай Оригінальний 12шт   Choco Pie 초코파이",
+  "price": 295.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sneki-rus/chokopaj-12sht-choco-pie-lotte-336g/"
+ },
+ {
+  "name": "Корейський напій Соджу Chamisul fresh 360ml",
+  "price": 0.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/napitki-iz-korei-rus/sodzhu/sodzhu-chamisul-fresh-jinro-350ml/"
+ },
+ {
+  "name": "Рамьон ANSUNG TANGMYUN 125г 안성탕면",
+  "price": 80.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/ramen-ansung-tangmyun-nongshim-125g/"
+ },
+ {
+  "name": "Чампонг рамьон 124г 오징어짬뽕",
+  "price": 95.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/champong-ramen-nongshim-124gr/"
+ },
+ {
+  "name": "Рамьон з кунжутом 115г   참깨라면",
+  "price": 105.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/ramen-s-kunzhutom-ottogi-115g/"
+ },
+ {
+  "name": "Джин рамьон чаджан 135г 진짜장",
+  "price": 135.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/chin-chadzhan-ottogi-135g/"
+ },
+ {
+  "name": "Крохмальна локшина Танмьон 300г 당면 300g",
+  "price": 275.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/steklyannaya-lapsha-tanmyon-1kg/"
+ },
+ {
+  "name": "Фен-гребінець для домашніх тварин Petaum Grooming Dryer",
+  "price": 850.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/tovari-dlya-doma-rus/fen-rascheska-dlya-domashnih-pitomcev/"
+ },
+ {
+  "name": "Палички Пеперо з мигдалем 32г   빼빼로",
+  "price": 80.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sneki-rus/palochki-pepero-s-oreshkami-36gr/"
+ },
+ {
+  "name": "Хрусткі палички зі смаком креветок 75 гр 새우깡",
+  "price": 130.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sneki-rus/hrustyashie-palochki-so-vkusom-krevetok-nongshim-75gr/"
+ },
+ {
+  "name": "Токпоккі с сиром кап 120гр Yopokki Cheese Cup 요뽀끼치즈 컵",
+  "price": 160.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/tokpokki-s-sirom-v-stakanchike-120gr/"
+ },
+ {
+  "name": "Варений рис 210г 햇반",
+  "price": 135.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/bibigo-rus/vareniy-ris-210gr/"
+ },
+ {
+  "name": "Токпоккі вогняно-гострі 120г в стакані  영풍 요뽀끼 컵",
+  "price": 160.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/tokpokki-ostro-sladkie-v-stakanchike-140gr/"
+ },
+ {
+  "name": "Токпоккі з соусом чаджан 120г 영풍 요뽀끼 팩",
+  "price": 160.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/tokpokki-s-sousom-chandjan-120gr/"
+ },
+ {
+  "name": "Токпоккі з соусом чаджан 120г в стакані 영풍 요뽀끼 컵 (짜장떡볶이)",
+  "price": 160.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/tokpokki-s-sousom-chandjan-v-stakanchike-120gr/"
+ },
+ {
+  "name": "Кочуджан 1кг  태양초고추장",
+  "price": 540.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sousi-specii-rus/kochudjan-1000gr/"
+ },
+ {
+  "name": "Соєва паста 0.5кг  재래식된장",
+  "price": 240.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sousi-specii-rus/soevaya-pasta-500gr/"
+ },
+ {
+  "name": "Кочуджан 500г 태양초고추장",
+  "price": 350.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sousi-specii-rus/kochudzhan-haechandle-500g/"
+ },
+ {
+  "name": "Соевая паста 1кг  재래식된장",
+  "price": 420.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/sousi-specii-rus/soevaya-pasta-doenjang-1kg/"
+ },
+ {
+  "name": "Шин Рамьон 120г   농심 신라면",
+  "price": 85.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/shin-ramen-nongshim-120gr/"
+ },
+ {
+  "name": "Шин Кімчі Рамьон 120гр     농심 김치라면",
+  "price": 85.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/kimchi-ramen-nongshim-120gr/"
+ },
+ {
+  "name": "Рамьон з морепродуктами Neoguri середньогострий 120г  너구리 순한맛",
+  "price": 90.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/ramen-s-moreproductami-neoguri-120gr-2/"
+ },
+ {
+  "name": "Рамьон з морепродуктами Neoguri  너구리 매운맛",
+  "price": 90.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/ramen-s-moreproductami-neoguri-120gr/"
+ },
+ {
+  "name": "Чапагетті 140г   짜파게티 농심",
+  "price": 95.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/chapagetti-chayangmyun-nongshim-140gr/"
+ },
+ {
+  "name": "Шин Рамьон кап (в стаканчику) 68г 신컵 68г",
+  "price": 95.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/shin-ramen-v-stakanchike-68gr/"
+ },
+ {
+  "name": "Сєутан кап рамьон 67г   새우탕 컵 라면",
+  "price": 95.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/seutang-kap-nongshim-67gr/"
+ },
+ {
+  "name": "Рамьон Удон 62г  튀김우동 작은컵",
+  "price": 95.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/tigim-udon-v-stakanchike-86gr/"
+ },
+ {
+  "name": "Джин рамьон (середньогострий) 120г  진라면순한맛",
+  "price": 85.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/jin-ramen-sredneostriy-ottogi-120gr/"
+ },
+ {
+  "name": "Джин Рамьон (гострий) 120г  진라면 매운맛",
+  "price": 85.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/jin-ramen-ostriy-ottogi-120gr/"
+ },
+ {
+  "name": "Рамьон з сиром 111г   오뚜기 치즈 라면",
+  "price": 95.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/ramen-s-sirom-ottogi-111gr/"
+ },
+ {
+  "name": "Крохмальна локшина Танмьон  300гр 백설 햇당면",
+  "price": 230.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ramen-lapsha-rus/krahmalnaya-lapsha-tanmen-300gr/"
+ },
+ {
+  "name": "Токпоккі вогняно-гострі 120гр  Yopokki sweet",
+  "price": 160.0,
+  "stock": true,
+  "url": "https://www.smak-korea.com.ua/product/ris-polufabrikati-iz-risa-rus/topokki-ostro-sladkie-120gr/"
+ }
+]

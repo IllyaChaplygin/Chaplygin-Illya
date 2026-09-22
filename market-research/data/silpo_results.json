@@ -1,0 +1,1526 @@
+{
+ "рис": {
+  "total": 112,
+  "items": [
+   {
+    "title": "Голубці з м'ясом та рисом",
+    "price": 415.65,
+    "oldPrice": 489,
+    "brand": "Без ТМ",
+    "ratio": "кг",
+    "displayPrice": 41.57,
+    "displayRatio": "100г",
+    "section": "garniry-4769",
+    "slug": "golubtsi-z-m-iasom-ta-rysom-836934"
+   },
+   {
+    "title": "Тефтелі з рисом «Південні»",
+    "price": 399,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "кг",
+    "displayPrice": 39.9,
+    "displayRatio": "100г",
+    "section": "m-iasni-stravy-4767",
+    "slug": "tefteli-z-rysom-pivdenni-637159"
+   },
+   {
+    "title": "Боул Рис зі смаженим курячим філе та овочами",
+    "price": 139,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "шт",
+    "displayPrice": 139,
+    "displayRatio": "330г",
+    "section": "snidanky-ta-kompleksni-obidy-4783",
+    "slug": "boul-rys-zi-smazhenym-kuriachym-file-ta-ovochamy-871215"
+   },
+   {
+    "title": "Рис з овочами",
+    "price": 199,
+    "oldPrice": 289,
+    "brand": "Без ТМ",
+    "ratio": "кг",
+    "displayPrice": 19.9,
+    "displayRatio": "100г",
+    "section": "garniry-4769",
+    "slug": "rys-z-ovochamy-1016212"
+   },
+   {
+    "title": "Рис з овочами та курячим битком",
+    "price": 149,
+    "oldPrice": null,
+    "brand": null,
+    "ratio": "шт",
+    "displayPrice": 149,
+    "displayRatio": "300г",
+    "section": "snidanky-ta-kompleksni-obidy-4783",
+    "slug": "rys-z-ovochamy-ta-kuriachym-bytkom-372938"
+   },
+   {
+    "title": "Локшина Yumart Harusame прозора",
+    "price": 159,
+    "oldPrice": null,
+    "brand": "Yumart",
+    "ratio": "шт",
+    "displayPrice": 159,
+    "displayRatio": "500г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-yumart-harusame-prozora-533167"
+   },
+   {
+    "title": "Ірис «Жайвір» вершковий",
+    "price": 52.99,
+    "oldPrice": null,
+    "brand": "Жайвір",
+    "ratio": "шт",
+    "displayPrice": 52.99,
+    "displayRatio": "150г",
+    "section": "sherbet-518",
+    "slug": "irys-zhaivir-vershkovyi-423102"
+   },
+   {
+    "title": "Ірис «Житомирські ласощі» «Казковий» напівтвердий тиражений",
+    "price": 55.99,
+    "oldPrice": null,
+    "brand": "Zhytomyr Lasoshchi",
+    "ratio": "шт",
+    "displayPrice": 55.99,
+    "displayRatio": "180г",
+    "section": "pomadni-tsukerky-i-irysky-5058",
+    "slug": "irys-zhytomyrski-lasoshchi-kazkovyi-napivtverdyi-tyrazhenyi-709469"
+   },
+   {
+    "title": "Ірис «Стимул» вершковий",
+    "price": 189,
+    "oldPrice": null,
+    "brand": "Stimul",
+    "ratio": "кг",
+    "displayPrice": 18.9,
+    "displayRatio": "100г",
+    "section": "sherbet-518",
+    "slug": "irys-stymul-vershkovyi-175593"
+   },
+   {
+    "title": "Локшина Yumart Xinzhu",
+    "price": 129,
+    "oldPrice": 169,
+    "brand": "Yumart",
+    "ratio": "шт",
+    "displayPrice": 129,
+    "displayRatio": "500г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-yumart-xinzhu-533165"
+   },
+   {
+    "title": "Локшина пшенична Udon",
+    "price": 59.99,
+    "oldPrice": null,
+    "brand": "Yumart",
+    "ratio": "шт",
+    "displayPrice": 59.99,
+    "displayRatio": "300г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-pshenychna-udon-477927"
+   },
+   {
+    "title": "Локшина Yumart Longkou",
+    "price": 109,
+    "oldPrice": null,
+    "brand": "Yumart",
+    "ratio": "шт",
+    "displayPrice": 109,
+    "displayRatio": "250г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-yumart-longkou-533164"
+   },
+   {
+    "title": "Рис Garde Manger з куркою та манго",
+    "price": 224,
+    "oldPrice": null,
+    "brand": "Garde Manger",
+    "ratio": "шт",
+    "displayPrice": 224,
+    "displayRatio": "400г",
+    "section": "gotovi-stravy-zamorozheni-5175",
+    "slug": "rys-garde-manger-z-kurkoiu-ta-mango-842290"
+   },
+   {
+    "title": "Рис World's rice червоний",
+    "price": 154,
+    "oldPrice": null,
+    "brand": "World's rice",
+    "ratio": "шт",
+    "displayPrice": 154,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-world-s-rice-chervonyi-578457"
+   },
+   {
+    "title": "Локшина гречана JS Soba",
+    "price": 159,
+    "oldPrice": null,
+    "brand": "JS",
+    "ratio": "шт",
+    "displayPrice": 159,
+    "displayRatio": "300г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-grechana-js-soba-800288"
+   },
+   {
+    "title": "Рамен Samyang Buldak смак курки та сиру гострий",
+    "price": 189,
+    "oldPrice": null,
+    "brand": "Samyang",
+    "ratio": "шт",
+    "displayPrice": 189,
+    "displayRatio": "140г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "ramen-samyang-buldak-smak-kurky-ta-syru-gostryi-1000514"
+   },
+   {
+    "title": "Рис «Премія»® Басматі шліфований довгозернистий",
+    "price": 99,
+    "oldPrice": null,
+    "brand": "Премія",
+    "ratio": "шт",
+    "displayPrice": 99,
+    "displayRatio": "5*80г",
+    "section": "rys-4873",
+    "slug": "rys-premiia-basmati-shlifovanyi-dovgozernystyi-881174"
+   },
+   {
+    "title": "Рис Trapeza довгозернистий",
+    "price": 109,
+    "oldPrice": null,
+    "brand": "Trapeza",
+    "ratio": "шт",
+    "displayPrice": 109,
+    "displayRatio": "1кг",
+    "section": "rys-4873",
+    "slug": "rys-trapeza-dovgozernystyi-868356"
+   },
+   {
+    "title": "Рис Trapeza довгозернистий пропарений",
+    "price": 129,
+    "oldPrice": null,
+    "brand": "Trapeza",
+    "ratio": "шт",
+    "displayPrice": 129,
+    "displayRatio": "1кг",
+    "section": "rys-4873",
+    "slug": "rys-trapeza-dovgozernystyi-proparenyi-868357"
+   },
+   {
+    "title": "Рис круглий Ситий двір шліфований",
+    "price": 71.99,
+    "oldPrice": null,
+    "brand": "Ситий двір",
+    "ratio": "шт",
+    "displayPrice": 71.99,
+    "displayRatio": "1кг",
+    "section": "rys-4873",
+    "slug": "rys-kruglyi-sytyi-dvir-shlifovanyi-961192"
+   },
+   {
+    "title": "Рис Trapeza Bellissimo бурий довгозернистий нешліфований",
+    "price": 99,
+    "oldPrice": null,
+    "brand": "Trapeza",
+    "ratio": "шт",
+    "displayPrice": 99,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-trapeza-bellissimo-buryi-dovgozernystyi-neshlifovanyi-619871"
+   },
+   {
+    "title": "Рис World's rice для суші",
+    "price": 96.49,
+    "oldPrice": null,
+    "brand": "World's rice",
+    "ratio": "шт",
+    "displayPrice": 96.49,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-world-s-rice-dlia-sushi-731888"
+   },
+   {
+    "title": "Вермішель Bich-Chi рисова",
+    "price": 164,
+    "oldPrice": null,
+    "brand": "Bich-Chi",
+    "ratio": "шт",
+    "displayPrice": 164,
+    "displayRatio": "200г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "vermishel-bich-chi-rysova-756555"
+   },
+   {
+    "title": "Корм для дорослих собак Club 4 Paws ягнятина та рис сухий",
+    "price": 499,
+    "oldPrice": null,
+    "brand": "Club 4 Paws",
+    "ratio": "шт",
+    "displayPrice": 499,
+    "displayRatio": "2кг",
+    "section": "korm-dlia-sobak-4715",
+    "slug": "korm-dlia-doroslykh-sobak-club-4-paws-iagniatyna-ta-rys-sukhyi-768755"
+   },
+   {
+    "title": "Рис Trapeza Басмати пропарений",
+    "price": 89.99,
+    "oldPrice": null,
+    "brand": "Trapeza",
+    "ratio": "шт",
+    "displayPrice": 89.99,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-trapeza-basmaty-proparenyi-797927"
+   },
+   {
+    "title": "Рис World's rice Жасмин",
+    "price": 116,
+    "oldPrice": null,
+    "brand": "World's rice",
+    "ratio": "шт",
+    "displayPrice": 116,
+    "displayRatio": "5*80г",
+    "section": "rys-4873",
+    "slug": "rys-world-s-rice-zhasmyn-476235"
+   },
+   {
+    "title": "Рис Trapeza Жасмин",
+    "price": 109,
+    "oldPrice": null,
+    "brand": "Trapeza",
+    "ratio": "шт",
+    "displayPrice": 109,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-trapeza-zhasmyn-619867"
+   },
+   {
+    "title": "Рис Trapezaї Басматі натуральний",
+    "price": 89.99,
+    "oldPrice": null,
+    "brand": "Trapeza",
+    "ratio": "шт",
+    "displayPrice": 89.99,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-trapezai-basmati-naturalnyi-619868"
+   },
+   {
+    "title": "Рис World's rice червоний + парбоілд",
+    "price": 116,
+    "oldPrice": null,
+    "brand": "World's rice",
+    "ratio": "шт",
+    "displayPrice": 116,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-world-s-rice-chervonyi-parboild-578460"
+   },
+   {
+    "title": "Рис World's rice В’єтнамський",
+    "price": 68.99,
+    "oldPrice": null,
+    "brand": "World's rice",
+    "ratio": "шт",
+    "displayPrice": 68.99,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-world-s-rice-v-ietnamskyi-37910"
+   },
+   {
+    "title": "Рис World's rice парбоілд",
+    "price": 94.99,
+    "oldPrice": null,
+    "brand": "World's rice",
+    "ratio": "шт",
+    "displayPrice": 94.99,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-world-s-rice-parboild-48728"
+   },
+   {
+    "title": "Рис World's rice Жасмин",
+    "price": 129,
+    "oldPrice": null,
+    "brand": "World's rice",
+    "ratio": "шт",
+    "displayPrice": 129,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-world-s-rice-zhasmyn-37907"
+   },
+   {
+    "title": "Рис Trapeza Камолино",
+    "price": 83.49,
+    "oldPrice": null,
+    "brand": "Trapeza",
+    "ratio": "шт",
+    "displayPrice": 83.49,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-trapeza-kamolyno-619869"
+   },
+   {
+    "title": "Рис «Премія»® шліфований довгозернистий пропарений",
+    "price": 55.49,
+    "oldPrice": null,
+    "brand": "Премія",
+    "ratio": "шт",
+    "displayPrice": 55.49,
+    "displayRatio": "5*80г",
+    "section": "rys-4873",
+    "slug": "rys-premiia-shlifovanyi-dovgozernystyi-proparenyi-913934"
+   },
+   {
+    "title": "Рис Trapeza Камоліно",
+    "price": 139,
+    "oldPrice": null,
+    "brand": "Trapeza",
+    "ratio": "шт",
+    "displayPrice": 139,
+    "displayRatio": "1кг",
+    "section": "rys-4873",
+    "slug": "rys-trapeza-kamolino-868359"
+   },
+   {
+    "title": "Рис Trapeza Камоліно Єгипет",
+    "price": 82.99,
+    "oldPrice": null,
+    "brand": "Trapeza",
+    "ratio": "шт",
+    "displayPrice": 82.99,
+    "displayRatio": "5*80г/уп",
+    "section": "rys-4873",
+    "slug": "rys-trapeza-kamolino-yegypet-902930"
+   },
+   {
+    "title": "Рис «Премія»® Жасмин шліфований довгозернистий",
+    "price": 73.49,
+    "oldPrice": null,
+    "brand": "Премія",
+    "ratio": "шт",
+    "displayPrice": 73.49,
+    "displayRatio": "5*80г",
+    "section": "rys-4873",
+    "slug": "rys-premiia-zhasmyn-shlifovanyi-dovgozernystyi-878563"
+   },
+   {
+    "title": "Рис «Премія»® Камоліно шліфований круглозернистий",
+    "price": 75.99,
+    "oldPrice": null,
+    "brand": "Премія",
+    "ratio": "шт",
+    "displayPrice": 75.99,
+    "displayRatio": "5*80г",
+    "section": "rys-4873",
+    "slug": "rys-premiia-kamolino-shlifovanyi-kruglozernystyi-878564"
+   },
+   {
+    "title": "Рис Trapeza круглозернистий",
+    "price": 119,
+    "oldPrice": null,
+    "brand": "Trapeza",
+    "ratio": "шт",
+    "displayPrice": 119,
+    "displayRatio": "1кг",
+    "section": "rys-4873",
+    "slug": "rys-trapeza-kruglozernystyi-868358"
+   },
+   {
+    "title": "Голубці з м'ясом та рисом",
+    "price": 415.65,
+    "oldPrice": 489,
+    "brand": "Без ТМ",
+    "ratio": "кг",
+    "displayPrice": 41.57,
+    "displayRatio": "100г",
+    "section": "garniry-4769",
+    "slug": "golubtsi-z-m-iasom-ta-rysom-910085"
+   },
+   {
+    "title": "Смажений рис з куркою в соусі теріякі",
+    "price": 169,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "шт",
+    "displayPrice": 169,
+    "displayRatio": "350г",
+    "section": "garniry-4769",
+    "slug": "smazhenyi-rys-z-kurkoiu-v-sousi-teriiaki-1002795"
+   },
+   {
+    "title": "Карі з рисом та куркою",
+    "price": 219,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "шт",
+    "displayPrice": 219,
+    "displayRatio": "350г",
+    "section": "garniry-4769",
+    "slug": "kari-z-rysom-ta-kurkoiu-1002793"
+   },
+   {
+    "title": "Голубці з м'ясом та рисом Сімейна упаковка",
+    "price": 249,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "шт",
+    "displayPrice": 249,
+    "displayRatio": "500г",
+    "section": "garniry-4769",
+    "slug": "golubtsi-z-m-iasom-ta-rysom-simeina-upakovka-1007162"
+   },
+   {
+    "title": "Фрикасе з курки у вершковому соусі, рис та ліниві огірочки",
+    "price": 229,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "шт",
+    "displayPrice": 229,
+    "displayRatio": "390г",
+    "section": "snidanky-ta-kompleksni-obidy-4783",
+    "slug": "frykase-z-kurky-u-vershkovomu-sousi-rys-ta-linyvi-ogirochky-1033814"
+   },
+   {
+    "title": "Локшина Sunaoshi сомен",
+    "price": 73.99,
+    "oldPrice": null,
+    "brand": "Sunaoshi",
+    "ratio": "шт",
+    "displayPrice": 73.99,
+    "displayRatio": "200г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-sunaoshi-somen-1004193"
+   },
+   {
+    "title": "Локшина Simply Food Фо рисова зі смаком яловичини швидкого приготування",
+    "price": 64.99,
+    "oldPrice": 90.99,
+    "brand": "Simply Food",
+    "ratio": "шт",
+    "displayPrice": 64.99,
+    "displayRatio": "80г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-simply-food-fo-rysova-zi-smakom-ialovychyny-shvydkogo-prygotuvannia-1009998"
+   },
+   {
+    "title": "Курячий шніцель панко, рис із овочами та яйцем та ліниві огірочки",
+    "price": 239,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "шт",
+    "displayPrice": 239,
+    "displayRatio": "360г",
+    "section": "snidanky-ta-kompleksni-obidy-4783",
+    "slug": "kuriachyi-shnitsel-panko-rys-iz-ovochamy-ta-iaitsem-ta-linyvi-ogirochky-1033816"
+   },
+   {
+    "title": "Рис Riso Gallo Карнаролі",
+    "price": 169,
+    "oldPrice": null,
+    "brand": "Riso Gallo",
+    "ratio": "шт",
+    "displayPrice": 169,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-riso-gallo-karnaroli-1004053"
+   },
+   {
+    "title": "Локшина Koka зі смаком курки та кукурудзи швидкого приготування",
+    "price": 76.99,
+    "oldPrice": null,
+    "brand": "Koka",
+    "ratio": "шт",
+    "displayPrice": 76.99,
+    "displayRatio": "70г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-koka-zi-smakom-kurky-ta-kukurudzy-shvydkogo-prygotuvannia-1004131"
+   },
+   {
+    "title": "Локшина Koka зі смаком морепродуктів швидкого приготування",
+    "price": 81.99,
+    "oldPrice": null,
+    "brand": "Koka",
+    "ratio": "шт",
+    "displayPrice": 81.99,
+    "displayRatio": "70г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-koka-zi-smakom-moreproduktiv-shvydkogo-prygotuvannia-1004133"
+   },
+   {
+    "title": "Рамен Samyang Buldak з куркою надзвичайно гострий",
+    "price": 199,
+    "oldPrice": null,
+    "brand": "Samyang",
+    "ratio": "шт",
+    "displayPrice": 199,
+    "displayRatio": "140г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "ramen-samyang-buldak-z-kurkoiu-nadzvychaino-gostryi-1000515"
+   },
+   {
+    "title": "Локшина House of Asia Рамен",
+    "price": 129,
+    "oldPrice": 159,
+    "brand": "House of Asia",
+    "ratio": "шт",
+    "displayPrice": 129,
+    "displayRatio": "300г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-house-of-asia-ramen-919013"
+   },
+   {
+    "title": "Локшина Sunaoshi удон",
+    "price": 73.99,
+    "oldPrice": null,
+    "brand": "Sunaoshi",
+    "ratio": "шт",
+    "displayPrice": 73.99,
+    "displayRatio": "200г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-sunaoshi-udon-1004194"
+   },
+   {
+    "title": "Рис Riso Gallo Selezion Specia довгозернистий для ризото",
+    "price": 159,
+    "oldPrice": null,
+    "brand": "Riso Gallo",
+    "ratio": "шт",
+    "displayPrice": 159,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-riso-gallo-selezion-specia-dovgozernystyi-dlia-ryzoto-1004054"
+   },
+   {
+    "title": "Локшина Simply Food скляна зі смаком том яму швидкого приготування",
+    "price": 84.99,
+    "oldPrice": 113,
+    "brand": "Simply Food",
+    "ratio": "шт",
+    "displayPrice": 84.99,
+    "displayRatio": "55г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-simply-food-skliana-zi-smakom-tom-iamu-shvydkogo-prygotuvannia-1010001"
+   },
+   {
+    "title": "Локшина House of Asia Соба",
+    "price": 199,
+    "oldPrice": null,
+    "brand": "House of Asia",
+    "ratio": "шт",
+    "displayPrice": 199,
+    "displayRatio": "300г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-house-of-asia-soba-919014"
+   },
+   {
+    "title": "Рис Akura для приготування суші",
+    "price": 96.99,
+    "oldPrice": null,
+    "brand": "Akura",
+    "ratio": "шт",
+    "displayPrice": 96.99,
+    "displayRatio": "400г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "rys-akura-dlia-prygotuvannia-sushi-592015"
+   },
+   {
+    "title": "Рис Daawat «Басматі» «Бір’яні»",
+    "price": 279,
+    "oldPrice": null,
+    "brand": "Daawat",
+    "ratio": "шт",
+    "displayPrice": 279,
+    "displayRatio": "1кг",
+    "section": "rys-4873",
+    "slug": "rys-daawat-basmati-bir-iani-767424"
+   },
+   {
+    "title": "Локшина Koka смак краба з фіолетовою кукурудзою",
+    "price": 139,
+    "oldPrice": null,
+    "brand": "Koka",
+    "ratio": "шт",
+    "displayPrice": 139,
+    "displayRatio": "65г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-koka-smak-kraba-z-fioletovoiu-kukurudzoiu-1004139"
+   },
+   {
+    "title": "Напій ультрапастеризований Feels good рис та кокос",
+    "price": 129,
+    "oldPrice": 154,
+    "brand": "Feels good",
+    "ratio": "шт",
+    "displayPrice": 129,
+    "displayRatio": "1л",
+    "section": "bezmolochna-produktsiia-240",
+    "slug": "napii-ultrapasteryzovanyi-feels-good-rys-ta-kokos-999551"
+   }
+  ]
+ },
+ "готовий рис": {
+  "total": 11,
+  "items": [
+   {
+    "title": "Боул Рис зі смаженим курячим філе та овочами",
+    "price": 139,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "шт",
+    "displayPrice": 139,
+    "displayRatio": "330г",
+    "section": "snidanky-ta-kompleksni-obidy-4783",
+    "slug": "boul-rys-zi-smazhenym-kuriachym-file-ta-ovochamy-871215"
+   },
+   {
+    "title": "Рис з овочами",
+    "price": 199,
+    "oldPrice": 289,
+    "brand": "Без ТМ",
+    "ratio": "кг",
+    "displayPrice": 19.9,
+    "displayRatio": "100г",
+    "section": "garniry-4769",
+    "slug": "rys-z-ovochamy-1016212"
+   },
+   {
+    "title": "Рис з овочами та курячим битком",
+    "price": 149,
+    "oldPrice": null,
+    "brand": null,
+    "ratio": "шт",
+    "displayPrice": 149,
+    "displayRatio": "300г",
+    "section": "snidanky-ta-kompleksni-obidy-4783",
+    "slug": "rys-z-ovochamy-ta-kuriachym-bytkom-372938"
+   },
+   {
+    "title": "Рис Garde Manger з куркою та манго",
+    "price": 224,
+    "oldPrice": null,
+    "brand": "Garde Manger",
+    "ratio": "шт",
+    "displayPrice": 224,
+    "displayRatio": "400г",
+    "section": "gotovi-stravy-zamorozheni-5175",
+    "slug": "rys-garde-manger-z-kurkoiu-ta-mango-842290"
+   },
+   {
+    "title": "Смажений рис з куркою в соусі теріякі",
+    "price": 169,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "шт",
+    "displayPrice": 169,
+    "displayRatio": "350г",
+    "section": "garniry-4769",
+    "slug": "smazhenyi-rys-z-kurkoiu-v-sousi-teriiaki-1002795"
+   },
+   {
+    "title": "Фрикасе з курки у вершковому соусі, рис та ліниві огірочки",
+    "price": 229,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "шт",
+    "displayPrice": 229,
+    "displayRatio": "390г",
+    "section": "snidanky-ta-kompleksni-obidy-4783",
+    "slug": "frykase-z-kurky-u-vershkovomu-sousi-rys-ta-linyvi-ogirochky-1033814"
+   },
+   {
+    "title": "Курячий шніцель панко, рис із овочами та яйцем та ліниві огірочки",
+    "price": 239,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "шт",
+    "displayPrice": 239,
+    "displayRatio": "360г",
+    "section": "snidanky-ta-kompleksni-obidy-4783",
+    "slug": "kuriachyi-shnitsel-panko-rys-iz-ovochamy-ta-iaitsem-ta-linyvi-ogirochky-1033816"
+   },
+   {
+    "title": "Комбо Рис та фрікасе з курячим м'ясом і овочами",
+    "price": 244,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "шт",
+    "displayPrice": 244,
+    "displayRatio": "380г",
+    "section": "snidanky-ta-kompleksni-obidy-4783",
+    "slug": "kombo-rys-ta-frikase-z-kuriachym-m-iasom-i-ovochamy-969306"
+   },
+   {
+    "title": "Рис з яйцем та овочами Чіл Міл",
+    "price": 63.99,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "шт",
+    "displayPrice": 63.99,
+    "displayRatio": "180г",
+    "section": "garniry-4769",
+    "slug": "rys-z-iaitsem-ta-ovochamy-chil-mil-969104"
+   },
+   {
+    "title": "Рис із овочами та яйцем у кунжутному соусі",
+    "price": 88.99,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "шт",
+    "displayPrice": 88.99,
+    "displayRatio": "160г",
+    "section": "garniry-4769",
+    "slug": "rys-iz-ovochamy-ta-iaitsem-u-kunzhutnomu-sousi-980146"
+   },
+   {
+    "title": "Рис із оливковою олією",
+    "price": 68.99,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "шт",
+    "displayPrice": 68.99,
+    "displayRatio": "160г",
+    "section": "garniry-4769",
+    "slug": "rys-iz-olyvkovoiu-oliieiu-980147"
+   }
+  ]
+ },
+ "ready rice": {
+  "total": 0,
+  "items": []
+ },
+ "рис швидкого приготування": {
+  "total": 7,
+  "items": [
+   {
+    "title": "Локшина Simply Food Фо рисова зі смаком яловичини швидкого приготування",
+    "price": 64.99,
+    "oldPrice": 90.99,
+    "brand": "Simply Food",
+    "ratio": "шт",
+    "displayPrice": 64.99,
+    "displayRatio": "80г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-simply-food-fo-rysova-zi-smakom-ialovychyny-shvydkogo-prygotuvannia-1009998"
+   },
+   {
+    "title": "Локшина Koka зі смаком курки та кукурудзи швидкого приготування",
+    "price": 76.99,
+    "oldPrice": null,
+    "brand": "Koka",
+    "ratio": "шт",
+    "displayPrice": 76.99,
+    "displayRatio": "70г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-koka-zi-smakom-kurky-ta-kukurudzy-shvydkogo-prygotuvannia-1004131"
+   },
+   {
+    "title": "Локшина Koka зі смаком морепродуктів швидкого приготування",
+    "price": 81.99,
+    "oldPrice": null,
+    "brand": "Koka",
+    "ratio": "шт",
+    "displayPrice": 81.99,
+    "displayRatio": "70г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-koka-zi-smakom-moreproduktiv-shvydkogo-prygotuvannia-1004133"
+   },
+   {
+    "title": "Локшина Simply Food скляна зі смаком том яму швидкого приготування",
+    "price": 84.99,
+    "oldPrice": 113,
+    "brand": "Simply Food",
+    "ratio": "шт",
+    "displayPrice": 84.99,
+    "displayRatio": "55г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-simply-food-skliana-zi-smakom-tom-iamu-shvydkogo-prygotuvannia-1010001"
+   },
+   {
+    "title": "Локшина Koka зі смаком грибів швидкого приготування",
+    "price": 81.99,
+    "oldPrice": null,
+    "brand": "Koka",
+    "ratio": "шт",
+    "displayPrice": 81.99,
+    "displayRatio": "70г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-koka-zi-smakom-grybiv-shvydkogo-prygotuvannia-1004132"
+   },
+   {
+    "title": "Локшина Simply Food рисова зі смаком рагу з яловичини швидкого приготування",
+    "price": 75.99,
+    "oldPrice": 99,
+    "brand": "Simply Food",
+    "ratio": "шт",
+    "displayPrice": 75.99,
+    "displayRatio": "75г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-simply-food-rysova-zi-smakom-ragu-z-ialovychyny-shvydkogo-prygotuvannia-1009999"
+   },
+   {
+    "title": "Локшина швидкого приготування Nongshim Shin Ramyun",
+    "price": 139,
+    "oldPrice": null,
+    "brand": "Nongshim",
+    "ratio": "шт",
+    "displayPrice": 139,
+    "displayRatio": "120г",
+    "section": "rys-ta-lokshyna-4934",
+    "slug": "lokshyna-shvydkogo-prygotuvannia-nongshim-shin-ramyun-930322"
+   }
+  ]
+ },
+ "смажений рис": {
+  "total": 3,
+  "items": [
+   {
+    "title": "Боул Рис зі смаженим курячим філе та овочами",
+    "price": 139,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "шт",
+    "displayPrice": 139,
+    "displayRatio": "330г",
+    "section": "snidanky-ta-kompleksni-obidy-4783",
+    "slug": "boul-rys-zi-smazhenym-kuriachym-file-ta-ovochamy-871215"
+   },
+   {
+    "title": "Пиріжки смажені з м'ясом та рисом",
+    "price": 299,
+    "oldPrice": null,
+    "brand": null,
+    "ratio": "кг",
+    "displayPrice": 29.9,
+    "displayRatio": "100г",
+    "section": "pyrogy-pyrizhky-vypichka-4784",
+    "slug": "pyrizhky-smazheni-z-m-iasom-ta-rysom-451634"
+   },
+   {
+    "title": "Смажений рис з куркою в соусі теріякі",
+    "price": 169,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "шт",
+    "displayPrice": 169,
+    "displayRatio": "350г",
+    "section": "garniry-4769",
+    "slug": "smazhenyi-rys-z-kurkoiu-v-sousi-teriiaki-1002795"
+   }
+  ]
+ },
+ "hetbahn": {
+  "total": 15,
+  "items": [
+   {
+    "title": "Горілка «Гетьман»",
+    "price": 269,
+    "oldPrice": null,
+    "brand": "Hetman",
+    "ratio": "шт",
+    "displayPrice": 269,
+    "displayRatio": "0,7л",
+    "section": "gorilka-4472",
+    "slug": "gorilka-getman-969"
+   },
+   {
+    "title": "Горілка «Гетьман»",
+    "price": 199,
+    "oldPrice": null,
+    "brand": "Hetman",
+    "ratio": "шт",
+    "displayPrice": 199,
+    "displayRatio": "0,5л",
+    "section": "gorilka-4472",
+    "slug": "gorilka-getman-777154"
+   },
+   {
+    "title": "Горілка «Гетьман» Black & Gold",
+    "price": 139,
+    "oldPrice": 179,
+    "brand": "Hetman",
+    "ratio": "шт",
+    "displayPrice": 139,
+    "displayRatio": "0,5л",
+    "section": "gorilka-4472",
+    "slug": "gorilka-getman-black-gold-887614"
+   },
+   {
+    "title": "Горілка «Гетьман»",
+    "price": 269,
+    "oldPrice": 344,
+    "brand": "Hetman",
+    "ratio": "шт",
+    "displayPrice": 269,
+    "displayRatio": "1000мл",
+    "section": "gorilka-4472",
+    "slug": "gorilka-getman-854174"
+   },
+   {
+    "title": "Горілка Гетьман Spirit of Victory",
+    "price": 199,
+    "oldPrice": null,
+    "brand": "Hetman",
+    "ratio": "шт",
+    "displayPrice": 199,
+    "displayRatio": "0,5л",
+    "section": "gorilka-4472",
+    "slug": "gorilka-getman-spirit-of-victory-935865"
+   },
+   {
+    "title": "Горілка Hetman Дух Перемоги",
+    "price": 249,
+    "oldPrice": null,
+    "brand": "Hetman",
+    "ratio": "шт",
+    "displayPrice": 249,
+    "displayRatio": "700мл",
+    "section": "gorilka-4472",
+    "slug": "gorilka-hetman-dukh-peremogy-975848"
+   },
+   {
+    "title": "Горілка Гетьман Українське зерно",
+    "price": 199,
+    "oldPrice": null,
+    "brand": "Hetman",
+    "ratio": "шт",
+    "displayPrice": 199,
+    "displayRatio": "0,5л",
+    "section": "gorilka-4472",
+    "slug": "gorilka-getman-ukrainske-zerno-937685"
+   },
+   {
+    "title": "Настоянка Hetman Citrus",
+    "price": 159,
+    "oldPrice": 199,
+    "brand": "Hetman",
+    "ratio": "шт",
+    "displayPrice": 159,
+    "displayRatio": "500мл",
+    "section": "gorilka-4472",
+    "slug": "nastoianka-hetman-citrus-990219"
+   },
+   {
+    "title": "Горілка Hetman Black&Gold",
+    "price": 189,
+    "oldPrice": 239,
+    "brand": "Hetman",
+    "ratio": "шт",
+    "displayPrice": 189,
+    "displayRatio": "0,7л",
+    "section": "gorilka-4472",
+    "slug": "gorilka-hetman-black-gold-1024926"
+   },
+   {
+    "title": "Горілка Hetman Black&Gold",
+    "price": 259,
+    "oldPrice": 339,
+    "brand": "Hetman",
+    "ratio": "шт",
+    "displayPrice": 259,
+    "displayRatio": "1л",
+    "section": "gorilka-4472",
+    "slug": "gorilka-hetman-black-gold-1024927"
+   },
+   {
+    "title": "Горілка Hetman Spirit of Victory",
+    "price": 389,
+    "oldPrice": null,
+    "brand": "Hetman",
+    "ratio": "шт",
+    "displayPrice": 389,
+    "displayRatio": "1л",
+    "section": "gorilka-4472",
+    "slug": "gorilka-hetman-spirit-of-victory-990217"
+   },
+   {
+    "title": "Горілка Гетьман",
+    "price": 80.99,
+    "oldPrice": null,
+    "brand": "Hetman",
+    "ratio": "шт",
+    "displayPrice": 80.99,
+    "displayRatio": "0,2л",
+    "section": "gorilka-4472",
+    "slug": "gorilka-getman-935866"
+   },
+   {
+    "title": "Настоянка Hetman Herbal",
+    "price": 214,
+    "oldPrice": null,
+    "brand": "Hetman",
+    "ratio": "шт",
+    "displayPrice": 214,
+    "displayRatio": "0,5л",
+    "section": "gorilka-4472",
+    "slug": "nastoianka-hetman-herbal-1000954"
+   },
+   {
+    "title": "Горілка Hetman Premium Quality",
+    "price": 899,
+    "oldPrice": null,
+    "brand": "Hetman",
+    "ratio": "шт",
+    "displayPrice": 899,
+    "displayRatio": "700мл",
+    "section": "gorilka-4472",
+    "slug": "gorilka-hetman-premium-quality-949053"
+   },
+   {
+    "title": "Настоянка Hetman Cranberry",
+    "price": 219,
+    "oldPrice": null,
+    "brand": "Hetman",
+    "ratio": "шт",
+    "displayPrice": 219,
+    "displayRatio": "0,5л",
+    "section": "gorilka-4472",
+    "slug": "nastoianka-hetman-cranberry-1022960"
+   }
+  ]
+ },
+ "bibigo": {
+  "total": 0,
+  "items": []
+ },
+ "uncle ben": {
+  "total": 0,
+  "items": []
+ },
+ "ben's original": {
+  "total": 0,
+  "items": []
+ },
+ "veetee": {
+  "total": 1,
+  "items": [
+   {
+    "title": "Лікер La Gauloise Verte Green",
+    "price": 1899,
+    "oldPrice": null,
+    "brand": "La Gauloise",
+    "ratio": "шт",
+    "displayPrice": 1899,
+    "displayRatio": "0,7л",
+    "section": "likery-balzamy-bittery-4474",
+    "slug": "liker-la-gauloise-verte-green-940940"
+   }
+  ]
+ },
+ "tilda": {
+  "total": 0,
+  "items": []
+ },
+ "рис у соусі": {
+  "total": 2,
+  "items": [
+   {
+    "title": "Фрикасе з курки у вершковому соусі, рис та ліниві огірочки",
+    "price": 229,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "шт",
+    "displayPrice": 229,
+    "displayRatio": "390г",
+    "section": "snidanky-ta-kompleksni-obidy-4783",
+    "slug": "frykase-z-kurky-u-vershkovomu-sousi-rys-ta-linyvi-ogirochky-1033814"
+   },
+   {
+    "title": "Рис із овочами та яйцем у кунжутному соусі",
+    "price": 88.99,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "шт",
+    "displayPrice": 88.99,
+    "displayRatio": "160г",
+    "section": "garniry-4769",
+    "slug": "rys-iz-ovochamy-ta-iaitsem-u-kunzhutnomu-sousi-980146"
+   }
+  ]
+ },
+ "fried rice": {
+  "total": 0,
+  "items": []
+ },
+ "ottogi": {
+  "total": 2,
+  "items": [
+   {
+    "title": "Оливки Otto Botti зелені без кісточок",
+    "price": 54.99,
+    "oldPrice": 84.99,
+    "brand": "Otto Botti",
+    "ratio": "шт",
+    "displayPrice": 54.99,
+    "displayRatio": "300мл",
+    "section": "olyvky-4916",
+    "slug": "olyvky-otto-botti-zeleni-bez-kistochok-926284"
+   },
+   {
+    "title": "Оливки Otto Botti чорні без кісточок",
+    "price": 54.99,
+    "oldPrice": 83.99,
+    "brand": "Otto Botti",
+    "ratio": "шт",
+    "displayPrice": 54.99,
+    "displayRatio": "300мл",
+    "section": "olyvky-4916",
+    "slug": "olyvky-otto-botti-chorni-bez-kistochok-926286"
+   }
+  ]
+ },
+ "рис для мікрохвильовки": {
+  "total": 0,
+  "items": []
+ },
+ "онігірі": {
+  "total": 5,
+  "items": [
+   {
+    "title": "Онігірі з креветкою",
+    "price": 1249,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "кг",
+    "displayPrice": 124.9,
+    "displayRatio": "100г",
+    "section": "sushi-4774",
+    "slug": "onigiri-z-krevetkoiu-999506"
+   },
+   {
+    "title": "Онігірі з куркою та соусом кімчі",
+    "price": 1199,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "кг",
+    "displayPrice": 119.9,
+    "displayRatio": "100г",
+    "section": "sushi-4774",
+    "slug": "onigiri-z-kurkoiu-ta-sousom-kimchi-999507"
+   },
+   {
+    "title": "Онігірі з сьомгою",
+    "price": 1249,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "кг",
+    "displayPrice": 124.9,
+    "displayRatio": "100г",
+    "section": "sushi-4774",
+    "slug": "onigiri-z-somgoiu-999508"
+   },
+   {
+    "title": "Онігірі з тунцем та крем-сиром зі смаком трюфеля",
+    "price": 1249,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "кг",
+    "displayPrice": 124.9,
+    "displayRatio": "100г",
+    "section": "sushi-4774",
+    "slug": "onigiri-z-tuntsem-ta-krem-syrom-zi-smakom-triufelia-1024995"
+   },
+   {
+    "title": "Онігірі з тунцем та хіяші",
+    "price": 1249,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "кг",
+    "displayPrice": 124.9,
+    "displayRatio": "100г",
+    "section": "sushi-4774",
+    "slug": "onigiri-z-tuntsem-ta-khiiashi-1024998"
+   }
+  ]
+ },
+ "рис басматі": {
+  "total": 13,
+  "items": [
+   {
+    "title": "Рис «Премія»® Басматі шліфований довгозернистий",
+    "price": 99,
+    "oldPrice": null,
+    "brand": "Премія",
+    "ratio": "шт",
+    "displayPrice": 99,
+    "displayRatio": "5*80г",
+    "section": "rys-4873",
+    "slug": "rys-premiia-basmati-shlifovanyi-dovgozernystyi-881174"
+   },
+   {
+    "title": "Рис Trapeza Басмати пропарений",
+    "price": 89.99,
+    "oldPrice": null,
+    "brand": "Trapeza",
+    "ratio": "шт",
+    "displayPrice": 89.99,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-trapeza-basmaty-proparenyi-797927"
+   },
+   {
+    "title": "Рис Trapezaї Басматі натуральний",
+    "price": 89.99,
+    "oldPrice": null,
+    "brand": "Trapeza",
+    "ratio": "шт",
+    "displayPrice": 89.99,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-trapezai-basmati-naturalnyi-619868"
+   },
+   {
+    "title": "Рис Daawat «Басматі» «Бір’яні»",
+    "price": 279,
+    "oldPrice": null,
+    "brand": "Daawat",
+    "ratio": "шт",
+    "displayPrice": 279,
+    "displayRatio": "1кг",
+    "section": "rys-4873",
+    "slug": "rys-daawat-basmati-bir-iani-767424"
+   },
+   {
+    "title": "Рис Trapeza Басматі Steam пропарений",
+    "price": 120,
+    "oldPrice": null,
+    "brand": "Trapeza",
+    "ratio": "шт",
+    "displayPrice": 120,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-trapeza-basmati-steam-proparenyi-1022766"
+   },
+   {
+    "title": "Рис Trapeza Басматі натуральний Гімалаї",
+    "price": 119,
+    "oldPrice": null,
+    "brand": "Trapeza",
+    "ratio": "шт",
+    "displayPrice": 119,
+    "displayRatio": "5*80г",
+    "section": "rys-4873",
+    "slug": "rys-trapeza-basmati-naturalnyi-gimalai-902926"
+   },
+   {
+    "title": "Рис Trapeza Басматі пропареній Гімалаї",
+    "price": 119,
+    "oldPrice": null,
+    "brand": "Trapeza",
+    "ratio": "шт",
+    "displayPrice": 119,
+    "displayRatio": "5*80г/уп",
+    "section": "rys-4873",
+    "slug": "rys-trapeza-basmati-proparenii-gimalai-902927"
+   },
+   {
+    "title": "Рис Trapeza Басматі Cream пропарений",
+    "price": 120,
+    "oldPrice": null,
+    "brand": "Trapeza",
+    "ratio": "шт",
+    "displayPrice": 120,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-trapeza-basmati-cream-proparenyi-1022765"
+   },
+   {
+    "title": "Ризото Cordero індонезійське рис басматі та спеції",
+    "price": 284,
+    "oldPrice": null,
+    "brand": "Cordero",
+    "ratio": "шт",
+    "displayPrice": 284,
+    "displayRatio": "250г",
+    "section": "rys-4873",
+    "slug": "ryzoto-cordero-indoneziiske-rys-basmati-ta-spetsii-1009382"
+   },
+   {
+    "title": "Рис Sacramento Басматі шліфований",
+    "price": 219,
+    "oldPrice": null,
+    "brand": "Sacramento",
+    "ratio": "шт",
+    "displayPrice": 219,
+    "displayRatio": "800г",
+    "section": "rys-4873",
+    "slug": "rys-sacramento-basmati-shlifovanyi-994251"
+   },
+   {
+    "title": "Рис «Бест Альтернатива» басматі",
+    "price": 159,
+    "oldPrice": null,
+    "brand": "World's rice",
+    "ratio": "шт",
+    "displayPrice": 159,
+    "displayRatio": "5*80г",
+    "section": "rys-4873",
+    "slug": "rys-best-alternatyva-basmati-476239"
+   },
+   {
+    "title": "Рис «Аттуаль» Басматі пропарений",
+    "price": 109,
+    "oldPrice": null,
+    "brand": "Аттуаль",
+    "ratio": "шт",
+    "displayPrice": 109,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-attual-basmati-proparenyi-868353"
+   },
+   {
+    "title": "Рис Attuale «Басматі»",
+    "price": 109,
+    "oldPrice": null,
+    "brand": "Аттуаль",
+    "ratio": "шт",
+    "displayPrice": 109,
+    "displayRatio": "500г",
+    "section": "rys-4873",
+    "slug": "rys-attuale-basmati-825767"
+   }
+  ]
+ },
+ "кімчі": {
+  "total": 12,
+  "items": [
+   {
+    "title": "Онігірі з куркою та соусом кімчі",
+    "price": 1199,
+    "oldPrice": null,
+    "brand": "Без ТМ",
+    "ratio": "кг",
+    "displayPrice": 119.9,
+    "displayRatio": "100г",
+    "section": "sushi-4774",
+    "slug": "onigiri-z-kurkoiu-ta-sousom-kimchi-999507"
+   },
+   {
+    "title": "Капуста Kyivkraut Кімчі ферментована",
+    "price": 239,
+    "oldPrice": null,
+    "brand": "Kyivkraut",
+    "ratio": "шт",
+    "displayPrice": 239,
+    "displayRatio": "375г",
+    "section": "fruktovi-ovochevi-sneky-4790",
+    "slug": "kapusta-kyivkraut-kimchi-fermentovana-819281"
+   },
+   {
+    "title": "Снеки Natural Garden норі зі смаком кімчі смажені",
+    "price": 45.49,
+    "oldPrice": null,
+    "brand": "Natural Garden",
+    "ratio": "шт",
+    "displayPrice": 45.49,
+    "displayRatio": "5г",
+    "section": "chypsy-z-nori-5018",
+    "slug": "sneky-natural-garden-nori-zi-smakom-kimchi-smazheni-761262"
+   },
+   {
+    "title": "Локшина Oyakata зі смаком кімчі швидкого приготування",
+    "price": 99,
+    "oldPrice": null,
+    "brand": "Oyakata",
+    "ratio": "шт",
+    "displayPrice": 99,
+    "displayRatio": "92г",
+    "section": "lokshyna-4929",
+    "slug": "lokshyna-oyakata-zi-smakom-kimchi-shvydkogo-prygotuvannia-997062"
+   },
+   {
+    "title": "Локшина Glads Рамен з соусом зі смаком Кімчі п/е",
+    "price": 47.49,
+    "oldPrice": null,
+    "brand": "Glads",
+    "ratio": "шт",
+    "displayPrice": 47.49,
+    "displayRatio": "105г",
+    "section": "lokshyna-4929",
+    "slug": "lokshyna-glads-ramen-z-sousom-zi-smakom-kimchi-p-e-1017846"
+   },
+   {
+    "title": "Капуста Kyivkraut Кімчі ферментована веганська",
+    "price": 229,
+    "oldPrice": null,
+    "brand": "Kyivkraut",
+    "ratio": "шт",
+    "displayPrice": 229,
+    "displayRatio": "375г",
+    "section": "fruktovi-ovochevi-sneky-4790",
+    "slug": "kapusta-kyivkraut-kimchi-fermentovana-veganska-819282"
+   },
+   {
+    "title": "Соус House of Asia Кімчі",
+    "price": 219,
+    "oldPrice": null,
+    "brand": "House of Asia",
+    "ratio": "шт",
+    "displayPrice": 219,
+    "displayRatio": "150мл",
+    "section": "sousy-prypravy-4932",
+    "slug": "sous-house-of-asia-kimchi-918958"
+   },
+   {
+    "title": "Кімчі Sempio оригінальна",
+    "price": 189,
+    "oldPrice": null,
+    "brand": "Sempio",
+    "ratio": "шт",
+    "displayPrice": 189,
+    "displayRatio": "160г",
+    "section": "sousy-prypravy-4932",
+    "slug": "kimchi-sempio-oryginalna-1017574"
+   },
+   {
+    "title": "Вермішель Maggi з гострим соусом смак курки та кімчі",
+    "price": 119,
+    "oldPrice": null,
+    "brand": "Maggi",
+    "ratio": "шт",
+    "displayPrice": 119,
+    "displayRatio": "130г",
+    "section": "lokshyna-4929",
+    "slug": "vermishel-maggi-z-gostrym-sousom-smak-kurky-ta-kimchi-1037772"
+   },
+   {
+    "title": "Сир Basiron Кімчі напівтвердий з коров'ячого молока 50%",
+    "price": 1499,
+    "oldPrice": null,
+    "brand": "Basiron",
+    "ratio": "кг",
+    "displayPrice": 149.9,
+    "displayRatio": "100г",
+    "section": "syry-spetsialitety-5014",
+    "slug": "syr-basiron-kimchi-napivtverdyi-z-korov-iachogo-moloka-50-1032104"
+   },
+   {
+    "title": "Гіоза VICI по-корейськи з кімчі та свининою",
+    "price": 249,
+    "oldPrice": null,
+    "brand": "VICI",
+    "ratio": "шт",
+    "displayPrice": 249,
+    "displayRatio": "300г",
+    "section": "khinkali-i-ravioli-5192",
+    "slug": "gioza-vici-po-koreisky-z-kimchi-ta-svynynoiu-1008650"
+   },
+   {
+    "title": "Локшина Glads Рамен з соусом Кімчі  швидкого приготування",
+    "price": 68.49,
+    "oldPrice": null,
+    "brand": "Glads",
+    "ratio": "шт",
+    "displayPrice": 68.49,
+    "displayRatio": "105г",
+    "section": "lokshyna-4929",
+    "slug": "lokshyna-glads-ramen-z-sousom-kimchi-shvydkogo-prygotuvannia-1000879"
+   }
+  ]
+ }
+}
