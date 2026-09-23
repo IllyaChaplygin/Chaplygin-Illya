@@ -1,0 +1,814 @@
+[
+ {
+  "name": "Рисові макарони без глютену \"Hoshi pasta\", 250г Healthy generation",
+  "price": 55,
+  "seller": "Магазин здорового харчування Кориsно",
+  "img": "https://images.prom.ua/5266119083_w400_h400_risovye-makarony-bez.jpg",
+  "term": "рис готовий 250 г пакет"
+ },
+ {
+  "name": "Безглютенові макаронні вироби з рису ВАЙЗ, 250г 12+",
+  "price": 108,
+  "seller": "Смартік",
+  "img": "https://images.prom.ua/6228404571_w400_h400_bezglyutenovye-makaronnye-izdeliya.jpg",
+  "term": "рис готовий 250 г пакет"
+ },
+ {
+  "name": "Паста без глютену з кукурудзи і рису \"Lasagne\" (Лазанья) Dr. Schar 250 г",
+  "price": 395,
+  "seller": "ВASKET HEALTH",
+  "img": "https://images.prom.ua/6086084359_w400_h400_pasta-bez-glyutena.jpg",
+  "term": "рис готовий 250 г пакет"
+ },
+ {
+  "name": "Рис Deliz dal Sole Riso Integrale коричневий 250 г",
+  "price": 116,
+  "seller": "Petruccio - якість та смак Європи у вашому домі",
+  "img": "https://images.prom.ua/6469062621_w400_h400_ris-deliz-dal.jpg",
+  "term": "рис готовий 250 г пакет"
+ },
+ {
+  "name": "Макарони рисові KOMORA Овочеві спіралі 250 г",
+  "price": 125,
+  "seller": "Prukorm_market",
+  "img": "https://images.prom.ua/6615437320_w400_h400_makarony-risovye-komora.jpg",
+  "term": "рис готовий 250 г пакет"
+ },
+ {
+  "name": "Паста без глютену з кукурудзи і рису \"Capelli\" ( Вермішель) Dr. Schar 250 г",
+  "price": 197,
+  "seller": "ВASKET HEALTH",
+  "img": "https://images.prom.ua/6086145880_w400_h400_pasta-bez-glyutena.jpg",
+  "term": "рис готовий 250 г пакет"
+ },
+ {
+  "name": "Органічні макарони безглютенові Fleur Alpine Gluten Free Pasta Ditali рисові трубочки для всієї родини 250 г, Італія",
+  "price": 270,
+  "seller": "BABY MILK Інтернет-магазин іноваційного дитячого харчування",
+  "img": "https://images.prom.ua/7232758908_w400_h400_organicheskie-makarony-bezglyutenovye.jpg",
+  "term": "рис готовий 250 г пакет"
+ },
+ {
+  "name": "Макарони рисові \"Мушлі\" 250 г",
+  "price": 114,
+  "seller": "KOMORA. Все для випічки без глютену.",
+  "img": "https://images.prom.ua/6485868566_w400_h400_makarony-risovye-rakushki.jpg",
+  "term": "рис готовий 250 г пакет"
+ },
+ {
+  "name": "Макарони рисові \"Тортільоні\" 250 г",
+  "price": 114,
+  "seller": "KOMORA. Все для випічки без глютену.",
+  "img": "https://images.prom.ua/6485870066_w400_h400_makarony-risovye-tortiloni.jpg",
+  "term": "рис готовий 250 г пакет"
+ },
+ {
+  "name": "Макарони рисові \"Овочеві спіралі\" 250 г",
+  "price": 129,
+  "seller": "KOMORA. Все для випічки без глютену.",
+  "img": "https://images.prom.ua/6604059403_w400_h400_makarony-risovye-ovoschnye.jpg",
+  "term": "рис готовий 250 г пакет"
+ },
+ {
+  "name": "Китайський саморозігрівальний горщик Haidilao Рис із подрібненою свининою зі смаком риби 187 г tdi",
+  "price": 650,
+  "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+  "img": "https://images.prom.ua/7354254015_w400_h400_kitajskij-samorazogrevayuschijsya-gorshok.jpg",
+  "term": "саморозігрівальний горщик рис"
+ },
+ {
+  "name": "Саморозігрівальний горщик Haidilao, Рис із тушкованою куркою, що розігрівається в духовці, 187 г",
+  "price": 650,
+  "seller": "Tactico",
+  "img": "https://images.prom.ua/7280764517_w400_h400_samorazogrevayuschijsya-gorshok-haidilao.jpg",
+  "term": "саморозігрівальний горщик рис"
+ },
+ {
+  "name": "Саморозігрівальний горщик Haidilao, саморозігрівальний рис із куркою теріяки, 181 г",
+  "price": 650,
+  "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+  "img": "https://images.prom.ua/7056713508_w400_h400_samorazogrevayuschijsya-gorshok-haidilao.jpg",
+  "term": "саморозігрівальний горщик рис"
+ },
+ {
+  "name": "Саморозігрівальний горщик Haidilao, саморозігрівальний рис Haidilao з гострим курячим соусом, 175 г",
+  "price": 650,
+  "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+  "img": "https://images.prom.ua/7284238044_w400_h400_samorazogrevayuschijsya-gorshok-haidilao.jpg",
+  "term": "саморозігрівальний горщик рис"
+ },
+ {
+  "name": "Китайський саморозігрівальний горщик Haidilao Китайський рис із пікантною куркою 175 г tdi",
+  "price": 650,
+  "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+  "img": "https://images.prom.ua/7354553177_w400_h400_kitajskij-samorazogrevayuschijsya-gorshok.jpg",
+  "term": "саморозігрівальний горщик рис"
+ },
+ {
+  "name": "Саморозігрівальний горщик Haidilao, саморозігрівальний рис із подрібненою свининою і часником, 187 г",
+  "price": 650,
+  "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+  "img": "https://images.prom.ua/7284238040_w400_h400_samorazogrevayuschijsya-gorshok-haidilao.jpg",
+  "term": "саморозігрівальний горщик рис"
+ },
+ {
+  "name": "Китайський саморозігрівальний горщик Haidilao Самонагрівальний рис із тушкованою куркою 187 г des",
+  "price": 680,
+  "seller": "Desna",
+  "img": "https://images.prom.ua/7351414090_w400_h400_kitajskij-samorazogrevayuschijsya-gorshok.jpg",
+  "term": "саморозігрівальний горщик рис"
+ },
+ {
+  "name": "Локшина швидкого приготування з кунжутним соусом | Sesame Paste Rice Noodles | Китай | Mo Xiao Xian | 105 г | кунжутна Во3Во2",
+  "price": 399,
+  "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+  "img": "https://images.prom.ua/7291965774_w400_h400_lapsha-bystrogo-prigotovleniya.jpg",
+  "term": "mo xiao xian"
+ },
+ {
+  "name": "Локшина швидкого приготування Чунцинська гостра локшина | Chongqing Spicy Noodles | Китай | Mo Xiao Xian | 108 г | гостра Во5Во2",
+  "price": 399,
+  "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+  "img": "https://images.prom.ua/7295605341_w400_h400_lapsha-bystrogo-prigotovleniya.jpg",
+  "term": "mo xiao xian"
+ },
+ {
+  "name": "Локшина швидкого приготування з яловичиною | Private Kitchen Beef Noodle | Китай | Mo Xiao Xian | 83 г | насичена Во3Во5Во2",
+  "price": 361,
+  "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+  "img": "https://images.prom.ua/7295611473_w400_h400_lapsha-bystrogo-prigotovleniya.jpg",
+  "term": "mo xiao xian"
+ },
+ {
+  "name": "Локшина швидкого приготування з маринованим перцем | Pickled Chilli Rice Noodles | Китай | Mo Xiao Xian | 104 г | пікантна Во5Во2",
+  "price": 399,
+  "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+  "img": "https://images.prom.ua/7295620134_w400_h400_lapsha-bystrogo-prigotovleniya.jpg",
+  "term": "mo xiao xian"
+ },
+ {
+  "name": "Локшина швидкого приготування з м ясним бульйоном | Fatty Juice Rice Noodles | Китай | Mo Xiao Xian | 113 г | насичена Во3Во2",
+  "price": 399,
+  "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+  "img": "https://images.prom.ua/7291967049_w400_h400_lapsha-bystrogo-prigotovleniya.jpg",
+  "term": "mo xiao xian"
+ },
+ {
+  "name": "Рис швидкого приготування з яловичиною та пагонами бамбука | Instant Rice Beef and Bamboo Shoots | Китай | Mo Xiao Xian | 275 г Ю",
+  "price": 931,
+  "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+  "img": "https://images.prom.ua/7516931283_w400_h400_ris-bystrogo-prigotovleniya.jpg",
+  "term": "mo xiao xian"
+ },
+ {
+  "name": "Локшина швидкого приготування рамен по-ланьчжоуськи з яловичиною | Lanzhou Beef Ramen | Китай | Mo Xiao Xian | 86 г Во2",
+  "price": 399,
+  "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+  "img": "https://images.prom.ua/7483888784_w400_h400_lapsha-bystrogo-prigotovleniya.jpg",
+  "term": "mo xiao xian"
+ },
+ {
+  "name": "Рис швидкого приготування із в'яленим беконом та зеленим горошком | Instant Rice Sichuan Style Bacon Green Peas | Китай | 275 г Ю",
+  "price": 931,
+  "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+  "img": "https://images.prom.ua/7516925986_w400_h400_ris-bystrogo-prigotovleniya.jpg",
+  "term": "mo xiao xian"
+ },
+ {
+  "name": "Рис з овочами Їжа в Похід 85 г",
+  "price": 130,
+  "seller": "Їжа в Похід",
+  "img": "https://images.prom.ua/3045506416_w400_h400_ris-s-ovoschami.jpg",
+  "term": "рис з овочами сублімований"
+ },
+ {
+  "name": "Суп грузинський з індичкою ЇДЛО сублімований, швидкоприготований, з рисом та овочами",
+  "price": 253,
+  "seller": "Хутір Маркет",
+  "img": "https://images.prom.ua/7440334488_w400_h400_sup-gruzinskij-s.jpg",
+  "term": "рис з овочами сублімований"
+ },
+ {
+  "name": "Рис з м'ясом і овочами | James Cook | сублімована їжа для походів",
+  "price": 83,
+  "seller": "Інтернет магазин Klever-Shop",
+  "img": "https://images.prom.ua/3236715022_w400_h400_ris-s-myasom.jpg",
+  "term": "рис з овочами сублімований"
+ },
+ {
+  "name": "Сублімована їжа Харчі - Боби з рисом, овочами та спеціями (Кічрі)",
+  "price": 83,
+  "seller": "Висот-Нік",
+  "img": "https://images.prom.ua/3598470499_w400_h400_sublimirovannaya-eda-harchi.jpg",
+  "term": "рис з овочами сублімований"
+ },
+ {
+  "name": "Каша рисова з м ясом курки та овочами сублімована, 90 г, сублимати для туризму, легка та поживна",
+  "price": 143,
+  "seller": "ВсеОпт",
+  "img": "https://images.prom.ua/6578056040_w400_h400_risovaya-kasha-s.jpg",
+  "term": "рис з овочами сублімований"
+ },
+ {
+  "name": "Сублімовані продукти SubliMate Плов Узбецький",
+  "price": 310,
+  "seller": "Highlander інтернет-магазин",
+  "img": "https://images.prom.ua/7114813959_w400_h400_sublimovani-produkti-sublimate.jpg",
+  "term": "сублімований плов"
+ },
+ {
+  "name": "Плов | !FEST FOOD MISSION",
+  "price": 133,
+  "seller": "Kalush-Craft-Shop",
+  "img": "https://images.prom.ua/7617717409_w400_h400_plov--fest.jpg",
+  "term": "сублімований плов"
+ },
+ {
+  "name": "Плов !FEST FOOD MISSION сублімована їжа швидкого приготування",
+  "price": 140,
+  "seller": "SportStorm",
+  "img": "https://images.prom.ua/7071217612_w400_h400_plov-fest-food.jpg",
+  "term": "сублімований плов"
+ },
+ {
+  "name": "Набір сублімованих страв Харчі Плов XL для туристів, у дойпаку, швидке приготування 7930-VO",
+  "price": 321,
+  "seller": "Вояджер (авто, туризм, спорт)",
+  "img": "https://images.prom.ua/7617346742_w400_h400_nabor-sublimirovannyh-blyud.jpg",
+  "term": "сублімований плов"
+ },
+ {
+  "name": "Набір сублімованих страв Харчі Плов XL для туристів, у дойпаку, швидке приготування |neper-7930|",
+  "price": 321,
+  "seller": "Непереможні",
+  "img": "https://images.prom.ua/7615672373_w400_h400_nabor-sublimirovannyh-blyud.jpg",
+  "term": "сублімований плов"
+ },
+ {
+  "name": "Набір сублімованих страв Харчі Плов XL для туристів, у дойпаку, швидке приготування (7930-vart)",
+  "price": 321,
+  "seller": "Вартовий (туризм, полювання та кемпінг)",
+  "img": "https://images.prom.ua/7615683240_w400_h400_nabor-sublimirovannyh-blyud.jpg",
+  "term": "сублімований плов"
+ },
+ {
+  "name": "Набір сублімованих страв Харчі Плов XL для туристів, у дойпаку, швидке приготування 7930-DS",
+  "price": 321,
+  "seller": "Драйв Сенс",
+  "img": "https://images.prom.ua/7617391389_w400_h400_nabor-sublimirovannyh-blyud.jpg",
+  "term": "сублімований плов"
+ },
+ {
+  "name": "Набір сублімованих страв Харчі Плов XL для туристів, у дойпаку, швидке приготування [7930-liht]",
+  "price": 321,
+  "seller": "Ліхтар",
+  "img": "https://images.prom.ua/7617395874_w400_h400_nabor-sublimirovannyh-blyud.jpg",
+  "term": "сублімований плов"
+ },
+ {
+  "name": "Набір сублімованих страв Харчі Плов XL для туристів, у дойпаку, швидке приготування 7930-TD",
+  "price": 321,
+  "seller": "Іграшка Мрії (дитячі, авто, туризм)",
+  "img": "https://images.prom.ua/7617274153_w400_h400_nabor-sublimirovannyh-blyud.jpg",
+  "term": "сублімований плов"
+ },
+ {
+  "name": "Набір сублімованих страв Харчі Плов XL для туристів, у дойпаку, швидке приготування 1",
+  "price": 321,
+  "seller": "Military Style",
+  "img": "https://images.prom.ua/7615674258_w400_h400_nabor-sublimirovannyh-blyud.jpg",
+  "term": "сублімований плов"
+ },
+ {
+  "name": "Сублімовані продукти SubliMate Плов Узбецький",
+  "price": 310,
+  "seller": "Highlander інтернет-магазин",
+  "img": "https://images.prom.ua/7114813959_w400_h400_sublimovani-produkti-sublimate.jpg",
+  "term": "плов сублімований"
+ },
+ {
+  "name": "Плов | !FEST FOOD MISSION",
+  "price": 133,
+  "seller": "Kalush-Craft-Shop",
+  "img": "https://images.prom.ua/7617717409_w400_h400_plov--fest.jpg",
+  "term": "плов сублімований"
+ },
+ {
+  "name": "Плов !FEST FOOD MISSION сублімована їжа швидкого приготування",
+  "price": 140,
+  "seller": "SportStorm",
+  "img": "https://images.prom.ua/7071217612_w400_h400_plov-fest-food.jpg",
+  "term": "плов сублімований"
+ },
+ {
+  "name": "Узбецький плов SubliMate (SM) сублімований для швидкого приготування",
+  "price": 310,
+  "seller": "ВсеОпт",
+  "img": "https://images.prom.ua/7584473482_w400_h400_uzbekskij-plov-sublimate.jpg",
+  "term": "плов сублімований"
+ },
+ {
+  "name": "Узбецький плов SubliMate (SM) сублімований для швидкого приготування 140 г",
+  "price": 309,
+  "seller": "Суренж",
+  "img": "https://images.prom.ua/7684521775_w400_h400_uzbekskij-plov-sublimate.jpg",
+  "term": "плов сублімований"
+ },
+ {
+  "name": "Набір сублімованих страв Харчі Плов XL для туристів, у дойпаку, швидке приготування [7930-liht]",
+  "price": 321,
+  "seller": "Ліхтар",
+  "img": "https://images.prom.ua/7617395874_w400_h400_nabor-sublimirovannyh-blyud.jpg",
+  "term": "плов сублімований"
+ },
+ {
+  "name": "Набір сублімованих страв Харчі Плов XL для туристів, у дойпаку, швидке приготування 7930-TD",
+  "price": 321,
+  "seller": "Іграшка Мрії (дитячі, авто, туризм)",
+  "img": "https://images.prom.ua/7617274153_w400_h400_nabor-sublimirovannyh-blyud.jpg",
+  "term": "плов сублімований"
+ },
+ {
+  "name": "Набір сублімованих страв Харчі Плов XL для туристів, у дойпаку, швидке приготування [n-7930]",
+  "price": 321,
+  "seller": "Націоналіст",
+  "img": "https://images.prom.ua/7615678405_w400_h400_nabor-sublimirovannyh-blyud.jpg",
+  "term": "плов сублімований"
+ },
+ {
+  "name": "Набір сублімованих страв Харчі Плов XL для туристів, у дойпаку, швидке приготування 7930-VO",
+  "price": 321,
+  "seller": "Вояджер (авто, туризм, спорт)",
+  "img": "https://images.prom.ua/7617346742_w400_h400_nabor-sublimirovannyh-blyud.jpg",
+  "term": "плов сублімований"
+ },
+ {
+  "name": "Набір сублімованих страв Харчі Плов XL для туристів, у дойпаку, швидке приготування 7930-DS",
+  "price": 321,
+  "seller": "Драйв Сенс",
+  "img": "https://images.prom.ua/7617391389_w400_h400_nabor-sublimirovannyh-blyud.jpg",
+  "term": "плов сублімований"
+ },
+ {
+  "name": "Курка з рисом Adventure Menu Chicken Korma 400 г - готова їжа для походів",
+  "price": 376,
+  "seller": "Компанія ALANTUR",
+  "img": "https://images.prom.ua/6395940540_w400_h400_kuritsa-s-risom.jpg",
+  "term": "adventure menu рис"
+ },
+ {
+  "name": "Курка з рисом Adventure Menu Chicken Korma with rice (AM 683)",
+  "price": 376,
+  "seller": "Modern Shop - посуд, товари для дому та активного відпочинку",
+  "img": "https://images.prom.ua/6440018853_w400_h400_kuritsa-s-risom.jpg",
+  "term": "adventure menu рис"
+ },
+ {
+  "name": "Корми з куркою та рисом Adventure Menu Chicken Korma with rice",
+  "price": 376,
+  "seller": "Магазин \"Freeride\"",
+  "img": "https://images.prom.ua/3258454471_w400_h400_korma-s-kuritsej.jpg",
+  "term": "adventure menu рис"
+ },
+ {
+  "name": "Курка в томатному соусі з рисом Adventure Menu Chicken in wild sauce with rice MK official",
+  "price": 356,
+  "seller": "MK-Sport",
+  "img": "https://images.prom.ua/4255927426_w400_h400_kuritsa-v-tomatnom.jpg",
+  "term": "adventure menu рис"
+ },
+ {
+  "name": "Курка в соусі Корма з рисом басматі Adventure Menu Chicken Korma with Basmati 110 г (AM 203)",
+  "price": 378,
+  "seller": "Лєєр - човни, мотори, все для відпочинку",
+  "img": "https://images.prom.ua/3993739568_w400_h400_kuritsa-v-souse.jpg",
+  "term": "adventure menu рис"
+ },
+ {
+  "name": "Туристичне блюдо Adventure Menu курка корми з рисом",
+  "price": 376,
+  "seller": "ForCamp - туристичні, спортивні та тактичні товари",
+  "img": "https://images.prom.ua/1607938268_w400_h400_turisticheskoe-blyudo-adventure.jpg",
+  "term": "adventure menu рис"
+ },
+ {
+  "name": "Сублімована страва: Курка в соусі Корма з рисом басматі Adventure Menu Chicken Korma with Basmati 110 г",
+  "price": 378,
+  "seller": "⭐OXO (Оксо)⭐",
+  "img": "https://images.prom.ua/4244100401_w400_h400_sublimirovannoe-blyudo-kuritsa.jpg",
+  "term": "adventure menu рис"
+ },
+ {
+  "name": "Курка з рисом Adventure Menu Chicken Korma with rice (AM 683) MK official",
+  "price": 404,
+  "seller": "MK-Sport",
+  "img": "https://images.prom.ua/4040095821_w400_h400_kuritsa-s-risom.jpg",
+  "term": "adventure menu рис"
+ },
+ {
+  "name": "Курка в томатному соусі з рисом Adventure Menu Chicken in wild sauce with rice",
+  "price": 315,
+  "seller": "Магазин \"Freeride\"",
+  "img": "https://images.prom.ua/3258454469_w400_h400_kuritsa-v-tomatnom.jpg",
+  "term": "adventure menu рис"
+ },
+ {
+  "name": "Курка в соусі Тікка Масала з рисом басмати Adventure Menu Chicken 110 г",
+  "price": 420,
+  "seller": "Лєєр - човни, мотори, все для відпочинку",
+  "img": "https://images.prom.ua/3993739570_w400_h400_kuritsa-v-souse.jpg",
+  "term": "adventure menu рис"
+ },
+ {
+  "name": "Ласощі для собак куряче м'ясо з рисом на кальцієвій кісточці ZooFooD 500 г",
+  "price": 379,
+  "seller": "\"ZooFooD\" Інтернет-магазин",
+  "img": "https://images.prom.ua/3941109047_w400_h400_lakomstvo-dlya-sobak.jpg",
+  "term": "lyofood рис"
+ },
+ {
+  "name": "Ласощі для собак куряче м'ясо з рисом на кальцієвій кісточці ZooFooD 500 г",
+  "price": 321,
+  "seller": "УкрЗоо - клетки, вольеры, корма, лакомства, витамины, ошейники, туалеты, для котов, собак, грызунов",
+  "img": "https://images.prom.ua/4016868282_w400_h400_lasoschi-selyanski-smakolikidlya.jpg",
+  "term": "lyofood рис"
+ },
+ {
+  "name": "Ласощі для собак Селянські Смаколики сердечка з куркою та рисом 2.5 см 500 г",
+  "price": 375,
+  "seller": "RiZoo-ЗооМаркет",
+  "img": "https://images.prom.ua/7451013969_w400_h400_lakomstvo-dlya-sobak.jpg",
+  "term": "lyofood рис"
+ },
+ {
+  "name": "Ласощі для собак Селянські Смаколики курка з рисом у формі кісточки 3 см 500 г",
+  "price": 379,
+  "seller": "RiZoo-ЗооМаркет",
+  "img": "https://images.prom.ua/7451015277_w400_h400_lakomstvo-dlya-sobak.jpg",
+  "term": "lyofood рис"
+ },
+ {
+  "name": "Ласощі для собак курка з рисом у формі кісточки ZooFooD 500 г",
+  "price": 345,
+  "seller": "\"ZooFooD\" Інтернет-магазин",
+  "img": "https://images.prom.ua/3941122399_w400_h400_lakomstvo-dlya-sobak.jpg",
+  "term": "lyofood рис"
+ },
+ {
+  "name": "Ласощі для собак курка з рисом у формі сердечок 2,5 см ZooFooD 500 г",
+  "price": 341,
+  "seller": "\"ZooFooD\" Інтернет-магазин",
+  "img": "https://images.prom.ua/4029609334_w400_h400_lakomstvo-dlya-sobak.jpg",
+  "term": "lyofood рис"
+ },
+ {
+  "name": "Ласощі для собак качка з рисом у формі кісточки 6-7 см ZooFooD 500 г",
+  "price": 552,
+  "seller": "\"ZooFooD\" Інтернет-магазин",
+  "img": "https://images.prom.ua/6296599309_w400_h400_lakomstvo-dlya-sobak.jpg",
+  "term": "lyofood рис"
+ },
+ {
+  "name": "Сублімоване харчування TRAVELLUNCH Nasi Goreng 125 г - Рис з куркою, безлактозна страва для мандрівників та спортсменів.",
+  "price": 567,
+  "seller": "Компанія ALANTUR",
+  "img": "https://images.prom.ua/6403394189_w400_h400_sublimovana-yizha-travellunch.jpg",
+  "term": "travellunch рис курка"
+ },
+ {
+  "name": "TRAVELLUNCH Курка карі з рисом 125 г - Сублімована страва для походів, без консервантів",
+  "price": 515,
+  "seller": "Компанія ALANTUR",
+  "img": "https://images.prom.ua/6403393636_w400_h400_travellunch-kuritsa-karri.jpg",
+  "term": "travellunch рис курка"
+ },
+ {
+  "name": "Средиземноморская тушеная рыба с рисом Trek'n Eat",
+  "price": 269,
+  "seller": "Магазин \"Freeride\"",
+  "img": "https://images.prom.ua/1727504982_w400_h400_sredizemnomorskaya-tushenaya-ryba.jpg",
+  "term": "trek'n eat рис"
+ },
+ {
+  "name": "Trekn Eat Сублімати бефстроганів з рисом Trekn Eat",
+  "price": 715,
+  "seller": "Kamanti",
+  "img": "https://images.prom.ua/4211319637_w400_h400_trekn-eat-sublimaty.jpg",
+  "term": "trek'n eat рис"
+ },
+ {
+  "name": "Bandai Tamashii Nations Dragon Ball Z - Krillin - PVC SH Figure Рис 11см",
+  "price": 8035,
+  "seller": "ElmaShop",
+  "img": "https://images.prom.ua/7296830143_w400_h400_bandai-tamashii-nations.jpg",
+  "term": "rations рис"
+ },
+ {
+  "name": "TAMASHII NATIONS SHFiguarts ФАЛЬСИФІКАТОР ОБЛІГАЦІЙ з Анею Рис. 12CM Spy X Family SH FIGUARTS, Solid, Mul",
+  "price": 10147,
+  "seller": "MellaShop",
+  "img": "https://images.prom.ua/7052690647_w400_h400_tamashii-nations-shfiguarts.jpg",
+  "term": "rations рис"
+ },
+ {
+  "name": "TAMASHII NATIONS SHFiguarts ФАЛЬСИФІКАТОР ОБЛІГАЦІЙ з Анею Рис. 12CM Spy X Family SH FIGUARTS, Solid, Multicolor (Bandai Spirits",
+  "price": 10147,
+  "seller": "ElmaShop",
+  "img": "https://images.prom.ua/7693381318_w400_h400_tamashii-nations-shfiguarts.jpg",
+  "term": "rations рис"
+ },
+ {
+  "name": "Тайське зелене каррі з рисом SubliMate сублімоване для швидкого приготування",
+  "price": 370,
+  "seller": "ВсеОпт",
+  "img": "https://images.prom.ua/7584479817_w400_h400_tajskoe-zelenoe-karri.jpg",
+  "term": "рис каррі готовий"
+ },
+ {
+  "name": "Тайське зелене каррі з рисом SubliMate сублімований обід для швидкого приготування, туристична їжа у похід",
+  "price": 369,
+  "seller": "ВсеОпт",
+  "img": "https://images.prom.ua/7584479817_w400_h400_tajskoe-zelenoe-karri.jpg",
+  "term": "рис каррі готовий"
+ },
+ {
+  "name": "Рис з куркою і овочами Їжа в Похід 85 г",
+  "price": 145,
+  "seller": "Їжа в Похід",
+  "img": "https://images.prom.ua/2947774177_w400_h400_ris-s-kuritsej.jpg",
+  "term": "рис швидкого приготування курка"
+ },
+ {
+  "name": "Рис швидкого приготування Gallina Blanca Yarroz Yatekomo, курка та соус Теріякі, 84 г, Іспанія",
+  "price": 229,
+  "seller": "Товари з Іспанії",
+  "img": "https://images.prom.ua/7212357336_w400_h400_ris-bystrogo-prigotovleniya.jpg",
+  "term": "рис швидкого приготування курка"
+ },
+ {
+  "name": "Рисова вермішель швидкого приготування зі смаком курки з кокосом Hezhong 78г Китай",
+  "price": 79,
+  "seller": "\"Смак 24\" Интернет-магазин",
+  "img": "https://images.prom.ua/6988139271_w400_h400_risovaya-vermishel-bystrogo.jpg",
+  "term": "рис швидкого приготування курка"
+ },
+ {
+  "name": "Рис швидкого приготування HENAN зі смаком тушкованого курчати 174 г",
+  "price": 156,
+  "seller": "Апетітаріум",
+  "img": "https://images.prom.ua/7361937929_w400_h400_ris-bystrogo-prigotovleniya.jpg",
+  "term": "рис швидкого приготування курка"
+ },
+ {
+  "name": "Рис з куркою, фруктами та яйцем SubliMate, сублімований, для швидкого приготування",
+  "price": 289,
+  "seller": "Суренж",
+  "img": "https://images.prom.ua/7684521085_w400_h400_ris-s-kuritsej.jpg",
+  "term": "рис швидкого приготування курка"
+ },
+ {
+  "name": "Харчо грузинське з індичкою ЇDLO, 48% рису, 33% тушкованої суміші, швидке приготування",
+  "price": 220,
+  "seller": "ВсеОпт",
+  "img": "https://images.prom.ua/6650260501_w400_h400_harcho-gruzinskoe-s.jpg",
+  "term": "рис швидкого приготування курка"
+ },
+ {
+  "name": "Суп Харчі гострий з куркою та рисом сублімований для подорожей швидкого приготування |neper-7930|",
+  "price": 265,
+  "seller": "Непереможні",
+  "img": "https://images.prom.ua/7038636509_w400_h400_sup-harchi-ostryj.jpg",
+  "term": "рис швидкого приготування курка"
+ },
+ {
+  "name": "Суп Харчі гострий з куркою та рисом сублімований для подорожей швидкого приготування 7930-VO",
+  "price": 265,
+  "seller": "Вояджер (авто, туризм, спорт)",
+  "img": "https://images.prom.ua/7418275303_w400_h400_sup-harchi-ostryj.jpg",
+  "term": "рис швидкого приготування курка"
+ },
+ {
+  "name": "Суп Харчі гострий з куркою та рисом сублімований для подорожей швидкого приготування 1",
+  "price": 265,
+  "seller": "Military Style",
+  "img": "https://images.prom.ua/7038591530_w400_h400_sup-harchi-ostryj.jpg",
+  "term": "рис швидкого приготування курка"
+ },
+ {
+  "name": "Суп Харчі гострий з куркою та рисом сублімований для подорожей швидкого приготування [7930-liht]",
+  "price": 265,
+  "seller": "Ліхтар",
+  "img": "https://images.prom.ua/7210468734_w400_h400_sup-harchi-ostryj.jpg",
+  "term": "рис швидкого приготування курка"
+ },
+ {
+  "name": "Рис швидкого приготування Gallina Blanca Yarroz Yatekomo, яловичина та соєвий соус, 84 г, Іспанія",
+  "price": 229,
+  "seller": "Товари з Іспанії",
+  "img": "https://images.prom.ua/7212320901_w400_h400_ris-bystrogo-prigotovleniya.jpg",
+  "term": "рис швидкого приготування яловичина"
+ },
+ {
+  "name": "Саморозігрівальний рис швидкого приготування з тушкованою яловичиною, 272 г",
+  "price": 799,
+  "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+  "img": "https://images.prom.ua/7598606249_w400_h400_samorazogrevayuschijsya-ris-bystrogo.jpg",
+  "term": "рис швидкого приготування яловичина"
+ },
+ {
+  "name": "Рис швидкого приготування з яловичиною та пагонами бамбука | Instant Rice Beef and Bamboo Shoots | Китай | Mo Xiao Xian | 275 г Ю",
+  "price": 931,
+  "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+  "img": "https://images.prom.ua/7516931283_w400_h400_ris-bystrogo-prigotovleniya.jpg",
+  "term": "рис швидкого приготування яловичина"
+ },
+ {
+  "name": "Саморозігрівальний рис швидкого приготування з тушкованою яловичиною, 272 г (нове паковання)",
+  "price": 799,
+  "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+  "img": "https://images.prom.ua/7598615008_w400_h400_samorazogrevayuschijsya-ris-bystrogo.jpg",
+  "term": "рис швидкого приготування яловичина"
+ },
+ {
+  "name": "Рис швидкого приготування з гострою яловичиною | Spicy Beef Instant Rice | Китай | Qiaoshanmei | 146 г Ю",
+  "price": 501,
+  "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+  "img": "https://images.prom.ua/7656633966_w400_h400_ris-bystrogo-prigotovleniya.jpg",
+  "term": "рис швидкого приготування яловичина"
+ },
+ {
+  "name": "Саморозігрівальний рис швидкого приготування з карі та яловичиною, 272 г",
+  "price": 799,
+  "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+  "img": "https://images.prom.ua/7598583244_w400_h400_samorazogrevayuschijsya-ris-bystrogo.jpg",
+  "term": "рис швидкого приготування яловичина"
+ },
+ {
+  "name": "Рис швидкого приготування HENAN зі смаком яловичини з перцем 174 г",
+  "price": 156,
+  "seller": "Апетітаріум",
+  "img": null,
+  "term": "рис швидкого приготування яловичина"
+ },
+ {
+  "name": "Рис швидкого приготування HENAN зі смаком яловичини з перцем 174 г",
+  "price": 140,
+  "seller": "Gurmissimo",
+  "img": null,
+  "term": "рис швидкого приготування яловичина"
+ },
+ {
+  "name": "Рис швидкого приготування зі смаком кисло-солодкої яловичини HENAN 144г",
+  "price": 135,
+  "seller": "DCM",
+  "img": "https://images.prom.ua/7220534938_w400_h400_ris-bystrogo-prigotovleniya.jpg",
+  "term": "рис швидкого приготування яловичина"
+ },
+ {
+  "name": "Рис швидкого приготування зі смаком гострої курки HENAN 144г",
+  "price": 83,
+  "seller": "OMG! ASIA! – магазин смаколиків з Азії",
+  "img": "https://images.prom.ua/6390381443_w400_h400_ris-bystrogo-prigotovleniya.jpg",
+  "term": "рис швидкого приготування яловичина"
+ },
+ {
+  "name": "Кімчі YOPOKKI 160г",
+  "price": 230,
+  "seller": "OMG! ASIA! – магазин смаколиків з Азії",
+  "img": "https://images.prom.ua/7087857741_w400_h400_kimchi-yopokki-160g.jpg",
+  "term": "bibigo"
+ },
+ {
+  "name": "Норі снек хрумкий васабі BIBIGO 5 г",
+  "price": 87,
+  "seller": "\"Asia Foods\" - маркет азійських продуктів",
+  "img": "https://images.prom.ua/6913028847_w400_h400_nori-snek-hrustyaschij.jpg",
+  "term": "bibigo"
+ },
+ {
+  "name": "Корейські топоккі солодко-гострі, Tteokbokki, Південна Корея, 360 г",
+  "price": 486,
+  "seller": "ТАЙЯКІ МАРТ",
+  "img": "https://images.prom.ua/6528632630_w400_h400_korejskie-tokpoki-sladko-ostrye.jpg",
+  "term": "bibigo"
+ },
+ {
+  "name": "Кімчі класичне BIBIGO CJ CHEILJEDANG Південна Корея, 150 г",
+  "price": 198,
+  "seller": "ТАЙЯКІ МАРТ",
+  "img": "https://images.prom.ua/7096998638_w400_h400_kimchi-klassicheskoe-bibigo.jpg",
+  "term": "bibigo"
+ },
+ {
+  "name": "Норі снек хрумкий барбекю BIBIGO 5 г",
+  "price": 89,
+  "seller": "\"Asia Foods\" - маркет азійських продуктів",
+  "img": "https://images.prom.ua/6913023079_w400_h400_nori-snek-hrustyaschij.jpg",
+  "term": "bibigo"
+ },
+ {
+  "name": "Кім смажений зі смаком Васабі BIBIGO, 5г",
+  "price": 72,
+  "seller": null,
+  "img": "https://images.prom.ua/6484865704_w400_h400_kim-zharenyj-so.jpg",
+  "term": "bibigo"
+ },
+ {
+  "name": "Кім смажений в кунжутній олії, BIBIGO, 5г",
+  "price": 72,
+  "seller": null,
+  "img": "https://images.prom.ua/6484879131_w400_h400_kim-zharenyj-v.jpg",
+  "term": "bibigo"
+ },
+ {
+  "name": "Хрусткі рисові палички із класичним соусом | Crispy Rice Pastry Classic Sweet & Spicy | Південна Корея | Bibigo | 346 г Ю",
+  "price": 659,
+  "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+  "img": "https://images.prom.ua/7607677783_w400_h400_hrustyaschie-risovye-palochki.jpg",
+  "term": "bibigo"
+ },
+ {
+  "name": "Хрусткі рисові палички із солодко-гострим соусом | Crispy Rice Pastry Sweet & Spicy Flavour | Bibigo | Південна Корея | 346 г Ю",
+  "price": 659,
+  "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+  "img": "https://images.prom.ua/7607675217_w400_h400_hrustyaschie-risovye-palochki.jpg",
+  "term": "bibigo"
+ },
+ {
+  "name": "Олія кунжутна, Масло кунжутное, Sesame oil, Bibigo, 1 л, Корея, Ют",
+  "price": 2834,
+  "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+  "img": "https://images.prom.ua/6824697511_w400_h400_oliya-kunzhutna-maslo.jpg",
+  "term": "bibigo"
+ },
+ {
+  "name": "Сушені продукти Харчі Каша рисова з м'ясом",
+  "price": 120,
+  "seller": "Highlander інтернет-магазин",
+  "img": "https://images.prom.ua/1392524429_w400_h400_susheni-produkti-harchi.jpg",
+  "term": "рисова каша готова з м'ясом"
+ },
+ {
+  "name": "Сушені продукти James Cook Каша гречана з м ясом",
+  "price": 139,
+  "seller": "Highlander інтернет-магазин",
+  "img": "https://images.prom.ua/6936511116_w400_h400_susheni-produkti-james.jpg",
+  "term": "рисова каша готова з м'ясом"
+ },
+ {
+  "name": "Каша рисова з соєвим м'ясом та овочами ПАК 350 гр.",
+  "price": 96,
+  "seller": "UPcompany",
+  "img": "https://images.prom.ua/5611538460_w400_h400_kasha-risovaya-s.jpg",
+  "term": "рисова каша готова з м'ясом"
+ },
+ {
+  "name": "Сушені продукти Їжачок Каша рисова з манго та папаєю",
+  "price": 105,
+  "seller": "Highlander інтернет-магазин",
+  "img": "https://images.prom.ua/5283343878_w400_h400_susheni-produkti-yizhachok.jpg",
+  "term": "рисова каша готова з м'ясом"
+ },
+ {
+  "name": "Каша с м'ясом для собак 10 кг",
+  "price": 920,
+  "seller": "ГОЛДЕН ФИД",
+  "img": "https://images.prom.ua/3717401766_w400_h400_kasha-s-myasom.jpg",
+  "term": "рисова каша готова з м'ясом"
+ },
+ {
+  "name": "Каша гречана з м'ясом і овочами Їжа в Похід 85 г",
+  "price": 125,
+  "seller": "Їжа в Похід",
+  "img": "https://images.prom.ua/3045539532_w400_h400_kasha-grechnevaya-s.jpg",
+  "term": "рисова каша готова з м'ясом"
+ },
+ {
+  "name": "Каша с м'ясом для собак 5 кг",
+  "price": 480,
+  "seller": "ГОЛДЕН ФИД",
+  "img": "https://images.prom.ua/3717401766_w400_h400_kasha-s-myasom.jpg",
+  "term": "рисова каша готова з м'ясом"
+ },
+ {
+  "name": "Сушені продукти James Cook Рис з м ясом та овочами",
+  "price": 138,
+  "seller": "Highlander інтернет-магазин",
+  "img": "https://images.prom.ua/6936511121_w400_h400_susheni-produkti-james.jpg",
+  "term": "рисова каша готова з м'ясом"
+ },
+ {
+  "name": "Каша з м ясом для собак 10 кілограмів",
+  "price": 820,
+  "seller": "ГОЛДЕН ФИД",
+  "img": "https://images.prom.ua/4181887845_w400_h400_kasha-standart-multizlak.jpg",
+  "term": "рисова каша готова з м'ясом"
+ },
+ {
+  "name": "Каша рисова з соєвим м'ясом та овочами, веганська, МАРКЕЛ, 350г",
+  "price": 94,
+  "seller": "СУХПАЙ інтернет-магазин",
+  "img": "https://images.prom.ua/5359523626_w400_h400_kasha-risovaya-s.jpg",
+  "term": "рисова каша готова з м'ясом"
+ }
+]

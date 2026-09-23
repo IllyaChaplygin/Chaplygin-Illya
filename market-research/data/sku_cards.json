@@ -1,0 +1,366 @@
+{
+ "ottogi": [
+  {
+   "name": "Готовий рис Ottogi с овощами и мясом бибимбап 269 г",
+   "price": 334,
+   "seller": "Апетітаріум",
+   "img": "https://images.prom.ua/7193445069_w400_h400_gotovyj-ris-ottogi.jpg"
+  },
+  {
+   "name": "Рис готовий Ottogi Cooked rice with spicy chicken rib з гострими курячими ребрами 310г.",
+   "price": 260,
+   "seller": "Gurmissimo",
+   "img": "https://images.prom.ua/6269437164_w400_h400_ris-gotovyj-ottogi.jpg"
+  },
+  {
+   "name": "Готовий рис Ottogi Гостра яловичина 320 г",
+   "price": 356,
+   "seller": "Апетітаріум",
+   "img": "https://images.prom.ua/7193454456_w400_h400_gotovyj-ris-ottogi.jpg"
+  },
+  {
+   "name": "Рис готовий Ottogi cooked rice and tuna with mayonnaise з тунцем і майонезом 247 г",
+   "price": 320,
+   "seller": "Gurmissimo",
+   "img": "https://images.prom.ua/6269459990_w400_h400_ris-gotovyj-ottogi.jpg"
+  },
+  {
+   "name": "Готовий рис Ottogi Гостра свинина 269 г",
+   "price": 334,
+   "seller": "Апетітаріум",
+   "img": "https://images.prom.ua/7441685193_w400_h400_gotovyj-ris-ottogi.jpg"
+  },
+  {
+   "name": "Рис готовий Ottogi з гострим соусом з осьминога 280 г",
+   "price": 289,
+   "seller": "Апетітаріум",
+   "img": "https://images.prom.ua/7193454468_w400_h400_ris-gotovyj-ottogi.jpg"
+  },
+  {
+   "name": "Рис Ottogi готовий з гострим соусом з осьминога 280 г",
+   "price": 260,
+   "seller": "Gurmissimo",
+   "img": "https://images.prom.ua/6412407440_w400_h400_ris-ottogi-gotovyj.jpg"
+  },
+  {
+   "name": "Стакан відвареного рису із свининою 310г, OTTOGI",
+   "price": 252,
+   "seller": "ТАЙЯКІ МАРТ",
+   "img": "https://images.prom.ua/6410674176_w400_h400_stakan-otvarnogo-risa.jpg"
+  },
+  {
+   "name": "Стакан відвареного рису смак пібімпаб 269г, OTTOGI",
+   "price": 252,
+   "seller": "ТАЙЯКІ МАРТ",
+   "img": "https://images.prom.ua/6414707205_w400_h400_stakan-otvarnogo-risa.jpg"
+  },
+  {
+   "name": "Стакан відвареного рису із тунцем 247г, OTTOGI",
+   "price": 225,
+   "seller": "ТАЙЯКІ МАРТ",
+   "img": "https://images.prom.ua/6414721017_w400_h400_stakan-otvarnogo-risa.jpg"
+  },
+  {
+   "name": "Стакан відвареного рису із бульгогі 320г, OTTOGI!!!Уцінка (Термін до 04.2025)",
+   "price": 252,
+   "seller": "ТАЙЯКІ МАРТ",
+   "img": "https://images.prom.ua/6414737593_w400_h400_stakan-otvarnogo-risa.jpg"
+  }
+ ],
+ "haidilao": [
+  {
+   "name": "Китайський саморозігрівальний горщик Haidilao Рис із подрібненою свининою зі смаком риби 187 г tdi",
+   "price": 650,
+   "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+   "img": "https://images.prom.ua/7354254015_w400_h400_kitajskij-samorazogrevayuschijsya-gorshok.jpg"
+  },
+  {
+   "name": "Саморозігрівальний горщик Haidilao, Рис із тушкованою куркою, що розігрівається в духовці, 187 г",
+   "price": 650,
+   "seller": "Tactico",
+   "img": "https://images.prom.ua/7280764517_w400_h400_samorazogrevayuschijsya-gorshok-haidilao.jpg"
+  },
+  {
+   "name": "Саморозігрівальний горщик Haidilao, саморозігрівальний рис Haidilao з гострим курячим соусом, 175 г",
+   "price": 650,
+   "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+   "img": "https://images.prom.ua/7284238044_w400_h400_samorazogrevayuschijsya-gorshok-haidilao.jpg"
+  },
+  {
+   "name": "Саморозігрівальний горщик Haidilao, саморозігрівальний рис із куркою теріяки, 181 г",
+   "price": 650,
+   "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+   "img": "https://images.prom.ua/7056713508_w400_h400_samorazogrevayuschijsya-gorshok-haidilao.jpg"
+  },
+  {
+   "name": "Саморозігрівальний горщик Haidilao, саморозігрівальний рис із подрібненою свининою і часником, 187 г",
+   "price": 650,
+   "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+   "img": "https://images.prom.ua/7284238040_w400_h400_samorazogrevayuschijsya-gorshok-haidilao.jpg"
+  },
+  {
+   "name": "Китайський саморозігрівальний горщик Haidilao Китайський рис із пікантною куркою 175 г tdi",
+   "price": 650,
+   "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+   "img": "https://images.prom.ua/7354553177_w400_h400_kitajskij-samorazogrevayuschijsya-gorshok.jpg"
+  },
+  {
+   "name": "Китайський саморозігрівальний горщик Haidilao Самонагрівальний рис із тушкованою куркою 187 г tdi",
+   "price": 680,
+   "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+   "img": "https://images.prom.ua/7354553182_w400_h400_kitajskij-samorazogrevayuschijsya-gorshok.jpg"
+  },
+  {
+   "name": "Китайський Рис Haidilao Stewed Chicken 165 г",
+   "price": 380,
+   "seller": "Sweet Svitt",
+   "img": "https://images.prom.ua/6522646939_w400_h400_kitajskij-ris-haidilao.jpg"
+  },
+  {
+   "name": "Китайський саморозігрівальний горщик Haidilao Самонагрівальний рис із тушкованою куркою 187 г des",
+   "price": 680,
+   "seller": "Desna",
+   "img": "https://images.prom.ua/7351414090_w400_h400_kitajskij-samorazogrevayuschijsya-gorshok.jpg"
+  },
+  {
+   "name": "Саморозігрівальний китайський рис із куркою теріяки, 181 г",
+   "price": 660,
+   "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+   "img": "https://images.prom.ua/7598682651_w400_h400_samorazogrevayuschijsya-kitajskij-ris.jpg"
+  },
+  {
+   "name": "Саморозігрівальний китайський рис із яловичиною та карі, 272 г",
+   "price": 770,
+   "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+   "img": "https://images.prom.ua/7598658007_w400_h400_samorazogrevayuschijsya-kitajskij-ris.jpg"
+  },
+  {
+   "name": "Саморозігрівальний рис швидкого приготування з тушкованою яловичиною, 272 г",
+   "price": 799,
+   "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+   "img": "https://images.prom.ua/7598606249_w400_h400_samorazogrevayuschijsya-ris-bystrogo.jpg"
+  },
+  {
+   "name": "Саморозігрівальний рис у кантонському стилі, 187 г",
+   "price": 680,
+   "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+   "img": "https://images.prom.ua/7598550099_w400_h400_samorazogrevayuschijsya-ris-v.jpg"
+  },
+  {
+   "name": "Саморозігрівальний рис швидкого приготування з тушкованою яловичиною, 272 г (нове паковання)",
+   "price": 799,
+   "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+   "img": "https://images.prom.ua/7598615008_w400_h400_samorazogrevayuschijsya-ris-bystrogo.jpg"
+  },
+  {
+   "name": "Саморозігрівальний рис швидкого приготування з карі та яловичиною, 272 г",
+   "price": 799,
+   "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+   "img": "https://images.prom.ua/7598583244_w400_h400_samorazogrevayuschijsya-ris-bystrogo.jpg"
+  },
+  {
+   "name": "Саморозігрівальний рис із томатами та яловичою грудинкою, 272 г",
+   "price": 799,
+   "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+   "img": "https://images.prom.ua/7598648871_w400_h400_samorazogrevayuschijsya-ris-s.jpg"
+  },
+  {
+   "name": "Саморозігрівальний китайський рис із тушкованою куркою, 187 г",
+   "price": 680,
+   "seller": "Daruy Інтернет Магазин \"Туристичне спорядження\"",
+   "img": "https://images.prom.ua/7598688069_w400_h400_samorazogrevayuschijsya-kitajskij-ris.jpg"
+  },
+  {
+   "name": "Саморозігрівальний горщик Haidilao, Рис із тушкованою куркою, що розігрівається в духовці, 187 г",
+   "price": 650,
+   "seller": "Магазин  Шериф",
+   "img": "https://images.prom.ua/7277825213_w400_h400_samorazogrevayuschijsya-gorshok-haidilao.jpg"
+  },
+  {
+   "name": "Саморозігрівальний горщик Haidilao, саморозігрівальний рис із куркою теріяки, 181 г",
+   "price": 650,
+   "seller": "Магазин  Шериф",
+   "img": "https://images.prom.ua/7056713508_w400_h400_samorazogrevayuschijsya-gorshok-haidilao.jpg"
+  }
+ ],
+ "travellunch": [
+  {
+   "name": "Сублімоване харчування TRAVELLUNCH Nasi Goreng 125 г - Рис з куркою, безлактозна страва для мандрівників та спортсменів.",
+   "price": 567,
+   "seller": "Компанія ALANTUR",
+   "img": "https://images.prom.ua/6403394189_w400_h400_sublimovana-yizha-travellunch.jpg"
+  },
+  {
+   "name": "TRAVELLUNCH Nasi Goreng 250 г - Азіатська страва швидкого приготування з рисом та спеціями",
+   "price": 889,
+   "seller": "Компанія ALANTUR",
+   "img": "https://images.prom.ua/4587169976_w400_h400_travellunch-nasi-goreng.jpg"
+  },
+  {
+   "name": "Сублімована їжа Travellunch Бефстроганов з рисом 250 г - 2 порції",
+   "price": 811,
+   "seller": "ForCamp - туристичні, спортивні та тактичні товари",
+   "img": "https://images.prom.ua/2159592932_w400_h400_sublimirovannaya-eda-travellunch.jpg"
+  },
+  {
+   "name": "Travellunch Рис із яловичиною та перцем 125 г",
+   "price": 295,
+   "seller": "Військторг Гайдамак",
+   "img": "https://images.prom.ua/4859591052_w400_h400_travellunch-ris-s.jpg"
+  },
+  {
+   "name": "Рис Travellunch з соусом з яловичини і перцю 125 г 1 порція (1004-50149)",
+   "price": 515,
+   "seller": "Plase of beauty",
+   "img": "https://images.prom.ua/6815648152_w400_h400_ris-travellunch-s.jpg"
+  },
+  {
+   "name": "TRAVELLUNCH Рис з Яловичиною та Соусом Перцю 250 г Зручний Обід На Ходу",
+   "price": 811,
+   "seller": "Компанія ALANTUR",
+   "img": "https://images.prom.ua/4587168251_w400_h400_travellunch-ris-s.jpg"
+  },
+  {
+   "name": "Travellunch бефстроганів з рисом 125 г",
+   "price": 275,
+   "seller": "Військторг Гайдамак",
+   "img": "https://images.prom.ua/4872676526_w400_h400_travellunch-befstroganov-s.jpg"
+  },
+  {
+   "name": "TRAVELLUNCH Рис з яловичиною в соусі перцю 125 г - смачний та поживний обід",
+   "price": 515,
+   "seller": "Компанія ALANTUR",
+   "img": "https://images.prom.ua/4587168251_w400_h400_travellunch-ris-s.jpg"
+  },
+  {
+   "name": "Сублімована їжа Travellunch Beef Stroganoff with Rice Бефстроганов з рисом 125 г",
+   "price": 515,
+   "seller": "Highlander інтернет-магазин",
+   "img": "https://images.prom.ua/3182202804_w400_h400_sublimovana-yizha-travellunch.jpg"
+  },
+  {
+   "name": "Сублімована їжа Travellunch Beef Stroganoff with Rice Бефстроганов з рисом 250 г (2 порції)",
+   "price": 702,
+   "seller": "Highlander інтернет-магазин",
+   "img": "https://images.prom.ua/3182202804_w400_h400_sublimirovannaya-pischa-travellunch.jpg"
+  }
+ ],
+ "moxiaoxian": [
+  {
+   "name": "Рис швидкого приготування з яловичиною та пагонами бамбука | Instant Rice Beef and Bamboo Shoots | Китай | Mo Xiao Xian | 275 г Ю",
+   "price": 931,
+   "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+   "img": "https://images.prom.ua/7516931283_w400_h400_ris-bystrogo-prigotovleniya.jpg"
+  },
+  {
+   "name": "Рис швидкого приготування із в'яленим беконом та зеленим горошком | Instant Rice Sichuan Style Bacon Green Peas | Китай | 275 г Ю",
+   "price": 931,
+   "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+   "img": "https://images.prom.ua/7516925986_w400_h400_ris-bystrogo-prigotovleniya.jpg"
+  }
+ ],
+ "portion": [],
+ "sublimate": [
+  {
+   "name": "Сублімовані продукти SubliMate рис з куркою, фруктами і яйцем",
+   "price": 290,
+   "seller": "Highlander інтернет-магазин",
+   "img": "https://images.prom.ua/7381830731_w400_h400_sublimovani-produkti-sublimate.jpg"
+  },
+  {
+   "name": "Сублімовані продукти SubliMate Тайське зелене карі з рисом",
+   "price": 370,
+   "seller": "Highlander інтернет-магазин",
+   "img": "https://images.prom.ua/7392849024_w400_h400_sublimovani-produkti-sublimate.jpg"
+  },
+  {
+   "name": "Томатний суп з рисом (SubliMate)",
+   "price": 260,
+   "seller": "Activity - Туристичне та гірськолижне спорядження, спортивний одяг, взуття, аксесуари",
+   "img": "https://images.prom.ua/7502672111_w400_h400_tomatnij-sup-z.jpg"
+  },
+  {
+   "name": "Сублімовані продукти SubliMate Томатний суп з рисом",
+   "price": 260,
+   "seller": "Highlander інтернет-магазин",
+   "img": "https://images.prom.ua/7190825163_w400_h400_sublimovani-produkti-sublimate.jpg"
+  },
+  {
+   "name": "Sublimate Тайське зелене карі з рисом",
+   "price": 370,
+   "seller": "M-LAW інтернет-магазин M-LAW.COM.UA",
+   "img": "https://images.prom.ua/7379545316_w400_h400_sublimate-tajskoe-zelenoe.jpg"
+  },
+  {
+   "name": "Суп томатний з рисом SubliMate сублімований туристичний обід для походів",
+   "price": 260,
+   "seller": "Суренж",
+   "img": "https://images.prom.ua/7684522847_w400_h400_sup-tomatnyj-s.jpg"
+  },
+  {
+   "name": "Тайське зелене каррі з рисом SubliMate сублімоване для швидкого приготування туристична їжа",
+   "price": 369,
+   "seller": "Суренж",
+   "img": "https://images.prom.ua/7684522861_w400_h400_tajskoe-zelyonoe-karri.jpg"
+  },
+  {
+   "name": "Sublimate Рис з куркою, фруктами та яйцем",
+   "price": 290,
+   "seller": "M-LAW інтернет-магазин M-LAW.COM.UA",
+   "img": "https://images.prom.ua/7379545295_w400_h400_sublimate-ris-s.jpg"
+  },
+  {
+   "name": "Тайське зелене каррі з рисом SubliMate сублімоване для швидкого приготування",
+   "price": 370,
+   "seller": "ВсеОпт",
+   "img": "https://images.prom.ua/7584479817_w400_h400_tajskoe-zelenoe-karri.jpg"
+  },
+  {
+   "name": "Тайське зелене каррі з рисом SubliMate сублімований обід для швидкого приготування, туристична їжа у похід",
+   "price": 369,
+   "seller": "ВсеОпт",
+   "img": "https://images.prom.ua/7584479817_w400_h400_tajskoe-zelenoe-karri.jpg"
+  }
+ ],
+ "bibigo": [
+  {
+   "name": "Рис швидкого приготування, Bibigo, 210г",
+   "price": 189,
+   "seller": "ТАЙЯКІ МАРТ",
+   "img": "https://images.prom.ua/7102026375_w400_h400_ris-bystrogo-prigotovleniya.jpg"
+  }
+ ],
+ "clearspring": [
+  {
+   "name": "Суміш коричневого та дикого рису з соусом Тамарі органічна | Organic Brown & Wild Rice with Tamari Soya Sauce | Німечч",
+   "price": 446,
+   "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+   "img": "https://images.prom.ua/7066819201_w400_h400_smes-korichnevogo-i.jpg"
+  },
+  {
+   "name": "Крекери з коричневого рису з кунжутом органічні | Organic Brown Rice Crackers Black Sesame Tamari | Японія | Clearspring | 40 г VG",
+   "price": 418,
+   "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+   "img": "https://images.prom.ua/7483650632_w400_h400_krekery-iz-korichnevogo.jpg"
+  },
+  {
+   "name": "Крекери з коричневого рису органічні з кунжутом | Organic Brown Rice Crackers Whole Sesame Tamari | Японія | Clearspring | 40 г VG",
+   "price": 418,
+   "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+   "img": "https://images.prom.ua/7483654954_w400_h400_krekery-iz-korichnevogo.jpg"
+  },
+  {
+   "name": "Крекери з коричневого рису Чорний перець і Тамарі | Brown Rice Crackers Black Pepper Tamari | Японія | Clearspring | 40 г VG",
+   "price": 418,
+   "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+   "img": "https://images.prom.ua/7483656810_w400_h400_krekery-iz-korichnevogo.jpg"
+  },
+  {
+   "name": "Крекери з коричневого рису органічні Зелені норі та Тамарі | Brown Rice Crackers Green Nori Tamari | Японія | Clearspring | 40г VG",
+   "price": 418,
+   "seller": "Інтернет-магазин Скарби Азії 亚洲超市 中国超市",
+   "img": "https://images.prom.ua/7483652981_w400_h400_krekery-iz-korichnevogo.jpg"
+  }
+ ],
+ "bens": []
+}
