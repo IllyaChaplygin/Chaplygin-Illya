@@ -1,0 +1,38 @@
+[
+ {
+  "title": "Каша рисова hapay! зі свининою 340г",
+  "chains": [
+   "chudomarket"
+  ],
+  "weight": 340.0,
+  "producer": "Hapay!",
+  "img": "https://img3.zakaz.ua/e2194c3671f0421cbd1c753e1bfa8ff6/1773892413-s1350x1350.jpg",
+  "lo": 62.9,
+  "hi": 62.9,
+  "ean": "04820184610705"
+ },
+ {
+  "title": "Каша рисова L'appetit зі свининою 340г",
+  "chains": [
+   "ideal"
+  ],
+  "weight": 340.0,
+  "producer": "L'appetit",
+  "img": "https://img2.zakaz.ua/ebc83a2880f24d9fb56ad515cc6bf009/1759740852-s1350x1350.jpg",
+  "lo": 119.9,
+  "hi": 119.9,
+  "ean": "04820177070103"
+ },
+ {
+  "title": "Каша рисова L'appetit з яловичиною 340г",
+  "chains": [
+   "ideal"
+  ],
+  "weight": 340.0,
+  "producer": "L'appetit",
+  "img": "https://img2.zakaz.ua/5481064d089f49349b197a1ca347a2d8/1759740830-s1350x1350.jpg",
+  "lo": 125.9,
+  "hi": 125.9,
+  "ean": "04820177070165"
+ }
+]

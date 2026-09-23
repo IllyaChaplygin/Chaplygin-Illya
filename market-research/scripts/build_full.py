@@ -83,26 +83,26 @@ BOWL_MORE = [
 ]
 # ── Страва в реторт-паучі, українське виробництво ─────────────────────────
 UA_RETORT = [
-    (None, "Portion", "Каша рисова з куркою", 350, 71.4, 71.4,
-     "portion.com.ua", ROSE),
+    ("sku/ua_portion_pack.jpg", "Portion", "Каша рисова з м'ясом курки", 350, 71.4, 85,
+     "portion.com.ua · Prom", ROSE),
     ("sku/ua_markel_soy.jpg", "Маркел", "Рис із соєвим м'ясом", 350, 80, 96,
-     "Мартел-shop · СУХПАЙ · UPcompany", SLATE),
-    ("sku/ua_pak_pork.jpg", "Маркел", "Каша рисова зі свининою", 350, 99, 99,
-     "UPcompany", SLATE),
-    ("sku/ua_markel_eat.jpg", "Маркел", "Рис із рослинним фаршем", 350, 127, 144,
-     "СУХПАЙ · UPcompany", SLATE),
+     "UP Shop · СУХПАЙ · Мартел-shop", SLATE),
+    ("sku/ua_pak_pork.jpg", "МАКРО", "Свинина та овочі", 350, 96.1, 135,
+     "UP Shop · СУХПАЙ · Ліхтар", ORANGE),
     ("sku/ua_veres_pork.jpg", "Верес", "Свинина, горошок, кукурудза", 350, 100, 100,
-     "Prom", GREEN),
-    ("sku/ua_veres_chicken.jpg", "Верес", "Каша рисова з куркою", 350, 108, 134,
-     "Козуб · Смачна адреса · Продукт-Shop", GREEN),
+     "МореПродуктів", GREEN),
     ("sku/ua_makro_chicken.jpg", "МАКРО", "Курятина 35 % і овочі", 350, 101, 101,
      "СУХПАЙ", ORANGE),
-    ("sku/ua_makro_pork.jpg", "МАКРО", "Свинина 35 % і овочі", 350, 101, 135,
-     "СУХПАЙ · Euro-komplekt", ORANGE),
-    ("sku/ua_makro_beef.jpg", "МАКРО", "Яловичина 35 % і овочі", 350, 106, 107,
-     "СУХПАЙ · UPcompany", ORANGE),
-    ("sku/ua_khodoriv_pork.jpg", "Ходорівський", "Свинина, горошок, кукурудза", 350, 199, 199,
-     "Prom", PLUM),
+    ("sku/ua_makro_beef.jpg", "МАКРО", "Яловичина й солодкий перець", 350, 103.85, 107,
+     "UP Shop · СУХПАЙ", ORANGE),
+    ("sku/ua_khodoriv_350.jpg", "Ходорівський", "Свинина та овочі", 350, 105, 105,
+     "Молочний склад", PLUM),
+    ("sku/ua_veres_chicken.jpg", "Верес", "Каша рисова з куркою", 350, 108, 134,
+     "Козуб · Смачна адреса · Продукт-Shop", GREEN),
+    ("sku/ua_markel_eat.jpg", "Маркел", "Рис із рослинним фаршем", 350, 127, 144,
+     "UP Shop · СУХПАЙ", SLATE),
+    ("sku/ua_khodoriv_pork.jpg", "Ходорівський", "Свинина, горошок, кукурудза", 350, 140, 199,
+     "Foodi Shop · Food Shop · МореПродуктів", PLUM),
 ]
 # ── Страва в реторт-паучі, імпорт ─────────────────────────────────────────
 IMPORT_RETORT = [
@@ -290,21 +290,17 @@ def sku_cell(s, x, y, w, h, img, name, grams, lo, hi, chan, c, brand=None):
         text(s, x + 0.13, yy + 0.38, w - 0.26, 0.18, gt, size=7.5, color=GREY)
     text(s, x + 0.13, yy + 0.56, w - 0.26, 0.26, money(lo, hi) + " грн", size=11.5,
          bold=True, color=c)
-    if grams:
-        p100 = rng(lo / grams * 100, hi / grams * 100)
-        text(s, x + 0.13, yy + 0.83, w - 0.26, 0.18, p100 + " грн/100 г", size=7.5,
-             bold=True, color=GREY)
-    text(s, x + 0.13, yy + 1.00, w - 0.26, 0.18, chan[:30], size=7, color=GREY)
+    text(s, x + 0.13, yy + 0.84, w - 0.26, 0.18, chan[:34], size=7.5, color=GREY)
 
 
-def brand_head(s, x, y, brand, origin, fmt, n, lo, hi, plo, phi, c):
+def brand_head(s, x, y, brand, origin, fmt, n, mlo, mhi, plo, phi, c):
     rect(s, x, y, 11.98, 0.66, MIST, rounded=True, adj=0.20)
     rect(s, x, y, 0.09, 0.66, c, rounded=True, adj=0.5)
     text(s, x + 0.30, y + 0.07, 3.00, 0.28, brand, size=14, bold=True, color=NAVY)
     text(s, x + 0.30, y + 0.36, 3.00, 0.22, origin, size=8.5, color=GREY)
     for i, (lb, vl) in enumerate([("ФОРМАТ", fmt), ("ПОЗИЦІЙ", f"{n}"),
                                   ("ЗА УПАКОВКУ", f"{money(plo, phi)} грн"),
-                                  ("ЗА 100 Г", f"{rng(lo, hi)} грн")]):
+                                  ("МАСА", f"{rng(mlo, mhi)} г")]):
         cx = x + 3.60 + i * 2.10
         text(s, cx, y + 0.09, 2.00, 0.18, lb, size=7.5, bold=True, color=GREY)
         text(s, cx, y + 0.29, 2.00, 0.28, vl, size=11.5, bold=True,
@@ -466,17 +462,17 @@ def slide_summary():
          ("ПОЗИЦІЙ У ПРОДАЖУ", f"{N_SKU}", PLUM,
           f"{N_BRANDS} брендів. {N_UA} позицій —\nукраїнського виробництва."),
          ("МЕДІАНА ЗА УПАКОВКУ", f"{num(MED_UNIT)} грн", GREEN,
-          f"За 100 г — {num(MED100)} грн.\nДіапазон 45–446 грн."),
+          "Діапазон 45–466 грн.\nПоловина позицій — до 139 грн."),
          ("МАСОВА ВАГА", "350 г", SLATE,
           "10 позицій. Далі 250 г — 6,\n220 г — 6.")]
     for i, (lb, v, c, note) in enumerate(K):
         kpi(s, M + i * 2.04, 1.88, 1.86, 1.92, lb, v, note, c)
     insight(s, M, 4.02, 5.86, 2.36, "Що показало дослідження",
-            "1. Українське виробництво в категорії вже є — і воно найдешевше за грам: "
-            "реторт-пауч 350 г за 71–199 грн, це 20–57 грн за 100 г.\n"
+            "1. Українське виробництво в категорії вже є — і воно найдешевше: реторт-пауч "
+            "350 г за 71–199 грн, медіана 101 грн за упаковку.\n"
             "2. Ben's Original — єдиний імпортний гарнір у мережі: 10 позицій у «Сільпо» "
             "за 45–179 грн.\n"
-            "3. Корейська чаша — найдорожчий формат за грам (91 грн/100 г) і продається "
+            "3. Корейська чаша — найдорожчий сегмент (медіана 252 грн) і продається "
             "лише у трьох азійських магазинах.", ORANGE)
     insight(s, M + 6.12, 4.02, 5.86, 2.36, "Де порожньо",
             "1. Немає українського гарніру — чистого рису в паучі. Усі 10 українських "
@@ -576,12 +572,13 @@ def slide_map():
         text(s, x + 0.22, 4.16, 2.40, 0.28, f"{num(med_unit(items))} грн", size=15,
              bold=True, color=c)
         text(s, x + 0.22, 4.44, 2.40, 0.20, f"{num(lo)} – {num(hi)} грн", size=8.5, color=GREY)
-        text(s, x + 0.22, 4.64, 2.40, 0.20, f"за 100 г — {num(med100(items))} грн",
+        text(s, x + 0.22, 4.64, 2.40, 0.20,
+             f"маса {num(min(y[3] for y in items))}–{num(max(y[3] for y in items))} г",
              size=8.5, bold=True, color=INK)
     insight(s, M, 5.14, 11.98, 1.42, "Як читати цю карту",
-            "Український реторт-пауч уже виграє за грам: 29 грн за 100 г проти 41 грн у "
-            "Ben's Original і 91 грн у корейської чаші. Але це страва з м'ясом, а не гарнір — "
-            "інша полиця і інший привід.\n"
+            "Український реторт-пауч уже виграє за ціною: медіана 101 грн проти 90 грн у "
+            "Ben's Original — але в паучі 350 г проти 220–250 г, тобто це повна страва "
+            "з м'ясом, а не гарнір. Інша полиця й інший привід.\n"
             "Ben's Original тримає нішу гарніру сам-один: жодного українського чистого рису "
             "в паучі на ринку немає. Корейська чаша — найдорожчий формат і найвужчий канал: "
             "три азійські магазини.", ORANGE)
@@ -594,8 +591,8 @@ def sku_slide(eyebrow, title, dek, items, src, head=None, two_rows=True, note=No
     y0 = 1.72
     if head:
         brand, origin, fmt, c, plo, phi = head
-        lo100, hi100 = p100(items)
-        brand_head(s, M, y0, brand, origin, fmt, len(items), lo100, hi100, plo, phi, c)
+        ms = [x[3] for x in items]
+        brand_head(s, M, y0, brand, origin, fmt, len(items), min(ms), max(ms), plo, phi, c)
         y0 = 2.50
     else:
         y0 = 1.88
@@ -640,8 +637,8 @@ def slide_bowls():
               "діє нижча ціна від 15–20 шт — вона до розрахунку не бралася. Три позиції "
               "Ottogi з попередньої редакції знято: на сайтах продавців їх більше немає.",
               note=("Що це означає",
-                    "Найдорожчий формат категорії: 91 грн за 100 г проти 41 у Ben's і 29 в "
-                    "українському паучі. Та сама позиція коштує по-різному: тунець 247 г — "
+                    "Найдорожчий сегмент: медіана 252 грн за чашу проти 90 грн у Ben's і 101 грн "
+                    "в українському паучі. Та сама позиція коштує по-різному: тунець 247 г — "
                     "225 грн у «Тайякі Март» і 356 грн в «Апетітаріум», розкид 58 %.", PLUM))
 
 
@@ -653,9 +650,9 @@ def slide_ua():
               "Ціни з карток продавців на Prom.ua і з фірмового магазину portion.com.ua, "
               "23.09.2026, за один пауч. Оптові пороги від 3–12 шт не бралися.",
               note=("Що це означає",
-                    "Найдешевший грам усієї категорії: 20–57 грн за 100 г. Виробництво "
-                    "українське, тому ці позиції не потрапляють в імпортну статистику "
-                    "на слайді 03 — реальний обсяг категорії більший за 182 тонни.\n"
+                    "Найдешевший сегмент категорії: 71–199 грн за пауч 350 г, медіана 101 грн. "
+                    "Виробництво українське, тому ці позиції не потрапляють в імпортну "
+                    "статистику на слайді 03 — реальна категорія більша за 182 тонни.\n"
                     "Канал вузький: Prom і фірмові магазини, у мережах цих брендів немає.",
                     GREEN))
 
@@ -667,9 +664,8 @@ def slide_import():
               L_IMP, "Ціни з карток Prom.ua 23.09.2026 за одну упаковку.",
               two_rows=False,
               note=("Що це означає",
-                    "Adventure Menu 400 г READY TO EAT — реторт без води, 79–101 грн за 100 г: "
-                    "той самий коридор, що Ben's Original, але канал туристичний. "
-                    "Clearspring 250 г за 446 грн — 178 грн за 100 г, найдорожчий пауч ринку: "
+                    "Adventure Menu 400 г READY TO EAT — найбільша упаковка категорії, 315–466 грн, "
+                    "канал туристичний. Clearspring 250 г за 446 грн — найдорожчий пауч ринку: "
                     "органічна сертифікація й дикий рис.", TEAL))
 
 # ══ ФОРМАТ І ГРАМАЖ ═══════════════════════════════════════════════════════
@@ -703,7 +699,7 @@ def slide_format():
              size=10.5, bold=True, color=NAVY)
         rect(s, x + 0.24, 4.58, 2.34, 0.02, MIST_D)
         for j, (lb, v) in enumerate([("ЗА УПАКОВКУ, МЕДІАНА", f"{num(st.median(pr))} грн"),
-                                     ("ЗА 100 Г, МЕДІАНА", f"{num(med100(it))} грн"),
+                                     ("СЕРЕДНЯ МАСА", f"{num(st.median(ms))} г"),
                                      ("ДІАПАЗОН", f"{num(min(pr))} – {num(max(pr))} грн"),
                                      ("МАСА", f"{num(min(ms))} – {num(max(ms))} г")]):
             yy = 4.68 + j * 0.46
@@ -742,56 +738,62 @@ def slide_format():
 
 # ══ ЦІНА ЗА ОДНУ УПАКОВКУ ═════════════════════════════════════════════════
 def slide_ladder():
+    """Сходи брендів за ціною однієї упаковки. Крапка — медіана бренду."""
     s = slide()
-    header(s, "ЦІНА", "Кожна позиція: за упаковку і за 100 грамів",
-           "Ліворуч — скільки покупець платить у касі. Праворуч — скільки це коштує за грам.")
-    rows = sorted(ALL8, key=lambda x: x[4])
-    rect(s, M, 1.84, 11.98, 5.06, MIST, rounded=True, adj=0.04)
-    AX1, AW1 = 4.34, 3.10
-    AX2, AW2 = 8.74, 2.90
-    MX1, MX2 = 460.0, 190.0
+    lo_all = min(x[4] for x in ALL8)
+    hi_all = max(x[5] for x in ALL8)
+    header(s, "ЦІНА ЗА ОДНУ УПАКОВКУ",
+           f"Від {num(lo_all)} до {num(hi_all)} грн: сходи всіх {N_BRANDS} брендів",
+           "Крапка — медіана бренду, смуга — від найдешевшої до найдорожчої його позиції.")
+    SEGC = {}
+    for _nm, _items, _c, _ in SEGMENTS:
+        for _x in _items:
+            SEGC[_x[1]] = (_c, _nm)
+    rows = []
+    for b in dict.fromkeys(x[1] for x in ALL8):
+        it = [x for x in ALL8 if x[1] == b]
+        rows.append((b, min(x[4] for x in it), max(x[5] for x in it),
+                     st.median([x[4] for x in it]), len(it), COUNTRY[b], SEGC[b][0]))
+    rows.sort(key=lambda r: r[3])
+    LO, HI = 0, 500
+    AX, AW = 4.70, 7.10
 
-    def a1(v):
-        return AX1 + AW1 * v / MX1
-
-    def a2(v):
-        return AX2 + AW2 * v / MX2
-    for t in range(0, 461, 115):
-        rect(s, a1(t), 2.14, 0.012, 4.24, RGBColor(0xDC, 0xE2, 0xEE))
-        text(s, a1(t) - 0.34, 6.46, 0.68, 0.20, num(t), size=7.5, color=GREY,
+    def ax(v):
+        return AX + AW * (v - LO) / (HI - LO)
+    rect(s, M, 1.86, 11.98, 4.90, MIST, rounded=True, adj=0.04)
+    for t in range(100, 501, 100):
+        rect(s, ax(t), 2.10, 0.012, 3.94, RGBColor(0xDC, 0xE2, 0xEE))
+        text(s, ax(t) - 0.40, 6.12, 0.80, 0.22, num(t), size=8.5, color=GREY,
              align=PP_ALIGN.CENTER)
-    for t in range(0, 191, 50):
-        rect(s, a2(t), 2.14, 0.012, 4.24, RGBColor(0xDC, 0xE2, 0xEE))
-        text(s, a2(t) - 0.34, 6.46, 0.68, 0.20, num(t), size=7.5, color=GREY,
-             align=PP_ALIGN.CENTER)
-    rect(s, a2(MED100), 2.14, 0.02, 4.24, NAVY_L)
-    text(s, M + 0.24, 1.98, 2.60, 0.18, "БРЕНД І ПОЗИЦІЯ", size=6.5, bold=True, color=GREY)
-    text(s, M + 2.92, 1.98, 0.46, 0.18, "МАСА", size=6.5, bold=True, color=GREY,
+    text(s, M + 0.26, 2.06, 2.30, 0.18, "БРЕНД", size=7, bold=True, color=GREY)
+    text(s, M + 2.64, 2.06, 0.96, 0.18, "КРАЇНА", size=7, bold=True, color=GREY)
+    text(s, M + 3.66, 2.06, 0.34, 0.18, "SKU", size=7, bold=True, color=GREY,
          align=PP_ALIGN.RIGHT)
-    text(s, AX1, 1.98, 2.20, 0.18, "ГРН ЗА УПАКОВКУ", size=6.5, bold=True, color=GREY)
-    text(s, AX2, 1.98, 2.20, 0.18, "ГРН ЗА 100 Г", size=6.5, bold=True, color=GREY)
-    yy = 2.30
-    for im, b, nm, g, lo, hi, ch, c in rows:
-        label = f"{b} · {nm}"
-        text(s, M + 0.24, yy - 0.075, 2.62, 0.17,
-             [([(b + " · ", {"bold": True, "color": NAVY}), (nm, {"color": GREY})], {})],
-             size=7.5)
-        text(s, M + 2.86, yy - 0.07, 0.52, 0.17, f"{num(g)} г", size=7, color=GREY,
+    text(s, M + 0.26, 6.12, 3.20, 0.22, "ГРН ЗА ОДНУ УПАКОВКУ", size=8.5, bold=True, color=GREY)
+    yy = 2.46
+    for b_, lo, hi, med, n, cty, c in rows:
+        text(s, M + 0.26, yy - 0.11, 2.34, 0.24, b_, size=10.5, bold=True, color=NAVY)
+        text(s, M + 2.64, yy - 0.09, 0.96, 0.20, cty, size=8, color=GREY)
+        text(s, M + 3.60, yy - 0.09, 0.40, 0.20, str(n), size=8, bold=True, color=GREY,
              align=PP_ALIGN.RIGHT)
-        rect(s, a1(lo), yy - 0.03, max(a1(hi) - a1(lo), 0.03), 0.06, c, rounded=True, adj=0.5)
-        dot(s, a1(lo), yy, 0.115, c)
-        lbl = num(lo) if lo == hi else f"{num(lo)}–{num(hi)}"
-        text(s, a1(hi) + 0.07, yy - 0.085, 0.80, 0.18, lbl, size=7, bold=True, color=c)
-        p1, p2 = lo / g * 100, hi / g * 100
-        rect(s, a2(p1), yy - 0.03, max(a2(p2) - a2(p1), 0.03), 0.06, c, rounded=True, adj=0.5)
-        dot(s, a2(p1), yy, 0.115, c)
-        l2 = num(p1) if lo == hi else f"{num(p1)}–{num(p2)}"
-        text(s, a2(p2) + 0.07, yy - 0.085, 0.80, 0.18, l2, size=7, bold=True, color=c)
-        yy += 0.126
-    text(s, a2(MED100) - 0.70, 6.64, 1.60, 0.20, f"медіана {num(MED100)} грн", size=7.5,
-         bold=True, color=NAVY_L, align=PP_ALIGN.CENTER)
-    foot(s, "Роздрібна ціна за одну упаковку на сайті продавця, 23.09.2026. Де продавців "
-            "кілька — показано діапазон. Оптові пороги від 3–20 шт у розрахунок не входять.")
+        x0, x1 = ax(lo), ax(hi)
+        rect(s, x0, yy - 0.045, max(x1 - x0, 0.03), 0.09, c, rounded=True, adj=0.5)
+        dot(s, ax(med), yy, 0.19, c)
+        lbl = num(med) if lo == hi else f"{num(lo)} – {num(hi)}"
+        text(s, x1 + 0.12, yy - 0.115, 1.40, 0.24, lbl, size=9, bold=True, color=c)
+        yy += 0.372
+    rect(s, ax(45), 6.40, ax(200) - ax(45), 0.06, ORANGE)
+    text(s, ax(45), 6.50, 4.20, 0.24, "вікно мережевої полиці: 45–200 грн", size=9,
+         bold=True, color=ORANGE)
+    lx = M + 0.26
+    for _lb, _c in [("Гарнір", ORANGE), ("Чаша", PLUM), ("Пауч UA", GREEN),
+                    ("Пауч імпорт", TEAL)]:
+        dot(s, lx + 0.06, 6.52, 0.13, _c)
+        w = 0.16 + 0.056 * len(_lb)
+        text(s, lx + 0.18, 6.42, w + 0.10, 0.22, _lb, size=8, color=INK)
+        lx += w + 0.28
+    foot(s, "Роздрібна ціна за одну упаковку на сайті продавця, 23.09.2026. Оптові пороги "
+            "(у частини продавців діє нижча ціна від 3–20 шт) у розрахунок не входять.")
 
 
 # ══ ПОЛИЦЯ МЕРЕЖ ══════════════════════════════════════════════════════════
@@ -807,18 +809,18 @@ def slide_chain_shelf():
             "Бляшанку не можна поставити в мікрохвильовку — у цьому перевага пауча. "
             "Але орієнтир ціни задає саме вона, а не Ottogi за 252 грн.", ROSE)
     rect(s, M + 6.12, 4.94, 5.86, 1.94, MIST, rounded=True, adj=0.06)
-    text(s, M + 6.40, 5.10, 5.30, 0.26, "Порівняння за 100 г", size=12, bold=True, color=NAVY)
-    CMP = [("Каша рисова hapay! 340 г · бляшанка", 18.5, GREEN),
-           ("Український пауч 350 г · медіана", 29.0, ORANGE),
-           ("Ben's Original · медіана", 41.0, PLUM),
-           ("Плов М'ясторія 350 г · лоток", 45.7, ROSE),
-           ("Ottogi · медіана", 91.0, SLATE)]
+    text(s, M + 6.40, 5.10, 5.30, 0.26, "Порівняння за упаковку", size=12, bold=True, color=NAVY)
+    CMP = [("Каша рисова hapay! 340 г · бляшанка", 63, GREEN),
+           ("Ben's Original 250 г · медіана", 90, PLUM),
+           ("Український пауч 350 г · медіана", 101, ORANGE),
+           ("Плов М'ясторія 350 г · лоток", 147, ROSE),
+           ("Ottogi 247–320 г · медіана", 252, SLATE)]
     yy = 5.44
     mxv = max(v for _, v, _ in CMP)
     for lb, v, c in CMP:
         text(s, M + 6.40, yy - 0.04, 2.70, 0.20, lb, size=8.5, color=INK)
         rect(s, M + 9.20, yy + 0.01, 1.90 * v / mxv, 0.13, c, rounded=True, adj=0.5)
-        text(s, M + 9.20 + 1.90 * v / mxv + 0.08, yy - 0.05, 0.80, 0.20, f"{num(v, 1)} грн",
+        text(s, M + 9.20 + 1.90 * v / mxv + 0.08, yy - 0.05, 0.80, 0.20, f"{num(v)} грн",
              size=8, bold=True, color=c)
         yy += 0.28
     foot(s, "Джерело: API 17 мереж zakaz.ua, 23.09.2026. Ці шість позицій — суміжна "
@@ -887,9 +889,9 @@ def slide_conclusions():
              ("Гарнір тримає один бренд", PLUM,
               "Ben's Original — 10 позицій у «Сільпо» за 45–179 грн. Другого бренду "
               "чистого готового рису на ринку немає."),
-             ("Українці виграють за грам", GREEN,
-              "Реторт-пауч 350 г за 71–199 грн — це 20–57 грн за 100 г проти 41 у Ben's "
-              "і 91 у корейської чаші."),
+             ("Українці виграють за ціною", GREEN,
+              "Реторт-пауч 350 г за 71–199 грн, медіана 101 грн. Це більша порція за ту "
+              "саму ціну, що імпортний гарнір 220–250 г."),
              ("Мережі закриті для категорії", ROSE,
               "З 33 позицій у мережі продаються 10, і всі — Ben's. Український пауч "
               "живе на Prom і у фірмових магазинах.")]
