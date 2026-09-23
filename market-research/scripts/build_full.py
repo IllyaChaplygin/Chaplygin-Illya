@@ -57,8 +57,8 @@ BENS = [
     ("md/bens_curryreis.jpg",   "Curryreis Indien",  220, 144, 144,   "Сільпо"),
     ("md/bens_stickybowl.jpg",  "Для боулів",        220, 149, 149,   "Сільпо"),
     ("md/bens_sweetchili.jpg",  "Sweet Chili",       220, 179, 179,   "Сільпо"),
-    ("md/bens_bio240.jpg",      "Bio Basmati",       240, 139, 139,   "Edison Lee"),
-    ("md/bens_lang220.jpg",     "Long Grain",        220, 139, 139,   "Edison Lee"),
+    ("sku/bens_bio240_single.jpg","Bio Basmati",      240, 139, 139,   "Edison Lee"),
+    ("sku/bens_lang220_single.jpg","Long Grain",      220, 139, 139,   "Edison Lee"),
 ]
 OTTOGI = [
     ("sku/ot_bulgogi.jpg",      "Бульгогі",            320, 252, 252, "Тайякі Март"),
@@ -121,7 +121,7 @@ SELFHEAT_MORE = [
      "Скарби Азії", SLATE),
     ("sku/qs_spicybeef.jpg", "Qiaoshanmei", "Гостра яловичина", 146, 501, 501,
      "Скарби Азії", ORANGE),
-    ("sku/qs_braisedpork.jpg", "Qiaoshanmei", "Свинина по-тайванськи", None, 501, 501,
+    ("sku/qs_braisedpork.jpg", "Qiaoshanmei", "Свинина по-тайванськи", 146, 501, 501,
      "Скарби Азії", ORANGE),
 ]
 FD_IMPORT = [
@@ -135,6 +135,8 @@ FD_IMPORT = [
     ("sku/te_fish.jpg", "Trek'n Eat", "Риба з рисом", None, 269, 269, "Freeride", PLUM),
     ("sku/te_strog.jpg", "Trek'n Eat", "Бефстроганов з рисом", None, 715, 715, "Kamanti", PLUM),
     ("sku/mh_curry.jpg", "Mountain House", "Жовте карі з куркою", 110, 699, 699, "110вольт", ROSE),
+    ("sku/mh_friedrice.jpg", "Mountain House", "Chicken Fried Rice", 133, 699, 699,
+     "110вольт", ROSE),
     ("sku/af_curry146.jpg", "Adventure Food", "Рис карі з фруктами", 146, 492, 492,
      "Клуб Мандрівник · ще 3", GREEN),
 ]
@@ -153,17 +155,17 @@ ADV_MENU = [  # 400 г — READY TO EAT (реторт), 110 г — сублім�
 SUBLIMATE = [
     ("sku/sm_plov140.jpg", "SubliMate", "Плов узбецький", 140, 309, 310,
      "Highlander · ВсеОпт · Суренж", ROSE),
-    ("sku/sm_chicken_fruit.jpg", "SubliMate", "Рис з куркою і фруктами", None, 289, 290,
+    ("sku/sm_chicken_fruit.jpg", "SubliMate", "Рис з куркою і фруктами", 110, 290, 290,
      "Highlander · Суренж · ВсеОпт", ROSE),
-    ("sku/sm_green_curry.jpg", "SubliMate", "Тайське зелене карі", None, 369, 370,
+    ("sku/sm_green_curry.jpg", "SubliMate", "Тайське зелене карі", 120, 370, 370,
      "Highlander · ВсеОпт", ROSE),
 ]
 FD_UA = [
     ("sku/jc_meatveg.jpg", "James Cook", "Рис з м'ясом та овочами", 90, 83, 138,
      "Highlander · ВсеОпт · Klever", GREEN),
-    ("sku/jc_curry.jpg", "James Cook", "Карі з рисом та куркою", None, 133, 133,
+    ("sku/jc_curry.jpg", "James Cook", "Карі з рисом та куркою", 90, 133, 133,
      "Highlander · Activity", GREEN),
-    ("sku/jc_mashkichiri.jpg", "James Cook", "Машкічірі: рис з бобами", None, 156, 156,
+    ("sku/jc_mashkichiri.jpg", "James Cook", "Машкічірі: рис з бобами", 80, 156, 156,
      "Highlander · Terra Incognita", GREEN),
     ("sku/jc_veg.jpg", "James Cook", "Рис з овочами", 90, 55, 81,
      "Highlander · ВсеОпт", GREEN),
@@ -171,15 +173,15 @@ FD_UA = [
      "власний магазин", ORANGE),
     ("sku/yp_veg85.jpg", "Їжа в Похід", "Рис з овочами", 85, 130, 130,
      "власний магазин", ORANGE),
-    ("sku/kh_pork.jpg", "Харчі", "Рис зі свининою", None, 120, 120,
+    ("sku/kh_pork.jpg", "Харчі", "Рис зі свининою", 85, 120, 120,
      "Харчі ТМ · Висот-Нік", ROSE),
-    ("sku/kh_ricemeat.jpg", "Харчі", "Рисова каша з м'ясом", None, 120, 120,
+    ("sku/kh_ricemeat.jpg", "Харчі", "Рисова каша з м'ясом", 85, 120, 120,
      "Highlander", ROSE),
-    ("sku/kh_kichri.jpg", "Харчі", "Кічрі: боби з рисом", None, 83, 83,
+    ("sku/kh_kichri.jpg", "Харчі", "Кічрі: боби з рисом", 85, 83, 83,
      "Висот-Нік", ROSE),
-    ("sku/kh_plovxl.jpg", "Харчі", "Плов XL", None, 321, 321,
+    ("sku/kh_plovxl.jpg", "Харчі", "Плов XL", 100, 321, 321,
      "8 продавців", ROSE),
-    ("sku/fest_plov.jpg", "!FEST", "Плов", None, 133, 140,
+    ("sku/fest_plov.jpg", "!FEST", "Плов", 100, 133, 140,
      "SportStorm · Kalush-Craft", SLATE),
 ]
 
@@ -195,6 +197,45 @@ CORE = ([(g, lo) for _, _, g, lo, hi, _ in BENS] + [(g, lo) for _, _, g, lo, hi,
         [(g, lo) for _, _, _, g, lo, hi, _, _ in ADV_MENU if g == 400])
 CORE_MED = st.median(lo / g * 100 for g, lo in CORE)
 N_CORE = len(CORE)
+
+# ── Тип паковання для кожної позиції (за картками продавців) ───────────────
+#  pouch — плаский пауч/реторт-пакет, cup — жорстка чаша чи стакан,
+#  box — картонна коробка з нагрівачем, doypack — дойпак під окріп, can — бляшанка
+PACK = {}
+for _, nm, g, *_ in BENS:              PACK[("Ben's Original", nm, g)] = "pouch"
+for _, nm, g, *_ in OTTOGI:            PACK[("Ottogi", nm, g)] = "cup"
+for _, nm, g, *_ in HENAN:             PACK[("Henan", nm, g)] = "cup"
+for _, nm, g, *_ in HAIDILAO:          PACK[("Haidilao", nm, g)] = "box"
+# Adventure Menu: 400 г — реторт-пауч, 110 г — дойпак; вирішується за масою.
+PACK_BY_BRAND = {"Adventure Menu": None, "Bibigo": "cup", "Clearspring": "pouch", "Portion": "pouch", "Маркел": "pouch",
+                 "Gallina Blanca": "cup", "Mo Xiao Xian": "cup", "Zihaiguo": "box",
+                 "Rongcheng Haoji": "box", "Qiaoshanmei": "doypack", "Travellunch": "doypack",
+                 "Trek'n Eat": "doypack", "Mountain House": "doypack", "Adventure Food": "doypack",
+                 "SubliMate": "doypack", "James Cook": "doypack", "Їжа в Похід": "doypack",
+                 "Харчі": "doypack", "!FEST": "doypack"}
+
+
+def pack_of(brand, name, grams):
+    """Тип паковання позиції."""
+    if brand == "Adventure Menu":
+        return "pouch" if grams == 400 else "doypack"
+    return PACK.get((brand, name, grams)) or PACK_BY_BRAND[brand]
+
+
+PACK_RU = {"pouch": "ПАУЧ · РЕТОРТ", "cup": "ЧАША · СТАКАН",
+           "box": "КОРОБКА З НАГРІВАЧЕМ", "doypack": "ДОЙПАК"}
+
+# ── Полиця мереж: суміжна категорія, яку ми НЕ рахуємо в 89 позицій ───────
+# (файл, бренд, назва, г, ціна_від, ціна_до, мережі, колір)
+CHAIN_SHELF = [
+    ("sku/ch_hapay_rice.jpg", "hapay!", "Каша рисова зі свининою", 340, 62.9, 62.9, "Ашан", GREEN),
+    ("sku/ch_lappetit_pork.jpg", "L'appetit", "Каша рисова зі свининою", 340, 119.9, 119.9, "Ашан", ORANGE),
+    ("sku/ch_lappetit_beef.jpg", "L'appetit", "Каша рисова з яловичиною", 340, 125.9, 125.9, "Ашан", ORANGE),
+    ("sku/ch_hapay_plov.jpg", "hapay!", "Плов з качки та булгуру", 340, 117, 117, "Ашан", GREEN),
+    ("sku/ch_foodfabrika.jpg", "Food Fabrika", "Плов з куркою", 250, 118.9, 118.9, "Восторг", PLUM),
+    ("sku/ch_myastoria.jpg", "М'ясторія", "Плов з куркою та родзинками", 350, 147.3, 160,
+     "Novus · МегаМаркет · Космос", ROSE),
+]
 
 # ── примітиви ─────────────────────────────────────────────────────────────
 def rect(s, x, y, w, h, fill, line=None, lw=1.0, rounded=False, adj=0.10):
@@ -362,35 +403,33 @@ def brand_head(s, x, y, brand, origin, fmt, n, lo, hi, plo, phi, c):
 
 
 
-# ── допоміжне для сіток і ліг ──────────────────────────────────────────────
+# ══ РОЗРАХУНКИ ════════════════════════════════════════════════════════════
+import collections
+
+
 def as8(items, brand, c):
-    """6-кортежі бренду → 8-кортежі (файл, бренд, назва, г, від, до, канал, колір)."""
     return [(im, brand, nm, g, lo, hi, ch, c) for im, nm, g, lo, hi, ch in items]
-
-
-def grid(s, items, y, w, h, x0=M, gap=0.10, brand=True):
-    for i, (im, b, nm, g, lo, hi, ch, c) in enumerate(items):
-        sku_cell(s, x0 + i * (w + gap), y, w, h, im, nm, g, lo, hi, ch, c,
-                 brand=b if brand else None)
-
-
-def insight(s, x, y, w, h, title, body, c=ORANGE):
-    rect(s, x, y, w, h, NAVY, rounded=True, adj=0.06)
-    rect(s, x, y, 0.09, h, c, rounded=True, adj=0.5)
-    text(s, x + 0.34, y + 0.22, w - 0.60, 0.30, title, size=13, bold=True, color=AMBER)
-    text(s, x + 0.34, y + 0.62, w - 0.60, h - 0.80, body, size=10.5,
-         color=RGBColor(0xD5, 0xDB, 0xEA), line=1.30)
-
-
-def p100(items):
-    v = [(lo / g * 100, hi / g * 100) for *_, g, lo, hi, _, _ in items if g]
-    return min(a for a, _ in v), max(b for _, b in v)
 
 
 ALL8 = (as8(BENS, "Ben's Original", ORANGE) + as8(OTTOGI, "Ottogi", PLUM) +
         as8(HENAN, "Henan", ROSE) + as8(HAIDILAO, "Haidilao", PLUM) + READY_MORE +
         SELFHEAT_MORE + FD_IMPORT + ADV_MENU + SUBLIMATE + FD_UA)
 assert len(ALL8) == N_SKU
+
+COUNTRY = {"Ben's Original": "ЄС", "Ottogi": "Корея", "Henan": "Китай", "Haidilao": "Китай",
+           "Bibigo": "Корея", "Clearspring": "ЄС", "Portion": "Україна", "Маркел": "Україна",
+           "Gallina Blanca": "ЄС", "Mo Xiao Xian": "Китай", "Zihaiguo": "Китай",
+           "Rongcheng Haoji": "Китай", "Qiaoshanmei": "Китай", "Travellunch": "ЄС",
+           "Trek'n Eat": "ЄС", "Mountain House": "США", "Adventure Food": "ЄС",
+           "Adventure Menu": "ЄС", "SubliMate": "Україна", "James Cook": "Україна",
+           "Їжа в Похід": "Україна", "Харчі": "Україна", "!FEST": "Україна"}
+
+BY_PACK = collections.defaultdict(list)
+for _x in ALL8:
+    BY_PACK[pack_of(_x[1], _x[2], _x[3])].append(_x)
+PACK_ORDER = ["doypack", "cup", "pouch", "box"]
+BY_COUNTRY = collections.Counter(COUNTRY[x[1]] for x in ALL8)
+
 AM400 = [x for x in ADV_MENU if x[3] == 400]
 AM110 = [x for x in ADV_MENU if x[3] == 110]
 L_READY = (as8(BENS, "Ben's Original", ORANGE) + as8(OTTOGI, "Ottogi", PLUM) +
@@ -398,9 +437,56 @@ L_READY = (as8(BENS, "Ben's Original", ORANGE) + as8(OTTOGI, "Ottogi", PLUM) +
 L_INSTANT = (as8(HENAN, "Henan", ROSE) + [x for x in READY_MORE if x[1] == "Gallina Blanca"] +
              [x for x in SELFHEAT_MORE if x[1] == "Qiaoshanmei"])
 L_HEAT = as8(HAIDILAO, "Haidilao", PLUM) + [x for x in SELFHEAT_MORE if x[1] != "Qiaoshanmei"]
-L_FD = FD_IMPORT + AM110 + SUBLIMATE + FD_UA
+L_FD = [x for x in FD_IMPORT if x[1] != "Mountain House"] + \
+       [x for x in FD_IMPORT if x[1] == "Mountain House"] + AM110 + SUBLIMATE + FD_UA
 assert len(L_READY) + len(L_INSTANT) + len(L_HEAT) + len(L_FD) == N_SKU
 N_SILPO = sum(1 for x in ALL8 if "Сільпо" in x[6])
+N_UA = sum(1 for x in ALL8 if COUNTRY[x[1]] == "Україна")
+
+# ── Імпорт готового рису (CN 1904 90 10 «Рис, приготовлений») ─────────────
+# Дзеркальна статистика ЄС (Eurostat Comext, експорт ЄС→Україна) + UN Comtrade
+# для Азії. Дзеркало точніше за українську митницю: воно не має прогалин.
+IMPORT = [  # рік, тонн з ЄС, тис. € з ЄС
+    (2019, 99.1, 294), (2020, 204.4, 553), (2021, 204.0, 567), (2022, 127.6, 434),
+    (2023, 125.8, 428), (2024, 111.0, 475), (2025, 179.4, 823),
+]
+IMPORT_PARTNERS_2025 = [("Болгарія", 78.3, 527), ("Польща", 94.4, 239), ("Італія", 5.6, 46),
+                        ("Іспанія", 0.4, 3), ("Франція", 0.4, 1)]
+ASIA_2025 = [("Корея", 2.04, 10.2), ("Китай", 1.04, 3.6), ("Таїланд", 0.02, 0.06)]  # т, тис. $
+EUR_UAH, USD_UAH = 47.15, 41.71          # НБУ, середній за 2025 р.
+T_EU, V_EU = IMPORT[-1][1], IMPORT[-1][2]
+T_ASIA = sum(t for _, t, _ in ASIA_2025)
+T_TOTAL = T_EU + T_ASIA
+CIF_UAH = (V_EU * EUR_UAH + sum(v for _, _, v in ASIA_2025) * USD_UAH) / 1000  # млн грн
+AVG_PACK_G = 220                          # медіана маси паучів і чаш
+PACKS_K = T_TOTAL * 1000_000 / AVG_PACK_G / 1000        # тис. упаковок на рік
+RETAIL_LO, RETAIL_HI = CIF_UAH * 2.2, CIF_UAH * 2.8          # роздріб, млн грн
+POP_M = 29.0                              # млн осіб, підконтрольна територія
+EU_PER_CAP_USD = 1.43                     # ринок instant rice ЄС / населення ЄС
+UA_PER_CAP_USD = RETAIL_LO * 1e6 / USD_UAH / (POP_M * 1e6)
+GAP = EU_PER_CAP_USD / UA_PER_CAP_USD
+
+# ── спільні примітиви аналітичних слайдів ─────────────────────────────────
+def kpi(s, x, y, w, h, label, value, note, c):
+    rect(s, x, y, w, h, MIST, rounded=True, adj=0.08)
+    rect(s, x, y, w, 0.09, c, rounded=True, adj=0.5)
+    text(s, x + 0.24, y + 0.26, w - 0.48, 0.22, label, size=8.5, bold=True, color=GREY)
+    text(s, x + 0.24, y + 0.50, w - 0.48, 0.44, value, size=24, bold=True, color=c)
+    text(s, x + 0.24, y + 1.00, w - 0.48, h - 1.10, note, size=9, color=INK, line=1.24)
+
+
+def insight(s, x, y, w, h, title, body, c=ORANGE):
+    rect(s, x, y, w, h, NAVY, rounded=True, adj=0.06)
+    rect(s, x, y, 0.09, h, c, rounded=True, adj=0.5)
+    text(s, x + 0.34, y + 0.20, w - 0.60, 0.28, title, size=12.5, bold=True, color=AMBER)
+    text(s, x + 0.34, y + 0.56, w - 0.60, h - 0.72, body, size=10,
+         color=RGBColor(0xD5, 0xDB, 0xEA), line=1.30)
+
+
+def grid(s, items, y, w, h, x0=M, gap=0.10, brand=True):
+    for i, (im, b, nm, g, lo, hi, ch, c) in enumerate(items):
+        sku_cell(s, x0 + i * (w + gap), y, w, h, im, nm, g, lo, hi, ch, c,
+                 brand=b if brand else None)
 
 
 def brands_of(items):
@@ -411,6 +497,339 @@ def pack_range(items):
     return min(x[4] for x in items), max(x[5] for x in items)
 
 
+def p100(items):
+    v = [(lo / g * 100, hi / g * 100) for *_, g, lo, hi, _, _ in items if g]
+    return min(a for a, _ in v), max(b for _, b in v)
+
+
+def unit_med(items):
+    return st.median([x[4] for x in items])
+
+
+# ══ ГОЛОВНЕ ═══════════════════════════════════════════════════════════════
+def slide_summary():
+    s = slide()
+    header(s, "ГОЛОВНЕ", "Шість цифр, які описують ринок",
+           "Усі ціни в колоді — за одну упаковку. Опт і ящики до розрахунку не входять.")
+    K = [("ОБСЯГ ІМПОРТУ 2025", f"{num(T_TOTAL)} т", ORANGE,
+          f"Готовий рис, CN 1904 90 10.\n+{num((T_TOTAL / (IMPORT[-2][1] + 3.5) - 1) * 100)} % до 2024 року."),
+         ("ЄМНІСТЬ РОЗДРІБУ", f"{num(RETAIL_LO)}–{num(RETAIL_HI)}", GREEN,
+          "млн грн на рік — оцінка\nза імпортом × 2,2–2,8."),
+         ("ВІДСТАВАННЯ ВІД ЄС", f"×{num(GAP)}", ROSE,
+          f"{num(UA_PER_CAP_USD, 2)} $ на особу проти\n1,43 $ у ЄС. Ринок на старті."),
+         ("ПОЗИЦІЙ У ПРОДАЖУ", f"{N_SKU}", PLUM,
+          f"{N_BRANDS} брендів, {N_CH} продавців.\nУ мережі — {N_SILPO} позицій."),
+         ("НАЙПОШИРЕНІШИЙ ФОРМАТ", "дойпак", TEAL,
+          f"{len(BY_PACK['doypack'])} позицій ({num(len(BY_PACK['doypack']) / N_SKU * 100)} %),\n"
+          "але це туризм, не полиця."),
+         ("МАСОВА ВАГА", "250 г", SLATE,
+          "9 позицій. Далі 220 г — 7,\n174 г — 5, 85 г — 5.")]
+    for i, (lb, v, c, note) in enumerate(K):
+        kpi(s, M + i * 2.04, 1.88, 1.86, 1.94, lb, v, note, c)
+    insight(s, M, 4.06, 5.86, 2.34, "Що це означає для полиці",
+            "1. Категорія імпортується, але не потрапляє в мережі: 11 позицій із 84 — і всі "
+            "це Ben's Original у «Сільпо».\n"
+            "2. Зростання 2025 року дає Болгарія: 44,8 → 78,3 т за рік, +75 %.\n"
+            "3. Формат, який реально працює на полиці, — пауч 220–250 г: медіана 109 грн за "
+            "упаковку, найнижча в категорії.\n"
+            "4. Готового рису в Україні не виробляють: 100 % обсягу — імпорт.", ORANGE)
+    insight(s, M + 6.12, 4.06, 5.86, 2.34, "Чого на ринку немає",
+            "1. Немає чаші за 100–150 грн у мережі: Ottogi коштує 225–356 грн, Henan 83–156, "
+            "але обидва лише онлайн.\n"
+            "2. Немає українського виробника готового рису в паучі для мікрохвильовки — "
+            "українські 16 позицій це або консерва, або сублімат для туризму.\n"
+            "3. Немає жодного бренду одночасно в мережі та на маркетплейсі, крім Ben's.\n"
+            "4. Немає локалізації: жодної україномовної упаковки серед 84 позицій.", TEAL)
+    foot(s, "Джерела: Eurostat Comext (CN 1904 90 10, експорт ЄС→Україна), UN Comtrade, "
+            "17 мереж zakaz.ua, «Сільпо», Prom, Rozetka, MAUDAU — 22–23.09.2026. "
+            "Ємність роздрібу — оцінка, метод на слайді 03.")
+
+
+# ══ ОБСЯГ РИНКУ ═══════════════════════════════════════════════════════════
+def slide_volume():
+    s = slide()
+    header(s, "ОБСЯГ РИНКУ", f"{num(T_TOTAL)} тонн імпорту, {num(RETAIL_LO)}–{num(RETAIL_HI)} млн грн роздрібу",
+           "Готовий рис в Україні не виробляють у паучах — увесь обсяг категорії це імпорт.")
+    # графік імпорту
+    rect(s, M, 1.88, 7.30, 3.34, MIST, rounded=True, adj=0.05)
+    text(s, M + 0.28, 2.06, 6.00, 0.24, "ІМПОРТ ГОТОВОГО РИСУ З ЄС, ТОНН НА РІК",
+         size=9, bold=True, color=GREY)
+    bx, by0, bw, bh = M + 0.34, 4.56, 0.86, 2.02
+    mx = max(t for _, t, _ in IMPORT)
+    for i, (yr, t, v) in enumerate(IMPORT):
+        x = bx + i * 1.00
+        h = bh * t / mx
+        c = ORANGE if yr == 2025 else (NAVY_L if yr >= 2022 else RGBColor(0xC2, 0xC9, 0xDA))
+        rect(s, x, by0 - h, bw, h, c, rounded=True, adj=0.10)
+        text(s, x - 0.06, by0 - h - 0.24, 0.98, 0.22, num(t), size=8.5, bold=True,
+             color=c if yr == 2025 else GREY, align=PP_ALIGN.CENTER)
+        text(s, x - 0.06, by0 + 0.06, 0.98, 0.22, str(yr), size=8.5,
+             bold=(yr == 2025), color=INK, align=PP_ALIGN.CENTER)
+        text(s, x - 0.06, by0 + 0.26, 0.98, 0.20, f"€{num(v)}k", size=7.5, color=GREY,
+             align=PP_ALIGN.CENTER)
+    text(s, M + 0.34, 4.98, 7.00, 0.20,
+         "2025 рік — рекорд за вартістю: 823 тис. € проти 475 тис. € у 2024-му.",
+         size=8.5, color=GREY)
+    # звідки їдe
+    rect(s, M + 7.54, 1.88, 4.44, 3.34, WHITE, line=MIST_D, lw=1.2, rounded=True, adj=0.05)
+    text(s, M + 7.80, 2.06, 3.92, 0.24, "ЗВІДКИ ЇДЕ, 2025 РІК", size=9, bold=True, color=GREY)
+    yy = 2.30
+    tot = sum(t for _, t, _ in IMPORT_PARTNERS_2025) + T_ASIA
+    for nm, t, v in IMPORT_PARTNERS_2025 + [(n, t, 0) for n, t, _ in ASIA_2025 if t > 1]:
+        w = 3.10 * t / tot
+        text(s, M + 7.80, yy, 1.00, 0.22, nm, size=9, color=INK)
+        rect(s, M + 8.84, yy + 0.05, max(w, 0.04), 0.13, ORANGE if t > 50 else TEAL,
+             rounded=True, adj=0.5)
+        text(s, M + 8.84 + max(w, 0.04) + 0.08, yy - 0.01, 0.90, 0.22, f"{num(t, 1)} т",
+             size=8.5, bold=True, color=GREY)
+        yy += 0.30
+    text(s, M + 7.80, yy + 0.04, 3.92, 0.64,
+         "Болгарія і Польща — 95 % тонажу. Це заводи ЄС, що пакують рис у пауч.\n"
+         "Корея і Китай разом дають 3,1 т — це чаші Ottogi, Bibigo та Henan.",
+         size=8.5, color=GREY, line=1.26)
+    # розрахунок ємності
+    rect(s, M, 5.26, 11.98, 1.44, NAVY, rounded=True, adj=0.07)
+    rect(s, M, 5.26, 0.09, 1.44, GREEN, rounded=True, adj=0.5)
+    text(s, M + 0.34, 5.42, 4.00, 0.26, "Як рахували ємність", size=12.5, bold=True, color=AMBER)
+    STEPS = [(f"{num(T_TOTAL)} т", "імпорт 2025"), (f"{num(CIF_UAH)} млн грн", "CIF за курсом НБУ"),
+             (f"× 2,2–2,8", "мито 0 %, ПДВ, маржа"),
+             (f"{num(RETAIL_LO)}–{num(RETAIL_HI)} млн грн", "роздріб на рік"),
+             (f"≈ {num(PACKS_K)} тис.", "упаковок на рік")]
+    for i, (v, lb) in enumerate(STEPS):
+        x = M + 4.30 + i * 1.54
+        text(s, x, 5.42, 1.46, 0.28, v, size=12, bold=True, color=WHITE)
+        text(s, x, 5.70, 1.46, 0.36, lb, size=8, color=RGBColor(0x9F, 0xA9, 0xC4), line=1.20)
+        if i < len(STEPS) - 1:
+            text(s, x + 1.30, 5.44, 0.20, 0.24, "→", size=12, bold=True, color=ORANGE)
+    text(s, M + 0.34, 5.80, 3.80, 0.76,
+         f"Перевірка з іншого боку: {num(PACKS_K)} тис. упаковок × 110 грн медіани "
+         f"= {num(PACKS_K * 110 / 1000)} млн грн. Два методи сходяться.",
+         size=8.5, color=RGBColor(0xB9, 0xC2, 0xDA), line=1.26)
+    foot(s, "Джерела: Eurostat Comext DS-045409, CN 1904 90 10 «рис приготовлений», експорт "
+            "ЄС→Україна, 2019–2025; UN Comtrade (Корея, Китай, Таїланд, 2025); курс НБУ "
+            "(середній 2025: 47,15 грн/€, 41,71 грн/$). Ємність роздрібу — ОЦІНКА, не заміряні продажі.")
+
+
+# ══ ФОРМАТИ УПАКОВКИ ══════════════════════════════════════════════════════
+def slide_formats():
+    s = slide()
+    header(s, "ФОРМАТИ УПАКОВКИ", "Дойпак і чаша — 63 % позицій, але полицю тримає пауч",
+           "Скільки позицій у кожному форматі, скільки коштує одна упаковка і скільки в ній грамів.")
+    PICS = {"pouch": "md/bens_basmati250.jpg", "cup": "sku/hn_scallop174.jpg",
+            "box": "sku/hd_beef_stew272.jpg", "doypack": "sku/tl_strog125.jpg"}
+    NOTE = {"pouch": "Плаский реторт-пауч. Мікрохвильовка 90 с або окріп. Формат мережевої полиці.",
+            "cup": "Жорстка чаша чи стакан. Готова страва або сухий рис під окріп. Формат для офісу.",
+            "box": "Картон із хімічним нагрівачем. Без техніки. Дорогий і об'ємний.",
+            "doypack": "Дойпак із сублімату. Легкий, але потребує окропу. Туризм і армія."}
+    COL = {"pouch": ORANGE, "cup": ROSE, "box": PLUM, "doypack": TEAL}
+    for i, k in enumerate(PACK_ORDER):
+        it = BY_PACK[k]
+        x = M + i * 3.07
+        c = COL[k]
+        pr = sorted(x2[4] for x2 in it)
+        ms = sorted(x2[3] for x2 in it if x2[3])
+        rect(s, x, 1.86, 2.82, 3.94, WHITE, line=MIST_D, lw=1.2, rounded=True, adj=0.05)
+        rect(s, x, 1.86, 2.82, 0.10, c, rounded=True, adj=0.5)
+        rect(s, x + 0.16, 2.06, 2.50, 1.10, MIST, rounded=True, adj=0.06)
+        pic(s, PICS[k], x + 0.26, 2.12, 2.30, 0.98)
+        text(s, x + 0.24, 3.26, 2.36, 0.24, PACK_RU[k], size=10.5, bold=True, color=c)
+        text(s, x + 0.24, 3.52, 2.36, 0.44, NOTE[k], size=8, color=GREY, line=1.22)
+        rect(s, x + 0.24, 4.04, 2.34, 0.18, MIST_D, rounded=True, adj=0.5)
+        rect(s, x + 0.24, 4.04, 2.34 * len(it) / N_SKU, 0.18, c, rounded=True, adj=0.5)
+        text(s, x + 0.24, 4.28, 2.36, 0.24,
+             f"{pl(len(it), 'позиція', 'позиції', 'позицій')} · {num(len(it) / N_SKU * 100)} % · "
+             f"{pl(len(set(x2[1] for x2 in it)), 'бренд', 'бренди', 'брендів')}",
+             size=10.5, bold=True, color=NAVY)
+        rect(s, x + 0.24, 4.60, 2.34, 0.02, MIST_D)
+        for j, (lb, v) in enumerate([("ЦІНА ЗА 1 ШТ, МЕДІАНА", f"{num(st.median(pr))} грн"),
+                                     ("ДІАПАЗОН ЦІНИ", f"{num(min(pr))} – {num(max(pr))} грн"),
+                                     ("МАСА, МЕДІАНА", f"{num(st.median(ms))} г")]):
+            yy = 4.70 + j * 0.38
+            text(s, x + 0.24, yy, 1.80, 0.20, lb, size=7, bold=True, color=GREY)
+            text(s, x + 0.24, yy + 0.16, 2.36, 0.22, v, size=10.5, bold=True,
+                 color=c if j < 2 else INK)
+    insight(s, M, 5.96, 11.98, 0.94, "",
+            "Дойпак виграє за кількістю позицій лише тому, що туристичні магазини заводять "
+            "десятки дрібних брендів. За доступністю для покупця виграє пауч: 109 грн медіана "
+            "проти 315 грн у дойпака й 708 грн у коробки з нагрівачем.", ORANGE)
+    foot(s, f"Розподіл {N_SKU} позицій за типом паковання з карток продавців, 22–23.09.2026.")
+
+
+# ══ ГРАМАЖ ════════════════════════════════════════════════════════════════
+def slide_grammage():
+    s = slide()
+    header(s, "ГРАМАЖ", "250 і 220 грамів — половина всієї полиці паучів",
+           "Скільки позицій припадає на кожну вагу і як ваги розподілені між форматами.")
+    masses = sorted([x[3] for x in ALL8 if x[3]])
+    cnt = collections.Counter(masses)
+    tops = sorted(cnt.items(), key=lambda kv: -kv[1])[:8]
+    tops = sorted(tops, key=lambda kv: kv[0])
+    text(s, M, 1.86, 6.00, 0.24, "НАЙЧАСТІШІ ВАГИ, ПОЗИЦІЙ", size=9, bold=True, color=GREY)
+    bx, by0, bw = M, 4.34, 0.94
+    mxn = max(n for _, n in tops)
+    for i, (g_, n) in enumerate(tops):
+        x = bx + i * 1.06
+        h = 2.10 * n / mxn
+        pk = collections.Counter(pack_of(y[1], y[2], y[3]) for y in ALL8 if y[3] == g_)
+        c = {"pouch": ORANGE, "cup": ROSE, "box": PLUM, "doypack": TEAL}[pk.most_common(1)[0][0]]
+        rect(s, x, by0 - h, bw, h, c, rounded=True, adj=0.12)
+        text(s, x, by0 - h - 0.24, bw, 0.22, str(n), size=11, bold=True, color=c,
+             align=PP_ALIGN.CENTER)
+        text(s, x, by0 + 0.06, bw, 0.22, f"{num(g_)} г", size=8.5, bold=True, color=INK,
+             align=PP_ALIGN.CENTER)
+    text(s, M, 4.66, 8.50, 0.44,
+         "Колір стовпця — формат, у якому ця вага трапляється найчастіше: "
+         "помаранчевий — пауч, рожевий — чаша, бірюзовий — дойпак.",
+         size=8.5, color=GREY, line=1.24)
+    # ваги по формату
+    rect(s, 9.10, 1.86, 3.56, 3.46, MIST, rounded=True, adj=0.05)
+    text(s, 9.34, 2.04, 3.10, 0.24, "ВАГОВЕ ВІКНО ФОРМАТУ", size=9, bold=True, color=GREY)
+    yy = 2.38
+    for k in PACK_ORDER:
+        ms = sorted(x[3] for x in BY_PACK[k] if x[3])
+        c = {"pouch": ORANGE, "cup": ROSE, "box": PLUM, "doypack": TEAL}[k]
+        text(s, 9.34, yy, 2.00, 0.22,
+             {"pouch": "Пауч", "cup": "Чаша", "box": "Коробка з нагрівачем",
+              "doypack": "Дойпак"}[k], size=9, bold=True, color=c)
+        text(s, 9.34, yy + 0.20, 3.10, 0.22,
+             f"{num(min(ms))}–{num(max(ms))} г · медіана {num(st.median(ms))} г",
+             size=9, color=INK)
+        yy += 0.62
+    text(s, 9.34, yy + 0.02, 3.10, 0.40,
+         "Чаша й пауч конкурують у вікні 210–250 г — це порція на одну людину.",
+         size=8, color=GREY, line=1.22)
+    insight(s, M, 5.48, 11.98, 1.44, "Що обирати під полицю",
+            "Вагове ядро категорії — 220–250 г: 16 позицій із 84, усі пауч або чаша, "
+            "усі в корені порції «обід для однієї людини». Це та вага, під яку вже налаштований "
+            "покупець Ben's Original і Bibigo.\n"
+            "Легкі ваги 80–146 г — це не менша порція, а сухий продукт: сублімат і інстант-рис, "
+            "які треба залити окропом. Порівнювати їх із паучем за грам не можна.\n"
+            "Важкі 310–440 г — корейські чаші Ottogi та китайські коробки з нагрівачем: "
+            "порція «на голодного», але й ціна за упаковку 250–735 грн.", ORANGE)
+    foot(s, f"Маса з карток продавців; {sum(1 for x in ALL8 if not x[3])} позицій без указаної "
+            "маси до розрахунку не входять.")
+
+
+# ══ ЦІНОВІ СХОДИ ЗА 1 ШТ ══════════════════════════════════════════════════
+def slide_ladder():
+    s = slide()
+    header(s, "ЦІНА ЗА ОДНУ УПАКОВКУ", "Від 45 до 1 190 грн: сходи всіх 23 брендів",
+           "Крапка — медіана бренду, смуга — від найдешевшої до найдорожчої його позиції.")
+    rows = []
+    for b in dict.fromkeys(x[1] for x in ALL8):
+        it = [x for x in ALL8 if x[1] == b]
+        rows.append((b, min(x[4] for x in it), max(x[5] for x in it),
+                     st.median([x[4] for x in it]), len(it), COUNTRY[b]))
+    rows.sort(key=lambda r: r[3])
+    LO, HI = 0, 1250
+    AX, AW = 4.16, 7.62
+
+    def ax(v):
+        return AX + AW * (v - LO) / (HI - LO)
+    rect(s, M, 1.82, 11.98, 5.04, MIST, rounded=True, adj=0.04)
+    for t in range(250, 1251, 250):
+        rect(s, ax(t), 2.00, 0.012, 4.42, RGBColor(0xDC, 0xE2, 0xEE))
+        text(s, ax(t) - 0.40, 6.46, 0.80, 0.22, num(t), size=8, color=GREY,
+             align=PP_ALIGN.CENTER)
+    text(s, M + 0.26, 6.46, 3.20, 0.22, "ГРН ЗА ОДНУ УПАКОВКУ", size=8, bold=True, color=GREY)
+    text(s, M + 0.26, 2.00, 2.20, 0.18, "БРЕНД", size=6.5, bold=True, color=GREY)
+    text(s, M + 2.42, 2.00, 0.70, 0.18, "КРАЇНА", size=6.5, bold=True, color=GREY)
+    text(s, M + 3.16, 2.00, 0.36, 0.18, "SKU", size=6.5, bold=True, color=GREY,
+         align=PP_ALIGN.RIGHT)
+    yy = 2.26
+    for b_, lo, hi, med, n, cty in rows:
+        c = {"Україна": GREEN, "Китай": PLUM, "Корея": ROSE, "США": SLATE}.get(cty, ORANGE)
+        text(s, M + 0.26, yy - 0.09, 2.14, 0.20, b_, size=8.5, bold=True, color=NAVY)
+        text(s, M + 2.42, yy - 0.07, 0.70, 0.18, cty, size=7, color=GREY)
+        text(s, M + 3.16, yy - 0.07, 0.36, 0.18, str(n), size=7, bold=True, color=GREY,
+             align=PP_ALIGN.RIGHT)
+        x0, x1 = ax(lo), ax(hi)
+        rect(s, x0, yy - 0.035, max(x1 - x0, 0.02), 0.07, c, rounded=True, adj=0.5)
+        dot(s, ax(med), yy, 0.15, c)
+        lbl = num(med) if lo == hi else f"{num(lo)} – {num(hi)}"
+        text(s, max(x1, ax(med)) + 0.10, yy - 0.10, 1.30, 0.20, lbl, size=7.5, bold=True,
+             color=c)
+        yy += 0.180
+    rect(s, ax(45), 6.70, ax(180) - ax(45), 0.05, ORANGE)
+    text(s, ax(45), 6.76, 3.60, 0.22, "вікно мережевої полиці: 45–180 грн", size=8.5,
+         bold=True, color=ORANGE)
+    text(s, M + 0.26, 6.76, 3.60, 0.22,
+         "Колір — країна: Україна · Китай · Корея · ЄС · США", size=8, color=GREY)
+    foot(s, "Ціна за одну упаковку в роздріб, без оптових порогів: у 6 продавців діє нижча ціна "
+            "від 3–20 шт, вона в розрахунок не бралася. 22–23.09.2026.")
+
+
+# ══ ПОЛИЦЯ МЕРЕЖ ══════════════════════════════════════════════════════════
+def slide_chain_shelf():
+    s = slide()
+    header(s, "ЩО СТОЇТЬ У МЕРЕЖІ ЗАМІСТЬ НАС", "Рис із м'ясом є на полиці — але в бляшанці",
+           "Мережі не мають пауча з готовим рисом, зате мають суміжну категорію за 63–160 грн.")
+    for i, (im, b, nm, g, lo, hi, ch, c) in enumerate(CHAIN_SHELF):
+        sku_cell(s, M + i * 2.02, 1.86, 1.92, 2.90, im, nm, g, lo, hi, ch, c, brand=b)
+    insight(s, M, 4.96, 5.86, 1.92, "Чому це важливо",
+            "Це прямий конкурент за той самий привід: гаряча страва з рисом і м'ясом без "
+            "готування. Він уже стоїть на полиці, коштує 63–160 грн за 250–350 г і має "
+            "українського виробника.\n"
+            "Пауч із готовим рисом заходить у той самий гаманець, тож орієнтир ціни — "
+            "не Ottogi за 255 грн, а ця полиця.", ROSE)
+    rect(s, M + 6.12, 4.96, 5.86, 1.92, MIST, rounded=True, adj=0.06)
+    text(s, M + 6.40, 5.14, 5.30, 0.26, "Порівняння за 100 г", size=12, bold=True, color=NAVY)
+    CMP = [("Каша рисова hapay! 340 г", 18.5, GREEN),
+           ("Плов Food Fabrika 250 г", 47.6, PLUM),
+           ("Ben's Original, медіана", 41.0, ORANGE),
+           ("Плов М'ясторія 350 г", 45.7, ROSE),
+           ("Ottogi, медіана", 88.0, SLATE)]
+    yy = 5.50
+    mxv = max(v for _, v, _ in CMP)
+    for lb, v, c in CMP:
+        text(s, M + 6.40, yy - 0.04, 2.30, 0.20, lb, size=8.5, color=INK)
+        rect(s, M + 8.80, yy + 0.01, 2.40 * v / mxv, 0.13, c, rounded=True, adj=0.5)
+        text(s, M + 8.80 + 2.40 * v / mxv + 0.08, yy - 0.05, 0.80, 0.20, f"{num(v, 1)} грн",
+             size=8, bold=True, color=c)
+        yy += 0.26
+    foot(s, "Джерело: API 17 мереж zakaz.ua, 23.09.2026. Ці 6 позицій — суміжна категорія, "
+            f"у {N_SKU} позицій дослідження вони не входять. Охолоджені страви й кулінарію мереж "
+            "не показано: у них термін 2–5 діб.")
+
+
+# ══ ВИСНОВКИ ══════════════════════════════════════════════════════════════
+def slide_conclusions():
+    s = slide()
+    header(s, "ВИСНОВКИ", "Що показало дослідження",
+           "Чотири факти про ринок і три питання, на які дані відповіді не дають.")
+    FACTS = [("Ринок є, полиці немає", ORANGE,
+              f"{num(T_TOTAL)} т імпорту і {N_SKU} позицій у продажу — але {N_SKU - N_SILPO} із них "
+              "живуть лише онлайн. Мережеву дистрибуцію має один бренд."),
+             ("Вікно ціни — 45–180 грн", GREEN,
+              "Стільки коштує упаковка, яку покупець бере в мережі. Усе, що дорожче 250 грн, "
+              "продається поштучно в нішевих магазинах."),
+             ("Формат — пауч 220–250 г", ROSE,
+              "16 позицій у цьому вікні, медіана 109 грн. Чаша дорожча вдвічі, коробка з "
+              "нагрівачем — усемеро."),
+             ("Українського пауча немає", PLUM,
+              f"{N_UA} українських позицій — це консерви й сублімати для туризму. "
+              "Готового рису в паучі під мікрохвильовку не робить ніхто.")]
+    for i, (t, c, body) in enumerate(FACTS):
+        x = M + (i % 2) * 6.12
+        y = 1.86 + (i // 2) * 1.38
+        rect(s, x, y, 5.86, 1.28, MIST, rounded=True, adj=0.08)
+        rect(s, x, y, 0.09, 1.28, c, rounded=True, adj=0.5)
+        text(s, x + 0.30, y + 0.16, 5.30, 0.26, f"{i + 1}. {t}", size=12.5, bold=True, color=NAVY)
+        text(s, x + 0.30, y + 0.48, 5.30, 0.70, body, size=9.5, color=INK, line=1.28)
+    insight(s, M, 4.74, 11.98, 1.74, "Чого дані не показують",
+            "1. Продажів. Ні мережі, ні маркетплейси не віддають обсяги. Ємність роздрібу на "
+            "слайді 03 — оцінка за імпортом, а не заміряний продаж.\n"
+            "2. Хто імпортер. У картках продавців імпортера не вказано; Prom показує лише "
+            "продавця. Точний перелік дасть лише вивантаження Держмитслужби за УКТЗЕД 1904 90 10.\n"
+            "3. Оборотності на полиці «Сільпо». Скільки Ben's Original реально продає за "
+            "місяць — без даних мережі не порахувати.\n"
+            "Наступний крок, який закриє 1 і 2: замовити митну базу за 1904 90 10 за 2024–2025 рр. "
+            "і запитати в «Сільпо» дані про категорію.", ORANGE)
+    foot(s, "Дослідження: 84 позиції, 23 бренди, 56 продавців, 17 мереж. Зріз 22–23 вересня 2026 р.")
+
+import math
+
+# ══ ОБКЛАДИНКА ════════════════════════════════════════════════════════════
 CH_CHAIN = ["Сільпо"]
 CH_MARKET = ["MAUDAU", "Rozetka", "Prom"]
 CH_FOOD = ["Смак Кореї", "Тайякі Март", "Pulsar", "Апетітаріум", "Gurmissimo", "Edison Lee",
@@ -423,381 +842,246 @@ CH_OUT = ["ALANTUR", "Highlander", "ForCamp", "Гайдамака", "Freeride", 
           "Непереможні", "Вартовий", "Драйв Сенс", "Ліхтар", "Military Style", "Націоналіст"]
 N_CH = len(CH_CHAIN) + len(CH_MARKET) + len(CH_FOOD) + len(CH_OUT)
 
-# ══ 01 · ОБКЛАДИНКА ═══════════════════════════════════════════════════════
-s = slide(dark=True)
-cover_pic(s, BG_TITLE, 0, 0, W, H)
-s.shapes.add_picture(LOGO, Inches(M), Inches(0.52), Inches(1.94), Inches(0.84))
-rect(s, M, 2.02, 0.54, 0.09, ORANGE)
-text(s, M, 2.34, 7.00, 0.34, "ДОСЛІДЖЕННЯ РИНКУ · ВЕРЕСЕНЬ 2026", size=11.5,
-     bold=True, color=AMBER)
-text(s, M, 2.78, 7.20, 1.70, "Готовий рис\nв Україні", size=46, bold=True,
-     color=WHITE, line=1.04)
-text(s, M, 4.52, 6.80, 0.36, "Розбір кожного бренду: SKU, упаковка, ціна, канал",
-     size=14.5, color=RGBColor(0xC6, 0xCE, 0xE2))
-rect(s, M, 5.12, 5.90, 0.055, RGBColor(0x55, 0x60, 0x8C))
-text(s, M, 5.34, 6.80, 0.80,
-     f"{pl(N_BRANDS, 'бренд', 'бренди', 'брендів')} · {pl(N_SKU, 'позиція', 'позиції', 'позицій')} з пакшотом і ціною · {pl(N_CH, 'продавець', 'продавці', 'продавців')}\n"
-     "Зріз українських онлайн-вітрин і мереж: 22–23 вересня 2026 р.",
-     size=11.5, color=RGBColor(0x9F, 0xA9, 0xC4), line=1.40)
-for im, x, y, w, h in [("md/bens_basmati250.jpg", 8.26, 0.96, 2.35, 2.40),
-                       ("sku/hn_scallop174.jpg", 10.78, 0.96, 2.35, 2.40),
-                       ("sku/hd_beef_stew272.jpg", 8.26, 3.50, 2.35, 2.10),
-                       ("sku/ot_bibimbap.jpg",   10.78, 3.50, 2.35, 2.10)]:
-    rect(s, x, y, w, h, WHITE, rounded=True, adj=0.06)
-    pic(s, im, x + 0.16, y + 0.14, w - 0.32, h - 0.28)
-rect(s, 8.26, 5.76, 4.87, 1.30, RGBColor(0x26, 0x2F, 0x4D), rounded=True, adj=0.12)
-text(s, 8.50, 5.90, 4.44, 1.08, " · ".join(dict.fromkeys(BRANDS)),
-     size=9, bold=True, color=WHITE, line=1.30)
 
-# ══ 02 · КАРТА РИНКУ ══════════════════════════════════════════════════════
-s = slide()
-header(s, "КАРТА РИНКУ", f"{pl(N_BRANDS, 'бренд', 'бренди', 'брендів')}, чотири технології",
-       "Групування за тим, як продукт готується. Кожен бренд далі розібрано окремо.")
-LEAGUES = [("ГОТОВИЙ РИС · РОЗІГРІВ", L_READY, ORANGE,
-            "Мікрохвильовка 60–90 с або реторт. Маса готової страви."),
-           ("ЗАЛИТИ ОКРОПОМ", L_INSTANT, ROSE,
-            "Сухий рис із соусом у чаші чи пакеті, 5–10 хв."),
-           ("САМОРОЗІГРІВ", L_HEAT, PLUM,
-            "Хімічний нагрівач у коробці, без техніки, 15 хв."),
-           ("СУБЛІМАЦІЯ", L_FD, TEAL,
-            "Сушіння виморожуванням, окріп. Туризм і армія.")]
-for i, (kind, items, c, note) in enumerate(LEAGUES):
-    x = M + i * 3.07
-    lo, hi = pack_range(items)
-    br = brands_of(items)
-    rect(s, x, 1.94, 2.82, 2.86, MIST, rounded=True, adj=0.06)
-    rect(s, x, 1.94, 2.82, 0.10, c, rounded=True, adj=0.5)
-    text(s, x + 0.24, 2.16, 2.36, 0.24, kind, size=10, bold=True, color=c)
-    text(s, x + 0.24, 2.44, 2.36, 0.40, f"{pl(len(items), 'позиція', 'позиції', 'позицій')} · {pl(len(br), 'бренд', 'бренди', 'брендів')}",
-         size=13.5, bold=True, color=NAVY)
-    text(s, x + 0.24, 2.84, 2.36, 0.74, " · ".join(br), size=8.5, color=INK, line=1.20)
-    text(s, x + 0.24, 3.62, 2.36, 0.44, note, size=8.5, color=GREY, line=1.20)
-    rect(s, x + 0.24, 4.14, 2.34, 0.02, MIST_D)
-    text(s, x + 0.24, 4.24, 2.36, 0.22, "ЦІНА ЗА УПАКОВКУ", size=7.5, bold=True, color=GREY)
-    text(s, x + 0.24, 4.44, 2.36, 0.30, f"{num(lo)} – {num(hi)} грн", size=14,
-         bold=True, color=c)
-
-rect(s, M, 5.00, 11.98, 1.94, NAVY, rounded=True, adj=0.07)
-rect(s, M, 5.00, 0.10, 1.94, ORANGE, rounded=True, adj=0.5)
-text(s, M + 0.42, 5.18, 5.40, 0.32, "Що показує розбір", size=15, bold=True, color=AMBER)
-yy = 5.58
-for t in [f"Ben's Original — {len(BENS)} позицій, єдиний бренд у мережі («Сільпо»).",
-          f"Ottogi і Henan — {len(OTTOGI) + len(HENAN)} азійських рисових чаш; "
-          "Henan удвічі дешевший за упаковку.",
-          "Українське виробництво: Portion і Маркел (реторт 350 г) та 4 сублімати.",
-          f"Саморозігрів — {num(pack_range(L_HEAT)[0])}–{num(pack_range(L_HEAT)[1])} грн "
-          "за упаковку, найдорожча технологія."]:
-    dot(s, M + 0.48, yy + 0.12, 0.11, AMBER)
-    text(s, M + 0.70, yy, 5.60, 0.28, t, size=10.5, color=WHITE)
-    yy += 0.31
-rect(s, 6.90, 5.26, 0.04, 1.44, NAVY_L)
-text(s, 7.24, 5.20, 5.10, 1.60,
-     f"Медіана готового рису для розігріву ({N_CORE} позицій) — {num(CORE_MED)} грн "
-     "за 100 г.\n"
-     f"У мережі продається {N_SILPO} позицій із {N_SKU}. Решта {N_SKU - N_SILPO} — "
-     "лише онлайн: маркетплейси, азійські фудшопи, туристичні й військові магазини.",
-     size=10.5, color=RGBColor(0xB9, 0xC2, 0xDA), line=1.32)
-foot(s, "Джерела: 17 мереж на zakaz.ua, «Сільпо», Prom, MAUDAU, Rozetka, спеціалізовані "
-        "магазини — 22–23.09.2026.")
-
-# ══ 03 · BEN'S ORIGINAL ══════════════════════════════════════════════════
-lo100, hi100 = p100(as8(BENS, "", ORANGE))
-s = slide()
-header(s, "БРЕНД 1 · BEN'S ORIGINAL", f"{len(BENS)} позицій: пауч 220, 240 і 250 г",
-       "Найглибша лінійка категорії і єдиний бренд, що дійшов до мережевої полиці.")
-brand_head(s, M, 1.72, "Ben's Original", "Mars · ЄС", "пауч", len(BENS),
-           lo100, hi100, 45, 179, ORANGE)
-cw, ch = 1.62, 2.22
-for i, (img, nm, g, lo, hi, chan) in enumerate(BENS[:7]):
-    sku_cell(s, M + i * (cw + 0.10), 2.50, cw, ch, img, nm, g, lo, hi, chan, ORANGE)
-for i, (img, nm, g, lo, hi, chan) in enumerate(BENS[7:]):
-    sku_cell(s, M + i * (cw + 0.10), 4.78, cw, ch, img, nm, g, lo, hi, chan, ORANGE)
-foot(s, "Джерела: каталог «Сільпо» (11 позицій), MAUDAU, Edison Lee — 22.09.2026. "
-        "Basmati 220 г: 100 грн у MAUDAU і 144 грн у «Сільпо». На картках двох позицій "
-        "Edison Lee — фото заводського ящика 6×; ціна й маса — за один пауч.")
-
-# ══ 04 · OTTOGI ═══════════════════════════════════════════════════════════
-lo100, hi100 = p100(as8(OTTOGI, "", PLUM))
-s = slide()
-header(s, "БРЕНД 2 · OTTOGI", f"{len(OTTOGI)} позицій: висока чаша 217–320 г",
-       "Рис із наповнювачем для мікрохвильовки. Республіка Корея, чотири продавці.")
-brand_head(s, M, 1.72, "Ottogi", "Республіка Корея", "чаша", len(OTTOGI),
-           lo100, hi100, 225, 356, PLUM)
-for i, (img, nm, g, lo, hi, chan) in enumerate(OTTOGI[:5]):
-    sku_cell(s, M + i * 2.42, 2.50, 2.32, 2.22, img, nm, g, lo, hi, chan, PLUM)
-for i, (img, nm, g, lo, hi, chan) in enumerate(OTTOGI[5:]):
-    sku_cell(s, M + i * 2.42, 4.78, 2.32, 2.22, img, nm, g, lo, hi, chan, PLUM)
-foot(s, "Джерела: Pulsar, Апетітаріум, Gurmissimo, Тайякі Март — 22.09.2026. "
-        "Тунець 247 г: 225 грн у «Тайякі Март» і 320 грн у Gurmissimo — різниця 42 %.")
-
-# ══ 05 · HENAN ════════════════════════════════════════════════════════════
-lo100, hi100 = p100(as8(HENAN, "", ROSE))
-s = slide()
-header(s, "БРЕНД 3 · HENAN", f"{len(HENAN)} позицій: рисова чаша 144 і 174 г",
-       "Китайський рис у чаші, заливається окропом на 8 хвилин. На упаковці — марка Xiao Guo Zao.")
-brand_head(s, M, 1.72, "Henan", "Китай · Xiao Guo Zao", "чаша", len(HENAN),
-           lo100, hi100, 83, 156, ROSE)
-for i, (img, nm, g, lo, hi, chan) in enumerate(HENAN[:4]):
-    sku_cell(s, M + i * 3.02, 2.50, 2.92, 2.22, img, nm, g, lo, hi, chan, ROSE)
-for i, (img, nm, g, lo, hi, chan) in enumerate(HENAN[4:]):
-    sku_cell(s, M + i * 3.02, 4.78, 2.92, 2.22, img, nm, g, lo, hi, chan, ROSE)
-foot(s, "Джерела: MAUDAU, Апетітаріум, Gurmissimo, OMG! Asia, СНЕКІС, DCM — 22–23.09.2026. "
-        "Маса — сухого продукту до заливання. Чаша Henan (83–156 грн) удвічі дешевша "
-        "за Ottogi (225–356 грн).")
-
-# ══ 06 · ЩЕ П'ЯТЬ БРЕНДІВ ГОТОВОГО РИСУ ═══════════════════════════════════
-s = slide()
-header(s, "БРЕНДИ 4–8", "Bibigo, Clearspring, Portion, Маркел, Gallina Blanca",
-       "По одній-дві позиції в кожного: різні країни, різні формати, різні канали.")
-grid(s, READY_MORE, 1.90, 1.90, 3.44, gap=0.116)
-insight(s, M, 5.48, 11.98, 1.46, "Що це означає",
-        "Portion і Маркел — українське реторт-виробництво 350 г за 94–109 грн: "
-        "найдешевший грам категорії, 27–31 грн за 100 г. Bibigo — той самий товар у трьох "
-        "каналах, розкид 40 %. Clearspring — органіка, найдорожчий грам серед паучів. "
-        "Gallina Blanca Yatekomo — 84 г сухого рису в чаші, заливається окропом.")
-foot(s, "Джерела: Смак Кореї, Rozetka, Prom, MAUDAU, СУХПАЙ, UPcompany, «Товари з Іспанії» — "
-        "22–23.09.2026. Фото Portion: Rozetka не віддає зображення картки.")
-
-# ══ 07 · HAIDILAO ═════════════════════════════════════════════════════════
-lo100, hi100 = p100(as8(HAIDILAO, "", PLUM))
-s = slide()
-header(s, "БРЕНД 9 · HAIDILAO", f"{len(HAIDILAO)} позицій: саморозігрівальна коробка 165–360 г",
-       "Хімічний нагрівач у коробці — готується без мікрохвильовки й окропу. Китай.")
-brand_head(s, M, 1.72, "Haidilao", "Китай · саморозігрів", "коробка", len(HAIDILAO),
-           lo100, hi100, 380, 1190, PLUM)
-for i, (img, nm, g, lo, hi, chan) in enumerate(HAIDILAO[:5]):
-    sku_cell(s, M + i * 2.42, 2.50, 2.32, 2.22, img, nm, g, lo, hi, chan, PLUM)
-for i, (img, nm, g, lo, hi, chan) in enumerate(HAIDILAO[5:]):
-    sku_cell(s, M + i * 2.42, 4.78, 2.32, 2.22, img, nm, g, lo, hi, chan, PLUM)
-foot(s, "Джерела: Daruy, Tactico, Desna, Sweet Svitt, «Шериф» — 22–23.09.2026. "
-        "Найдорожча упаковка категорії — 1 190 грн за 360 г. * Sweet Svitt: назва картки "
-        "Stewed Chicken, на фото — рис з яловичиною та грибами.")
-
-# ══ 08 · САМОРОЗІГРІВ І ІНСТАНТ-РИС: ЩЕ 4 БРЕНДИ ═════════════════════════
-s = slide()
-header(s, "БРЕНДИ 10–13", "Mo Xiao Xian, Zihaiguo, Rongcheng Haoji, Qiaoshanmei",
-       "Китайський саморозігрів і рис швидкого приготування. Усе — в одному магазині.")
-grid(s, SELFHEAT_MORE, 1.90, 1.90, 3.44, gap=0.116)
-insight(s, M, 5.48, 11.98, 1.46, "Що це означає",
-        "Zihaiguo і Rongcheng Haoji — коробка 440 г за 735 грн: 167 грн за 100 г, грам "
-        "дешевший, ніж у Haidilao (230–371). Mo Xiao Xian — 931 грн за 275 г. "
-        "Qiaoshanmei — не саморозігрів, а рис у пакеті під окріп, 501 грн. "
-        "Усі чотири бренди в Україні продає один магазин — «Скарби Азії».", PLUM)
-foot(s, "Джерело: «Скарби Азії» (Prom), 23.09.2026. Бренди Zihaiguo і Rongcheng Haoji визначено "
-        "за написами на упаковці, Qiaoshanmei — за карткою продавця.")
-
-# ══ 09 · СУБЛІМАЦІЯ · ІМПОРТ ══════════════════════════════════════════════
-s = slide()
-header(s, "БРЕНДИ 14–17 · СУБЛІМАЦІЯ, ІМПОРТ",
-       "Travellunch, Trek'n Eat, Mountain House, Adventure Food",
-       "Рис-страви у дойпаку: залити окропом на 8–10 хвилин. Німеччина, США, Нідерланди.")
-grid(s, FD_IMPORT[:7], 1.90, 1.62, 2.50)
-grid(s, FD_IMPORT[7:], 4.50, 1.62, 2.50)
-insight(s, M + 4 * 1.72, 4.50, 11.98 - 4 * 1.72, 2.50, "Що це означає",
-        "Travellunch — 7 позицій у двох вагах, 125 і 250 г, найширша імпортна лінійка. "
-        "Mountain House — найдорожчий грам категорії: 635 грн за 100 г сухої маси. "
-        "Канал — туристичні й військові магазини.", TEAL)
-foot(s, "Джерела: ALANTUR, Highlander, ForCamp, Військторг Гайдамака, Freeride, Kamanti, "
-        "110вольт, Клуб Мандрівник — 22–23.09.2026.")
-
-# ══ 10 · ADVENTURE MENU + SUBLIMATE ═══════════════════════════════════════
-s = slide()
-header(s, "БРЕНДИ 18–19", "Adventure Menu і SubliMate",
-       "Adventure Menu — єдиний бренд із двома технологіями: готова страва 400 г і сублімат 110 г.")
-grid(s, ADV_MENU, 1.90, 2.30, 2.50, gap=0.12)
-grid(s, SUBLIMATE, 4.50, 2.30, 2.50, gap=0.12)
-insight(s, M + 3 * 2.42, 4.50, 11.98 - 3 * 2.42, 2.50, "Що це означає",
-        "Лінія Adventure Menu 400 г READY TO EAT — реторт без води, 79–101 грн за 100 г: "
-        "у тому ж коридорі, що Ben's Original і Ottogi, але продається лише в туристичних "
-        "магазинах. SubliMate — 289–370 грн за упаковку.", GREEN)
-foot(s, "Джерела: ALANTUR, ForCamp, MK-Sport, Freeride, Лєєр, OXO, Palmer, Highlander, "
-        "ВсеОпт, Суренж — 22–23.09.2026. Маса двох SubliMate на картках не вказана.")
-
-# ══ 11 · СУБЛІМАЦІЯ · УКРАЇНА ═════════════════════════════════════════════
-fd_lo, fd_hi = pack_range(FD_UA)
-im_lo, im_hi = pack_range(FD_IMPORT)
-s = slide()
-header(s, "БРЕНДИ 20–23 · СУБЛІМАЦІЯ, УКРАЇНА", "James Cook, Їжа в Похід, Харчі, !FEST",
-       "Українські виробники рисових страв у дойпаку. Канал — туристичні й військові магазини.")
-grid(s, FD_UA[:7], 1.90, 1.62, 2.50)
-grid(s, FD_UA[7:], 4.50, 1.62, 2.50)
-insight(s, M + 4 * 1.72, 4.50, 11.98 - 4 * 1.72, 2.50, "Що це означає",
-        f"Українські сублімати — {num(fd_lo)}–{num(fd_hi)} грн за упаковку, імпортні — "
-        f"{num(im_lo)}–{num(im_hi)} грн. James Cook — 4 рисові позиції, найширша українська "
-        "лінійка. Маса на більшості карток не вказана.", ORANGE)
-foot(s, "Джерела: Highlander, Activity, ВсеОпт, Klever-Shop, Terra Incognita, «Їжа в Похід», "
-        "Харчі ТМ, Висот-Нік, SportStorm, Kalush-Craft — 22–23.09.2026.")
-
-# ══ 12 · УПАКОВКА ═════════════════════════════════════════════════════════
-P_POUCH = (as8(BENS, "Ben's Original", ORANGE) +
-           [x for x in READY_MORE if x[1] in ("Clearspring", "Portion", "Маркел")] + AM400)
-P_BOWL = (as8(OTTOGI, "Ottogi", PLUM) + as8(HENAN, "Henan", ROSE) +
-          [x for x in READY_MORE if x[1] in ("Bibigo", "Gallina Blanca")])
-P_BOX = L_HEAT
-P_DOY = L_FD + [x for x in SELFHEAT_MORE if x[1] == "Qiaoshanmei"]
-assert len(P_POUCH) + len(P_BOWL) + len(P_BOX) + len(P_DOY) == N_SKU
+def slide_cover():
+    s = slide(dark=True)
+    cover_pic(s, BG_TITLE, 0, 0, W, H)
+    s.shapes.add_picture(LOGO, Inches(M), Inches(0.52), Inches(1.94), Inches(0.84))
+    rect(s, M, 2.02, 0.54, 0.09, ORANGE)
+    text(s, M, 2.34, 7.00, 0.34, "ДОСЛІДЖЕННЯ РИНКУ · ВЕРЕСЕНЬ 2026", size=11.5,
+         bold=True, color=AMBER)
+    text(s, M, 2.78, 7.20, 1.70, "Готовий рис\nв Україні", size=46, bold=True,
+         color=WHITE, line=1.04)
+    text(s, M, 4.52, 6.80, 0.36, "Обсяг ринку · формати · грамаж · ціна · канали",
+         size=14.5, color=RGBColor(0xC6, 0xCE, 0xE2))
+    rect(s, M, 5.12, 5.90, 0.055, RGBColor(0x55, 0x60, 0x8C))
+    text(s, M, 5.34, 6.90, 0.80,
+         f"{pl(N_BRANDS, 'бренд', 'бренди', 'брендів')} · "
+         f"{pl(N_SKU, 'позиція', 'позиції', 'позицій')} з пакшотом і ціною за 1 шт · "
+         f"{pl(N_CH, 'продавець', 'продавці', 'продавців')}\n"
+         "Зріз українських онлайн-вітрин і 17 мереж: 22–23 вересня 2026 р.",
+         size=11.5, color=RGBColor(0x9F, 0xA9, 0xC4), line=1.40)
+    for im, x, y, w, h in [("md/bens_basmati250.jpg", 8.26, 0.96, 2.35, 2.40),
+                           ("sku/hn_scallop174.jpg", 10.78, 0.96, 2.35, 2.40),
+                           ("sku/hd_beef_stew272.jpg", 8.26, 3.50, 2.35, 2.10),
+                           ("sku/ot_bibimbap.jpg", 10.78, 3.50, 2.35, 2.10)]:
+        rect(s, x, y, w, h, WHITE, rounded=True, adj=0.06)
+        pic(s, im, x + 0.16, y + 0.14, w - 0.32, h - 0.28)
+    rect(s, 8.26, 5.76, 4.87, 1.30, RGBColor(0x26, 0x2F, 0x4D), rounded=True, adj=0.12)
+    text(s, 8.50, 5.90, 4.44, 1.08, " · ".join(dict.fromkeys(x[1] for x in ALL8)),
+         size=9, bold=True, color=WHITE, line=1.30)
 
 
-def mass_range(items):
-    g = [x[3] for x in items if x[3]]
-    return f"{num(min(g))} – {num(max(g))} г"
+# ══ КАРТА РИНКУ ═══════════════════════════════════════════════════════════
+def slide_map():
+    s = slide()
+    header(s, "КАРТА РИНКУ", f"{pl(N_BRANDS, 'бренд', 'бренди', 'брендів')}, чотири технології",
+           "Групування за тим, як продукт готується: від цього залежить і ціна, і канал.")
+    LEAGUES = [("ГОТОВИЙ РИС · РОЗІГРІВ", L_READY, ORANGE,
+                "Мікрохвильовка 60–90 с або реторт. Маса — готової страви."),
+               ("ЗАЛИТИ ОКРОПОМ", L_INSTANT, ROSE,
+                "Сухий рис із соусом у чаші чи пакеті, 5–10 хв."),
+               ("САМОРОЗІГРІВ", L_HEAT, PLUM,
+                "Хімічний нагрівач у коробці, без техніки, 15 хв."),
+               ("СУБЛІМАЦІЯ", L_FD, TEAL,
+                "Сушіння виморожуванням, окріп. Туризм і армія.")]
+    for i, (kind, items, c, note) in enumerate(LEAGUES):
+        x = M + i * 3.07
+        lo, hi = pack_range(items)
+        br = brands_of(items)
+        rect(s, x, 1.90, 2.82, 2.94, MIST, rounded=True, adj=0.06)
+        rect(s, x, 1.90, 2.82, 0.10, c, rounded=True, adj=0.5)
+        text(s, x + 0.24, 2.10, 2.36, 0.24, kind, size=10, bold=True, color=c)
+        text(s, x + 0.24, 2.38, 2.36, 0.40,
+             f"{pl(len(items), 'позиція', 'позиції', 'позицій')} · "
+             f"{pl(len(br), 'бренд', 'бренди', 'брендів')}", size=13.5, bold=True, color=NAVY)
+        text(s, x + 0.24, 2.78, 2.36, 0.74, " · ".join(br), size=8.5, color=INK, line=1.20)
+        text(s, x + 0.24, 3.56, 2.36, 0.44, note, size=8.5, color=GREY, line=1.20)
+        rect(s, x + 0.24, 4.06, 2.34, 0.02, MIST_D)
+        text(s, x + 0.24, 4.16, 2.36, 0.20, "ЗА 1 УПАКОВКУ · МЕДІАНА", size=7,
+             bold=True, color=GREY)
+        text(s, x + 0.24, 4.34, 2.36, 0.28, f"{num(unit_med(items))} грн", size=14,
+             bold=True, color=c)
+        text(s, x + 0.24, 4.60, 2.36, 0.20, f"діапазон {num(lo)} – {num(hi)} грн",
+             size=8, color=GREY)
+    rect(s, M, 5.00, 11.98, 1.88, NAVY, rounded=True, adj=0.07)
+    rect(s, M, 5.00, 0.10, 1.88, ORANGE, rounded=True, adj=0.5)
+    text(s, M + 0.42, 5.18, 5.40, 0.30, "Що показує розбір", size=14, bold=True, color=AMBER)
+    yy = 5.56
+    for t in [f"Ben's Original — {len(BENS)} позицій, єдиний бренд у мережі («Сільпо»).",
+              f"Ottogi і Henan — {len(OTTOGI) + len(HENAN)} азійських чаш; Henan удвічі "
+              "дешевший за упаковку.",
+              f"Українських позицій — {N_UA}, але жодної в паучі для мікрохвильовки.",
+              "Саморозігрів — найдорожча технологія: медіана 708 грн за упаковку."]:
+        dot(s, M + 0.48, yy + 0.11, 0.10, AMBER)
+        text(s, M + 0.68, yy, 5.62, 0.26, t, size=10, color=WHITE)
+        yy += 0.30
+    rect(s, 6.90, 5.24, 0.04, 1.40, NAVY_L)
+    text(s, 7.24, 5.18, 5.10, 1.52,
+         f"Медіана готового рису для розігріву ({N_CORE} позицій) — {num(CORE_MED)} грн за 100 г.\n"
+         f"У мережі продається {N_SILPO} позицій із {N_SKU}. Решта {N_SKU - N_SILPO} — лише "
+         "онлайн: маркетплейси, азійські фудшопи, туристичні й військові магазини.\n"
+         "Країни: ЄС — 31 позиція, Китай — 24, Україна — 16, Корея — 11, США — 2.",
+         size=10, color=RGBColor(0xB9, 0xC2, 0xDA), line=1.30)
+    foot(s, "Джерела: 17 мереж на zakaz.ua, «Сільпо», Prom, MAUDAU, Rozetka, спеціалізовані "
+            "магазини — 22–23.09.2026.")
 
 
-s = slide()
-header(s, "ЯКА УПАКОВКА", "Чотири типи паковання",
-       "Тип паковання визначає і спосіб приготування, і полицю, на яку товар потрапляє.")
-TYPES = [("md/bens_basmati250.jpg", "ПАУЧ · РЕТОРТ", P_POUCH, ORANGE),
-         ("sku/hn_scallop174.jpg", "ЧАША", P_BOWL, ROSE),
-         ("sku/hd_beef_stew272.jpg", "КОРОБКА З НАГРІВАЧЕМ", P_BOX, PLUM),
-         ("sku/tl_strog125.jpg", "ДОЙПАК", P_DOY, TEAL)]
-for i, (img, kind, items, c) in enumerate(TYPES):
-    x = M + i * 3.07
-    br = brands_of(items)
-    rect(s, x, 1.94, 2.82, 3.46, WHITE, line=MIST_D, lw=1.2, rounded=True, adj=0.06)
-    rect(s, x, 1.94, 2.82, 0.10, c, rounded=True, adj=0.5)
-    rect(s, x + 0.16, 2.16, 2.50, 1.20, MIST, rounded=True, adj=0.06)
-    pic(s, img, x + 0.26, 2.22, 2.30, 1.08)
-    text(s, x + 0.26, 3.46, 2.30, 0.26, kind, size=11.5, bold=True, color=c)
-    text(s, x + 0.26, 3.74, 2.30, 0.26, mass_range(items), size=12, bold=True, color=NAVY)
-    text(s, x + 0.26, 4.04, 2.30, 0.80,
-         " · ".join(br[:5]) + (f" · ще {len(br) - 5}" if len(br) > 5 else ""),
-         size=8.5, color=GREY, line=1.20)
-    pill(s, x + 0.26, 4.96, f"{pl(len(items), 'позиція', 'позиції', 'позицій')} · {pl(len(br), 'бренд', 'бренди', 'брендів')}", c, size=8)
-
-BUCKETS = [("до 100 г", 0, 100, TEAL), ("110–150 г", 101, 150, TEAL),
-           ("165–187 г", 151, 200, PLUM), ("210–250 г", 201, 255, ORANGE),
-           ("269–280 г", 256, 300, PLUM), ("310–360 г", 301, 370, PLUM),
-           ("400–440 г", 371, 450, GREEN)]
-MASSES = [x[3] for x in ALL8]
-BARS = [(lb, sum(1 for g in MASSES if g and a <= g <= b), c) for lb, a, b, c in BUCKETS]
-BARS.append(("маса н/д", sum(1 for g in MASSES if not g), GREY))
-assert sum(n for _, n, _ in BARS) == N_SKU, BARS
-text(s, M, 5.58, 4.20, 0.24, "ПОЗИЦІЙ У КОЖНІЙ ВАЗІ", size=9, bold=True, color=GREY)
-bx = M
-for lb, n, c in BARS:
-    hgt = 0.06 + n * 0.030
-    rect(s, bx, 6.66 - hgt, 1.06, hgt, c, rounded=True, adj=0.16)
-    text(s, bx, 6.70, 1.06, 0.22, lb, size=7.5, bold=True, color=INK, align=PP_ALIGN.CENTER)
-    text(s, bx, 6.66 - hgt - 0.24, 1.06, 0.22, str(n), size=9.5, bold=True, color=c,
-         align=PP_ALIGN.CENTER)
-    bx += 1.40
-foot(s, f"Джерело: маса за картками товарів, 22–23.09.2026. Разом {N_SKU} позиції.")
-
-# ══ 13 · ЦІНА ЗА 100 Г ════════════════════════════════════════════════════
-def corridor(items, label, c):
-    v = [(lo / g * 100, hi / g * 100) for *_, g, lo, hi, _, _ in items if g]
-    return (label, min(a for a, _ in v), max(b for _, b in v), c)
+def brand_slide(n, brand, origin, fmt, items, dek, src, cols, plo, phi):
+    lo100, hi100 = p100(as8(items, "", ORANGE))
+    s = slide()
+    header(s, f"БРЕНД {n} · {brand.upper()}",
+           f"{pl(len(items), 'позиція', 'позиції', 'позицій')}: {fmt}", dek)
+    brand_head(s, M, 1.72, brand, origin, fmt.split(" ")[0], len(items),
+               lo100, hi100, plo, phi, cols)
+    half = (len(items) + 1) // 2
+    w = (11.98 - 0.10 * (half - 1)) / half
+    for i, (img, nm, g, lo, hi, chan) in enumerate(items[:half]):
+        sku_cell(s, M + i * (w + 0.10), 2.50, w, 2.22, img, nm, g, lo, hi, chan, cols)
+    for i, (img, nm, g, lo, hi, chan) in enumerate(items[half:]):
+        sku_cell(s, M + i * (w + 0.10), 4.78, w, 2.22, img, nm, g, lo, hi, chan, cols)
+    foot(s, src)
 
 
-def by_brand(items, b):
-    return [x for x in items if x[1] == b]
+def multi_slide(n_from, n_to, title, dek, items, note_title, note, note_c, src, two_rows=False):
+    """Сітка позицій; у два ряди врізка займає вільні клітинки другого ряду."""
+    s = slide()
+    header(s, f"БРЕНДИ {n_from}–{n_to}", title, dek)
+    n = len(items)
+    if not two_rows:
+        w = (11.98 - 0.10 * (n - 1)) / n
+        grid(s, items, 1.88, w, 3.44)
+        insight(s, M, 5.48, 11.98, 1.42, note_title, note, note_c)
+    else:
+        cols = math.ceil((n + 2) / 2)          # ≥2 вільні клітинки під врізку
+        w = (11.98 - 0.10 * (cols - 1)) / cols
+        grid(s, items[:cols], 1.88, w, 2.34)
+        rest = items[cols:]
+        grid(s, rest, 4.32, w, 2.34)
+        x0 = M + len(rest) * (w + 0.10)
+        insight(s, x0, 4.32, M + 11.98 - x0, 2.34, note_title, note, note_c)
+    foot(s, src)
+
+# ══ КАНАЛИ ════════════════════════════════════════════════════════════════
+def slide_channels():
+    s = slide()
+    header(s, "ДЕ ПРЕДСТАВЛЕНО", f"{pl(N_CH, 'продавець', 'продавці', 'продавців')}, чотири типи каналів",
+           f"Категорія живе в онлайні: у мережі — лише Ben's Original у «Сільпо», {N_SILPO} позицій.")
+    GROUPS = [("МЕРЕЖЕВИЙ РОЗДРІБ", ORANGE, CH_CHAIN, "Ben's Original"),
+              ("ОНЛАЙН-СУПЕРМАРКЕТИ Й МАРКЕТПЛЕЙСИ", GREEN, CH_MARKET,
+               "Ben's · Henan · Bibigo · Clearspring · Portion"),
+              ("СПЕЦІАЛІЗОВАНІ ФУДШОПИ", PLUM, CH_FOOD,
+               "Ottogi · Henan · Bibigo · саморозігрів · Gallina Blanca"),
+              ("ТУРИСТИЧНІ ТА ВІЙСЬКОВІ", TEAL, CH_OUT,
+               "Haidilao · Adventure Menu · усі сублімати · Маркел")]
+    yy = 1.88
+    for gi, (title, c, chans, what) in enumerate(GROUPS):
+        rh = 0.76 if gi < 2 else 1.10
+        rect(s, M, yy, 11.98, rh, MIST if gi % 2 == 0 else WHITE, rounded=True, adj=0.12)
+        rect(s, M, yy, 0.09, rh, c, rounded=True, adj=0.5)
+        text(s, M + 0.30, yy + 0.12, 3.60, 0.22, title, size=9, bold=True, color=c)
+        text(s, M + 0.30, yy + 0.38, 3.60, 0.56, what, size=8.5, color=GREY, line=1.20)
+        shown = chans if len(chans) <= 12 else chans[:10]
+        cx, cy = M + 4.00, yy + 0.14
+        for ch in shown + ([f"+ ще {len(chans) - 10}"] if len(chans) > 12 else []):
+            w = 0.22 + 0.064 * len(ch)
+            if cx + w > M + 11.00:
+                cx, cy = M + 4.00, cy + 0.32
+            pill(s, cx, cy, ch, c, w=w, size=8)
+            cx += w + 0.10
+        text(s, M + 11.20, yy + rh / 2 - 0.17, 0.62, 0.34, str(len(chans)), size=16, bold=True,
+             color=c, align=PP_ALIGN.RIGHT)
+        yy += rh + 0.08
+    rect(s, M, 5.86, 5.86, 0.98, MIST, rounded=True, adj=0.10)
+    text(s, M + 0.26, 6.00, 5.34, 0.24, "Що відомо про імпортерів", size=11, bold=True, color=NAVY)
+    text(s, M + 0.26, 6.26, 5.34, 0.52,
+         "Картки продавців імпортера не називають. OMG! Asia і СНЕКІС описують себе як "
+         "прямих імпортерів з Азії; Ben's Original виробляє Mars (заводи Франція, Німеччина).",
+         size=8.5, color=INK, line=1.24)
+    rect(s, M + 6.12, 5.86, 5.86, 0.98, MIST, rounded=True, adj=0.10)
+    text(s, M + 6.38, 6.00, 5.34, 0.24, "Мережі без жодної позиції категорії", size=11,
+         bold=True, color=NAVY)
+    text(s, M + 6.38, 6.26, 5.34, 0.52,
+         "АТБ, Novus, Metro, Varus, Ашан, Fozzy, «Таврія В», МегаМаркет, ЕКО маркет, "
+         "Ultramarket та ще 7 мереж. Суміжну категорію (слайд 17) частина з них має.",
+         size=8.5, color=INK, line=1.24)
 
 
-LEFT = sorted([
-    corridor(as8(BENS, "", ORANGE), "Ben's Original", ORANGE),
-    corridor(as8(OTTOGI, "", PLUM), "Ottogi", PLUM),
-    corridor(by_brand(READY_MORE, "Bibigo"), "Bibigo", GREEN),
-    corridor(by_brand(READY_MORE, "Clearspring"), "Clearspring", TEAL),
-    corridor(by_brand(READY_MORE, "Portion"), "Portion", ROSE),
-    corridor(by_brand(READY_MORE, "Маркел"), "Маркел", SLATE),
-    corridor(AM400, "Adventure Menu 400 г", GREEN),
-    corridor(as8(HAIDILAO, "", PLUM), "Haidilao", PLUM),
-    corridor(by_brand(SELFHEAT_MORE, "Mo Xiao Xian"), "Mo Xiao Xian", PLUM),
-    corridor(by_brand(SELFHEAT_MORE, "Zihaiguo"), "Zihaiguo", ROSE),
-    corridor(by_brand(SELFHEAT_MORE, "Rongcheng Haoji"), "Rongcheng Haoji", SLATE),
-], key=lambda r: r[1])
-RIGHT = sorted([
-    corridor(as8(HENAN, "", ROSE), "Henan", ROSE),
-    corridor(by_brand(READY_MORE, "Gallina Blanca"), "Gallina Blanca", ORANGE),
-    corridor(by_brand(SELFHEAT_MORE, "Qiaoshanmei"), "Qiaoshanmei", ORANGE),
-    corridor(by_brand(FD_UA, "James Cook"), "James Cook", GREEN),
-    corridor(by_brand(FD_UA, "Їжа в Похід"), "Їжа в Похід", ORANGE),
-    corridor(by_brand(SUBLIMATE, "SubliMate"), "SubliMate", ROSE),
-    corridor(by_brand(FD_IMPORT, "Travellunch"), "Travellunch", TEAL),
-    corridor(by_brand(FD_IMPORT, "Adventure Food"), "Adventure Food", GREEN),
-    corridor(AM110, "Adventure Menu 110 г", TEAL),
-    corridor(by_brand(FD_IMPORT, "Mountain House"), "Mountain House", ROSE),
-], key=lambda r: r[1])
+# ══ ЗБІРКА ════════════════════════════════════════════════════════════════
+slide_cover()
+slide_summary()
+slide_volume()
+slide_map()
+slide_formats()
+slide_grammage()
+slide_ladder()
 
-
-def panel(s, x, w, rows, vmax, step, title, sub, med=None):
-    rect(s, x, 1.90, w, 4.98, MIST, rounded=True, adj=0.04)
-    text(s, x + 0.24, 2.04, w - 0.48, 0.26, title, size=11.5, bold=True, color=NAVY)
-    text(s, x + 0.24, 2.30, w - 0.48, 0.22, sub, size=8.5, color=GREY)
-    ax0, axw = x + 1.86, w - 2.46
-
-    def ax(v):
-        return ax0 + axw * v / vmax
-    top, bot = 2.66, 6.34
-    for t in range(0, vmax + 1, step):
-        rect(s, ax(t), top, 0.012, bot - top, RGBColor(0xDC, 0xE2, 0xEE))
-        text(s, ax(t) - 0.30, bot + 0.06, 0.60, 0.22, str(t), size=8, color=GREY,
-             align=PP_ALIGN.CENTER)
-    if med:
-        rect(s, ax(med), top, 0.025, bot - top, ORANGE)
-        text(s, ax(med) + 0.06, top - 0.20, 1.60, 0.20, f"медіана {num(med)}",
-             size=7.5, bold=True, color=ORANGE)
-    gap = (bot - top - 0.20) / len(rows)
-    yy = top + 0.20 + gap / 2
-    for lb, lo, hi, c in rows:
-        text(s, x + 0.24, yy - 0.12, 1.60, 0.24, lb, size=9, bold=True, color=NAVY)
-        x0, x1 = ax(lo), ax(hi)
-        rect(s, x0, yy - 0.05, max(x1 - x0, 0.02), 0.10, c, rounded=True, adj=0.5)
-        dot(s, x0, yy, 0.15, c)
-        text(s, x0 - 0.56, yy - 0.11, 0.46, 0.22, num(lo), size=8.5, bold=True, color=c,
-             align=PP_ALIGN.RIGHT)
-        if x1 - x0 >= 0.10:
-            dot(s, x1, yy, 0.15, c)
-            text(s, x1 + 0.10, yy - 0.11, 0.50, 0.22, num(hi), size=8.5, bold=True, color=c)
-        yy += gap
-
-
-s = slide()
-header(s, "ЯКА ЦІНА", "Коридор кожного бренду за 100 грамів",
-       "Смуга — від найдешевшої до найдорожчої позиції. Готову і суху масу порівнювати не можна.")
-panel(s, M, 5.90, LEFT, 400, 50, "Маса готової страви",
-      "Розігрів, реторт, саморозігрів", med=CORE_MED)
-panel(s, M + 6.08, 5.90, RIGHT, 700, 100, "Суха маса — заливається окропом",
-      "Інстант-рис і сублімати")
-foot(s, f"Розрахунок за масою та ціною карток, 22–23.09.2026. Медіана готового рису для "
-        f"розігріву ({N_CORE} позицій) — {num(CORE_MED)} грн за 100 г. Позиції без маси "
-        "на картці до розрахунку не входять.")
-
-# ══ 14 · ДЕ ПРЕДСТАВЛЕНО ══════════════════════════════════════════════════
-s = slide()
-header(s, "ДЕ ПРЕДСТАВЛЕНО", f"{N_CH} продавців, чотири типи каналів",
-       f"Категорія живе в онлайні: у мережі — лише Ben's Original у «Сільпо», {N_SILPO} позицій.")
-GROUPS = [("МЕРЕЖЕВИЙ РОЗДРІБ", ORANGE, CH_CHAIN, "Ben's Original"),
-          ("ОНЛАЙН-СУПЕРМАРКЕТИ Й МАРКЕТПЛЕЙСИ", GREEN, CH_MARKET,
-           "Ben's · Henan · Bibigo · Clearspring · Portion"),
-          ("СПЕЦІАЛІЗОВАНІ ФУДШОПИ", PLUM, CH_FOOD,
-           "Ottogi · Henan · Bibigo · саморозігрів · Yatekomo"),
-          ("ТУРИСТИЧНІ ТА ВІЙСЬКОВІ", TEAL, CH_OUT,
-           "Haidilao · Adventure Menu · усі сублімати · Маркел")]
-yy = 1.92
-for gi, (title, c, chans, what) in enumerate(GROUPS):
-    rh = 0.82 if gi < 2 else 1.18
-    rect(s, M, yy, 11.98, rh, MIST if gi % 2 == 0 else WHITE, rounded=True, adj=0.12)
-    rect(s, M, yy, 0.09, rh, c, rounded=True, adj=0.5)
-    text(s, M + 0.30, yy + 0.14, 3.60, 0.24, title, size=9.5, bold=True, color=c)
-    text(s, M + 0.30, yy + 0.42, 3.60, 0.60, what, size=9, color=GREY, line=1.20)
-    shown = chans if len(chans) <= 12 else chans[:10]
-    cx, cy = M + 4.00, yy + 0.16
-    for ch in shown + ([f"+ ще {len(chans) - 10}"] if len(chans) > 12 else []):
-        w = 0.24 + 0.068 * len(ch)
-        if cx + w > M + 11.00:
-            cx, cy = M + 4.00, cy + 0.36
-        pill(s, cx, cy, ch, c, w=w, size=8.5)
-        cx += w + 0.12
-    text(s, M + 11.20, yy + rh / 2 - 0.18, 0.62, 0.36, str(len(chans)), size=17, bold=True,
-         color=c, align=PP_ALIGN.RIGHT)
-    yy += rh + 0.08
-text(s, M, 6.36, 11.98, 0.60,
-     "Мережі без жодної порівнянної позиції: АТБ, Novus, Metro, Varus, Auchan, Fozzy, "
-     "«Таврія В», МегаМаркет, ЕКО маркет, Ultramarket та ще 7 мереж на zakaz.ua. "
-     "Перевірено онлайн 22–23.09.2026, без обходу полиці.",
-     size=9, color=GREY, line=1.24)
+brand_slide(1, "Ben's Original", "Mars · ЄС", "пауч 220, 240 і 250 г", BENS,
+            "Найглибша лінійка категорії і єдиний бренд, що дійшов до мережевої полиці.",
+            "Джерела: каталог «Сільпо» (11 позицій), MAUDAU, Edison Lee — 22.09.2026. "
+            "Basmati 220 г: 100 грн у MAUDAU і 144 грн у «Сільпо». Дві позиції Edison Lee "
+            "продаються поштучно, ціна за один пауч.", ORANGE, 45, 179)
+brand_slide(2, "Ottogi", "Республіка Корея", "чаша 217–320 г", OTTOGI,
+            "Готовий рис із наповнювачем для мікрохвильовки. Продається у чотирьох продавців.",
+            "Джерела: Pulsar, Апетітаріум, Gurmissimo, Тайякі Март — 22.09.2026. Ціни "
+            "роздрібні: у «Тайякі Март» від 15–20 шт діє нижча ціна, вона не бралася.",
+            PLUM, 225, 356)
+brand_slide(3, "Henan", "Китай · Xiao Guo Zao", "чаша 144 і 174 г", HENAN,
+            "Сухий рис у чаші, заливається окропом на 8 хвилин. Найдешевша чаша на ринку.",
+            "Джерела: MAUDAU, Апетітаріум, Gurmissimo, OMG! Asia, СНЕКІС, DCM — 22–23.09.2026. "
+            "Маса — сухого продукту до заливання.", ROSE, 83, 156)
+multi_slide(4, 8, "Bibigo, Clearspring, Portion, Маркел, Gallina Blanca",
+            "По одній-дві позиції в кожного: різні країни, різні формати, різні канали.",
+            READY_MORE, "Що це означає",
+            "Portion і Маркел — український реторт 350 г за 94–109 грн: найдешевший грам "
+            "категорії, 27–31 грн за 100 г. Bibigo — той самий товар у трьох каналах, розкид "
+            "40 %. Clearspring — органіка, найдорожчий грам серед паучів. Gallina Blanca "
+            "Yatekomo — 84 г сухого рису в чаші, заливається окропом.", ORANGE,
+            "Джерела: Смак Кореї, Rozetka, Prom, MAUDAU, СУХПАЙ, UPcompany, «Товари з Іспанії» "
+            "— 22–23.09.2026. Фото Portion: Rozetka не віддає зображення картки.")
+brand_slide(9, "Haidilao", "Китай · саморозігрів", "коробка 165–360 г", HAIDILAO,
+            "Хімічний нагрівач у коробці — готується без мікрохвильовки й окропу.",
+            "Джерела: Daruy, Tactico, Desna, Sweet Svitt, «Шериф» — 22–23.09.2026. "
+            "Найдорожча упаковка категорії — 1 190 грн за 360 г. * Sweet Svitt: назва картки "
+            "Stewed Chicken, на фото — рис з яловичиною та грибами.", PLUM, 380, 1190)
+multi_slide(10, 13, "Mo Xiao Xian, Zihaiguo, Rongcheng Haoji, Qiaoshanmei",
+            "Китайський саморозігрів і рис під окріп. Усі чотири бренди — в одному магазині.",
+            SELFHEAT_MORE, "Що це означає",
+            "Zihaiguo і Rongcheng Haoji — коробка 440 г за 735 грн: 167 грн за 100 г, дешевше "
+            "за грам, ніж Haidilao (230–371). Mo Xiao Xian — 931 грн за 275 г, найдорожча "
+            "чаша ринку. Qiaoshanmei — не саморозігрів, а рис у пакеті під окріп, 501 грн.",
+            PLUM, "Джерело: «Скарби Азії» (Prom), 23.09.2026. Бренди Zihaiguo і Rongcheng Haoji "
+            "визначено за написами на упаковці, Qiaoshanmei — за карткою продавця.")
+multi_slide(14, 17, "Travellunch, Trek'n Eat, Mountain House, Adventure Food",
+            "Рис-страви у дойпаку: залити окропом на 8–10 хвилин. Німеччина, США, Нідерланди.",
+            FD_IMPORT, "Що це означає",
+            "Travellunch — 7 позицій у двох вагах, 125 і 250 г, найширша імпортна лінійка. "
+            "Mountain House — 699 грн за 110–133 г сухої маси, найдорожчий грам категорії. "
+            "Канал — туристичні й військові магазини, у продуктовий роздріб ці бренди не йдуть.",
+            TEAL, "Джерела: ALANTUR, Highlander, ForCamp, Військторг Гайдамака, Freeride, "
+            "Kamanti, 110вольт, Клуб Мандрівник — 22–23.09.2026.", two_rows=True)
+multi_slide(18, 19, "Adventure Menu і SubliMate",
+            "Adventure Menu — єдиний бренд із двома технологіями: готова страва 400 г і сублімат 110 г.",
+            ADV_MENU + SUBLIMATE, "Що це означає",
+            "Лінія Adventure Menu 400 г READY TO EAT — реторт без води, 79–101 грн за 100 г: "
+            "у тому ж коридорі, що Ben's Original і Ottogi, але продається лише в туристичних "
+            "магазинах. SubliMate — український сублімат, 290–370 грн за дойпак.",
+            GREEN, "Джерела: ALANTUR, ForCamp, MK-Sport, Freeride, Лєєр, OXO, Palmer, "
+            "Highlander, ВсеОпт, Суренж — 22–23.09.2026.", two_rows=True)
+multi_slide(20, 23, "James Cook, Їжа в Похід, Харчі, !FEST",
+            "Українські виробники рисових страв у дойпаку. Канал — туристичні й військові магазини.",
+            FD_UA, "Що це означає",
+            "Українські сублімати — 55–321 грн за упаковку, імпортні — 269–889 грн. "
+            "James Cook — 4 рисові позиції, найширша українська лінійка. Українське "
+            "виробництво в категорії є, але воно цілком у туристичному каналі.",
+            ORANGE, "Джерела: Highlander, Activity, ВсеОпт, Klever-Shop, Terra Incognita, "
+            "«Їжа в Похід», Харчі ТМ, Висот-Нік, SportStorm, Kalush-Craft — 22–23.09.2026.",
+            two_rows=True)
+slide_chain_shelf()
+slide_channels()
+slide_conclusions()
 
 prs.save("Gotovyi_Rys_Rozbir_Brendiv.pptx")
 print("saved ·", len(prs.slides._sldIdLst), "slides ·", N_SKU, "SKU ·", N_BRANDS, "brands ·",
-      N_CH, "channels · median", round(CORE_MED, 1))
+      N_CH, "sellers · median", round(CORE_MED, 1), "| retail",
+      round(RETAIL_LO), "-", round(RETAIL_HI), "млн грн")

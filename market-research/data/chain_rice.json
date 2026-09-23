@@ -1,0 +1,352 @@
+[
+ {
+  "title": "Плов М'ясторія з куркою та родзинками 350г",
+  "chains": [
+   "auchan",
+   "cosmos",
+   "metro"
+  ],
+  "weight": 350.0,
+  "producer": "М'ясторія",
+  "img": "https://img3.zakaz.ua/f1369a1305ab41bbaa63cd7a82460a23/1766237534-s1350x1350.jpg",
+  "lo": 147.34,
+  "hi": 160.0,
+  "ean": "04820225462157"
+ },
+ {
+  "title": "Плов",
+  "chains": [
+   "novus"
+  ],
+  "weight": null,
+  "producer": "Майстри Смаку",
+  "img": "https://img3.zakaz.ua/40c986d30da247f4aa3461ad91d165c5/1758613386-s1350x1350.jpg",
+  "lo": 469.0,
+  "hi": 469.0,
+  "ean": "novus02856168000000"
+ },
+ {
+  "title": "Плов Узбекский з свинини",
+  "chains": [
+   "tavriav"
+  ],
+  "weight": null,
+  "producer": "без тм",
+  "img": "https://img2.zakaz.ua/cb8c427d6bf24b5c9c245fef11e4e269/1756127023-s1350x1350.jpg",
+  "lo": 325.0,
+  "hi": 325.0,
+  "ean": "tavriav02000000996639"
+ },
+ {
+  "title": "Плов Узбекский з куркою",
+  "chains": [
+   "tavriav"
+  ],
+  "weight": null,
+  "producer": "без тм",
+  "img": "https://img2.zakaz.ua/2e8090a19ea5434abd75413716f250fe/1726040901-s1350x1350.jpg",
+  "lo": 362.0,
+  "hi": 362.0,
+  "ean": "tavriav02000000622163"
+ },
+ {
+  "title": "Плов з курячим філе",
+  "chains": [
+   "cosmos"
+  ],
+  "weight": null,
+  "producer": "без тм",
+  "img": "https://img2.zakaz.ua/a78733f9c4b34ecba8213448aef9409d/1703515389-s1350x1350.jpg",
+  "lo": 314.0,
+  "hi": 314.0,
+  "ean": "cosmos00000000025109"
+ },
+ {
+  "title": "Плов Food Fabrika з куркою 250г",
+  "chains": [
+   "cosmos"
+  ],
+  "weight": 250.0,
+  "producer": "Food Fabrika ",
+  "img": "https://img3.zakaz.ua/63c76e95833f4bcc8ef52033eb828a21/1742926798-s1350x1350.jpg",
+  "lo": 118.9,
+  "hi": 118.9,
+  "ean": "04820251963055"
+ },
+ {
+  "title": "Каша рисова hapay! зі свининою 340г",
+  "chains": [
+   "chudomarket"
+  ],
+  "weight": 340.0,
+  "producer": "Hapay!",
+  "img": "https://img2.zakaz.ua/e2194c3671f0421cbd1c753e1bfa8ff6/1773892413-s1350x1350.jpg",
+  "lo": 62.9,
+  "hi": 62.9,
+  "ean": "04820184610705"
+ },
+ {
+  "title": "Плов Узбецький",
+  "chains": [
+   "chudomarket"
+  ],
+  "weight": null,
+  "producer": "без тм",
+  "img": "https://img3.zakaz.ua/7a287502125941a29154c9276f1d3164/1775444013-s1350x1350.jpg",
+  "lo": 299.0,
+  "hi": 299.0,
+  "ean": "chudomarket02102742000008"
+ },
+ {
+  "title": "Плов Узбецький 230г",
+  "chains": [
+   "chudomarket"
+  ],
+  "weight": 230.0,
+  "producer": "без тм",
+  "img": "https://img3.zakaz.ua/aeddd77d58f74c70a132632fdb399285/1769964263-s1350x1350.jpg",
+  "lo": 78.9,
+  "hi": 78.9,
+  "ean": "chudomarket02000989266105"
+ },
+ {
+  "title": "Плов Auchan курячий",
+  "chains": [
+   "auchan"
+  ],
+  "weight": null,
+  "producer": "Auchan",
+  "img": "https://img2.zakaz.ua/3545aefcd6064e56911df6cdba114a23/1769182460-s1350x1350.jpg",
+  "lo": 329.0,
+  "hi": 329.0,
+  "ean": "auchan02201415000000"
+ },
+ {
+  "title": "Плов Легко! з куркою охолоджений 250г",
+  "chains": [
+   "auchan"
+  ],
+  "weight": 250.0,
+  "producer": "Легко!",
+  "img": "https://img2.zakaz.ua/8bbea7158a914d398b99966131cb1e5d/1743263871-s1350x1350.jpg",
+  "lo": 110.0,
+  "hi": 110.0,
+  "ean": "04820227761838"
+ },
+ {
+  "title": "Плов Легко! з куркою охолоджений 300г",
+  "chains": [
+   "auchan"
+  ],
+  "weight": 300.0,
+  "producer": "Легко!",
+  "img": "https://img3.zakaz.ua/bbe8ceeaa61f44669cece816b256e34d/1777471597-s1350x1350.jpg",
+  "lo": 140.0,
+  "hi": 140.0,
+  "ean": "04820227765515"
+ },
+ {
+  "title": "Плов з куркою",
+  "chains": [
+   "grono"
+  ],
+  "weight": null,
+  "producer": "Gronokitchen",
+  "img": "https://img3.zakaz.ua/452132a2e97545e1b200e3379f358d21/1778084169-s1350x1350.jpg",
+  "lo": 520.0,
+  "hi": 520.0,
+  "ean": "grono02910553000007"
+ },
+ {
+  "title": "Плов з телятиною 400г",
+  "chains": [
+   "grono"
+  ],
+  "weight": 400.0,
+  "producer": "Gronokitchen",
+  "img": "https://img2.zakaz.ua/889ed5281e96491184611fad46dfa298/1778211160-s1350x1350.jpg",
+  "lo": 260.0,
+  "hi": 260.0,
+  "ean": "grono02000998745363"
+ },
+ {
+  "title": "Плов з куркою 400г",
+  "chains": [
+   "grono"
+  ],
+  "weight": 400.0,
+  "producer": "Gronokitchen",
+  "img": "https://img3.zakaz.ua/eef85c31539d4de683bf543adef3f8e7/1778084169-s1350x1350.jpg",
+  "lo": 210.0,
+  "hi": 210.0,
+  "ean": "grono02000998745356"
+ },
+ {
+  "title": "Плов з телятиною ваг.",
+  "chains": [
+   "grono"
+  ],
+  "weight": null,
+  "producer": "Gronokitchen",
+  "img": "https://img3.zakaz.ua/95251f17db8e448d95d07f31540856fa/1778084169-s1350x1350.jpg",
+  "lo": 650.0,
+  "hi": 650.0,
+  "ean": "grono02910591000007"
+ },
+ {
+  "title": "Каша рисова L'appetit зі свининою 340г",
+  "chains": [
+   "ideal"
+  ],
+  "weight": 340.0,
+  "producer": "L'appetit",
+  "img": "https://img3.zakaz.ua/ebc83a2880f24d9fb56ad515cc6bf009/1759740852-s1350x1350.jpg",
+  "lo": 119.9,
+  "hi": 119.9,
+  "ean": "04820177070103"
+ },
+ {
+  "title": "Каша рисова L'appetit з яловичиною 340г",
+  "chains": [
+   "ideal"
+  ],
+  "weight": 340.0,
+  "producer": "L'appetit",
+  "img": "https://img2.zakaz.ua/5481064d089f49349b197a1ca347a2d8/1759740830-s1350x1350.jpg",
+  "lo": 125.9,
+  "hi": 125.9,
+  "ean": "04820177070165"
+ },
+ {
+  "title": "Плов hapay! з м’яса качки та булгуру 340г",
+  "chains": [
+   "ideal"
+  ],
+  "weight": 340.0,
+  "producer": "Hapay!",
+  "img": "https://img2.zakaz.ua/src.1622022356.ad72436478c_2021-05-26_Aliona/src.1622022356.SNCPSG10.obj.0.1.jpg.oe.jpg.pf.jpg.1350nowm.jpg.1350x.jpg",
+  "lo": 117.0,
+  "hi": 117.0,
+  "ean": "04820184611160"
+ },
+ {
+  "title": "Плов",
+  "chains": [
+   "ideal"
+  ],
+  "weight": null,
+  "producer": "без тм",
+  "img": "https://img3.zakaz.ua/04a042de0e92408dbd60ed83bc82a53b/1763754886-s1350x1350.jpg",
+  "lo": 339.9,
+  "hi": 339.9,
+  "ean": "09957957010006"
+ },
+ {
+  "title": "Плов",
+  "chains": [
+   "onde"
+  ],
+  "weight": null,
+  "producer": "без тм",
+  "img": "https://img2.zakaz.ua/489c3d284ccc45c98d3c739efd81335a/1773165368-s1350x1350.jpg",
+  "lo": 468.2,
+  "hi": 468.2,
+  "ean": "onde00000000012515"
+ },
+ {
+  "title": "Плов Сієста",
+  "chains": [
+   "megamarket"
+  ],
+  "weight": null,
+  "producer": "без тм",
+  "img": "https://img2.zakaz.ua/913856cc40d443cfb706e45dd6cdf149/1723171063-s1350x1350.jpg",
+  "lo": 355.0,
+  "hi": 355.0,
+  "ean": "megamarket00000000165587"
+ },
+ {
+  "title": "Плов з м'ясом",
+  "chains": [
+   "megamarket"
+  ],
+  "weight": null,
+  "producer": "без тм",
+  "img": "https://img3.zakaz.ua/src.1649875900.ad72436478c_2022-04-14_Aliona/src.1649875900.SNCPSG10.obj.0.1.jpg.oe.jpg.pf.jpg.1350nowm.jpg.1350x.jpg",
+  "lo": 620.5,
+  "hi": 620.5,
+  "ean": "megamarket00000000145855"
+ },
+ {
+  "title": "Плов овочевий легкий",
+  "chains": [
+   "megamarket"
+  ],
+  "weight": null,
+  "producer": "без тм",
+  "img": "https://img3.zakaz.ua/src.1649876102.ad72436478c_2022-04-14_Aliona/src.1649876102.SNCPSG10.obj.0.1.jpg.oe.jpg.pf.jpg.1350nowm.jpg.1350x.jpg",
+  "lo": 355.0,
+  "hi": 355.0,
+  "ean": "megamarket00000000145862"
+ },
+ {
+  "title": "Плов Сієста",
+  "chains": [
+   "ultramarket"
+  ],
+  "weight": null,
+  "producer": "без тм",
+  "img": "https://img3.zakaz.ua/9d697917d85142509f593f0ffa7ec79c/1723171588-s1350x1350.jpg",
+  "lo": 355.0,
+  "hi": 355.0,
+  "ean": "ultramarket00000000165587"
+ },
+ {
+  "title": "Плов з м'ясом",
+  "chains": [
+   "ultramarket"
+  ],
+  "weight": null,
+  "producer": "без тм",
+  "img": "https://img2.zakaz.ua/src.1649884700.ad72436478c_2022-04-14_Aliona/src.1649884700.SNCPSG10.obj.0.1.jpg.oe.jpg.pf.jpg.1350nowm.jpg.1350x.jpg",
+  "lo": 620.5,
+  "hi": 620.5,
+  "ean": "ultramarket00000000145855"
+ },
+ {
+  "title": "Плов овочевий легкий",
+  "chains": [
+   "ultramarket"
+  ],
+  "weight": null,
+  "producer": "без тм",
+  "img": "https://img3.zakaz.ua/src.1649884902.ad72436478c_2022-04-14_Aliona/src.1649884902.SNCPSG10.obj.0.1.jpg.oe.jpg.pf.jpg.1350nowm.jpg.1350x.jpg",
+  "lo": 355.0,
+  "hi": 355.0,
+  "ean": "ultramarket00000000145862"
+ },
+ {
+  "title": "Плов з м'ясом",
+  "chains": [
+   "zaraz"
+  ],
+  "weight": null,
+  "producer": "без тм",
+  "img": "https://img3.zakaz.ua/src.1649884700.ad72436478c_2022-04-14_Aliona/src.1649884700.SNCPSG10.obj.0.1.jpg.oe.jpg.pf.jpg.1350nowm.jpg.1350x.jpg",
+  "lo": 620.5,
+  "hi": 620.5,
+  "ean": "zaraz00000000145855"
+ },
+ {
+  "title": "Плов овочевий легкий",
+  "chains": [
+   "zaraz"
+  ],
+  "weight": null,
+  "producer": "без тм",
+  "img": "https://img3.zakaz.ua/src.1649884902.ad72436478c_2022-04-14_Aliona/src.1649884902.SNCPSG10.obj.0.1.jpg.oe.jpg.pf.jpg.1350nowm.jpg.1350x.jpg",
+  "lo": 355.0,
+  "hi": 355.0,
+  "ean": "zaraz00000000145862"
+ }
+]
