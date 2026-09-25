@@ -192,9 +192,9 @@ def chart_fob():
 
 # ============ CHART 5: канали ============
 def chart_channels():
-    data=[("Туристичні та військові",28,d.C_PURPLE),
+    data=[("Туристичні та військові",40,d.C_PURPLE),
           ("Азійські / етнічні фудшопи",20,d.C_TEAL),
-          ("Онлайн-супермаркети, МП",5,d.C_AMBER),
+          ("Онлайн-супермаркети, МП",3,d.C_AMBER),
           ("Мережевий роздріб",1,d.C_PINK)]
     fig,ax=plt.subplots(figsize=(6.6,2.9))
     y=np.arange(len(data))[::-1]
@@ -202,8 +202,8 @@ def chart_channels():
         ax.barh(yy,v,height=0.5,color=c,zorder=3)
         ax.text(v+0.7,yy,str(v),va="center",fontsize=9,color=d.INK2,fontweight="bold")
     ax.set_yticks(y); ax.set_yticklabels([x[0] for x in data],fontsize=8.5,color=d.INK2)
-    ax.set_xlim(0,33); ax.set_xticks([])
-    ax.set_title("ПРОДАВЦІВ У КАНАЛІ  ·  54 ідентифіковані",fontsize=7.5,
+    ax.set_xlim(0,46); ax.set_xticks([])
+    ax.set_title("ПРОДАВЦІВ У КАНАЛІ  ·  64 проти 56 у першому зрізі",fontsize=7.5,
                  color=d.MUTED,loc="left",pad=10,fontweight="bold")
     strip(ax,bottom=False); ax.tick_params(axis="y",length=0)
     fig.savefig(OUT+"c5_channels.png",dpi=220,bbox_inches="tight",transparent=True)
