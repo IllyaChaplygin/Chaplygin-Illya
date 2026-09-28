@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Validate the OPC package of a .pptx: dangling rels, bad refs, missing parts."""
-import sys, zipfile, posixpath, re
+import sys, zipfile, posixpath, re, collections
 from lxml import etree
 
 NS = {
@@ -11,6 +11,7 @@ NS = {
     "pr": "http://schemas.openxmlformats.org/package/2006/relationships",
 }
 R = NS["r"]
+P_ = NS["p"]
 REL_ATTRS = [f"{{{R}}}embed", f"{{{R}}}link", f"{{{R}}}id", f"{{{R}}}pict",
              f"{{{R}}}dm", f"{{{R}}}lo", f"{{{R}}}qs", f"{{{R}}}cs"]
 
@@ -103,8 +104,36 @@ for sp in slide_parts:
                 problems.append(f"BAD REF  {sp}  <{tag} {attr.split('}')[-1]}=\"{rid}\"> "
                                 f"not in its rels")
 
+
+# 6. degenerate text structures — legal XML that PowerPoint still refuses
+A = NS["a"]
+empty_runs = 0
+total_runs = 0
+for sp in slide_parts:
+    if sp not in names:
+        continue
+    root = etree.fromstring(z.read(sp))
+    for r in root.iter(f"{{{A}}}r"):
+        total_runs += 1
+        t = r.find(f"{{{A}}}t")
+        if t is None:
+            problems.append(f"RUN WITHOUT TEXT  {sp}  <a:r> has no <a:t>")
+        elif not (t.text or ""):
+            empty_runs += 1
+    for tb in root.iter(f"{{{P_}}}txBody"):
+        if tb.find(f"{{{A}}}p") is None:
+            problems.append(f"EMPTY TXBODY  {sp}  <p:txBody> has no <a:p>")
+    ids = [e.get("id") for e in root.iter(f"{{{P_}}}cNvPr") if e.get("id")]
+    dup = [k for k, v in collections.Counter(ids).items() if v > 1]
+    if dup:
+        problems.append(f"DUPLICATE SHAPE ID  {sp}  {','.join(dup[:4])}")
+if total_runs and empty_runs > max(10, total_runs * 0.01):
+    problems.append(f"TOO MANY EMPTY RUNS  {empty_runs} of {total_runs} — "
+                    f"editing left blank <a:r> behind; remove them instead")
+
 print(f"{path}")
-print(f"  parts={len(names)}  slides={len(slide_parts)}")
+print(f"  parts={len(names)}  slides={len(slide_parts)}  "
+      f"runs={total_runs} (порожніх {empty_runs})")
 if problems:
     print(f"  ПРОБЛЕМ: {len(problems)}")
     seen = {}

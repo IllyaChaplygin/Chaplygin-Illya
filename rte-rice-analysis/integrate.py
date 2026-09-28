@@ -261,27 +261,52 @@ TEXT_FIXES = {
       ("45,7 грн", "153 грн"), ("88,0 грн", "255 грн")],
 }
 
-def _uniform(para):
-    """True when every run shares the same formatting, so the text can be rewritten."""
-    keys = set()
-    for r in para.runs:
-        col = None
-        try:
-            col = str(r.font.color.rgb) if r.font.color and r.font.color.type is not None else None
-        except Exception:
-            pass
-        keys.add((r.font.bold, r.font.italic, r.font.size, r.font.name, col))
-    return len(keys) <= 1
+def _replace_in_paragraph(para, old, new):
+    """Replace `old` across run boundaries, touching only the runs it covers.
+
+    PowerPoint splits a sentence over many runs. Collapsing the whole
+    paragraph into run 0 works but leaves dozens of empty <a:r> behind, which
+    is what made PowerPoint refuse the file. So: locate the span, rewrite only
+    the runs that overlap it, and delete any run left with no text.
+    """
+    runs = para.runs
+    if not runs:
+        return 0
+    joined = "".join(r.text for r in runs)
+    start = joined.find(old)
+    if start < 0:
+        return 0
+    end = start + len(old)
+
+    spans, pos = [], 0
+    for r in runs:
+        spans.append((pos, pos + len(r.text), r))
+        pos += len(r.text)
+
+    hit = [(a, b, r) for a, b, r in spans if b > start and a < end]
+    if not hit:
+        return 0
+
+    first_a, _, first_r = hit[0]
+    _, last_b, last_r = hit[-1]
+    prefix = first_r.text[: start - first_a]
+    suffix = last_r.text[end - (last_b - len(last_r.text)):]
+
+    if first_r is last_r:
+        first_r.text = prefix + new + suffix
+    else:
+        first_r.text = prefix + new
+        for _, _, r in hit[1:-1]:
+            r.text = ""
+        last_r.text = suffix
+
+    for _, _, r in hit:                      # drop runs left with nothing
+        if not r.text:
+            r._r.getparent().remove(r._r)
+    return 1
 
 
 def apply_text_fixes(prs_):
-    """Rewrite phrases in the original slides, run-by-run where possible.
-
-    PowerPoint splits a sentence across many runs, so a phrase often spans
-    several. When it does and the whole paragraph shares one format, the
-    paragraph is rewritten into its first run; otherwise it is left alone
-    rather than risk flattening mixed formatting.
-    """
     n = 0
     for oi, pairs in TEXT_FIXES.items():
         sl = prs_.slides[oi]
@@ -289,23 +314,10 @@ def apply_text_fixes(prs_):
             if not (sh.has_text_frame and sh.text_frame.text.strip()):
                 continue
             for para in sh.text_frame.paragraphs:
-                for run in para.runs:                      # fast path: inside one run
-                    for old, new in pairs:
-                        if old in run.text:
-                            run.text = run.text.replace(old, new); n += 1
-                joined = "".join(r.text for r in para.runs)
-                hits = [(o, w) for o, w in pairs if o in joined]
-                if not hits or not para.runs:
-                    continue
-                if not _uniform(para):
-                    print(f"  ! S{oi+1}: мішане форматування, не чіпаю: {hits[0][0][:40]!r}")
-                    continue
-                for o, w in hits:
-                    joined = joined.replace(o, w); n += 1
-                para.runs[0].text = joined
-                for r in para.runs[1:]:
-                    r.text = ""
+                for old, new in pairs:
+                    n += _replace_in_paragraph(para, old, new)
     return n
+
 
 # сегмент 5 — суміжна консервна полиця
 d.SEGMENTS["S5"]=("СЕГМЕНТ 5 · СУМІЖНА ПОЛИЦЯ · КОНСЕРВА",d.C_GREEN,
