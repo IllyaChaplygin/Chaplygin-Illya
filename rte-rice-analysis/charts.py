@@ -209,5 +209,55 @@ def chart_channels():
     fig.savefig(OUT+"c5_channels.png",dpi=220,bbox_inches="tight",transparent=True)
     plt.close(fig)
 
-for f in (chart_formats,chart_ladder,chart_pack,chart_fob,chart_channels):
+# ============ CHART 6: модель формат × грамаж ============
+def chart_fmt_weight():
+    import matplotlib.colors as mcolors
+    M=[v for _,v,_ in d.FMT_WEIGHT]; names=[n for n,_,_ in d.FMT_WEIGHT]
+    nb=len(d.WBANDS); nf=len(M)
+    vmax=max(max(r) for r in M)
+    ramp=mcolors.LinearSegmentedColormap.from_list("amb",["#FBF7EF","#F6E3BC","#E8B85F","#C4820A","#8A5A06"])
+    fig,(ax,ax2)=plt.subplots(2,1,figsize=(13.4,5.25),
+                              gridspec_kw={"height_ratios":[3.25,1],"hspace":0.30})
+    for i in range(nf):
+        for j in range(nb):
+            v=M[i][j]
+            y=nf-1-i
+            if v==0:
+                ax.add_patch(plt.Rectangle((j+0.035,y+0.035),0.93,0.93,
+                             facecolor="#F7F8FB",edgecolor="none",zorder=2))
+                ax.text(j+0.5,y+0.5,"—",ha="center",va="center",fontsize=8.5,color="#C6CEE0",zorder=4)
+            else:
+                ax.add_patch(plt.Rectangle((j+0.035,y+0.035),0.93,0.93,
+                             facecolor=ramp(v/vmax),edgecolor="none",zorder=2))
+                ax.text(j+0.5,y+0.58,str(v),ha="center",va="center",fontsize=14,
+                        color="white" if v/vmax>0.48 else d.INK,fontweight="bold",zorder=4)
+                ax.text(j+0.5,y+0.27,"позицій",ha="center",va="center",fontsize=6.2,
+                        color="white" if v/vmax>0.48 else d.MUTED,zorder=4)
+    # порційне вікно
+    ax.add_patch(plt.Rectangle((3,-0.06),2,nf+0.12,fill=False,edgecolor=d.C_BRAND,
+                 lw=2.2,zorder=6,joinstyle="round"))
+    ax.text(4,nf+0.60,"ПОРЦІЙНЕ ВІКНО 200–299 Г  ·  22 ПОЗИЦІЇ  ·  ТУТ ЖИВЕ ПОЛИЦЯ",
+            ha="center",fontsize=8,color=d.C_BRAND,fontweight="bold")
+    ax.set_xlim(0,nb); ax.set_ylim(0,nf+0.80)
+    ax.set_xticks([j+0.5 for j in range(nb)]); ax.set_xticklabels(d.WBANDS,fontsize=8.5,color=d.INK2)
+    ax.set_yticks([nf-1-i+0.5 for i in range(nf)])
+    ax.set_yticklabels(names,fontsize=9,color=d.INK2,fontweight="bold")
+    ax.tick_params(length=0,pad=30); ax.xaxis.tick_top()
+    for sp in ax.spines.values(): sp.set_visible(False)
+    # нижня панель: медіана грн/100 г по смузі
+    for j,v in enumerate(d.WBAND_P100):
+        c=d.C_GREEN if v<=50 else (d.C_AMBER if v<=110 else d.MUTED2)
+        ax2.bar(j+0.5,v,width=0.62,color=c,zorder=3)
+        ax2.text(j+0.5,v+14,f"{v}",ha="center",fontsize=8.5,color=d.INK2,fontweight="bold")
+    ax2.set_xlim(0,nb); ax2.set_ylim(0,max(d.WBAND_P100)*1.34)
+    ax2.set_xticks([]); ax2.set_yticks([])
+    ax2.set_ylabel("грн/100 г",fontsize=7,color=d.MUTED)
+    ax2.set_title("МЕДІАНА ЦІНИ ЗА 100 Г У ЦІЙ ВАГОВІЙ СМУЗІ",fontsize=7.5,
+                  color=d.MUTED,loc="left",pad=8,fontweight="bold")
+    for sp in ax2.spines.values(): sp.set_visible(False)
+    fig.savefig(OUT+"c6_fmtweight.png",dpi=220,bbox_inches="tight",transparent=True)
+    plt.close(fig)
+
+
+for f in (chart_formats,chart_fmt_weight,chart_ladder,chart_pack,chart_fob,chart_channels):
     f(); print("ok",f.__name__)

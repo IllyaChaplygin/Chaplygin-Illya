@@ -115,27 +115,64 @@ ws.auto_filter.ref=f"A4:O{r-1}"
 
 # ───────────── 4. КАНАЛИ ─────────────
 ws=wb.create_sheet("4. Канали")
-title(ws,"Карта каналів — 54 ідентифіковані продавці",
-      "Розширено відносно першого зрізу. Туристичний канал перелічено поіменно частково (28 із ~40).")
-head(ws,4,["Канал","Продавець","Які бренди тут стоять","Статус для нас"],[34,30,46,30])
+title(ws,"Канали продажу: точка продажу × покупець",
+      "Дві різні осі. Кількість точок продажу не дорівнює релевантності каналу для нас.")
+head(ws,4,["Канал","Тип точки продажу","Точок","Покупець і привід споживання",
+           "Статус для нас","Продавці"],[28,30,9,40,22,60])
 r=5
-STAT={"Мережевий роздріб (офлайн+онлайн)":"Ціль 2-ї хвилі",
-      "Онлайн-супермаркети й маркетплейси":"Ціль 1-ї хвилі",
-      "Азійські / етнічні фудшопи":"ЦІЛЬ ПЕРШОГО ВХОДУ",
-      "Туристичні та військові":"Не наш привід споживання"}
-for ch,v in d.CHANNELS.items():
-    for name in v["found"]:
-        ws.cell(r,1,ch).font=F(sz=9,color=MUT)
-        ws.cell(r,2,name).font=F(sz=9,bold=True,color=INK)
-        ws.cell(r,3,v["note"]).font=F(sz=9,color=INK2)
-        c=ws.cell(r,4,STAT[ch]); c.font=F(sz=9,bold=("ЦІЛЬ ПЕРШОГО" in STAT[ch]),
-                                          color=TEAL if "ПЕРШОГО" in STAT[ch] else MUT)
-        for i in range(1,5): ws.cell(r,i).border=BOX
-        r+=1
-r+=1
-ws.cell(r,1,"Мережі без жодної позиції категорії").font=F(sz=10,bold=True,color=INK); r+=1
-ws.cell(r,1,", ".join(d.CHANNELS["Мережевий роздріб (офлайн+онлайн)"]["empty"])).font=F(sz=9,color=MUT)
-ws.auto_filter.ref="A4:D4"
+for ch,typ,cnt,names,c,buyer,role in d.CHANNEL_MODEL:
+    ws.cell(r,1,ch).font=F(sz=10,bold=True,color=INK)
+    ws.cell(r,2,typ).font=F(sz=9,color=INK2)
+    ws.cell(r,3,int(cnt.split()[0])).font=F(sz=10,bold=True,color=INK2)
+    ws.cell(r,4,buyer).font=F(sz=9,color=INK2)
+    cc=ws.cell(r,5,role)
+    cc.font=F(sz=9,bold=True,color=PINK if "НЕ НАШ" in role else GREEN)
+    ws.cell(r,6,names).font=F(sz=9,color=MUT)
+    for i in range(1,7):
+        ws.cell(r,i).border=BOX
+        ws.cell(r,i).alignment=Alignment(wrap_text=True,vertical="top")
+    ws.row_dimensions[r].height=58
+    r+=1
+ws.cell(r+1,1,"Мережі без жодної позиції категорії").font=F(sz=10,bold=True,color=INK)
+ws.cell(r+2,1,"АТБ, Novus, METRO, Varus, Ашан, Fora, «Таврія В», МегаМаркет, ЕКО маркет, "
+        "Ultramarket, Восторг, Космос, WineTime, Фуршет, Близенько, Точка, Рукавичка").font=F(sz=9,color=MUT)
+ws.cell(r+4,1,"Агрегатори (у підрахунок точок продажу не входять)").font=F(sz=10,bold=True,color=INK)
+ws.cell(r+5,1,"zakaz.ua — 17 мереж · GoToShop — 8 мереж").font=F(sz=9,color=MUT)
+
+# ───────────── 4b. ФОРМАТ × ГРАМАЖ ─────────────
+ws=wb.create_sheet("4b. Формат x грамаж")
+title(ws,"Модель формату і ваги — крос-таб 84 позицій",
+      "Скільки позицій категорії має цей формат у цій ваговій смузі. 2 позиції без маси виключено.")
+head(ws,4,["Формат"]+d.WBANDS+["Разом"],[24]+[13]*len(d.WBANDS)+[10])
+r=5
+for name,vals,col in d.FMT_WEIGHT:
+    ws.cell(r,1,name).font=F(sz=10,bold=True,color=INK)
+    for j,v in enumerate(vals,2):
+        c=ws.cell(r,j,v if v else None); c.font=F(sz=10,color=INK2,bold=v>=6)
+        c.alignment=Alignment(horizontal="center")
+        if v: c.fill=PatternFill("solid",fgColor="FFF6E3BC" if v<6 else "FFE8B85F")
+    c=ws.cell(r,len(vals)+2,f"=SUM(B{r}:{get_column_letter(len(vals)+1)}{r})")
+    c.font=F(sz=10,bold=True,color=INK); c.alignment=Alignment(horizontal="center")
+    for i in range(1,len(vals)+3): ws.cell(r,i).border=BOX
+    r+=1
+ws.cell(r,1,"Разом").font=F(sz=10,bold=True,color=INK)
+for j in range(2,len(d.WBANDS)+2):
+    L=get_column_letter(j)
+    c=ws.cell(r,j,f"=SUM({L}5:{L}{r-1})"); c.font=F(sz=10,bold=True,color=INK)
+    c.alignment=Alignment(horizontal="center")
+r+=2
+ws.cell(r,1,"Медіана грн/100 г у смузі").font=F(sz=9,bold=True,color=MUT)
+for j,v in enumerate(d.WBAND_P100,2):
+    c=ws.cell(r,j,v); c.font=F(sz=9,bold=True,color=GREEN if v<=50 else (AMB if v<=110 else MUT))
+    c.alignment=Alignment(horizontal="center")
+r+=2
+ws.cell(r,1,"Що показує крос-таб").font=F(sz=10,bold=True,color=INK); r+=1
+for line in [
+  "1. Порційне вікно 200–299 г — 22 позиції (пауч 14, чаша 8). Це полиця «обід на одну людину».",
+  "2. Пауч живе тільки в 220–250 г: 14 із 19 позицій. Поза вікном — лише український реторт 350 г.",
+  "3. Найщільніша клітинка — дойпак 100–149 г (16 позицій), але це сухий сублімат: інший привід.",
+  "4. Найдешевший грам — смуга 200–249 г: 50 грн за 100 г, мінімум по всіх вагах."]:
+    ws.cell(r,1,line).font=F(sz=9,color=INK2); r+=1
 
 # ───────────── 5. КАЛЬКУЛЯТОР ─────────────
 ws=wb.create_sheet("5. Калькулятор")
