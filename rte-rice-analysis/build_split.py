@@ -16,9 +16,10 @@ import slides as S
 
 ORIG = "/root/.claude/uploads/df3fafbd-cd5a-5689-8909-9c95fa4cbf11/c731572d-RTE_Rice_Market_Research..pptx"
 
-NEW = ["sl_02", "sl_04", "sl_05", "sl_06", "sl_15", "sl_16", "sl_07",
-       "sl_17", "sl_18", "sl_03", "sl_09", "sl_10", "sl_11", "sl_12",
-       "sl_13", "sl_14"]
+# у порядку, в якому їх треба вставити в оригінал
+NEW = ["sl_04", "sl_05", "sl_06", "sl_15", "sl_16",
+       "sl_17", "sl_18", "sl_03",
+       "sl_02", "sl_07", "sl_09", "sl_10", "sl_11", "sl_12", "sl_13", "sl_14"]
 
 
 def add_new_slides(prs, start_no):
@@ -43,14 +44,7 @@ def add_new_slides(prs, start_no):
     return made
 
 
-# ── A: original untouched + new slides appended ────────────────────
-a = Presentation(ORIG)
-add_new_slides(a, len(a.slides._sldIdLst) + 1)
-a.save("A_original_plus_new.pptx")
-print("A:", len(a.slides._sldIdLst), "слайдів (19 оригінальних недоторкані)")
-
-# ── B: only the new slides ─────────────────────────────────────────
 b = K.new_deck()
 add_new_slides(b, 1)
-b.save("B_only_new.pptx")
-print("B:", len(b.slides._sldIdLst), "слайдів (лише нові)")
+b.save("NEW_SLIDES_for_insert.pptx")
+print("NEW_SLIDES:", len(b.slides._sldIdLst), "слайдів для вставки")
