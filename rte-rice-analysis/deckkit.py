@@ -64,8 +64,12 @@ def header(s, kicker, title, num, sub=None):
     rect(s,0,1.16,W,0.06,fill=d.C_BRAND)           # amber rule
     try: img(s,LOGO,0.66,0.26,w=1.52,h=0.66)
     except Exception: pass
-    text(s,2.52,0.34,7.40,0.24,kicker,size=9.5,color="#FFC95C",bold=True,caps=True)
-    text(s,2.52,0.60,8.80,0.40,title,size=19,color=d.WHITE,bold=True)
+    # довгі рядки інакше лягають у третій рядок і наїжджають на підзаголовок
+    text(s,2.52,0.34,9.30,0.24,kicker,size=9.5 if len(kicker)<=74 else 8.0,
+         color="#FFC95C",bold=True,caps=True)
+    text(s,2.52,0.60,9.30,0.40,title,
+         size=19 if len(title)<=50 else (16 if len(title)<=64 else 14),
+         color=d.WHITE,bold=True)
     text(s,11.97,0.44,0.70,0.36,num,size=17,color="#465382",bold=True,align="r")
     if sub: text(s,0.66,1.37,11.90,0.26,sub,size=9.5,color=d.MUTED)
 

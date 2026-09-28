@@ -361,7 +361,8 @@ def chart_brands():
         ax.plot([md],[yy],"o",ms=9,color=c,zorder=4,markeredgecolor="white",markeredgewidth=2)
         lbl=f"{lo}–{hi}" if hi>lo else f"{lo}"
         lx=max(hi,md)+22
-        if lx>1150: ax.text(max(hi,md)-22,yy,lbl,va="center",ha="right",fontsize=8,color=d.WHITE,fontweight="bold")
+        # смуга намальована з alpha 0.30 — білий підпис на ній не читається
+        if lx>1150: ax.text(max(hi,md)-22,yy,lbl,va="center",ha="right",fontsize=8,color=d.INK2,fontweight="bold")
         else: ax.text(lx,yy,lbl,va="center",fontsize=8,color=d.INK2)
         ax.text(1245,yy,f"{sku}",va="center",ha="right",fontsize=8,color=d.MUTED)
         ax.text(1300,yy,co,va="center",fontsize=7.6,color=c,fontweight="bold")

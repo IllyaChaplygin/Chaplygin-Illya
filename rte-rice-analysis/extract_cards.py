@@ -14,6 +14,21 @@ from pptx.util import Emu
 MAXPX = 340            # cards show these at about an inch; anything more is dead weight
 
 
+def _is_blank(blob):
+    """True for an all-white image.
+
+    Some cards sit on a white rectangle that is itself a picture. Picking the
+    nearest picture lands on that plate instead of the product shot, and the
+    card ends up showing an empty box.
+    """
+    try:
+        im = Image.open(io.BytesIO(blob)).convert("L")
+    except Exception:
+        return True
+    lo, hi = im.getextrema()
+    return lo > 246
+
+
 def _shrink(blob, path):
     """Save the photo at the size it is actually shown, as PNG.
 
@@ -84,15 +99,22 @@ for oi in CARD_SLIDES:
              Emu(sh.width).inches, Emu(sh.height).inches, sh)
             for sh in sl.shapes if "PICTURE" in str(sh.shape_type)]
     for card in kept:
-        best, bestd = None, 9e9
+        cand = []
         for px, py, pw, ph, sh in pics:
             cx = px + pw / 2
             if py + ph > card["name_y"] + 0.05:
                 continue
             dist = abs(cx - (card["x"] + 0.7))
-            if dist < bestd:
-                best, bestd = sh, dist
-        if best is not None and bestd < 1.6:
+            if dist < 1.6:
+                cand.append((dist, sh))
+        cand.sort(key=lambda t: t[0])
+        best, bestd = None, 9e9
+        for dist, sh in cand:
+            if _is_blank(sh.image.blob):      # біла плашка, не фото товару
+                continue
+            best, bestd = sh, dist
+            break
+        if best is not None:
             fn = f"{MEDIA}/s{oi+1:02}_{card['x']:.2f}_{card['name_y']:.2f}.jpg"
             _shrink(best.image.blob, fn)
             card["photo"] = fn
