@@ -195,8 +195,6 @@ def strip_per100(sl):
     return len(kill)
 
 # ── supplier deck: merge and restyle to the main masthead ──────────
-import merge_suppliers as MS
-SUP_SRC="/root/.claude/uploads/df3fafbd-cd5a-5689-8909-9c95fa4cbf11/9e9cbf49-RTE_Rice_Suppliers.pptx"
 
 def _send_to_back(sl, shape):
     """Move a shape behind everything else on the slide."""
@@ -235,7 +233,6 @@ def restyle_supplier(sl):
     K.text(sl, 11.97, 0.44, 0.70, 0.36, "00", size=17,
            color="#465382", bold=True, align="r")
 
-SUP = []   # колода постачальників у фінальну презентацію не входить
 
 ids=list(prs.slides._sldIdLst)                 # 0..18 original, 19.. new
 orig=ids[:n_orig]
@@ -261,61 +258,52 @@ TEXT_FIXES = {
       ("45,7 грн", "153 грн"), ("88,0 грн", "255 грн")],
 }
 
-def _replace_in_paragraph(para, old, new):
-    """Replace `old` across run boundaries, touching only the runs it covers.
-
-    PowerPoint splits a sentence over many runs. Collapsing the whole
-    paragraph into run 0 works but leaves dozens of empty <a:r> behind, which
-    is what made PowerPoint refuse the file. So: locate the span, rewrite only
-    the runs that overlap it, and delete any run left with no text.
-    """
-    runs = para.runs
-    if not runs:
-        return 0
-    joined = "".join(r.text for r in runs)
-    start = joined.find(old)
-    if start < 0:
-        return 0
-    end = start + len(old)
-
-    spans, pos = [], 0
-    for r in runs:
-        spans.append((pos, pos + len(r.text), r))
-        pos += len(r.text)
-
-    hit = [(a, b, r) for a, b, r in spans if b > start and a < end]
-    if not hit:
-        return 0
-
-    first_a, _, first_r = hit[0]
-    _, last_b, last_r = hit[-1]
-    prefix = first_r.text[: start - first_a]
-    suffix = last_r.text[end - (last_b - len(last_r.text)):]
-
-    if first_r is last_r:
-        first_r.text = prefix + new + suffix
-    else:
-        first_r.text = prefix + new
-        for _, _, r in hit[1:-1]:
-            r.text = ""
-        last_r.text = suffix
-
-    for _, _, r in hit:                      # drop runs left with nothing
-        if not r.text:
-            r._r.getparent().remove(r._r)
-    return 1
+def _font_of(tf):
+    """The formatting of the first run, to re-apply after a text rewrite."""
+    for p in tf.paragraphs:
+        for r in p.runs:
+            col = None
+            try:
+                if r.font.color and r.font.color.type is not None:
+                    col = r.font.color.rgb
+            except Exception:
+                pass
+            return dict(size=r.font.size, bold=r.font.bold, italic=r.font.italic,
+                        name=r.font.name, color=col)
+    return {}
 
 
 def apply_text_fixes(prs_):
+    """Rewrite phrases in the original slides.
+
+    Uses the TextFrame.text setter rather than editing runs by hand: it
+    rebuilds the paragraphs cleanly instead of leaving blank runs behind.
+    Run-level formatting inside a paragraph is lost, so the first run's font
+    is re-applied to keep size, weight and colour.
+    """
     n = 0
     for oi, pairs in TEXT_FIXES.items():
         sl = prs_.slides[oi]
         for sh in sl.shapes:
             if not (sh.has_text_frame and sh.text_frame.text.strip()):
                 continue
-            for para in sh.text_frame.paragraphs:
-                for old, new in pairs:
-                    n += _replace_in_paragraph(para, old, new)
+            tf = sh.text_frame
+            txt = tf.text
+            hits = [(o, w) for o, w in pairs if o in txt]
+            if not hits:
+                continue
+            font = _font_of(tf)
+            for o, w in hits:
+                txt = txt.replace(o, w); n += 1
+            tf.text = txt
+            for p in tf.paragraphs:
+                for r in p.runs:
+                    if font.get("size"):  r.font.size = font["size"]
+                    if font.get("name"):  r.font.name = font["name"]
+                    r.font.bold = font.get("bold")
+                    r.font.italic = font.get("italic")
+                    if font.get("color") is not None:
+                        r.font.color.rgb = font["color"]
     return n
 
 
@@ -390,10 +378,7 @@ for sh in t.shapes:
             p.runs[0].text="ДОСЛІДЖЕННЯ РИНКУ ТА ПОЗИЦІОНУВАННЯ · ВЕРЕСЕНЬ 2026"
             for r in p.runs[1:]: r.text=""
 
-print('текстових замін «за 100 г»:', apply_text_fixes(prs))
-MS.drop_orphan_slides(prs)
-n=MS.normalize_partnames(prs)
-print("slide parts renumbered:",n)
+print("текстових замін:", apply_text_fixes(prs))
 prs.save("RTE_Rice_Market_Research_FULL.pptx")
 print("saved:",len(prs.slides._sldIdLst),"slides")
 
