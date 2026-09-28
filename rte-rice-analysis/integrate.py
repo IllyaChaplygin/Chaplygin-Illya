@@ -306,3 +306,11 @@ n=MS.normalize_partnames(prs)
 print("slide parts renumbered:",n)
 prs.save("RTE_Rice_Market_Research_FULL.pptx")
 print("saved:",len(prs.slides._sldIdLst),"slides")
+
+# структурна перевірка пакета — щоб биті посилання не проходили тихо
+import subprocess, sys as _sys
+_r = subprocess.run([_sys.executable, "check_pkg.py", "RTE_Rice_Market_Research_FULL.pptx"],
+                    capture_output=True, text=True)
+print(_r.stdout.strip())
+if "ПРОБЛЕМ" in _r.stdout:
+    _sys.exit("ПАКЕТ БИТИЙ — не віддавати файл")

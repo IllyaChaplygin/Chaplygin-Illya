@@ -13,6 +13,22 @@ def _blank_layout(prs):
     return min(prs.slide_layouts, key=lambda l: len(l.placeholders))
 
 
+def _rebind(el, src_slide, dest_slide, rid_map):
+    """Repoint every relationship reference inside a copied element."""
+    for node in el.iter():
+        for attr in REL_ATTRS:
+            old = node.get(attr)
+            if not old:
+                continue
+            if old not in rid_map:
+                rid_map[old] = _clone_rel(src_slide, dest_slide, old)
+            new = rid_map[old]
+            if new:
+                node.set(attr, new)
+            else:
+                del node.attrib[attr]
+
+
 def copy_slide(src_slide, dest_prs):
     """Append a copy of src_slide to dest_prs, rebinding its image relationships."""
     dest = dest_prs.slides.add_slide(_blank_layout(dest_prs))
@@ -21,34 +37,23 @@ def copy_slide(src_slide, dest_prs):
     for ph in list(dest.placeholders):
         ph._element.getparent().remove(ph._element)
 
-    # bring the source background across if the layout carries one
+    rid_map = {}
+
+    # the slide background can itself be a picture fill — it needs rebinding too
     src_bg = src_slide._element.find(qn("p:cSld")).find(qn("p:bg"))
     if src_bg is not None:
-        dest_cSld = dest._element.find(qn("p:cSld"))
-        dest_cSld.insert(0, copy.deepcopy(src_bg))
+        new_bg = copy.deepcopy(src_bg)
+        _rebind(new_bg, src_slide, dest, rid_map)
+        dest._element.find(qn("p:cSld")).insert(0, new_bg)
 
     src_tree = src_slide.shapes._spTree
     dest_tree = dest.shapes._spTree
-    rid_map = {}
-
     for el in src_tree:
         tag = el.tag.split("}")[-1]
         if tag in ("nvGrpSpPr", "grpSpPr"):
             continue
         new_el = copy.deepcopy(el)
-        # rebind every relationship reference inside this element
-        for node in new_el.iter():
-            for attr in REL_ATTRS:
-                old = node.get(attr)
-                if not old:
-                    continue
-                if old not in rid_map:
-                    rid_map[old] = _clone_rel(src_slide, dest, old)
-                new = rid_map[old]
-                if new:
-                    node.set(attr, new)
-                else:
-                    del node.attrib[attr]
+        _rebind(new_el, src_slide, dest, rid_map)
         dest_tree.append(new_el)
     return dest
 
