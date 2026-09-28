@@ -181,11 +181,63 @@ DIV=divider(prs,"ПОЗИЦІОНУВАННЯ",
   "Зіставлення фінансової моделі з полицею, рекомендація формату й ціни, цільовий FOB.",
   [("НАШИХ SKU","32"),("ТОВАРНИХ ГРУП","7"),("ПОСТАЧАЛЬНИКІВ","3"),("СЦЕНАРІЇВ ЦІНИ","3")])
 
+
+# ── supplier deck: merge and restyle to the main masthead ──────────
+import merge_suppliers as MS
+SUP_SRC="/root/.claude/uploads/df3fafbd-cd5a-5689-8909-9c95fa4cbf11/9e9cbf49-RTE_Rice_Suppliers.pptx"
+
+def _send_to_back(sl, shape):
+    """Move a shape behind everything else on the slide."""
+    tree = sl.shapes._spTree
+    el = shape._element
+    tree.remove(el)
+    tree.insert(2, el)
+
+def restyle_supplier(sl):
+    """Give a merged supplier slide the same masthead as the rest of the deck."""
+    kick = ttl = sub = None
+    for sh in sl.shapes:
+        if not (sh.has_text_frame and sh.text_frame.text.strip()): continue
+        x, y = Emu(sh.left).inches, Emu(sh.top).inches
+        if x < 1.0 and 0.20 < y < 0.45: kick = sh
+        elif x < 1.0 and 0.50 < y < 0.75: ttl = sh
+        elif x < 1.0 and 1.10 < y < 1.35: sub = sh
+    band = K.rect(sl, 0, 0, K.W, 1.16, fill=d.INK2)
+    rule = K.rect(sl, 0, 1.16, K.W, 0.06, fill=d.C_BRAND)
+    _send_to_back(sl, rule); _send_to_back(sl, band)
+    try: K.img(sl, K.LOGO, 0.66, 0.26, w=1.52, h=0.66)
+    except Exception: pass
+    if kick is not None:
+        kick.left, kick.top, kick.width = Inches(2.52), Inches(0.34), Inches(7.40)
+        for r in kick.text_frame.paragraphs[0].runs:
+            r.font.color.rgb = K.C("#FFC95C"); r.font.size = Pt(9.5); r.font.bold = True
+    if ttl is not None:
+        ttl.left, ttl.top, ttl.width = Inches(2.52), Inches(0.60), Inches(8.80)
+        for r in ttl.text_frame.paragraphs[0].runs:
+            r.font.color.rgb = K.C(d.WHITE); r.font.size = Pt(19); r.font.bold = True
+    if sub is not None:
+        sub.left, sub.top, sub.width = Inches(0.66), Inches(1.37), Inches(11.90)
+        for r in sub.text_frame.paragraphs[0].runs:
+            r.font.color.rgb = K.C(d.MUTED); r.font.size = Pt(9.5)
+    # page badge, added last so it sits on top of the band
+    K.text(sl, 11.97, 0.44, 0.70, 0.36, "00", size=17,
+           color="#465382", bold=True, align="r")
+
+sup_src = Presentation(SUP_SRC)
+SUP = MS.merge(prs, sup_src, list(range(1, 15)))   # slide 1 is its own title page
+for sl in SUP:
+    restyle_supplier(sl)
+SUPDIV = divider(prs, "ПОСТАЧАЛЬНИКИ", "Хто виробляє\nі скільки це коштує",
+  "Профілі трьох постачальників в обоймі та собівартість кожного SKU за чотирма схемами поставки.",
+  [("ПОСТАЧАЛЬНИКІВ","3"),("ФОРМАТІВ","5"),("SKU З ЦІНОЮ","32"),("СХЕМ ПОСТАВКИ","4")])
+
 ids=list(prs.slides._sldIdLst)                 # 0..18 original, 19.. new
 orig=ids[:n_orig]
 def nid(fn): return ids[n_orig+list(built).index(fn)] if fn in built else None
 new={fn:ids[n_orig+i] for i,fn in enumerate(built)}
-new["DIV"]=ids[-1]
+new["DIV"]=ids[n_orig+len(built)]
+for k,sl in enumerate(SUP): new[f"SUP{k}"]=ids[n_orig+len(built)+1+k]
+new["SUPDIV"]=ids[-1]
 
 # ── apply segmentation to the original card slides ─────────────────
 for oi,key,kick,ttl,sub in CARD_SEG:
@@ -219,12 +271,14 @@ order=[
  ("n","sl_07",29),  # 29 ранжир за упаковку
  ("n","sl_08",30),  # 30 ціна за 100 г
  ("n","sl_09",31),  # 31 фінмодель проти ринку
- ("n","sl_11",32),  # 32 рекомендація формату
- ("n","sl_12",33),  # 33 рекомендація ціни
- ("n","sl_13",34),  # 34 постачальник
- ("n","sl_14",35),  # 35 план дій
+ ("n","SUPDIV",None),   # 32 роздільник: постачальники
+] + [("n",f"SUP{k}",33+k) for k in range(14)] + [   # 33–46 колода постачальників
+ ("n","sl_11",47),  # 47 рекомендація формату
+ ("n","sl_12",48),  # 48 рекомендація ціни
+ ("n","sl_13",49),  # 49 рекомендація постачальника
+ ("n","sl_14",50),  # 50 план дій
 ]
-assert len(order)==35, len(order)
+assert len(order)==50, len(order)
 
 sldIdLst=prs.slides._sldIdLst
 seq=[orig[r] if k=="o" else new[r] for k,r,_ in order]
@@ -247,5 +301,8 @@ for sh in t.shapes:
             p.runs[0].text="ДОСЛІДЖЕННЯ РИНКУ ТА ПОЗИЦІОНУВАННЯ · ВЕРЕСЕНЬ 2026"
             for r in p.runs[1:]: r.text=""
 
+MS.drop_orphan_slides(prs)
+n=MS.normalize_partnames(prs)
+print("slide parts renumbered:",n)
 prs.save("RTE_Rice_Market_Research_FULL.pptx")
 print("saved:",len(prs.slides._sldIdLst),"slides")

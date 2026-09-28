@@ -55,12 +55,18 @@ def text(s,x,y,w,h,runs,size=10,color=d.INK,bold=False,align="l",
             if o.get("italic"): f.italic=True
     return tb
 
+LOGO="logo.png"
+
 def header(s, kicker, title, num, sub=None):
-    rect(s,0,0,W,0.055,fill=d.C_BRAND)
-    text(s,0.62,0.42,9.5,0.3,kicker,size=8,color=d.C_BRAND,bold=True,caps=True)
-    text(s,0.62,0.70,10.6,0.55,title,size=21,color=d.INK,bold=True)
-    text(s,12.1,0.40,0.7,0.4,num,size=17,color=d.BG2,bold=True,align="r")
-    if sub: text(s,0.62,1.30,11.3,0.3,sub,size=9,color=d.MUTED)
+    """The deck's masthead, matching the original slides exactly."""
+    rect(s,0,0,W,1.16,fill=d.INK2)                 # navy band
+    rect(s,0,1.16,W,0.06,fill=d.C_BRAND)           # amber rule
+    try: img(s,LOGO,0.66,0.26,w=1.52,h=0.66)
+    except Exception: pass
+    text(s,2.52,0.34,7.40,0.24,kicker,size=9.5,color="#FFC95C",bold=True,caps=True)
+    text(s,2.52,0.60,8.80,0.40,title,size=19,color=d.WHITE,bold=True)
+    text(s,11.97,0.44,0.70,0.36,num,size=17,color="#465382",bold=True,align="r")
+    if sub: text(s,0.66,1.37,11.90,0.26,sub,size=9.5,color=d.MUTED)
 
 def footnote(s, txt, y=6.95):
     text(s,0.62,y,12.1,min(0.35,H-y-0.03),txt,size=6.5,color=d.MUTED2)
