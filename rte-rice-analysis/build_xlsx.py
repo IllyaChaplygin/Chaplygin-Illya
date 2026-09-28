@@ -174,6 +174,71 @@ for line in [
   "4. Найдешевший грам — смуга 200–249 г: 50 грн за 100 г, мінімум по всіх вагах."]:
     ws.cell(r,1,line).font=F(sz=9,color=INK2); r+=1
 
+# ───────────── 4c. РИТЕЙЛ-АУДИТ ─────────────
+ws=wb.create_sheet("4c. Ритейл-аудит")
+title(ws,"Що з готового рису реально стоїть у національних мережах",
+      "Суцільна перевірка каталогів, 28.09.2026. Джерело: відкритий API zakaz.ua та sf-ecom-api.silpo.ua.")
+head(ws,4,["Мережа","Що саме","Формат","SKU","Грн/уп.","Грн/100 г","Тип зберігання",
+           "Походження"],[30,42,16,7,12,12,26,18])
+TYPN={"ambient":"Кімнатна · НАШ КОНКУРЕНТНИЙ СЕТ","chilled":"Охолоджена кулінарія · 2–5 діб",
+      "dry":"Суміш під варіння · не готовий","none":"Категорії немає"}
+TYPC={"ambient":AMB,"chilled":TEAL,"dry":PUR,"none":MUT}
+r=5
+for ch,what,fmt,sku,price,p100,typ,orig in d.RETAIL_RTE:
+    ws.cell(r,1,ch).font=F(sz=9,bold=True,color=INK)
+    ws.cell(r,2,what).font=F(sz=9,color=INK2)
+    ws.cell(r,3,fmt).font=F(sz=9,color=INK2)
+    c=ws.cell(r,4,sku or None); c.font=F(sz=9,bold=True,color=INK2)
+    ws.cell(r,5,price).font=F(sz=9,bold=True,color=INK)
+    ws.cell(r,6,p100).font=F(sz=9,color=MUT)
+    c=ws.cell(r,7,TYPN[typ]); c.font=F(sz=9,bold=True,color=TYPC[typ])
+    ws.cell(r,8,orig).font=F(sz=9,color=MUT)
+    for i in range(1,9):
+        ws.cell(r,i).border=BOX
+        ws.cell(r,i).alignment=Alignment(wrap_text=True,vertical="top")
+    r+=1
+r+=1
+ws.cell(r,1,"Підсумок").font=F(sz=10,bold=True,color=INK); r+=1
+for line in [
+  "Ambient (наш конкурентний сет): 12 SKU на всю країну. 11 з них — Ben's Original у «Сільпо».",
+  "Єдина інша ambient-позиція: The Local Food по-тайськи 350 г, 207 грн, МегаМаркет і Ultramarket.",
+  "METRO: готового рису немає взагалі — лише крупа 1–10 кг під Metro Chef і Aro для HoReCa.",
+  "Фоззі Cash&Carry перевірити не вдалося: каталог закритий ботозахистом. За аналогією з METRO "
+  "(той самий формат C&C) ambient-рису там також не очікується — це припущення, не факт."]:
+    ws.cell(r,1,line).font=F(sz=9,color=INK2); r+=1
+
+# ───────────── 4d. АЗІЙСЬКІ БРЕНДИ В МЕРЕЖАХ ─────────────
+ws=wb.create_sheet("4d. Азійські бренди")
+title(ws,"Азійські бренди, що вже стоять у національних мережах",
+      "163 позиції в каталогах мереж. Жодна з них не рис.")
+head(ws,4,["Бренд"]+d.RETAIL_CHAINS+["Разом","З них рис","Що саме стоїть"],
+     [16]+[12]*len(d.RETAIL_CHAINS)+[10,12,34])
+r=5
+for brand,counts,has_rice,what in d.ASIAN_ON_SHELF:
+    ws.cell(r,1,brand).font=F(sz=10,bold=True,color=INK)
+    for j,ch in enumerate(d.RETAIL_CHAINS,2):
+        v=counts.get(ch,0)
+        c=ws.cell(r,j,v or None); c.font=F(sz=10,color=INK2,bold=v>=10)
+        c.alignment=Alignment(horizontal="center")
+        if v: c.fill=PatternFill("solid",fgColor="FFCFEBEC" if v<10 else "FF7FCBCF")
+    L=get_column_letter(len(d.RETAIL_CHAINS)+1)
+    c=ws.cell(r,len(d.RETAIL_CHAINS)+2,f"=SUM(B{r}:{L}{r})")
+    c.font=F(sz=10,bold=True,color=INK); c.alignment=Alignment(horizontal="center")
+    c=ws.cell(r,len(d.RETAIL_CHAINS)+3,0)
+    c.font=F(sz=10,bold=True,color=PINK); c.alignment=Alignment(horizontal="center")
+    c.fill=PatternFill("solid",fgColor="FFFBE4EC")
+    ws.cell(r,len(d.RETAIL_CHAINS)+4,what).font=F(sz=9,color=MUT)
+    for i in range(1,len(d.RETAIL_CHAINS)+5): ws.cell(r,i).border=BOX
+    r+=1
+r+=1
+ws.cell(r,1,"Що це означає").font=F(sz=10,bold=True,color=INK); r+=1
+for line in [
+  "1. Ottogi має 14 позицій у трьох мережах, Bibigo — 6 в «Ашані». Імпортер, лістинг і полиця вже існують.",
+  "2. Ті самі Ottogi і Bibigo продають чаші з рисом по 225–356 грн — але лише в азійських фудшопах.",
+  "3. Бар'єр входу азійського рису в мережу — не дистрибуція, а те, що ніхто цього не зробив.",
+  "4. Ризик: імпортер Ottogi додасть рисові SKU до наявного лістингу швидше, ніж ми збудуємо свій."]:
+    ws.cell(r,1,line).font=F(sz=9,color=INK2); r+=1
+
 # ───────────── 5. КАЛЬКУЛЯТОР ─────────────
 ws=wb.create_sheet("5. Калькулятор")
 title(ws,"Калькулятор цілі: яка ціна потрібна від постачальника",

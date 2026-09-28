@@ -65,7 +65,7 @@ def sl_03(prs, badge=None):
     img(s,"charts/c5_channels.png",0.62,1.66,w=5.5)
     yy=1.70
     for ch,typ,cnt,names,c,buyer,role in d.CHANNEL_MODEL:
-        h=1.02 if len(names)<90 else 1.46
+        h=1.02 if len(names)<90 else (1.24 if len(names)<150 else 1.40)
         rect(s,6.42,yy,6.30,h,fill=d.BG,radius=0.05)
         rect(s,6.42,yy,0.045,h,fill=c)
         text(s,6.66,yy+0.12,3.6,0.20,ch,size=9.5,color=d.INK,bold=True)
@@ -73,9 +73,9 @@ def sl_03(prs, badge=None):
         text(s,6.66,yy+0.35,4.2,0.16,f"{typ}  ·  {cnt}",size=6.6,color=c,bold=True,caps=True)
         text(s,6.66,yy+0.55,5.9,h-0.74,names,size=6.9,color=d.INK2,spacing=1.26)
         text(s,6.66,yy+h-0.19,5.9,0.16,"ПОКУПЕЦЬ:  "+buyer,size=6.4,color=d.MUTED,bold=True)
-        yy+=h+0.10
+        yy+=h+0.09
     callout(s,0.62,4.30,5.5,2.35,"Канал і покупець — різні осі",
-     "Outdoor- і мілітарі-рітейл дає 40 із 64 точок продажу, але це не наш канал: "
+     "Outdoor- і мілітарі-рітейл дає 40 із 66 точок продажу, але це не наш канал: "
      "туди приходять по автономне харчування в дорогу, а не по обід.\n\n"
      "Саме тому 30 із 84 позицій категорії — сублімат у дойпаку. Він домінує за кількістю "
      "SKU й не конкурує з нами за привід споживання.\n\n"
@@ -491,4 +491,70 @@ def sl_16(prs, badge=None):
     footnote(s,"Поєднання з двома й більше позиціями; 13 поєднань покривають 52 із 84 позицій. "
                "Медіана ціни — за позиціями цього поєднання. «Масовий канал» — мережа, маркетплейси "
                "та спеціалізовані фудшопи (46 позицій); outdoor- і мілітарі-рітейл виключено.")
+    return s
+
+# ─────────────────────────── 17 РИТЕЙЛ-АУДИТ ───────────────────────────
+def sl_17(prs, badge=None):
+    s=slide(prs)
+    header(s,"РИТЕЙЛ-АУДИТ","Що з готового рису реально стоїть у мережах","17",
+           "Суцільна перевірка каталогів Ашан, Сільпо, METRO, NOVUS, МегаМаркет, "
+           "Ultramarket, ЕКО маркет, Epicentr, Космос — 28.09.2026.")
+    TYP={"ambient":("ЗБЕРІГАННЯ ПРИ КІМНАТНІЙ · НАШ СЕТ",d.C_AMBER),
+         "chilled":("ОХОЛОДЖЕНА КУЛІНАРІЯ · 2–5 ДІБ",d.C_TEAL),
+         "dry":("СУМІШ ПІД ВАРІННЯ · НЕ ГОТОВИЙ ПРОДУКТ",d.C_PURPLE),
+         "none":("КАТЕГОРІЇ НЕМАЄ",d.MUTED2)}
+    cols=["МЕРЕЖА","ЩО САМЕ СТОЇТЬ","ФОРМАТ","SKU","ГРН/УП.","ГРН/100 Г","ПОХОДЖЕННЯ"]
+    colw=[2.72,3.70,1.42,0.48,1.12,1.10,1.26]
+    yy=1.66
+    for key in ("ambient","chilled","dry","none"):
+        rows=[r for r in d.RETAIL_RTE if r[6]==key]
+        if not rows: continue
+        lab,c=TYP[key]
+        rect(s,0.62,yy,0.045,0.19,fill=c)
+        text(s,0.78,yy+0.015,7.0,0.17,lab,size=6.8,color=c,bold=True)
+        n=sum(r[3] for r in rows)
+        text(s,8.0,yy+0.015,4.4,0.17,f"{n} SKU",size=6.8,color=c,bold=True,align="r")
+        yy+=0.26
+        if key=="ambient":
+            cx=0.62
+            for cname,cw in zip(cols,colw):
+                text(s,cx,yy,cw,0.16,cname,size=6.1,color=d.MUTED,bold=True); cx+=cw
+            yy+=0.20
+        for i,(ch,what,fmt,sku,price,p100,_,orig) in enumerate(rows):
+            if i%2: rect(s,0.54,yy-0.035,11.96,0.235,fill=d.BG,radius=0.18)
+            cx=0.62
+            for val,cw,col,bd in [(ch,colw[0],d.INK,True),(what,colw[1],d.INK2,False),
+                                  (fmt,colw[2],c,True),(str(sku) if sku else "—",colw[3],d.INK2,True),
+                                  (price,colw[4],d.INK,True),(p100,colw[5],d.MUTED,False),
+                                  (orig,colw[6],d.MUTED,False)]:
+                text(s,cx,yy,cw,0.20,val,size=7.1,color=col,bold=bd); cx+=cw
+            yy+=0.235
+        yy+=0.13
+    callout(s,0.62,5.62,5.92,1.10,"Ambient-полиця — це 12 SKU на всю країну",
+     "11 із них — Ben's Original у «Сільпо». Єдина інша позиція: український лоток "
+     "The Local Food по-тайськи 350 г за 207 грн у МегаМаркеті.",accent=d.C_AMBER)
+    callout(s,6.80,5.62,5.92,1.10,"METRO — нуль",
+     "Cash&Carry тримає лише крупу 1–10 кг під власними марками Metro Chef і Aro. "
+     "Формат обслуговує HoReCa, не кінцевого покупця.",accent=d.MUTED2,bg="#F7F8FB")
+    footnote(s,"Джерело: відкритий каталожний API zakaz.ua (Ашан, METRO, NOVUS, МегаМаркет, Ultramarket, ЕКО маркет, Epicentr, Космос) "
+               "та sf-ecom-api.silpo.ua — 28.09.2026. Фоззі Cash&Carry перевірити не вдалося: каталог закритий ботозахистом.")
+    return s
+
+# ─────────────────────────── 18 АЗІЙСЬКІ БРЕНДИ НА ПОЛИЦІ ───────────────────────────
+def sl_18(prs, badge=None):
+    s=slide(prs)
+    header(s,"АЗІЙСЬКИЙ ФОРМАТ У МЕРЕЖАХ","Дистрибуція вже є — рису в ній немає","18",
+           "Скільки позицій кожного азійського бренду вже стоїть у національних мережах.")
+    img(s,"charts/c8_asian_shelf.png",0.62,1.66,w=12.1)
+    callout(s,0.62,5.22,3.88,1.50,"Бар'єр — не дистрибуція",
+     "Ottogi має 14 позицій у трьох мережах, Bibigo — 6 в «Ашані». Імпортер, лістинг, "
+     "полиця й логістика під ці бренди вже існують.",accent=d.C_TEAL)
+    callout(s,4.73,5.22,3.88,1.50,"Ніхто просто не завіз рис",
+     "Ті самі Ottogi і Bibigo продають чаші з рисом по 225–356 грн — але лише в "
+     "азійських фудшопах. У мережу зайшла тільки локшина.",accent=d.C_AMBER)
+    callout(s,8.84,5.22,3.88,1.50,"Вікно може бути коротким",
+     "Імпортер Ottogi додасть рисові SKU до наявного лістингу швидше, ніж ми збудуємо "
+     "свій з нуля. Це аргумент заходити зараз.",accent=d.C_PINK)
+    footnote(s,"Підрахунок позицій за відкритими каталогами мереж, 28.09.2026. Ураховано позиції, де назва бренду є в назві товару. "
+               "«З них рис» — жодної позиції готового чи сирого рису під цими брендами в жодній із перевірених мереж.")
     return s

@@ -195,7 +195,7 @@ def chart_channels():
     data=[("Туристичні та військові",40,d.C_PURPLE),
           ("Азійські / етнічні фудшопи",20,d.C_TEAL),
           ("Онлайн-супермаркети, МП",3,d.C_AMBER),
-          ("Мережевий роздріб",1,d.C_PINK)]
+          ("Продуктовий роздріб",3,d.C_PINK)]
     fig,ax=plt.subplots(figsize=(6.6,2.9))
     y=np.arange(len(data))[::-1]
     for yy,(n,v,c) in zip(y,data):
@@ -203,7 +203,7 @@ def chart_channels():
         ax.text(v+0.7,yy,str(v),va="center",fontsize=9,color=d.INK2,fontweight="bold")
     ax.set_yticks(y); ax.set_yticklabels([x[0] for x in data],fontsize=8.5,color=d.INK2)
     ax.set_xlim(0,46); ax.set_xticks([])
-    ax.set_title("ПРОДАВЦІВ У КАНАЛІ  ·  64 проти 56 у першому зрізі",fontsize=7.5,
+    ax.set_title("ТОЧОК ПРОДАЖУ В КАНАЛІ",fontsize=7.5,
                  color=d.MUTED,loc="left",pad=10,fontweight="bold")
     strip(ax,bottom=False); ax.tick_params(axis="y",length=0)
     fig.savefig(OUT+"c5_channels.png",dpi=220,bbox_inches="tight",transparent=True)
@@ -304,5 +304,49 @@ def chart_combos():
     plt.close(fig)
 
 
-for f in (chart_formats,chart_combos,chart_fmt_weight,chart_ladder,chart_pack,chart_fob,chart_channels):
+# ============ CHART 8: азійські бренди вже на полиці мереж ============
+def chart_asian_shelf():
+    import matplotlib.colors as mcolors
+    B=d.ASIAN_ON_SHELF; CH=d.RETAIL_CHAINS
+    nb, nc = len(B), len(CH)
+    vmax=max(max(v.values()) for _,v,_,_ in B)
+    ramp=mcolors.LinearSegmentedColormap.from_list("t",["#F2FAFA","#CFEBEC","#7FCBCF","#1E9EA6","#136A70"])
+    fig,ax=plt.subplots(figsize=(13.4,4.25))
+    for i,(brand,counts,has_rice,what) in enumerate(B):
+        y=nb-1-i
+        for j,ch in enumerate(CH):
+            v=counts.get(ch,0)
+            if v==0:
+                ax.add_patch(plt.Rectangle((j+0.04,y+0.06),0.92,0.88,
+                             facecolor="#F7F8FB",edgecolor="none",zorder=2))
+                ax.text(j+0.5,y+0.5,"—",ha="center",va="center",fontsize=9,
+                        color="#C6CEE0",zorder=4)
+            else:
+                ax.add_patch(plt.Rectangle((j+0.04,y+0.06),0.92,0.88,
+                             facecolor=ramp(v/vmax),edgecolor="none",zorder=2))
+                ax.text(j+0.5,y+0.5,str(v),ha="center",va="center",fontsize=13,
+                        color="white" if v/vmax>0.46 else d.INK,fontweight="bold",zorder=4)
+        # колонка «з них рис»
+        ax.add_patch(plt.Rectangle((nc+0.22,y+0.06),0.92,0.88,
+                     facecolor="#FBE4EC",edgecolor=d.C_PINK,lw=1.4,zorder=2))
+        ax.text(nc+0.68,y+0.5,"0",ha="center",va="center",fontsize=14,
+                color=d.C_PINK,fontweight="bold",zorder=4)
+        ax.text(nc+1.34,y+0.5,what,va="center",fontsize=8,color=d.MUTED,zorder=4)
+    ax.set_xlim(0,nc+3.6); ax.set_ylim(0,nb+0.05)
+    ax.set_xticks([j+0.5 for j in range(nc)]+[nc+0.68])
+    ax.set_xticklabels(CH+["З НИХ РИС"],fontsize=8.5,color=d.INK2,fontweight="bold")
+    ax.set_yticks([nb-1-i+0.5 for i in range(nb)])
+    ax.set_yticklabels([b for b,_,_,_ in B],fontsize=10,color=d.INK,fontweight="bold")
+    ax.tick_params(length=0,pad=10); ax.xaxis.tick_top()
+    for t in ax.get_xticklabels():
+        if t.get_text()=="З НИХ РИС": t.set_color(d.C_PINK)
+    for sp in ax.spines.values(): sp.set_visible(False)
+    fig.text(0.012,-0.035,"163 позиції азійських брендів уже стоять у національних мережах. "
+             "Жодна з них не рис — це локшина, рамен, токпокі та соуси.",
+             fontsize=8.5,color=d.INK2,fontweight="bold")
+    fig.savefig(OUT+"c8_asian_shelf.png",dpi=220,bbox_inches="tight",transparent=True)
+    plt.close(fig)
+
+
+for f in (chart_formats,chart_asian_shelf,chart_combos,chart_fmt_weight,chart_ladder,chart_pack,chart_fob,chart_channels):
     f(); print("ok",f.__name__)
