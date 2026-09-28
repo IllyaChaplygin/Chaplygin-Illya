@@ -612,3 +612,202 @@ def sl_19(prs, badge=None):
      accent=d.C_BRAND)
     footnote(s,"Сегментація за технологією приготування: вона визначає і ціну, і канал продажу. Зріз 22–23.09.2026.")
     return s
+
+
+# ═══════════════ КАРТКИ БРЕНДІВ: перебудовані з нуля ═══════════════
+_CARDS_JSON=None
+def _cards():
+    global _CARDS_JSON
+    if _CARDS_JSON is None:
+        import json
+        _CARDS_JSON=json.load(open("cards.json",encoding="utf-8"))
+    return _CARDS_JSON
+
+FMT_COLOR={"ПАУЧ":d.C_AMBER,"ЧАША":d.C_TEAL,"ДОЙПАК":d.C_PURPLE,"КОРОБКА":d.C_PINK,
+           "БЛЯШАНКА":d.C_GREEN,"ЧАША + ПАУЧ":d.C_TEAL,"ЧАША + КОРОБКА":d.C_PINK,
+           "ПАУЧ + ДОЙПАК":d.C_PURPLE}
+
+def _parse_card(lines):
+    """lines -> (назва, бренд·вага, ціна, продавець); грн/100 г відкидаємо."""
+    import re as _re
+    name=lines[0]
+    meta=price=seller=""
+    for t in lines[1:]:
+        if _re.search(r"грн\s*/\s*100", t):      # метрика за 100 г не потрібна
+            continue
+        if "грн" in t and not price:
+            price=t
+        elif not price:
+            meta=t if not meta else meta
+        else:
+            seller=t if not seller else seller+" · "+t
+    return name, meta, price, seller
+
+
+def card_page(prs, oi, badge=None):
+    seg,fmt,kick,title,sub,verdict,src = d.CARD_PAGES[oi]
+    s=slide(prs)
+    name,col,tech,mass,occ,med = d.SEGMENTS[seg]
+    header(s,f"{name}   ·   {fmt}   ·   {kick}",title,str(badge or oi+1),sub)
+    fc=FMT_COLOR[fmt]
+    rect(s,0.62,1.70,0.045,0.215,fill=fc)
+    text(s,0.78,1.72,11.7,0.19,f"ФОРМАТ: {fmt}   ·   {tech}   ·   {mass}   ·   привід: {occ}",
+         size=6.8,color=fc,bold=True)
+
+    cards=_cards()[str(oi)]
+    n=len(cards)
+    per_row=7 if n>6 else max(n,1)
+    rows=-(-n//per_row)
+    gap=0.14
+    cw=(12.10-gap*(per_row-1))/per_row
+    top=2.06
+    VBOT, VH = 6.70, 0.78                  # нижня межа й висота блоку висновку
+    avail=VBOT-top-VH-0.10
+    ch=min(2.52,(avail-gap*(rows-1))/rows)
+    ph_frac=0.46 if rows==1 else 0.42
+    for i,c in enumerate(cards):
+        r,k=divmod(i,per_row)
+        x=0.62+k*(cw+gap); y=top+r*(ch+gap)
+        ph=ch*ph_frac
+        rect(s,x,y,cw,ch,fill=d.WHITE,line=d.LINE,lw=0.75,radius=0.05)
+        rect(s,x+0.07,y+0.07,cw-0.14,ph-0.02,fill=d.BG,radius=0.05)
+        if c.get("photo"):
+            pw,phh=c["photo_wh"]
+            bw,bh=cw-0.30,ph-0.16
+            sc=min(bw/pw,bh/phh)
+            iw,ih=pw*sc,phh*sc
+            img(s,c["photo"],x+(cw-iw)/2,y+0.07+(ph-0.02-ih)/2,w=iw,h=ih)
+        else:
+            text(s,x+0.07,y+ph/2-0.08,cw-0.14,0.18,"фото немає",size=6.3,
+                 color=d.MUTED2,align="c")
+        nm,meta,price,seller=_parse_card(c["lines"])
+        ty=y+ph+0.09
+        nh=0.30 if rows>1 else 0.34
+        text(s,x+0.13,ty,cw-0.26,nh,nm,size=7.1 if rows>1 else 7.4,
+             color=d.INK,bold=True,spacing=1.1)
+        text(s,x+0.13,ty+nh+0.02,cw-0.26,0.14,meta,size=6.0,color=fc,bold=True,caps=True)
+        text(s,x+0.13,ty+nh+0.18,cw-0.26,0.22,price,size=9.5 if rows>1 else 10.5,
+             color=d.INK,bold=True)
+        text(s,x+0.13,ty+nh+0.42,cw-0.26,0.24,seller,size=6.0,color=d.MUTED,spacing=1.15)
+
+    vy=VBOT-VH
+    rect(s,0.62,vy,12.10,VH,fill=d.INK2,radius=0.05)
+    rect(s,0.62,vy,0.05,VH,fill=fc)
+    text(s,0.92,vy+0.11,11.5,0.16,"ЩО ЦЕ ОЗНАЧАЄ",size=7.3,color=fc,bold=True)
+    text(s,0.92,vy+0.31,11.5,VH-0.40,verdict,size=8.0,color="#D5DBEA",spacing=1.32)
+    footnote(s,src)
+    return s
+
+
+# ═══════════════ ОГЛЯДОВІ СЛАЙДИ: перебудовані з нуля ═══════════════
+def sl_t1(prs, badge=None):
+    s=slide(prs,d.INK2)
+    rect(s,0,0,W,0.09,fill=d.C_BRAND)
+    try: img(s,LOGO,0.9,0.7,w=2.0)
+    except Exception: pass
+    text(s,0.9,2.45,9,0.3,"ДОСЛІДЖЕННЯ РИНКУ ТА ПОЗИЦІОНУВАННЯ · ВЕРЕСЕНЬ 2026",
+         size=9.5,color=d.C_BRAND,bold=True)
+    text(s,0.9,2.90,10.6,1.5,"Готовий рис\nв Україні",size=44,color=d.WHITE,bold=True,spacing=1.05)
+    text(s,0.9,4.86,9.8,0.7,"Карта ринку, сегментація категорії, аналітика форматів упаковки "
+         "та зіставлення нашої фінансової моделі з полицею.",size=12,color="#B9C2DA",spacing=1.5)
+    for i,(k,v) in enumerate([("БРЕНДІВ","23"),("ПОЗИЦІЙ","84"),("ПРОДАВЦІВ","64"),("НАШИХ SKU","32")]):
+        x=0.9+i*2.95
+        text(s,x,5.82,2.7,0.2,k,size=7.2,color="#717890",bold=True)
+        text(s,x,6.04,2.7,0.5,v,size=26,color=d.C_BRAND,bold=True)
+    return s
+
+
+def sl_t2(prs, badge=None):
+    s=slide(prs)
+    header(s,"ГОЛОВНЕ","Шість цифр, які описують ринок",str(badge or 2),
+           "Усі ціни в колоді — за одну упаковку. Опт і ящики до розрахунку не входять.")
+    for i,(l,v,n,c) in enumerate(d.HEAD_NUMBERS):
+        stat(s,0.62+(i%3)*4.03,1.76+(i//3)*1.52,3.78,l,v,n,accent=c,vsize=21)
+    callout(s,0.62,4.94,5.92,1.80,"Що це означає для полиці",
+     "1. Категорія імпортується, але майже не потрапляє в мережі: 12 позицій із 84.\n"
+     "2. Зростання 2025 року дає Болгарія: 44,8 → 78,3 т за рік, +75 %.\n"
+     "3. Формат, який працює на полиці, — пауч 220–250 г: медіана 109 грн.\n"
+     "4. Готового рису в Україні не виробляють: 100 % обсягу — імпорт.",accent=d.C_BRAND)
+    callout(s,6.80,4.94,5.92,1.80,"Чого на ринку немає",
+     "1. Немає чаші за 100–150 грн у мережі: Ottogi 225–356, Henan 83–156 — обидва лише онлайн.\n"
+     "2. Немає українського готового рису в паучі для мікрохвильовки.\n"
+     "3. Немає жодного бренду одночасно в мережі та на маркетплейсі, крім Ben's.\n"
+     "4. Немає локалізації: жодної україномовної упаковки серед 84 позицій.",
+     accent=d.MUTED2,bg="#F7F8FB")
+    footnote(s,"Джерела: Eurostat Comext (CN 1904 90 10, експорт ЄС→Україна), UN Comtrade, "
+               "17 мереж zakaz.ua, «Сільпо», Prom, Rozetka, MAUDAU — 22–23.09.2026 та каталожні API мереж 28.09.2026.")
+    return s
+
+
+def sl_t3(prs, badge=None):
+    s=slide(prs)
+    header(s,"ОБСЯГ РИНКУ","182 тонни імпорту, 87–110 млн грн роздрібу",str(badge or 3),
+           "Готовий рис в Україні не виробляють у паучах — увесь обсяг категорії це імпорт.")
+    img(s,"charts/c9_import.png",0.62,1.74,w=6.9)
+    text(s,7.90,1.80,4.8,0.18,"ЗВІДКИ ЇДЕ, 2025 РІК",size=7.5,color=d.MUTED,bold=True)
+    yy=2.06
+    mx=max(v for _,v in d.IMPORT_FROM)
+    for nm,v in d.IMPORT_FROM:
+        c=d.C_BRAND if v>50 else (d.C_TEAL if v>1.5 else d.MUTED2)
+        text(s,7.90,yy,1.5,0.18,nm,size=8,color=d.INK2)
+        rect(s,9.42,yy+0.045,max(0.04,2.2*v/mx),0.105,fill=c)
+        text(s,11.70,yy,1.0,0.18,f"{v} т".replace(".",","),size=8,color=d.INK,bold=True)
+        yy+=0.30
+    text(s,7.90,yy+0.10,4.8,0.5,"Польща і Болгарія — 95 % тонажу: це заводи ЄС, що пакують рис у пауч. "
+         "Корея і Китай разом дають 3,1 т — це чаші Ottogi, Bibigo та Henan.",
+         size=7.6,color=d.MUTED,spacing=1.3)
+    text(s,0.62,4.92,12.1,0.18,"ЯК РАХУВАЛИ ЄМНІСТЬ",size=7.5,color=d.C_BRAND,bold=True)
+    steps=[("182 т","імпорт 2025"),("39 млн грн","CIF за курсом НБУ"),
+           ("× 2,2–2,8","мито, ПДВ, маржа"),("87–110 млн грн","роздріб на рік"),
+           ("≈ 830 тис.","упаковок на рік")]
+    for i,(v,n) in enumerate(steps):
+        x=0.62+i*2.46
+        rect(s,x,5.16,2.24,0.86,fill=d.BG,radius=0.05)
+        text(s,x+0.18,5.28,1.9,0.28,v,size=12,color=d.INK,bold=True)
+        text(s,x+0.18,5.60,1.9,0.3,n,size=7,color=d.MUTED,spacing=1.2)
+        if i<4: text(s,x+2.26,5.44,0.2,0.2,"→",size=11,color=d.MUTED2)
+    rect(s,0.62,6.18,12.10,0.50,fill="#FFF8EC",radius=0.05)
+    rect(s,0.62,6.18,0.045,0.50,fill=d.C_BRAND)
+    text(s,0.90,6.27,3.0,0.16,"ПЕРЕВІРКА З ІНШОГО БОКУ",size=6.8,color=d.C_BRAND,bold=True)
+    text(s,3.95,6.26,8.5,0.34,"830 тис. упаковок × 110 грн медіани = 91 млн грн. Два методи сходяться.",
+         size=8.2,color=d.INK2)
+    footnote(s,"Джерела: Eurostat Comext DS-045409, CN 1904 90 10, експорт ЄС→Україна 2019–2025; UN Comtrade; "
+               "курс НБУ. Ємність роздрібу — ОЦІНКА, не заміряні продажі.")
+    return s
+
+
+def sl_t4(prs, badge=None):
+    s=slide(prs)
+    header(s,"КАРТА РИНКУ","23 бренди, чотири технології приготування",str(badge or 4),
+           "Групування за тим, як продукт готується: від цього залежить і ціна, і канал.")
+    for i,(nm,pos,br,brands,how,med,rng,c) in enumerate(d.TECH_MAP):
+        x=0.62+i*3.05
+        rect(s,0.62+i*3.05,1.76,2.86,4.30,fill=d.BG,radius=0.05)
+        rect(s,x,1.76,2.86,0.30,fill=c)
+        text(s,x,1.815,2.86,0.2,nm,size=7,color=d.WHITE,bold=True,align="c")
+        text(s,x+0.22,2.20,2.42,0.2,f"{pos} позицій · {br} брендів",size=7.6,color=c,bold=True)
+        text(s,x+0.22,2.48,2.42,0.9,brands,size=7.2,color=d.INK2,spacing=1.3)
+        text(s,x+0.22,3.52,2.42,0.5,how,size=7.2,color=d.MUTED,spacing=1.3)
+        rect(s,x+0.22,4.10,2.42,0.012,fill=d.LINE)
+        text(s,x+0.22,4.22,2.42,0.16,"МЕДІАНА ЗА УПАКОВКУ",size=6.2,color=d.MUTED,bold=True)
+        text(s,x+0.22,4.42,2.42,0.36,med,size=17,color=c,bold=True)
+        text(s,x+0.22,4.86,2.42,0.16,"ДІАПАЗОН",size=6.2,color=d.MUTED,bold=True)
+        text(s,x+0.22,5.04,2.42,0.2,rng,size=8.5,color=d.INK2,bold=True)
+    rect(s,0.62,6.18,12.10,0.50,fill=d.BG,radius=0.05)
+    rect(s,0.62,6.18,0.045,0.50,fill=d.C_AMBER)
+    text(s,0.90,6.27,2.4,0.16,"ЩО ПОКАЗУЄ РОЗБІР",size=6.8,color=d.C_AMBER,bold=True)
+    text(s,3.35,6.26,9.1,0.34,"Ben's Original — 13 позицій, єдиний бренд у мережі. "
+         "Ottogi і Henan — 18 азійських чаш. Українських позицій 16, але жодної в паучі.",
+         size=8.2,color=d.INK2)
+    footnote(s,"Джерела: 17 мереж на zakaz.ua, «Сільпо», Prom, MAUDAU, Rozetka, спеціалізовані магазини — 22–23.09.2026.")
+    return s
+
+
+def sl_t5(prs, badge=None):
+    s=slide(prs)
+    header(s,"ЦІНА ЗА ОДНУ УПАКОВКУ","Від 45 до 1 190 грн: сходи всіх 23 брендів",str(badge or 5),
+           "Крапка — медіана бренду, смуга — від найдешевшої до найдорожчої його позиції.")
+    img(s,"charts/c10_brands.png",0.62,1.66,w=12.1)
+    footnote(s,"Ціна за одну упаковку в роздріб, без оптових порогів: у 6 продавців діє нижча ціна від 3–20 шт, "
+               "вона в розрахунок не бралася. Зріз 22–23.09.2026.")
+    return s

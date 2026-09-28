@@ -329,5 +329,57 @@ def chart_asian_shelf():
     plt.close(fig)
 
 
-for f in (chart_formats,chart_asian_shelf,chart_combos,chart_fmt_weight,chart_pack,chart_fob,chart_channels):
+# ============ CHART 9: імпорт по роках ============
+def chart_import():
+    Y=d.IMPORT_YEARS
+    fig,ax=plt.subplots(figsize=(7.4,2.9))
+    xs=[str(y) for y,_,_ in Y]; tn=[t for _,t,_ in Y]
+    cols=[d.C_BRAND if y==2025 else "#C6CEE0" for y,_,_ in Y]
+    ax.bar(xs,tn,color=cols,width=0.62,zorder=3)
+    for i,(y,t,e) in enumerate(Y):
+        ax.text(i,t+7,f"{t} т",ha="center",fontsize=8.5,
+                color=d.INK if y==2025 else d.MUTED,fontweight="bold")
+        ax.text(i,-16,f"€{e}k",ha="center",fontsize=7,color=d.MUTED2)
+    ax.set_ylim(0,max(tn)*1.24); ax.set_yticks([])
+    ax.tick_params(axis="x",length=0,labelsize=8.5,colors=d.INK2)
+    for sp in ax.spines.values(): sp.set_visible(False)
+    ax.set_title("ІМПОРТ ГОТОВОГО РИСУ З ЄС, ТОНН НА РІК",fontsize=7.5,
+                 color=d.MUTED,loc="left",pad=10,fontweight="bold")
+    fig.savefig(OUT+"c9_import.png",dpi=220,bbox_inches="tight",transparent=True)
+    plt.close(fig)
+
+# ============ CHART 10: цінові сходи брендів ============
+def chart_brands():
+    B=sorted(d.BRANDS,key=lambda b:b[7])
+    CC={"Україна":d.C_AMBER,"Китай":d.C_PINK,"Корея":d.C_TEAL,"ЄС":d.C_PURPLE,"США":d.MUTED2}
+    fig,ax=plt.subplots(figsize=(13.0,5.6))
+    y=np.arange(len(B))[::-1]
+    for yy,b in zip(y,B):
+        br,co,te,fm,sku,lo,hi,md,*_=b
+        c=CC.get(co,d.MUTED2)
+        if hi>lo: ax.plot([lo,hi],[yy,yy],lw=6,color=c,alpha=0.30,solid_capstyle="round",zorder=2)
+        ax.plot([md],[yy],"o",ms=9,color=c,zorder=4,markeredgecolor="white",markeredgewidth=2)
+        lbl=f"{lo}–{hi}" if hi>lo else f"{lo}"
+        lx=max(hi,md)+22
+        if lx>1150: ax.text(max(hi,md)-22,yy,lbl,va="center",ha="right",fontsize=8,color=d.WHITE,fontweight="bold")
+        else: ax.text(lx,yy,lbl,va="center",fontsize=8,color=d.INK2)
+        ax.text(1245,yy,f"{sku}",va="center",ha="right",fontsize=8,color=d.MUTED)
+        ax.text(1300,yy,co,va="center",fontsize=7.6,color=c,fontweight="bold")
+    ax.axvspan(45,180,color=d.C_BRAND,alpha=0.07,zorder=0)
+    ax.text(112,len(B)-0.3,"ВІКНО МЕРЕЖЕВОЇ ПОЛИЦІ 45–180 ГРН",fontsize=7.5,
+            color=d.C_BRAND,fontweight="bold",ha="center")
+    ax.set_yticks(y); ax.set_yticklabels([b[0] for b in B],fontsize=8.6,color=d.INK2,fontweight="bold")
+    ax.set_xlim(0,1430); ax.set_ylim(-0.8,len(B)+0.2)
+    ax.set_xticks([0,250,500,750,1000,1250])
+    ax.set_xticklabels(["0","250","500","750","1 000","1 250"],fontsize=8)
+    ax.set_xlabel("ГРН ЗА ОДНУ УПАКОВКУ  ·  крапка — медіана бренду, смуга — від найдешевшої до найдорожчої позиції",
+                  fontsize=7.5,color=d.MUTED,fontweight="bold")
+    ax.text(1245,len(B)-0.3,"SKU",fontsize=7,color=d.MUTED,ha="right",fontweight="bold")
+    for xv in (250,500,750,1000,1250): ax.axvline(xv,color=d.LINE,lw=0.8,zorder=0)
+    strip(ax); ax.tick_params(axis="y",length=0)
+    fig.savefig(OUT+"c10_brands.png",dpi=220,bbox_inches="tight",transparent=True)
+    plt.close(fig)
+
+
+for f in (chart_formats,chart_import,chart_brands,chart_asian_shelf,chart_combos,chart_fmt_weight,chart_pack,chart_fob,chart_channels):
     f(); print("ok",f.__name__)

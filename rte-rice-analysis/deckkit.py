@@ -56,6 +56,7 @@ def text(s,x,y,w,h,runs,size=10,color=d.INK,bold=False,align="l",
     return tb
 
 LOGO="logo.png"
+K_LOGO_LIGHT="logo.png"
 
 def header(s, kicker, title, num, sub=None):
     """The deck's masthead, matching the original slides exactly."""
