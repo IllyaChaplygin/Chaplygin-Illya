@@ -6,9 +6,34 @@ from scratch instead. That needs the photos and the text that belongs to each
 one. A card is a column of text boxes with a price in it; the photo is the
 picture sitting above that column.
 """
-import json, os, re
+import io, json, os, re
+from PIL import Image
 from pptx import Presentation
 from pptx.util import Emu
+
+MAXPX = 340            # cards show these at about an inch; anything more is dead weight
+
+
+def _shrink(blob, path):
+    """Save the photo at the size it is actually shown, as PNG.
+
+    The deck that opens carries eight small PNGs; the one that fails carries
+    sixty photos at full size, half of them JPEG. Normalising to small PNGs
+    removes that difference and cuts the file by an order of magnitude.
+    """
+    im = Image.open(io.BytesIO(blob))
+    if max(im.size) > MAXPX:
+        sc = MAXPX / max(im.size)
+        im = im.resize((max(1, int(im.width * sc)), max(1, int(im.height * sc))),
+                       Image.LANCZOS)
+    if im.mode in ("RGBA", "LA", "P"):          # flatten transparency onto white
+        bg = Image.new("RGB", im.size, (255, 255, 255))
+        im = im.convert("RGBA")
+        bg.paste(im, mask=im.split()[-1])
+        im = bg
+    elif im.mode != "RGB":
+        im = im.convert("RGB")
+    im.save(path, "JPEG", quality=80, optimize=True, progressive=False)
 
 ORIG = "/root/.claude/uploads/df3fafbd-cd5a-5689-8909-9c95fa4cbf11/c731572d-RTE_Rice_Market_Research..pptx"
 MEDIA = "card_media"
@@ -68,10 +93,8 @@ for oi in CARD_SLIDES:
             if dist < bestd:
                 best, bestd = sh, dist
         if best is not None and bestd < 1.6:
-            blob = best.image.blob
-            fn = f"{MEDIA}/s{oi+1:02}_{card['x']:.2f}.{best.image.ext}"
-            with open(fn, "wb") as fh:
-                fh.write(blob)
+            fn = f"{MEDIA}/s{oi+1:02}_{card['x']:.2f}_{card['name_y']:.2f}.jpg"
+            _shrink(best.image.blob, fn)
             card["photo"] = fn
             card["photo_wh"] = [round(Emu(best.width).inches, 3),
                                 round(Emu(best.height).inches, 3)]
