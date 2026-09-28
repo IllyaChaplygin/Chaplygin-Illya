@@ -17,9 +17,9 @@ import slides as S
 ORIG = "/root/.claude/uploads/df3fafbd-cd5a-5689-8909-9c95fa4cbf11/c731572d-RTE_Rice_Market_Research..pptx"
 
 # у порядку, в якому їх треба вставити в оригінал
-NEW = ["sl_04", "sl_05", "sl_06", "sl_15", "sl_16",
+NEW = ["sl_04", "sl_05", "sl_06", "sl_15", "sl_16", "sl_19",
        "sl_17", "sl_18", "sl_03",
-       "sl_02", "sl_07", "sl_09", "sl_10", "sl_11", "sl_12", "sl_13", "sl_14"]
+       "sl_02", "sl_07", "sl_09", "sl_11", "sl_12", "sl_13", "sl_14"]
 
 
 def add_new_slides(prs, start_no):
