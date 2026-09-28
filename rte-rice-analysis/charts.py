@@ -30,8 +30,8 @@ def chart_formats():
     fig,axes=plt.subplots(1,3,figsize=(13.4,3.5),gridspec_kw={"width_ratios":[1,1,1],"wspace":0.55})
     panels=[
       (pos,   "ПОЗИЦІЙ У ПРОДАЖУ",        lambda v,i:f"{v}  ·  {share[i]} %"),
-      (med,   "МЕДІАНА ЗА УПАКОВКУ, ГРН",  lambda v,i:f"{v} грн"),
-      (per100,"МЕДІАНА ЗА 100 Г, ГРН",     lambda v,i:f"{v:.0f} грн"),
+      (med,   "МЕДІАНА ЦІНИ ЗА УПАКОВКУ",  lambda v,i:f"{v} грн"),
+      (w,     "ТИПОВА ВАГА УПАКОВКИ",      lambda v,i:f"{v} г"),
     ]
     for ax,(vals,title,lab) in zip(axes,panels):
         for yy,v,c in zip(y,vals,cols):
@@ -47,7 +47,7 @@ def chart_formats():
         strip(ax,bottom=False)
         ax.tick_params(axis="y",length=0)
         if ax is not axes[0]: ax.set_yticklabels([])
-    fig.text(0.007,-0.04,"Пауч має найменше позицій — і найнижчу ціну і за упаковку, і за 100 г. "
+    fig.text(0.007,-0.04,"Пауч має найменше позицій — але найнижчу ціну входу в категорію. "
              "Дойпак лідирує за кількістю лише тому, що туристичні магазини заводять десятки дрібних брендів.",
              fontsize=8,color=d.MUTED)
     fig.savefig(OUT+"c1_formats.png",dpi=220,bbox_inches="tight",transparent=True)
@@ -171,8 +171,8 @@ def chart_fob():
     y=np.arange(len(skus))[::-1]
     for yy,(n,fob,sh,wt,c) in zip(y,skus):
         ax.barh(yy,sh,height=0.5,color=c,zorder=3)
-        ax.text(sh+14,yy,f"{sh:.0f} грн  ·  {sh/wt*100:.0f} грн/100 г  ·  FOB ${fob:.3f}",
-                va="center",fontsize=8,color=d.INK2,fontweight="bold")
+        ax.text(sh+14,yy,f"{sh:.0f} грн   ·   FOB ${fob:.3f}",
+                va="center",fontsize=8.5,color=d.INK2,fontweight="bold")
     ax.set_yticks(y); ax.set_yticklabels([s[0] for s in skus],fontsize=8.5,color=d.INK2)
     for xv,(lab,tv) in zip([109,98.4,162,199],targets):
         pass
@@ -216,8 +216,7 @@ def chart_fmt_weight():
     nb=len(d.WBANDS); nf=len(M)
     vmax=max(max(r) for r in M)
     ramp=mcolors.LinearSegmentedColormap.from_list("amb",["#FBF7EF","#F6E3BC","#E8B85F","#C4820A","#8A5A06"])
-    fig,(ax,ax2)=plt.subplots(2,1,figsize=(13.4,5.25),
-                              gridspec_kw={"height_ratios":[3.25,1],"hspace":0.30})
+    fig,ax=plt.subplots(figsize=(13.4,4.10))
     for i in range(nf):
         for j in range(nb):
             v=M[i][j]
@@ -244,17 +243,6 @@ def chart_fmt_weight():
     ax.set_yticklabels(names,fontsize=9,color=d.INK2,fontweight="bold")
     ax.tick_params(length=0,pad=30); ax.xaxis.tick_top()
     for sp in ax.spines.values(): sp.set_visible(False)
-    # нижня панель: медіана грн/100 г по смузі
-    for j,v in enumerate(d.WBAND_P100):
-        c=d.C_GREEN if v<=50 else (d.C_AMBER if v<=110 else d.MUTED2)
-        ax2.bar(j+0.5,v,width=0.62,color=c,zorder=3)
-        ax2.text(j+0.5,v+14,f"{v}",ha="center",fontsize=8.5,color=d.INK2,fontweight="bold")
-    ax2.set_xlim(0,nb); ax2.set_ylim(0,max(d.WBAND_P100)*1.34)
-    ax2.set_xticks([]); ax2.set_yticks([])
-    ax2.set_ylabel("грн/100 г",fontsize=7,color=d.MUTED)
-    ax2.set_title("МЕДІАНА ЦІНИ ЗА 100 Г У ЦІЙ ВАГОВІЙ СМУЗІ",fontsize=7.5,
-                  color=d.MUTED,loc="left",pad=8,fontweight="bold")
-    for sp in ax2.spines.values(): sp.set_visible(False)
     fig.savefig(OUT+"c6_fmtweight.png",dpi=220,bbox_inches="tight",transparent=True)
     plt.close(fig)
 
@@ -268,9 +256,9 @@ def chart_combos():
     for yy,(fmt,wt,n,price,p100,who,c) in zip(y,C):
         ax.barh(yy,n,height=0.60,color=c,zorder=3)
         ax.text(n+0.13,yy,f"{n}",va="center",fontsize=10,color=d.INK,fontweight="bold")
-        ax.text(n+0.52,yy,f"{price} грн  ·  {p100} грн/100 г",va="center",
-                fontsize=7.6,color=d.MUTED)
-        ax.text(n+3.35,yy,who,va="center",fontsize=7,color=d.MUTED2)
+        ax.text(n+0.52,yy,f"медіана {price} грн",va="center",
+                fontsize=7.8,color=d.MUTED)
+        ax.text(n+2.60,yy,who,va="center",fontsize=7,color=d.MUTED2)
     ax.set_yticks(y)
     ax.set_yticklabels([f"{f}  {w} г" for f,w,*_ in C],fontsize=9,color=d.INK2,fontweight="bold")
     ax.set_xlim(0,10.6); ax.set_ylim(-0.75,len(C)-0.15)
@@ -326,27 +314,20 @@ def chart_asian_shelf():
                              facecolor=ramp(v/vmax),edgecolor="none",zorder=2))
                 ax.text(j+0.5,y+0.5,str(v),ha="center",va="center",fontsize=13,
                         color="white" if v/vmax>0.46 else d.INK,fontweight="bold",zorder=4)
-        # колонка «з них рис»
-        ax.add_patch(plt.Rectangle((nc+0.22,y+0.06),0.92,0.88,
-                     facecolor="#FBE4EC",edgecolor=d.C_PINK,lw=1.4,zorder=2))
-        ax.text(nc+0.68,y+0.5,"0",ha="center",va="center",fontsize=14,
-                color=d.C_PINK,fontweight="bold",zorder=4)
-        ax.text(nc+1.34,y+0.5,what,va="center",fontsize=8,color=d.MUTED,zorder=4)
-    ax.set_xlim(0,nc+3.6); ax.set_ylim(0,nb+0.05)
-    ax.set_xticks([j+0.5 for j in range(nc)]+[nc+0.68])
-    ax.set_xticklabels(CH+["З НИХ РИС"],fontsize=8.5,color=d.INK2,fontweight="bold")
+        ax.text(nc+0.30,y+0.5,what,va="center",fontsize=8.5,color=d.MUTED,zorder=4)
+    ax.set_xlim(0,nc+2.9); ax.set_ylim(0,nb+0.05)
+    ax.set_xticks([j+0.5 for j in range(nc)]+[nc+0.30])
+    ax.set_xticklabels(CH+["ЩО САМЕ СТОЇТЬ"],fontsize=8.5,color=d.INK2,fontweight="bold")
     ax.set_yticks([nb-1-i+0.5 for i in range(nb)])
     ax.set_yticklabels([b for b,_,_,_ in B],fontsize=10,color=d.INK,fontweight="bold")
     ax.tick_params(length=0,pad=10); ax.xaxis.tick_top()
-    for t in ax.get_xticklabels():
-        if t.get_text()=="З НИХ РИС": t.set_color(d.C_PINK)
+    ax.get_xticklabels()[-1].set_ha("left")
     for sp in ax.spines.values(): sp.set_visible(False)
-    fig.text(0.012,-0.035,"163 позиції азійських брендів уже стоять у національних мережах. "
-             "Жодна з них не рис — це локшина, рамен, токпокі та соуси.",
-             fontsize=8.5,color=d.INK2,fontweight="bold")
+    fig.text(0.012,-0.045,"163 позиції азійських брендів уже стоять у національних мережах — "
+             "і жодна з них не рис.",fontsize=10,color=d.C_PINK,fontweight="bold")
     fig.savefig(OUT+"c8_asian_shelf.png",dpi=220,bbox_inches="tight",transparent=True)
     plt.close(fig)
 
 
-for f in (chart_formats,chart_asian_shelf,chart_combos,chart_fmt_weight,chart_ladder,chart_pack,chart_fob,chart_channels):
+for f in (chart_formats,chart_asian_shelf,chart_combos,chart_fmt_weight,chart_pack,chart_fob,chart_channels):
     f(); print("ok",f.__name__)

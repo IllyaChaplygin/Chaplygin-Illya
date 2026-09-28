@@ -36,27 +36,29 @@ def zebra(ws,r0,r1,ncol):
 ws=wb.create_sheet("1. Бренди")
 title(ws,"Матриця брендів — ринок готового рису України",
       "23 бренди · 84 позиції · зріз 22–23.09.2026. Ціни роздрібні за одну упаковку, без оптових порогів.")
-cols=["Бренд","Країна","Технологія","Формат","SKU","Ціна min, грн","Ціна max, грн",
-      "Медіана, грн","Вага min, г","Вага max, г","грн/100 г min","грн/100 г max","Канал"]
-head(ws,4,cols,[20,10,15,13,6,12,12,12,12,12,12,12,30])
+cols=["Сегмент","Бренд","Країна","Формат","SKU","Ціна min, грн","Ціна max, грн",
+      "Медіана, грн","Вага min, г","Вага max, г","Що це таке","Канал"]
+head(ws,4,cols,[13,20,10,13,6,12,12,12,12,12,44,30])
 r=5
-for b in sorted(d.BRANDS,key=lambda x:x[7]):
+for b in sorted(d.BRANDS,key=lambda x:(d.BRAND_INFO[x[0]][0],x[7])):
     br,co,te,fm,sku,lo,hi,md,wl,wh,pl,ph,ch=b
-    vals=[br,co,te,fm,sku,lo,hi,md,wl or None,wh or None,pl or None,ph or None,ch]
+    seg,what=d.BRAND_INFO[br]
+    vals=[d.SEG_SHORT[seg][0].split("·")[0].strip(),br,co,fm,sku,lo,hi,md,
+          wl or None,wh or None,what,ch]
     for i,v in enumerate(vals,1):
-        c=ws.cell(r,i,v); c.font=F(sz=9,color=INK2,bold=(i==1)); c.border=BOX
-        if i in (6,7,8,9,10,11,12): c.number_format="# ##0"
+        c=ws.cell(r,i,v); c.font=F(sz=9,color=INK2,bold=(i==2)); c.border=BOX
+        if i in (6,7,8,9,10): c.number_format="# ##0"
     r+=1
-zebra(ws,5,r,13)
-ws.auto_filter.ref=f"A4:M{r-1}"
+zebra(ws,5,r,12)
+ws.auto_filter.ref=f"A4:L{r-1}"
 
 # ───────────── 2. ФОРМАТИ ─────────────
 ws=wb.create_sheet("2. Формати")
 title(ws,"Аналітика форматів упаковки",
       "Розподіл 84 позицій. грн/100 г = медіана ціни формату / медіану ваги формату.")
 head(ws,4,["Формат","Позицій","Частка позицій","Брендів","Медіана ціни, грн",
-           "Ціна min","Ціна max","Медіана ваги, г","грн/100 г","Коментар"],
-     [22,10,14,10,17,11,11,16,12,52])
+           "Ціна min","Ціна max","Медіана ваги, г","Коментар"],
+     [22,10,14,10,17,11,11,16,56])
 notes=["Формат мережевої полиці. Найнижча ціна входу в категорію.",
        "Формат азійського каналу. Прямі конкуренти Ottogi і Henan.",
        "Формат туристичного каналу. Потребує окропу, не полиця.",
@@ -67,9 +69,8 @@ for (n,pos,sh,br,med,lo,hi,w,col),note in zip(d.FORMATS,notes):
     for i,v in enumerate([pos,sh/100,br,med,lo,hi,w],2):
         c=ws.cell(r,i,v); c.font=F(sz=9,color=INK2)
         c.number_format="0 %" if i==3 else "# ##0"
-    c=ws.cell(r,9,f"=E{r}/H{r}*100"); c.font=F(sz=9,bold=True,color=INK); c.number_format="# ##0"
-    ws.cell(r,10,note).font=F(sz=9,color=MUT)
-    for i in range(1,11): ws.cell(r,i).border=BOX
+    ws.cell(r,9,note).font=F(sz=9,color=MUT)
+    for i in range(1,10): ws.cell(r,i).border=BOX
     r+=1
 ws.cell(r+1,1,"Висновок").font=F(sz=10,bold=True,color=INK)
 ws.cell(r+2,1,"Дойпак лідирує за кількістю позицій (36 %), але це артефакт туристичного каналу. "
@@ -81,7 +82,7 @@ title(ws,"Наша лінійка проти ринку — 32 SKU",
       "Полиця розрахована за фінмоделлю. Жовті клітинки на аркуші «5. Калькулятор» керують розрахунком.")
 head(ws,4,["Група","SKU","Вага, г","Постачальник","Формат","СС 20′ FCL, $","СС 40′ FCL, $",
            "СС 20′, грн","Ціна партнеру, грн","Бонус мережі, грн","Полиця 20′, грн",
-           "Полиця 40′, грн","грн/100 г","Ринковий орієнтир","Позиція"],
+           "Полиця 40′, грн","Ринковий орієнтир","Позиція"],
      [30,30,9,13,10,13,13,12,17,16,14,14,12,26,26])
 MK="'5. Калькулятор'!"
 r=5
@@ -161,7 +162,7 @@ for j in range(2,len(d.WBANDS)+2):
     c=ws.cell(r,j,f"=SUM({L}5:{L}{r-1})"); c.font=F(sz=10,bold=True,color=INK)
     c.alignment=Alignment(horizontal="center")
 r+=2
-ws.cell(r,1,"Медіана грн/100 г у смузі").font=F(sz=9,bold=True,color=MUT)
+ws.cell(r,1,"Медіана ціни за упаковку у смузі").font=F(sz=9,bold=True,color=MUT)
 for j,v in enumerate(d.WBAND_P100,2):
     c=ws.cell(r,j,v); c.font=F(sz=9,bold=True,color=GREEN if v<=50 else (AMB if v<=110 else MUT))
     c.alignment=Alignment(horizontal="center")
@@ -178,8 +179,8 @@ for line in [
 ws=wb.create_sheet("4c. Ритейл-аудит")
 title(ws,"Що з готового рису реально стоїть у національних мережах",
       "Суцільна перевірка каталогів, 28.09.2026. Джерело: відкритий API zakaz.ua та sf-ecom-api.silpo.ua.")
-head(ws,4,["Мережа","Що саме","Формат","SKU","Грн/уп.","Грн/100 г","Тип зберігання",
-           "Походження"],[30,42,16,7,12,12,26,18])
+head(ws,4,["Мережа","Що саме","Формат","SKU","Ціна за упаковку","Тип зберігання",
+           "Походження"],[30,44,16,7,17,28,18])
 TYPN={"ambient":"Кімнатна · НАШ КОНКУРЕНТНИЙ СЕТ","chilled":"Охолоджена кулінарія · 2–5 діб",
       "dry":"Суміш під варіння · не готовий","none":"Категорії немає"}
 TYPC={"ambient":AMB,"chilled":TEAL,"dry":PUR,"none":MUT}
@@ -190,10 +191,9 @@ for ch,what,fmt,sku,price,p100,typ,orig in d.RETAIL_RTE:
     ws.cell(r,3,fmt).font=F(sz=9,color=INK2)
     c=ws.cell(r,4,sku or None); c.font=F(sz=9,bold=True,color=INK2)
     ws.cell(r,5,price).font=F(sz=9,bold=True,color=INK)
-    ws.cell(r,6,p100).font=F(sz=9,color=MUT)
-    c=ws.cell(r,7,TYPN[typ]); c.font=F(sz=9,bold=True,color=TYPC[typ])
-    ws.cell(r,8,orig).font=F(sz=9,color=MUT)
-    for i in range(1,9):
+    c=ws.cell(r,6,TYPN[typ]); c.font=F(sz=9,bold=True,color=TYPC[typ])
+    ws.cell(r,7,orig).font=F(sz=9,color=MUT)
+    for i in range(1,8):
         ws.cell(r,i).border=BOX
         ws.cell(r,i).alignment=Alignment(wrap_text=True,vertical="top")
     r+=1

@@ -77,16 +77,13 @@ def retitle(sl, seg_key, kicker, title, sub):
         if 2.0<x<3.0 and 0.25<y<0.45: kick_sh=sh
         elif 2.0<x<3.0 and 0.50<y<0.75: title_sh=sh
         elif x<1.0 and 1.30<y<1.60: sub_sh=sh
-    if kick_sh is not None:  _put(kick_sh,kicker)
+    if kick_sh is not None:  _put(kick_sh, d.SEGMENTS[seg_key][0] + "   ·   " + kicker)
     if title_sh is not None: _put(title_sh,title)
 
     name,col,tech,mass,occ,med = d.SEGMENTS[seg_key]
-    # segment label + attributes occupy the left of the subtitle line
-    lbl=f"{name}   ·   {tech}   ·   {mass}   ·   привід: {occ}"
+    lbl=f"{tech}   ·   {mass}   ·   привід: {occ}   ·   медіана сегмента {med.split()[0]} грн"
     K.rect(sl,0.66,1.245,0.045,0.215,fill=col)
-    K.text(sl,0.82,1.265,7.30,0.19,lbl,size=6.8,color=col,bold=True)
-    K.text(sl,8.30,1.265,4.32,0.19,f"МЕДІАНА СЕГМЕНТА: {med.upper()}",
-           size=6.8,color=d.MUTED,bold=True,align="r")
+    K.text(sl,0.82,1.265,11.6,0.19,lbl,size=6.8,color=col,bold=True)
     # the original subtitle drops below the segment line
     if sub_sh is not None:
         _put(sub_sh,sub)
@@ -165,6 +162,7 @@ def divider(prs, kicker, title, sub, items):
     K.text(s,0.9,2.35,9,0.3,kicker,size=9,color=d.C_BRAND,bold=True)
     K.text(s,0.9,2.78,10.6,1.35,title,size=36,color=d.WHITE,bold=True,spacing=1.06)
     K.text(s,0.9,4.42,9.6,0.7,sub,size=11.5,color="#B9C2DA",spacing=1.5)
+    K.text(s,11.97,0.44,0.70,0.36,"00",size=17,color="#5B6B8C",bold=True,align="r")
     for i,(k,v) in enumerate(items):
         x=0.9+i*2.95
         K.text(s,x,5.52,2.7,0.2,k,size=7,color="#717890",bold=True,caps=True)
@@ -173,14 +171,28 @@ def divider(prs, kicker, title, sub, items):
 
 # ── build the new slides onto the original deck ────────────────────
 built={}
-for fn in ("sl_02","sl_03","sl_04","sl_05","sl_06","sl_07","sl_08",
-           "sl_09","sl_11","sl_12","sl_13","sl_14","sl_15","sl_16","sl_17","sl_18"):
+for fn in ("sl_02","sl_03","sl_04","sl_05","sl_06","sl_07",
+           "sl_09","sl_10","sl_11","sl_12","sl_13","sl_14","sl_15","sl_16","sl_17","sl_18"):
     built[fn]=getattr(S,fn)(prs)
 DIV=divider(prs,"ПОЗИЦІОНУВАННЯ",
   "Де ми стоїмо\nі що заводити",
   "Зіставлення фінансової моделі з полицею, рекомендація формату й ціни, цільовий FOB.",
   [("НАШИХ SKU","32"),("ТОВАРНИХ ГРУП","7"),("ПОСТАЧАЛЬНИКІВ","3"),("СЦЕНАРІЇВ ЦІНИ","3")])
 
+
+
+def strip_per100(sl):
+    """Drop every 'X грн/100 г' figure — the client does not use that metric."""
+    import re as _re
+    kill=[]
+    for sh in sl.shapes:
+        if not sh.has_text_frame: continue
+        txt=sh.text_frame.text.strip()
+        if _re.search(r"грн\s*/\s*100\s*г", txt) or txt.upper() in ("ЗА 100 Г","ГРН/100 Г"):
+            kill.append(sh)
+    for sh in kill:
+        sh._element.getparent().remove(sh._element)
+    return len(kill)
 
 # ── supplier deck: merge and restyle to the main masthead ──────────
 import merge_suppliers as MS
@@ -223,26 +235,92 @@ def restyle_supplier(sl):
     K.text(sl, 11.97, 0.44, 0.70, 0.36, "00", size=17,
            color="#465382", bold=True, align="r")
 
-sup_src = Presentation(SUP_SRC)
-SUP = MS.merge(prs, sup_src, list(range(1, 15)))   # slide 1 is its own title page
-for sl in SUP:
-    restyle_supplier(sl)
-SUPDIV = divider(prs, "ПОСТАЧАЛЬНИКИ", "Хто виробляє\nі скільки це коштує",
-  "Профілі трьох постачальників в обоймі та собівартість кожного SKU за чотирма схемами поставки.",
-  [("ПОСТАЧАЛЬНИКІВ","3"),("ФОРМАТІВ","5"),("SKU З ЦІНОЮ","32"),("СХЕМ ПОСТАВКИ","4")])
+SUP = []   # колода постачальників у фінальну презентацію не входить
 
 ids=list(prs.slides._sldIdLst)                 # 0..18 original, 19.. new
 orig=ids[:n_orig]
 def nid(fn): return ids[n_orig+list(built).index(fn)] if fn in built else None
 new={fn:ids[n_orig+i] for i,fn in enumerate(built)}
-new["DIV"]=ids[n_orig+len(built)]
-for k,sl in enumerate(SUP): new[f"SUP{k}"]=ids[n_orig+len(built)+1+k]
-new["SUPDIV"]=ids[-1]
+new["DIV"]=ids[-1]
+
 
 # ── apply segmentation to the original card slides ─────────────────
+
+# ── дослівні заміни в текстах оригіналу: прибрати метрику «за 100 г» ──
+TEXT_FIXES = {
+ 3:  [("Медіана готового рису для розігріву (30 позицій) — 73 грн за 100 г.",
+       "Медіана готового рису для розігріву (30 позицій) — 164 грн за упаковку.")],
+ 15: [("український реторт 350 г за 94–109 грн: найдешевший грам категорії, 27–31 грн за 100 г.",
+       "український реторт 350 г за 94–109 грн: найдешевша упаковка сегмента.")],
+ 17: [("коробка 440 г за 735 грн: 167 грн за 100 г, дешевше за грам, ніж Haidilao (230–371).",
+       "коробка 440 г за 735 грн — удвічі більша порція, ніж у Haidilao за ті самі гроші.")],
+ 19: [("реторт без води, 79–101 грн за 100 г: у тому ж коридорі, що Ben's Original і Ottogi,",
+       "реторт без води, 315–404 грн за упаковку: дорожче за Ben's Original і Ottogi,")],
+ 21: [("Порівняння за 100 г", "Порівняння за упаковку"),
+      ("18,5 грн", "63 грн"), ("47,6 грн", "119 грн"), ("41,0 грн", "90 грн"),
+      ("45,7 грн", "153 грн"), ("88,0 грн", "255 грн")],
+}
+
+def _uniform(para):
+    """True when every run shares the same formatting, so the text can be rewritten."""
+    keys = set()
+    for r in para.runs:
+        col = None
+        try:
+            col = str(r.font.color.rgb) if r.font.color and r.font.color.type is not None else None
+        except Exception:
+            pass
+        keys.add((r.font.bold, r.font.italic, r.font.size, r.font.name, col))
+    return len(keys) <= 1
+
+
+def apply_text_fixes(prs_):
+    """Rewrite phrases in the original slides, run-by-run where possible.
+
+    PowerPoint splits a sentence across many runs, so a phrase often spans
+    several. When it does and the whole paragraph shares one format, the
+    paragraph is rewritten into its first run; otherwise it is left alone
+    rather than risk flattening mixed formatting.
+    """
+    n = 0
+    for oi, pairs in TEXT_FIXES.items():
+        sl = prs_.slides[oi]
+        for sh in sl.shapes:
+            if not (sh.has_text_frame and sh.text_frame.text.strip()):
+                continue
+            for para in sh.text_frame.paragraphs:
+                for run in para.runs:                      # fast path: inside one run
+                    for old, new in pairs:
+                        if old in run.text:
+                            run.text = run.text.replace(old, new); n += 1
+                joined = "".join(r.text for r in para.runs)
+                hits = [(o, w) for o, w in pairs if o in joined]
+                if not hits or not para.runs:
+                    continue
+                if not _uniform(para):
+                    print(f"  ! S{oi+1}: мішане форматування, не чіпаю: {hits[0][0][:40]!r}")
+                    continue
+                for o, w in hits:
+                    joined = joined.replace(o, w); n += 1
+                para.runs[0].text = joined
+                for r in para.runs[1:]:
+                    r.text = ""
+    return n
+
+# сегмент 5 — суміжна консервна полиця
+d.SEGMENTS["S5"]=("СЕГМЕНТ 5 · СУМІЖНА ПОЛИЦЯ · КОНСЕРВА",d.C_GREEN,
+                  "Готова до вживання","Маса — готової страви","Обід поза домом","119 грн")
+CARD_SEG=CARD_SEG+[(16,"S5","КОНСЕРВА НА ПОЛИЦІ · 6 ПОЗИЦІЙ",
+   "Рис із м'ясом у мережах уже є — але в бляшанці",
+   "Прямий конкурент за той самий привід: гаряча страва з рисом і м'ясом без готування.")]
+CARD_FMT[16]=("КОНСЕРВА",[])
+FMT_COL["КОНСЕРВА"]=d.C_GREEN
+
 for oi,key,kick,ttl,sub in CARD_SEG:
     retitle(prs.slides[oi], key, kick, ttl, sub)
-    _n=stamp_formats(prs.slides[oi], oi); print(f'  slide orig{oi+1:02}: {_n} карток')
+    _n=stamp_formats(prs.slides[oi], oi)
+    _k=strip_per100(prs.slides[oi])
+    print(f'  orig{oi+1:02}: {_n} карток, прибрано грн/100г: {_k}')
 
 # ── target narrative order ─────────────────────────────────────────
 order=[
@@ -261,24 +339,23 @@ order=[
  ("o",7,13),("o",8,14),("o",9,15),("o",10,16),   # 13–16 сегмент 1 + 2
  ("o",11,17),("o",12,18),                        # 17–18 сегмент 3
  ("o",13,19),("o",14,20),("o",15,21),            # 19–21 сегмент 4
- ("o",16,22),       # 22 суміжна полиця
- ("n","sl_17",23),  # 23 ритейл-аудит: що стоїть у мережах
- ("n","sl_18",24),  # 24 азійський формат у мережах
+ ("o",16,22),       # 22 суміжна полиця · сегмент 5
+ ("n","sl_17",23),  # 23 ритейл-аудит мереж
+ ("n","sl_18",24),  # 24 азійські бренди в мережах
  ("n","sl_03",25),  # 25 канали: точка продажу × покупець
- ("o",18,26),       # 26 висновки дослідження
- ("n","DIV",None),  # 27 роздільник
- ("n","sl_02",28),  # 28 шість висновків
- ("n","sl_07",29),  # 29 ранжир за упаковку
- ("n","sl_08",30),  # 30 ціна за 100 г
+ ("o",17,26),       # 26 де представлено (оригінал)
+ ("o",18,27),       # 27 висновки дослідження
+ ("n","DIV",28),   # 28 роздільник
+ ("n","sl_02",29),  # 29 шість висновків
+ ("n","sl_07",30),  # 30 ранжир за упаковку
  ("n","sl_09",31),  # 31 фінмодель проти ринку
- ("n","SUPDIV",None),   # 32 роздільник: постачальники
-] + [("n",f"SUP{k}",33+k) for k in range(14)] + [   # 33–46 колода постачальників
- ("n","sl_11",47),  # 47 рекомендація формату
- ("n","sl_12",48),  # 48 рекомендація ціни
- ("n","sl_13",49),  # 49 рекомендація постачальника
- ("n","sl_14",50),  # 50 план дій
+ ("n","sl_10",32),  # 32 аудит фінмоделі
+ ("n","sl_11",33),  # 33 рекомендація формату
+ ("n","sl_12",34),  # 34 рекомендація ціни
+ ("n","sl_13",35),  # 35 постачальник
+ ("n","sl_14",36),  # 36 план дій
 ]
-assert len(order)==50, len(order)
+assert len(order)==36, len(order)
 
 sldIdLst=prs.slides._sldIdLst
 seq=[orig[r] if k=="o" else new[r] for k,r,_ in order]
@@ -301,6 +378,7 @@ for sh in t.shapes:
             p.runs[0].text="ДОСЛІДЖЕННЯ РИНКУ ТА ПОЗИЦІОНУВАННЯ · ВЕРЕСЕНЬ 2026"
             for r in p.runs[1:]: r.text=""
 
+print('текстових замін «за 100 г»:', apply_text_fixes(prs))
 MS.drop_orphan_slides(prs)
 n=MS.normalize_partnames(prs)
 print("slide parts renumbered:",n)
