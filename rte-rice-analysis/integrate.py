@@ -93,6 +93,71 @@ def retitle(sl, seg_key, kicker, title, sub):
         sub_sh.top=Inches(1.50); sub_sh.left=Inches(0.66); sub_sh.width=Inches(11.90)
 
 
+
+# ── формат кожної товарної картки ──────────────────────────────────
+FMT_COL={"ПАУЧ":d.C_AMBER,"ЧАША":d.C_TEAL,"ДОЙПАК":d.C_PURPLE,
+         "КОРОБКА":d.C_PINK,"ПАКЕТ":d.C_TEAL}
+# індекс оригіналу -> (формат за замовчуванням, [(маркер у тексті, формат, мітка сегмента)])
+CARD_FMT={
+ 7:  ("ПАУЧ",    []),
+ 8:  ("ЧАША",    []),
+ 9:  ("ЧАША",    []),
+ 10: ("ПАУЧ",    [("BIBIGO","ЧАША",None),("GALLINA","ЧАША","СЕГ. 2")]),
+ 11: ("КОРОБКА", []),
+ 12: ("КОРОБКА", [("MO XIAO XIAN","ЧАША",None),("QIAOSHANMEI","ПАКЕТ","СЕГ. 2")]),
+ 13: ("ДОЙПАК",  []),
+ 14: ("ДОЙПАК",  [("400 г","ПАУЧ","СЕГ. 1")]),
+ 15: ("ДОЙПАК",  []),
+}
+
+def product_cards(sl):
+    """Every product card, found by its text block: (name_x, name_y, width, text)."""
+    bx=[]
+    for sh in sl.shapes:
+        if not (sh.has_text_frame and sh.text_frame.text.strip()): continue
+        x,y,w=Emu(sh.left).inches, Emu(sh.top).inches, Emu(sh.width).inches
+        if y<1.80 or y>6.95 or w>3.2: continue
+        bx.append((round(x,2), y, w, sh.text_frame.text.strip()))
+    cols={}
+    for x,y,w,txt in bx: cols.setdefault(x,[]).append((y,w,txt))
+    clusters=[]
+    for x,items in cols.items():
+        items.sort()
+        cur=[items[0]]
+        for it in items[1:]:
+            if it[0]-cur[-1][0] > 0.45: clusters.append((x,cur)); cur=[it]
+            else: cur.append(it)
+        clusters.append((x,cur))
+    out=[]
+    for x,c in clusters:
+        ny,nw,ntxt = c[0]
+        if ny < 2.30: continue                      # шапка бренду, не картка
+        if len(c) < 3: continue                     # коментар-блок, не картка
+        if len(ntxt) > 45: continue                 # текст висновку, не назва
+        if not any("грн" in t for _,_,t in c): continue
+        body=" ".join(t for _,_,t in c)
+        body=" ".join(body.split()).upper()
+        out.append((x, ny, nw, body))
+    return sorted(out, key=lambda a:(a[1],a[0]))
+
+def stamp_formats(sl, oi):
+    default, rules = CARD_FMT[oi]
+    n=0
+    for x,y,w,body in product_cards(sl):
+        fmt, segmark = default, None
+        for marker, f, sm in rules:
+            if marker.upper() in body:
+                fmt, segmark = f, sm
+                break
+        label = fmt if not segmark else f"{fmt} · {segmark}"
+        bw = min(0.112*len(label)**0.88 + 0.17, max(w, 1.0))
+        K.rect(sl, x-0.05, y-0.215, bw, 0.175, fill=FMT_COL[fmt], radius=0.45)
+        K.text(sl, x-0.05, y-0.195, bw, 0.15, label, size=5.6,
+               color=d.WHITE, bold=True, align="c")
+        n+=1
+    return n
+
+
 # ── section divider ────────────────────────────────────────────────
 def divider(prs, kicker, title, sub, items):
     s=K.slide(prs, d.INK)
@@ -109,7 +174,7 @@ def divider(prs, kicker, title, sub, items):
 # ── build the new slides onto the original deck ────────────────────
 built={}
 for fn in ("sl_02","sl_03","sl_04","sl_05","sl_06","sl_07","sl_08",
-           "sl_09","sl_11","sl_12","sl_13","sl_14","sl_15"):
+           "sl_09","sl_11","sl_12","sl_13","sl_14","sl_15","sl_16"):
     built[fn]=getattr(S,fn)(prs)
 DIV=divider(prs,"ПОЗИЦІОНУВАННЯ",
   "Де ми стоїмо\nі що заводити",
@@ -125,6 +190,7 @@ new["DIV"]=ids[-1]
 # ── apply segmentation to the original card slides ─────────────────
 for oi,key,kick,ttl,sub in CARD_SEG:
     retitle(prs.slides[oi], key, kick, ttl, sub)
+    _n=stamp_formats(prs.slides[oi], oi); print(f'  slide orig{oi+1:02}: {_n} карток')
 
 # ── target narrative order ─────────────────────────────────────────
 order=[
@@ -138,24 +204,25 @@ order=[
  ("n","sl_06",8),   # 08 аналітика форматів
  ("o",5,9),         # 09 грамаж
  ("n","sl_15",10),  # 10 модель формат × грамаж
- ("o",6,11),        # 11 цінові сходи брендів
- ("o",7,12),("o",8,13),("o",9,14),("o",10,15),   # 12–15 сегмент 1 + 2
- ("o",11,16),("o",12,17),                        # 16–17 сегмент 3
- ("o",13,18),("o",14,19),("o",15,20),            # 18–20 сегмент 4
- ("o",16,21),       # 21 суміжна полиця
- ("n","sl_03",22),  # 22 канали: точка продажу × покупець
- ("o",18,23),       # 23 висновки дослідження
- ("n","DIV",None),  # 24 роздільник
- ("n","sl_02",25),  # 25 шість висновків
- ("n","sl_07",26),  # 26 ранжир за упаковку
- ("n","sl_08",27),  # 27 ціна за 100 г
- ("n","sl_09",28),  # 28 фінмодель проти ринку
- ("n","sl_11",29),  # 29 рекомендація формату
- ("n","sl_12",30),  # 30 рекомендація ціни
- ("n","sl_13",31),  # 31 постачальник
- ("n","sl_14",32),  # 32 план дій
+ ("n","sl_16",11),  # 11 найпопулярніші поєднання формат + грамаж
+ ("o",6,12),        # 12 цінові сходи брендів
+ ("o",7,13),("o",8,14),("o",9,15),("o",10,16),   # 13–16 сегмент 1 + 2
+ ("o",11,17),("o",12,18),                        # 17–18 сегмент 3
+ ("o",13,19),("o",14,20),("o",15,21),            # 19–21 сегмент 4
+ ("o",16,22),       # 22 суміжна полиця
+ ("n","sl_03",23),  # 23 канали: точка продажу × покупець
+ ("o",18,24),       # 24 висновки дослідження
+ ("n","DIV",None),  # 25 роздільник
+ ("n","sl_02",26),  # 26 шість висновків
+ ("n","sl_07",27),  # 27 ранжир за упаковку
+ ("n","sl_08",28),  # 28 ціна за 100 г
+ ("n","sl_09",29),  # 29 фінмодель проти ринку
+ ("n","sl_11",30),  # 30 рекомендація формату
+ ("n","sl_12",31),  # 31 рекомендація ціни
+ ("n","sl_13",32),  # 32 постачальник
+ ("n","sl_14",33),  # 33 план дій
 ]
-assert len(order)==32, len(order)
+assert len(order)==33, len(order)
 
 sldIdLst=prs.slides._sldIdLst
 seq=[orig[r] if k=="o" else new[r] for k,r,_ in order]

@@ -259,5 +259,50 @@ def chart_fmt_weight():
     plt.close(fig)
 
 
-for f in (chart_formats,chart_fmt_weight,chart_ladder,chart_pack,chart_fob,chart_channels):
+# ============ CHART 7: ТОП комбінацій формат + грамаж ============
+def chart_combos():
+    C=d.COMBOS
+    fig,(ax,ax2)=plt.subplots(1,2,figsize=(13.4,5.0),
+                              gridspec_kw={"width_ratios":[2.45,1],"wspace":0.34})
+    y=np.arange(len(C))[::-1]
+    for yy,(fmt,wt,n,price,p100,who,c) in zip(y,C):
+        ax.barh(yy,n,height=0.60,color=c,zorder=3)
+        ax.text(n+0.13,yy,f"{n}",va="center",fontsize=10,color=d.INK,fontweight="bold")
+        ax.text(n+0.52,yy,f"{price} грн  ·  {p100} грн/100 г",va="center",
+                fontsize=7.6,color=d.MUTED)
+        ax.text(n+3.35,yy,who,va="center",fontsize=7,color=d.MUTED2)
+    ax.set_yticks(y)
+    ax.set_yticklabels([f"{f}  {w} г" for f,w,*_ in C],fontsize=9,color=d.INK2,fontweight="bold")
+    ax.set_xlim(0,10.6); ax.set_ylim(-0.75,len(C)-0.15)
+    ax.set_xticks([0,2,4,6,8]); ax.tick_params(axis="y",length=0)
+    ax.set_xlabel("ПОЗИЦІЙ У ПРОДАЖУ",fontsize=7.5,color=d.MUTED,fontweight="bold")
+    ax.set_title("ТОП-13 ПОЄДНАНЬ «ФОРМАТ + ГРАМАЖ»",fontsize=8,color=d.INK2,
+                 loc="left",pad=12,fontweight="bold")
+    strip(ax)
+    # праворуч — частка форматів у двох зрізах
+    for k,(title,data_,total) in enumerate([
+            ("УСІ 84 ПОЗИЦІЇ",d.SHARE_ALL,84),
+            ("ЛИШЕ МАСОВИЙ КАНАЛ · 46",d.SHARE_MASS,46)]):
+        base=0.0; yb=1.0-k*0.64
+        for nm,v,c in data_:
+            ax2.barh(yb,v/total,left=base,height=0.30,color=c,zorder=3)
+            if v/total>0.10:
+                ax2.text(base+v/total/2,yb,f"{round(v/total*100)} %",ha="center",va="center",
+                         fontsize=9,color="white",fontweight="bold",zorder=5)
+            base+=v/total
+        ax2.text(0,yb+0.235,title,fontsize=7.5,color=d.MUTED,fontweight="bold")
+        lx=0.0
+        for nm,v,c in data_:
+            if v/total<0.06: continue
+            ax2.text(lx,yb-0.268,f"{nm} {v}",fontsize=7,color=c,fontweight="bold")
+            lx+=0.30
+    ax2.set_xlim(0,1); ax2.set_ylim(0.00,1.40)
+    ax2.set_xticks([]); ax2.set_yticks([])
+    for sp in ax2.spines.values(): sp.set_visible(False)
+    ax2.set_title("ЧАСТКА ФОРМАТУ",fontsize=8,color=d.INK2,loc="left",pad=12,fontweight="bold")
+    fig.savefig(OUT+"c7_combos.png",dpi=220,bbox_inches="tight",transparent=True)
+    plt.close(fig)
+
+
+for f in (chart_formats,chart_combos,chart_fmt_weight,chart_ladder,chart_pack,chart_fob,chart_channels):
     f(); print("ok",f.__name__)
