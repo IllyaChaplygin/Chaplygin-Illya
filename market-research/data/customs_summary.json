@@ -1,0 +1,50 @@
+{
+  "source": "codexmb customs export, вивантаження 28.09.2026",
+  "hs_code": "1904901000",
+  "period": "2025-01..2026-05 (без 12-31.03.2025)",
+  "total_t": 250.275,
+  "total_usd": 841445,
+  "breakdown_t": {
+    "frozen_raw_mixes": 187.056,
+    "rice_chips_snacks": 32.124,
+    "dolma_canned": 10.8,
+    "cook_yourself_risotto": 5.86,
+    "other_unclear": 8.711,
+    "sport_porridge": 0.7425,
+    "raw_rice": 0.559,
+    "tteokbokki_snack": 0.126,
+    "ready_to_eat_ambient": 0.814,
+    "henan_boilwater_adjacent": 2.639,
+    "haldiram_biryani_adjacent": 0.033
+  },
+  "ready_to_eat_detail_kg": {
+    "mars_austria_bens": 675.84,
+    "cj_cheiljedang": 75.6,
+    "clearspring": 62.5
+  },
+  "bens_single_batch": {
+    "weight_kg": 675.84,
+    "date": "2025-02-24",
+    "importer": "ТОВ \"ФОЗЗІ КОММЕРЦ\"",
+    "manufacturer": "MARS AUSTRIA OG",
+    "declarations_count": 2
+  },
+  "top_importers_whole_code_by_weight": [
+    [
+      "ТОВ \"АТБ-маркет\"",
+      0.495,
+      "переважно заморожені сирі суміші"
+    ],
+    [
+      "ТОВ «Торгова фірма «Рудь»",
+      0.23,
+      "переважно заморожені сирі суміші"
+    ]
+  ],
+  "other_hs_codes_pulled_but_unrelated": {
+    "1902301000": "локшина/вермішель швидкого приготування — не рис",
+    "2008999990": "горіхи/сухофрукти/снеки — не рис",
+    "1905905500": "чіпси/снеки екструдовані — не рис"
+  },
+  "method": "класифікація вручну за ключовими словами в product_description (ЗАМОРОЖ=заморожене, ЧІПС=снек, НЕПРИГОТОВАН/CASA RINALDI/RISO GALLO=довести до готовності, GYMBEAM=спортхарчування) з ручною перевіркою кожного знайденого виробника."
+}
