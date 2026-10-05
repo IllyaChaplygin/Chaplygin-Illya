@@ -1,0 +1,1350 @@
+{
+ "spend": [
+  {
+   "rank": 1,
+   "name": "Walton Global",
+   "dist_model": "Дистрибьюторская сеть (BD/RIA/агенты)",
+   "annual_raise_usd_m_EST": 400,
+   "acq_cost_rate_lo_pct": 5.0,
+   "acq_cost_rate_hi_pct": 8.0,
+   "acq_budget_usd_m_lo_EST": 20.0,
+   "acq_budget_usd_m_hi_EST": 32.0,
+   "acq_budget_usd_m_mid_EST": 26.0,
+   "paid_media_usd_m_mid_EST": 0.26,
+   "google_ads_MEASURED": 0,
+   "pct_506c_MEASURED": 0.0,
+   "investors_MEASURED": 89000,
+   "basis": "$3,14 млрд распределено за историю; 89 000 инвесторов; 300+ каналов; 0% 506(c)"
+  },
+  {
+   "rank": 3,
+   "name": "DLP Capital",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "annual_raise_usd_m_EST": 500,
+   "acq_cost_rate_lo_pct": 1.5,
+   "acq_cost_rate_hi_pct": 3.0,
+   "acq_budget_usd_m_lo_EST": 7.5,
+   "acq_budget_usd_m_hi_EST": 15.0,
+   "acq_budget_usd_m_mid_EST": 11.25,
+   "paid_media_usd_m_mid_EST": 4.725,
+   "google_ads_MEASURED": 16,
+   "pct_506c_MEASURED": 73.8,
+   "investors_MEASURED": 11550,
+   "basis": "$4,21 млрд продано по формам D; 11 550 инвесторов; 74% 506(c); 16 объявлений"
+  },
+  {
+   "rank": 12,
+   "name": "Domain Real Estate Partners",
+   "dist_model": "Институциональные LP / placement agents",
+   "annual_raise_usd_m_EST": 1500,
+   "acq_cost_rate_lo_pct": 0.3,
+   "acq_cost_rate_hi_pct": 1.0,
+   "acq_budget_usd_m_lo_EST": 4.5,
+   "acq_budget_usd_m_hi_EST": 15.0,
+   "acq_budget_usd_m_mid_EST": 9.75,
+   "paid_media_usd_m_mid_EST": 0.195,
+   "google_ads_MEASURED": 0,
+   "pct_506c_MEASURED": null,
+   "investors_MEASURED": null,
+   "basis": "$6 млрд развёрнуто; партнёрство с PGIM; 0 объявлений"
+  },
+  {
+   "rank": 5,
+   "name": "MLG Capital",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "annual_raise_usd_m_EST": 250,
+   "acq_cost_rate_lo_pct": 1.5,
+   "acq_cost_rate_hi_pct": 3.0,
+   "acq_budget_usd_m_lo_EST": 3.75,
+   "acq_budget_usd_m_hi_EST": 7.5,
+   "acq_budget_usd_m_mid_EST": 5.62,
+   "paid_media_usd_m_mid_EST": 2.362,
+   "google_ads_MEASURED": 22,
+   "pct_506c_MEASURED": 82.4,
+   "investors_MEASURED": 4879,
+   "basis": "Fund VI таргет $400 млн; 22 объявления; дистрибуция через advisors"
+  },
+  {
+   "rank": 13,
+   "name": "Crow Holdings",
+   "dist_model": "Институциональные LP / placement agents",
+   "annual_raise_usd_m_EST": 800,
+   "acq_cost_rate_lo_pct": 0.3,
+   "acq_cost_rate_hi_pct": 1.0,
+   "acq_budget_usd_m_lo_EST": 2.4,
+   "acq_budget_usd_m_hi_EST": 8.0,
+   "acq_budget_usd_m_mid_EST": 5.2,
+   "paid_media_usd_m_mid_EST": 0.104,
+   "google_ads_MEASURED": 0,
+   "pct_506c_MEASURED": 0.0,
+   "investors_MEASURED": 2350,
+   "basis": "44 Reg D-эмитента; AUM ~$33 млрд; институциональные LP"
+  },
+  {
+   "rank": 20,
+   "name": "Bedrock Land Finance (TWG Global)",
+   "dist_model": "Институциональные LP / placement agents",
+   "annual_raise_usd_m_EST": 800,
+   "acq_cost_rate_lo_pct": 0.3,
+   "acq_cost_rate_hi_pct": 1.0,
+   "acq_budget_usd_m_lo_EST": 2.4,
+   "acq_budget_usd_m_hi_EST": 8.0,
+   "acq_budget_usd_m_mid_EST": 5.2,
+   "paid_media_usd_m_mid_EST": 0.104,
+   "google_ads_MEASURED": 0,
+   "pct_506c_MEASURED": null,
+   "investors_MEASURED": null,
+   "basis": "Цель $5 млрд; эксклюзивный партнёр Guggenheim"
+  },
+  {
+   "rank": 2,
+   "name": "Millrose Properties (NYSE: MRP)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "annual_raise_usd_m_EST": 1500,
+   "acq_cost_rate_lo_pct": 0.1,
+   "acq_cost_rate_hi_pct": 0.5,
+   "acq_budget_usd_m_lo_EST": 1.5,
+   "acq_budget_usd_m_hi_EST": 7.5,
+   "acq_budget_usd_m_mid_EST": 4.5,
+   "paid_media_usd_m_mid_EST": 0.585,
+   "google_ads_MEASURED": 0,
+   "pct_506c_MEASURED": null,
+   "investors_MEASURED": null,
+   "basis": "Публичный REIT, активы $9,7 млрд; капитал с рынка, не из рекламы"
+  },
+  {
+   "rank": 4,
+   "name": "Caliber (NASDAQ: CWD)",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "annual_raise_usd_m_EST": 150,
+   "acq_cost_rate_lo_pct": 1.5,
+   "acq_cost_rate_hi_pct": 3.0,
+   "acq_budget_usd_m_lo_EST": 2.25,
+   "acq_budget_usd_m_hi_EST": 4.5,
+   "acq_budget_usd_m_mid_EST": 3.38,
+   "paid_media_usd_m_mid_EST": 1.417,
+   "google_ads_MEASURED": 24,
+   "pct_506c_MEASURED": 57.7,
+   "investors_MEASURED": 4547,
+   "basis": "$1,32 млрд продано; 4 547 инвесторов; 58% 506(c); 24 объявления"
+  },
+  {
+   "rank": 17,
+   "name": "13th Floor Investments",
+   "dist_model": "Институциональные LP / placement agents",
+   "annual_raise_usd_m_EST": 300,
+   "acq_cost_rate_lo_pct": 0.3,
+   "acq_cost_rate_hi_pct": 1.0,
+   "acq_budget_usd_m_lo_EST": 0.9,
+   "acq_budget_usd_m_hi_EST": 3.0,
+   "acq_budget_usd_m_mid_EST": 1.95,
+   "paid_media_usd_m_mid_EST": 0.039,
+   "google_ads_MEASURED": 0,
+   "pct_506c_MEASURED": null,
+   "investors_MEASURED": null,
+   "basis": "$5 млрд под управлением; 70+ сделок; JV с институционалами"
+  },
+  {
+   "rank": 8,
+   "name": "Howard Hughes Holdings (NYSE: HHH)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "annual_raise_usd_m_EST": 500,
+   "acq_cost_rate_lo_pct": 0.1,
+   "acq_cost_rate_hi_pct": 0.5,
+   "acq_budget_usd_m_lo_EST": 0.5,
+   "acq_budget_usd_m_hi_EST": 2.5,
+   "acq_budget_usd_m_mid_EST": 1.5,
+   "paid_media_usd_m_mid_EST": 0.195,
+   "google_ads_MEASURED": 0,
+   "pct_506c_MEASURED": null,
+   "investors_MEASURED": null,
+   "basis": "Публичная; потребительская реклама на уровне комьюнити"
+  },
+  {
+   "rank": 11,
+   "name": "GSP REI",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "annual_raise_usd_m_EST": 60,
+   "acq_cost_rate_lo_pct": 1.5,
+   "acq_cost_rate_hi_pct": 3.0,
+   "acq_budget_usd_m_lo_EST": 0.9,
+   "acq_budget_usd_m_hi_EST": 1.8,
+   "acq_budget_usd_m_mid_EST": 1.35,
+   "paid_media_usd_m_mid_EST": 0.567,
+   "google_ads_MEASURED": 0,
+   "pct_506c_MEASURED": 9.2,
+   "investors_MEASURED": 1647,
+   "basis": "57 Reg D-эмитентов, 38 форм с 2024; минимум $100K; 0 объявлений"
+  },
+  {
+   "rank": 14,
+   "name": "BTI Partners",
+   "dist_model": "Институциональные LP / placement agents",
+   "annual_raise_usd_m_EST": 200,
+   "acq_cost_rate_lo_pct": 0.3,
+   "acq_cost_rate_hi_pct": 1.0,
+   "acq_budget_usd_m_lo_EST": 0.6,
+   "acq_budget_usd_m_hi_EST": 2.0,
+   "acq_budget_usd_m_mid_EST": 1.3,
+   "paid_media_usd_m_mid_EST": 0.026,
+   "google_ads_MEASURED": 0,
+   "pct_506c_MEASURED": null,
+   "investors_MEASURED": null,
+   "basis": "$3,6 млрд сделок; институциональные партнёры; 0 объявлений"
+  },
+  {
+   "rank": 10,
+   "name": "FarmTogether",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "annual_raise_usd_m_EST": 50,
+   "acq_cost_rate_lo_pct": 1.5,
+   "acq_cost_rate_hi_pct": 3.0,
+   "acq_budget_usd_m_lo_EST": 0.75,
+   "acq_budget_usd_m_hi_EST": 1.5,
+   "acq_budget_usd_m_mid_EST": 1.12,
+   "paid_media_usd_m_mid_EST": 0.472,
+   "google_ads_MEASURED": 24,
+   "pct_506c_MEASURED": 93.3,
+   "investors_MEASURED": 5891,
+   "basis": "$260 млн продано; 5 891 инвестор; 93% 506(c); 24 объявления"
+  },
+  {
+   "rank": 6,
+   "name": "AcreTrader",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "annual_raise_usd_m_EST": 40,
+   "acq_cost_rate_lo_pct": 1.5,
+   "acq_cost_rate_hi_pct": 3.0,
+   "acq_budget_usd_m_lo_EST": 0.6,
+   "acq_budget_usd_m_hi_EST": 1.2,
+   "acq_budget_usd_m_mid_EST": 0.9,
+   "paid_media_usd_m_mid_EST": 0.378,
+   "google_ads_MEASURED": 3,
+   "pct_506c_MEASURED": 100.0,
+   "investors_MEASURED": 7035,
+   "basis": "$186 млн продано; 7 035 инвесторов; 100% 506(c), но лишь 3 объявления"
+  },
+  {
+   "rank": 7,
+   "name": "Forestar Group (NYSE: FOR)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "annual_raise_usd_m_EST": 300,
+   "acq_cost_rate_lo_pct": 0.1,
+   "acq_cost_rate_hi_pct": 0.5,
+   "acq_budget_usd_m_lo_EST": 0.3,
+   "acq_budget_usd_m_hi_EST": 1.5,
+   "acq_budget_usd_m_mid_EST": 0.9,
+   "paid_media_usd_m_mid_EST": 0.117,
+   "google_ads_MEASURED": 60,
+   "pct_506c_MEASURED": null,
+   "investors_MEASURED": null,
+   "basis": "Публичная, контроль D.R. Horton; 60 объявлений — B2B/HR, не инвесторы"
+  },
+  {
+   "rank": 18,
+   "name": "Urban Catalyst",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "annual_raise_usd_m_EST": 30,
+   "acq_cost_rate_lo_pct": 1.5,
+   "acq_cost_rate_hi_pct": 3.0,
+   "acq_budget_usd_m_lo_EST": 0.45,
+   "acq_budget_usd_m_hi_EST": 0.9,
+   "acq_budget_usd_m_mid_EST": 0.67,
+   "paid_media_usd_m_mid_EST": 0.283,
+   "google_ads_MEASURED": 2,
+   "pct_506c_MEASURED": 66.7,
+   "investors_MEASURED": 356,
+   "basis": "Fund I $131 млн / 356 инвесторов; 67% 506(c); 2 объявления"
+  },
+  {
+   "rank": 9,
+   "name": "The St. Joe Company (NYSE: JOE)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "annual_raise_usd_m_EST": 200,
+   "acq_cost_rate_lo_pct": 0.1,
+   "acq_cost_rate_hi_pct": 0.5,
+   "acq_budget_usd_m_lo_EST": 0.2,
+   "acq_budget_usd_m_hi_EST": 1.0,
+   "acq_budget_usd_m_mid_EST": 0.6,
+   "paid_media_usd_m_mid_EST": 0.078,
+   "google_ads_MEASURED": 0,
+   "pct_506c_MEASURED": null,
+   "investors_MEASURED": null,
+   "basis": "Публичная; JV с операторами"
+  },
+  {
+   "rank": 16,
+   "name": "Allied Development",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "annual_raise_usd_m_EST": 25,
+   "acq_cost_rate_lo_pct": 1.5,
+   "acq_cost_rate_hi_pct": 3.0,
+   "acq_budget_usd_m_lo_EST": 0.38,
+   "acq_budget_usd_m_hi_EST": 0.75,
+   "acq_budget_usd_m_mid_EST": 0.56,
+   "paid_media_usd_m_mid_EST": 0.236,
+   "google_ads_MEASURED": 5,
+   "pct_506c_MEASURED": null,
+   "investors_MEASURED": null,
+   "basis": "30+ entitlement-проектов; воронка Book a Clarity Call; 5 объявлений"
+  },
+  {
+   "rank": 19,
+   "name": "Five Point Holdings (NYSE: FPH)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "annual_raise_usd_m_EST": 150,
+   "acq_cost_rate_lo_pct": 0.1,
+   "acq_cost_rate_hi_pct": 0.5,
+   "acq_budget_usd_m_lo_EST": 0.15,
+   "acq_budget_usd_m_hi_EST": 0.75,
+   "acq_budget_usd_m_mid_EST": 0.45,
+   "paid_media_usd_m_mid_EST": 0.059,
+   "google_ads_MEASURED": 0,
+   "pct_506c_MEASURED": null,
+   "investors_MEASURED": null,
+   "basis": "Публичная; JV с домостроителями; Hearthstone"
+  },
+  {
+   "rank": 15,
+   "name": "Tejon Ranch Co (NYSE: TRC)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "annual_raise_usd_m_EST": 50,
+   "acq_cost_rate_lo_pct": 0.1,
+   "acq_cost_rate_hi_pct": 0.5,
+   "acq_budget_usd_m_lo_EST": 0.05,
+   "acq_budget_usd_m_hi_EST": 0.25,
+   "acq_budget_usd_m_mid_EST": 0.15,
+   "paid_media_usd_m_mid_EST": 0.019,
+   "google_ads_MEASURED": 0,
+   "pct_506c_MEASURED": null,
+   "investors_MEASURED": null,
+   "basis": "Публичная; развитие через JV; 1 видео на YouTube"
+  }
+ ],
+ "mix": [
+  {
+   "name": "Walton Global",
+   "dist_model": "Дистрибьюторская сеть (BD/RIA/агенты)",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 72,
+   "usd_m_mid_EST": 18.72
+  },
+  {
+   "name": "Walton Global",
+   "dist_model": "Дистрибьюторская сеть (BD/RIA/агенты)",
+   "channel": "События, роудшоу, конференции",
+   "pct": 12,
+   "usd_m_mid_EST": 3.12
+  },
+  {
+   "name": "Walton Global",
+   "dist_model": "Дистрибьюторская сеть (BD/RIA/агенты)",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 7,
+   "usd_m_mid_EST": 1.82
+  },
+  {
+   "name": "Walton Global",
+   "dist_model": "Дистрибьюторская сеть (BD/RIA/агенты)",
+   "channel": "PR и отраслевые медиа",
+   "pct": 5,
+   "usd_m_mid_EST": 1.3
+  },
+  {
+   "name": "Walton Global",
+   "dist_model": "Дистрибьюторская сеть (BD/RIA/агенты)",
+   "channel": "Платный поиск и YouTube",
+   "pct": 0,
+   "usd_m_mid_EST": 0.0
+  },
+  {
+   "name": "Walton Global",
+   "dist_model": "Дистрибьюторская сеть (BD/RIA/агенты)",
+   "channel": "Платные соцсети",
+   "pct": 1,
+   "usd_m_mid_EST": 0.26
+  },
+  {
+   "name": "Walton Global",
+   "dist_model": "Дистрибьюторская сеть (BD/RIA/агенты)",
+   "channel": "Email и CRM",
+   "pct": 3,
+   "usd_m_mid_EST": 0.78
+  },
+  {
+   "name": "Millrose Properties (NYSE: MRP)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 5,
+   "usd_m_mid_EST": 0.225
+  },
+  {
+   "name": "Millrose Properties (NYSE: MRP)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "События, роудшоу, конференции",
+   "pct": 22,
+   "usd_m_mid_EST": 0.99
+  },
+  {
+   "name": "Millrose Properties (NYSE: MRP)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 20,
+   "usd_m_mid_EST": 0.9
+  },
+  {
+   "name": "Millrose Properties (NYSE: MRP)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "PR и отраслевые медиа",
+   "pct": 35,
+   "usd_m_mid_EST": 1.575
+  },
+  {
+   "name": "Millrose Properties (NYSE: MRP)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Платный поиск и YouTube",
+   "pct": 8,
+   "usd_m_mid_EST": 0.36
+  },
+  {
+   "name": "Millrose Properties (NYSE: MRP)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Платные соцсети",
+   "pct": 5,
+   "usd_m_mid_EST": 0.225
+  },
+  {
+   "name": "Millrose Properties (NYSE: MRP)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Email и CRM",
+   "pct": 5,
+   "usd_m_mid_EST": 0.225
+  },
+  {
+   "name": "DLP Capital",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 8,
+   "usd_m_mid_EST": 0.9
+  },
+  {
+   "name": "DLP Capital",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "События, роудшоу, конференции",
+   "pct": 10,
+   "usd_m_mid_EST": 1.125
+  },
+  {
+   "name": "DLP Capital",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 22,
+   "usd_m_mid_EST": 2.475
+  },
+  {
+   "name": "DLP Capital",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "PR и отраслевые медиа",
+   "pct": 6,
+   "usd_m_mid_EST": 0.675
+  },
+  {
+   "name": "DLP Capital",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Платный поиск и YouTube",
+   "pct": 24,
+   "usd_m_mid_EST": 2.7
+  },
+  {
+   "name": "DLP Capital",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Платные соцсети",
+   "pct": 18,
+   "usd_m_mid_EST": 2.025
+  },
+  {
+   "name": "DLP Capital",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Email и CRM",
+   "pct": 12,
+   "usd_m_mid_EST": 1.35
+  },
+  {
+   "name": "Caliber (NASDAQ: CWD)",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 8,
+   "usd_m_mid_EST": 0.27
+  },
+  {
+   "name": "Caliber (NASDAQ: CWD)",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "События, роудшоу, конференции",
+   "pct": 10,
+   "usd_m_mid_EST": 0.338
+  },
+  {
+   "name": "Caliber (NASDAQ: CWD)",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 22,
+   "usd_m_mid_EST": 0.743
+  },
+  {
+   "name": "Caliber (NASDAQ: CWD)",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "PR и отраслевые медиа",
+   "pct": 6,
+   "usd_m_mid_EST": 0.203
+  },
+  {
+   "name": "Caliber (NASDAQ: CWD)",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Платный поиск и YouTube",
+   "pct": 24,
+   "usd_m_mid_EST": 0.81
+  },
+  {
+   "name": "Caliber (NASDAQ: CWD)",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Платные соцсети",
+   "pct": 18,
+   "usd_m_mid_EST": 0.608
+  },
+  {
+   "name": "Caliber (NASDAQ: CWD)",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Email и CRM",
+   "pct": 12,
+   "usd_m_mid_EST": 0.405
+  },
+  {
+   "name": "AcreTrader",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 8,
+   "usd_m_mid_EST": 0.072
+  },
+  {
+   "name": "AcreTrader",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "События, роудшоу, конференции",
+   "pct": 10,
+   "usd_m_mid_EST": 0.09
+  },
+  {
+   "name": "AcreTrader",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 22,
+   "usd_m_mid_EST": 0.198
+  },
+  {
+   "name": "AcreTrader",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "PR и отраслевые медиа",
+   "pct": 6,
+   "usd_m_mid_EST": 0.054
+  },
+  {
+   "name": "AcreTrader",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Платный поиск и YouTube",
+   "pct": 24,
+   "usd_m_mid_EST": 0.216
+  },
+  {
+   "name": "AcreTrader",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Платные соцсети",
+   "pct": 18,
+   "usd_m_mid_EST": 0.162
+  },
+  {
+   "name": "AcreTrader",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Email и CRM",
+   "pct": 12,
+   "usd_m_mid_EST": 0.108
+  },
+  {
+   "name": "MLG Capital",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 8,
+   "usd_m_mid_EST": 0.45
+  },
+  {
+   "name": "MLG Capital",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "События, роудшоу, конференции",
+   "pct": 10,
+   "usd_m_mid_EST": 0.562
+  },
+  {
+   "name": "MLG Capital",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 22,
+   "usd_m_mid_EST": 1.238
+  },
+  {
+   "name": "MLG Capital",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "PR и отраслевые медиа",
+   "pct": 6,
+   "usd_m_mid_EST": 0.338
+  },
+  {
+   "name": "MLG Capital",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Платный поиск и YouTube",
+   "pct": 24,
+   "usd_m_mid_EST": 1.35
+  },
+  {
+   "name": "MLG Capital",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Платные соцсети",
+   "pct": 18,
+   "usd_m_mid_EST": 1.012
+  },
+  {
+   "name": "MLG Capital",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Email и CRM",
+   "pct": 12,
+   "usd_m_mid_EST": 0.675
+  },
+  {
+   "name": "Forestar Group (NYSE: FOR)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 5,
+   "usd_m_mid_EST": 0.045
+  },
+  {
+   "name": "Forestar Group (NYSE: FOR)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "События, роудшоу, конференции",
+   "pct": 22,
+   "usd_m_mid_EST": 0.198
+  },
+  {
+   "name": "Forestar Group (NYSE: FOR)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 20,
+   "usd_m_mid_EST": 0.18
+  },
+  {
+   "name": "Forestar Group (NYSE: FOR)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "PR и отраслевые медиа",
+   "pct": 35,
+   "usd_m_mid_EST": 0.315
+  },
+  {
+   "name": "Forestar Group (NYSE: FOR)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Платный поиск и YouTube",
+   "pct": 8,
+   "usd_m_mid_EST": 0.072
+  },
+  {
+   "name": "Forestar Group (NYSE: FOR)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Платные соцсети",
+   "pct": 5,
+   "usd_m_mid_EST": 0.045
+  },
+  {
+   "name": "Forestar Group (NYSE: FOR)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Email и CRM",
+   "pct": 5,
+   "usd_m_mid_EST": 0.045
+  },
+  {
+   "name": "Howard Hughes Holdings (NYSE: HHH)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 5,
+   "usd_m_mid_EST": 0.075
+  },
+  {
+   "name": "Howard Hughes Holdings (NYSE: HHH)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "События, роудшоу, конференции",
+   "pct": 22,
+   "usd_m_mid_EST": 0.33
+  },
+  {
+   "name": "Howard Hughes Holdings (NYSE: HHH)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 20,
+   "usd_m_mid_EST": 0.3
+  },
+  {
+   "name": "Howard Hughes Holdings (NYSE: HHH)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "PR и отраслевые медиа",
+   "pct": 35,
+   "usd_m_mid_EST": 0.525
+  },
+  {
+   "name": "Howard Hughes Holdings (NYSE: HHH)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Платный поиск и YouTube",
+   "pct": 8,
+   "usd_m_mid_EST": 0.12
+  },
+  {
+   "name": "Howard Hughes Holdings (NYSE: HHH)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Платные соцсети",
+   "pct": 5,
+   "usd_m_mid_EST": 0.075
+  },
+  {
+   "name": "Howard Hughes Holdings (NYSE: HHH)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Email и CRM",
+   "pct": 5,
+   "usd_m_mid_EST": 0.075
+  },
+  {
+   "name": "The St. Joe Company (NYSE: JOE)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 5,
+   "usd_m_mid_EST": 0.03
+  },
+  {
+   "name": "The St. Joe Company (NYSE: JOE)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "События, роудшоу, конференции",
+   "pct": 22,
+   "usd_m_mid_EST": 0.132
+  },
+  {
+   "name": "The St. Joe Company (NYSE: JOE)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 20,
+   "usd_m_mid_EST": 0.12
+  },
+  {
+   "name": "The St. Joe Company (NYSE: JOE)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "PR и отраслевые медиа",
+   "pct": 35,
+   "usd_m_mid_EST": 0.21
+  },
+  {
+   "name": "The St. Joe Company (NYSE: JOE)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Платный поиск и YouTube",
+   "pct": 8,
+   "usd_m_mid_EST": 0.048
+  },
+  {
+   "name": "The St. Joe Company (NYSE: JOE)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Платные соцсети",
+   "pct": 5,
+   "usd_m_mid_EST": 0.03
+  },
+  {
+   "name": "The St. Joe Company (NYSE: JOE)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Email и CRM",
+   "pct": 5,
+   "usd_m_mid_EST": 0.03
+  },
+  {
+   "name": "FarmTogether",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 8,
+   "usd_m_mid_EST": 0.09
+  },
+  {
+   "name": "FarmTogether",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "События, роудшоу, конференции",
+   "pct": 10,
+   "usd_m_mid_EST": 0.113
+  },
+  {
+   "name": "FarmTogether",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 22,
+   "usd_m_mid_EST": 0.247
+  },
+  {
+   "name": "FarmTogether",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "PR и отраслевые медиа",
+   "pct": 6,
+   "usd_m_mid_EST": 0.068
+  },
+  {
+   "name": "FarmTogether",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Платный поиск и YouTube",
+   "pct": 24,
+   "usd_m_mid_EST": 0.27
+  },
+  {
+   "name": "FarmTogether",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Платные соцсети",
+   "pct": 18,
+   "usd_m_mid_EST": 0.203
+  },
+  {
+   "name": "FarmTogether",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Email и CRM",
+   "pct": 12,
+   "usd_m_mid_EST": 0.135
+  },
+  {
+   "name": "Domain Real Estate Partners",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 45,
+   "usd_m_mid_EST": 4.388
+  },
+  {
+   "name": "Domain Real Estate Partners",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "События, роудшоу, конференции",
+   "pct": 25,
+   "usd_m_mid_EST": 2.438
+  },
+  {
+   "name": "Domain Real Estate Partners",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 12,
+   "usd_m_mid_EST": 1.17
+  },
+  {
+   "name": "Domain Real Estate Partners",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "PR и отраслевые медиа",
+   "pct": 13,
+   "usd_m_mid_EST": 1.268
+  },
+  {
+   "name": "Domain Real Estate Partners",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Платный поиск и YouTube",
+   "pct": 0,
+   "usd_m_mid_EST": 0.0
+  },
+  {
+   "name": "Domain Real Estate Partners",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Платные соцсети",
+   "pct": 2,
+   "usd_m_mid_EST": 0.195
+  },
+  {
+   "name": "Domain Real Estate Partners",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Email и CRM",
+   "pct": 3,
+   "usd_m_mid_EST": 0.292
+  },
+  {
+   "name": "BTI Partners",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 45,
+   "usd_m_mid_EST": 0.585
+  },
+  {
+   "name": "BTI Partners",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "События, роудшоу, конференции",
+   "pct": 25,
+   "usd_m_mid_EST": 0.325
+  },
+  {
+   "name": "BTI Partners",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 12,
+   "usd_m_mid_EST": 0.156
+  },
+  {
+   "name": "BTI Partners",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "PR и отраслевые медиа",
+   "pct": 13,
+   "usd_m_mid_EST": 0.169
+  },
+  {
+   "name": "BTI Partners",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Платный поиск и YouTube",
+   "pct": 0,
+   "usd_m_mid_EST": 0.0
+  },
+  {
+   "name": "BTI Partners",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Платные соцсети",
+   "pct": 2,
+   "usd_m_mid_EST": 0.026
+  },
+  {
+   "name": "BTI Partners",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Email и CRM",
+   "pct": 3,
+   "usd_m_mid_EST": 0.039
+  },
+  {
+   "name": "GSP REI",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 8,
+   "usd_m_mid_EST": 0.108
+  },
+  {
+   "name": "GSP REI",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "События, роудшоу, конференции",
+   "pct": 10,
+   "usd_m_mid_EST": 0.135
+  },
+  {
+   "name": "GSP REI",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 22,
+   "usd_m_mid_EST": 0.297
+  },
+  {
+   "name": "GSP REI",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "PR и отраслевые медиа",
+   "pct": 6,
+   "usd_m_mid_EST": 0.081
+  },
+  {
+   "name": "GSP REI",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Платный поиск и YouTube",
+   "pct": 24,
+   "usd_m_mid_EST": 0.324
+  },
+  {
+   "name": "GSP REI",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Платные соцсети",
+   "pct": 18,
+   "usd_m_mid_EST": 0.243
+  },
+  {
+   "name": "GSP REI",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Email и CRM",
+   "pct": 12,
+   "usd_m_mid_EST": 0.162
+  },
+  {
+   "name": "Tejon Ranch Co (NYSE: TRC)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 5,
+   "usd_m_mid_EST": 0.007
+  },
+  {
+   "name": "Tejon Ranch Co (NYSE: TRC)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "События, роудшоу, конференции",
+   "pct": 22,
+   "usd_m_mid_EST": 0.033
+  },
+  {
+   "name": "Tejon Ranch Co (NYSE: TRC)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 20,
+   "usd_m_mid_EST": 0.03
+  },
+  {
+   "name": "Tejon Ranch Co (NYSE: TRC)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "PR и отраслевые медиа",
+   "pct": 35,
+   "usd_m_mid_EST": 0.052
+  },
+  {
+   "name": "Tejon Ranch Co (NYSE: TRC)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Платный поиск и YouTube",
+   "pct": 8,
+   "usd_m_mid_EST": 0.012
+  },
+  {
+   "name": "Tejon Ranch Co (NYSE: TRC)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Платные соцсети",
+   "pct": 5,
+   "usd_m_mid_EST": 0.007
+  },
+  {
+   "name": "Tejon Ranch Co (NYSE: TRC)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Email и CRM",
+   "pct": 5,
+   "usd_m_mid_EST": 0.007
+  },
+  {
+   "name": "Allied Development",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 8,
+   "usd_m_mid_EST": 0.045
+  },
+  {
+   "name": "Allied Development",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "События, роудшоу, конференции",
+   "pct": 10,
+   "usd_m_mid_EST": 0.056
+  },
+  {
+   "name": "Allied Development",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 22,
+   "usd_m_mid_EST": 0.124
+  },
+  {
+   "name": "Allied Development",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "PR и отраслевые медиа",
+   "pct": 6,
+   "usd_m_mid_EST": 0.034
+  },
+  {
+   "name": "Allied Development",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Платный поиск и YouTube",
+   "pct": 24,
+   "usd_m_mid_EST": 0.135
+  },
+  {
+   "name": "Allied Development",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Платные соцсети",
+   "pct": 18,
+   "usd_m_mid_EST": 0.101
+  },
+  {
+   "name": "Allied Development",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Email и CRM",
+   "pct": 12,
+   "usd_m_mid_EST": 0.068
+  },
+  {
+   "name": "13th Floor Investments",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 45,
+   "usd_m_mid_EST": 0.877
+  },
+  {
+   "name": "13th Floor Investments",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "События, роудшоу, конференции",
+   "pct": 25,
+   "usd_m_mid_EST": 0.487
+  },
+  {
+   "name": "13th Floor Investments",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 12,
+   "usd_m_mid_EST": 0.234
+  },
+  {
+   "name": "13th Floor Investments",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "PR и отраслевые медиа",
+   "pct": 13,
+   "usd_m_mid_EST": 0.254
+  },
+  {
+   "name": "13th Floor Investments",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Платный поиск и YouTube",
+   "pct": 0,
+   "usd_m_mid_EST": 0.0
+  },
+  {
+   "name": "13th Floor Investments",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Платные соцсети",
+   "pct": 2,
+   "usd_m_mid_EST": 0.039
+  },
+  {
+   "name": "13th Floor Investments",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Email и CRM",
+   "pct": 3,
+   "usd_m_mid_EST": 0.058
+  },
+  {
+   "name": "Urban Catalyst",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 8,
+   "usd_m_mid_EST": 0.054
+  },
+  {
+   "name": "Urban Catalyst",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "События, роудшоу, конференции",
+   "pct": 10,
+   "usd_m_mid_EST": 0.067
+  },
+  {
+   "name": "Urban Catalyst",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 22,
+   "usd_m_mid_EST": 0.148
+  },
+  {
+   "name": "Urban Catalyst",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "PR и отраслевые медиа",
+   "pct": 6,
+   "usd_m_mid_EST": 0.041
+  },
+  {
+   "name": "Urban Catalyst",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Платный поиск и YouTube",
+   "pct": 24,
+   "usd_m_mid_EST": 0.162
+  },
+  {
+   "name": "Urban Catalyst",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Платные соцсети",
+   "pct": 18,
+   "usd_m_mid_EST": 0.121
+  },
+  {
+   "name": "Urban Catalyst",
+   "dist_model": "Прямая цифровая воронка 506(c)",
+   "channel": "Email и CRM",
+   "pct": 12,
+   "usd_m_mid_EST": 0.081
+  },
+  {
+   "name": "Five Point Holdings (NYSE: FPH)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 5,
+   "usd_m_mid_EST": 0.022
+  },
+  {
+   "name": "Five Point Holdings (NYSE: FPH)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "События, роудшоу, конференции",
+   "pct": 22,
+   "usd_m_mid_EST": 0.099
+  },
+  {
+   "name": "Five Point Holdings (NYSE: FPH)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 20,
+   "usd_m_mid_EST": 0.09
+  },
+  {
+   "name": "Five Point Holdings (NYSE: FPH)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "PR и отраслевые медиа",
+   "pct": 35,
+   "usd_m_mid_EST": 0.158
+  },
+  {
+   "name": "Five Point Holdings (NYSE: FPH)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Платный поиск и YouTube",
+   "pct": 8,
+   "usd_m_mid_EST": 0.036
+  },
+  {
+   "name": "Five Point Holdings (NYSE: FPH)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Платные соцсети",
+   "pct": 5,
+   "usd_m_mid_EST": 0.022
+  },
+  {
+   "name": "Five Point Holdings (NYSE: FPH)",
+   "dist_model": "Публичный рынок (IR, не маркетинг)",
+   "channel": "Email и CRM",
+   "pct": 5,
+   "usd_m_mid_EST": 0.022
+  },
+  {
+   "name": "Crow Holdings",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 45,
+   "usd_m_mid_EST": 2.34
+  },
+  {
+   "name": "Crow Holdings",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "События, роудшоу, конференции",
+   "pct": 25,
+   "usd_m_mid_EST": 1.3
+  },
+  {
+   "name": "Crow Holdings",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 12,
+   "usd_m_mid_EST": 0.624
+  },
+  {
+   "name": "Crow Holdings",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "PR и отраслевые медиа",
+   "pct": 13,
+   "usd_m_mid_EST": 0.676
+  },
+  {
+   "name": "Crow Holdings",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Платный поиск и YouTube",
+   "pct": 0,
+   "usd_m_mid_EST": 0.0
+  },
+  {
+   "name": "Crow Holdings",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Платные соцсети",
+   "pct": 2,
+   "usd_m_mid_EST": 0.104
+  },
+  {
+   "name": "Crow Holdings",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Email и CRM",
+   "pct": 3,
+   "usd_m_mid_EST": 0.156
+  },
+  {
+   "name": "Bedrock Land Finance (TWG Global)",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Комиссии дистрибьюторам и агентам",
+   "pct": 45,
+   "usd_m_mid_EST": 2.34
+  },
+  {
+   "name": "Bedrock Land Finance (TWG Global)",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "События, роудшоу, конференции",
+   "pct": 25,
+   "usd_m_mid_EST": 1.3
+  },
+  {
+   "name": "Bedrock Land Finance (TWG Global)",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Контент, печать, презентационные материалы",
+   "pct": 12,
+   "usd_m_mid_EST": 0.624
+  },
+  {
+   "name": "Bedrock Land Finance (TWG Global)",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "PR и отраслевые медиа",
+   "pct": 13,
+   "usd_m_mid_EST": 0.676
+  },
+  {
+   "name": "Bedrock Land Finance (TWG Global)",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Платный поиск и YouTube",
+   "pct": 0,
+   "usd_m_mid_EST": 0.0
+  },
+  {
+   "name": "Bedrock Land Finance (TWG Global)",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Платные соцсети",
+   "pct": 2,
+   "usd_m_mid_EST": 0.104
+  },
+  {
+   "name": "Bedrock Land Finance (TWG Global)",
+   "dist_model": "Институциональные LP / placement agents",
+   "channel": "Email и CRM",
+   "pct": 3,
+   "usd_m_mid_EST": 0.156
+  }
+ ],
+ "dist_model": {
+  "distributor": "Дистрибьюторская сеть (BD/RIA/агенты)",
+  "direct_digital": "Прямая цифровая воронка 506(c)",
+  "institutional": "Институциональные LP / placement agents",
+  "public": "Публичный рынок (IR, не маркетинг)"
+ },
+ "channel_mix": {
+  "distributor": {
+   "Комиссии дистрибьюторам и агентам": 72,
+   "События, роудшоу, конференции": 12,
+   "Контент, печать, презентационные материалы": 7,
+   "PR и отраслевые медиа": 5,
+   "Платный поиск и YouTube": 0,
+   "Платные соцсети": 1,
+   "Email и CRM": 3
+  },
+  "direct_digital": {
+   "Комиссии дистрибьюторам и агентам": 8,
+   "События, роудшоу, конференции": 10,
+   "Контент, печать, презентационные материалы": 22,
+   "PR и отраслевые медиа": 6,
+   "Платный поиск и YouTube": 24,
+   "Платные соцсети": 18,
+   "Email и CRM": 12
+  },
+  "institutional": {
+   "Комиссии дистрибьюторам и агентам": 45,
+   "События, роудшоу, конференции": 25,
+   "Контент, печать, презентационные материалы": 12,
+   "PR и отраслевые медиа": 13,
+   "Платный поиск и YouTube": 0,
+   "Платные соцсети": 2,
+   "Email и CRM": 3
+  },
+  "public": {
+   "Комиссии дистрибьюторам и агентам": 5,
+   "События, роудшоу, конференции": 22,
+   "Контент, печать, презентационные материалы": 20,
+   "PR и отраслевые медиа": 35,
+   "Платный поиск и YouTube": 8,
+   "Платные соцсети": 5,
+   "Email и CRM": 5
+  }
+ }
+}

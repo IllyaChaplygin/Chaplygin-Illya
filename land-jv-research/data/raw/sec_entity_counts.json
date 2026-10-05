@@ -1,0 +1,212 @@
+{
+ "Walton Global": {
+  "clean_entities": 44,
+  "clean_formD": 118,
+  "since2024": 6,
+  "raw_entities": 80,
+  "raw_formD": 221
+ },
+ "DLP Capital": {
+  "clean_entities": 22,
+  "clean_formD": 51,
+  "since2024": 21,
+  "raw_entities": 24,
+  "raw_formD": 57
+ },
+ "Caliber": {
+  "clean_entities": 29,
+  "clean_formD": 106,
+  "since2024": 39,
+  "raw_entities": 35,
+  "raw_formD": 128
+ },
+ "Urban Catalyst": {
+  "clean_entities": 5,
+  "clean_formD": 8,
+  "since2024": 0,
+  "raw_entities": 5,
+  "raw_formD": 8
+ },
+ "AcreTrader": {
+  "clean_entities": 100,
+  "clean_formD": 101,
+  "since2024": 1,
+  "raw_entities": 100,
+  "raw_formD": 101
+ },
+ "FarmTogether": {
+  "clean_entities": 44,
+  "clean_formD": 60,
+  "since2024": 10,
+  "raw_entities": 44,
+  "raw_formD": 60
+ },
+ "Fundrise": {
+  "clean_entities": 42,
+  "clean_formD": 118,
+  "since2024": 13,
+  "raw_entities": 43,
+  "raw_formD": 119
+ },
+ "CrowdStreet": {
+  "clean_entities": 24,
+  "clean_formD": 38,
+  "since2024": 2,
+  "raw_entities": 24,
+  "raw_formD": 38
+ },
+ "EquityMultiple": {
+  "clean_entities": 100,
+  "clean_formD": 102,
+  "since2024": 0,
+  "raw_entities": 100,
+  "raw_formD": 102
+ },
+ "Yieldstreet": {
+  "clean_entities": 5,
+  "clean_formD": 12,
+  "since2024": 5,
+  "raw_entities": 6,
+  "raw_formD": 13
+ },
+ "RealtyMogul": {
+  "clean_entities": 131,
+  "clean_formD": 212,
+  "since2024": 0,
+  "raw_entities": 131,
+  "raw_formD": 212
+ },
+ "MLG Capital": {
+  "clean_entities": 45,
+  "clean_formD": 87,
+  "since2024": 22,
+  "raw_entities": 45,
+  "raw_formD": 87
+ },
+ "Belpointe": {
+  "clean_entities": 7,
+  "clean_formD": 30,
+  "since2024": 4,
+  "raw_entities": 7,
+  "raw_formD": 30
+ },
+ "Origin Investments": {
+  "clean_entities": 0,
+  "clean_formD": 0,
+  "since2024": 0,
+  "raw_entities": 0,
+  "raw_formD": 0
+ },
+ "Cardone Capital": {
+  "clean_entities": 23,
+  "clean_formD": 28,
+  "since2024": 7,
+  "raw_entities": 23,
+  "raw_formD": 28
+ },
+ "GSP REI": {
+  "clean_entities": 57,
+  "clean_formD": 78,
+  "since2024": 38,
+  "raw_entities": 58,
+  "raw_formD": 95
+ },
+ "Allied Development": {
+  "clean_entities": 2,
+  "clean_formD": 4,
+  "since2024": 0,
+  "raw_entities": 2,
+  "raw_formD": 4
+ },
+ "Tract Land": {
+  "clean_entities": 0,
+  "clean_formD": 0,
+  "since2024": 0,
+  "raw_entities": 0,
+  "raw_formD": 0
+ },
+ "LandVest": {
+  "clean_entities": 1,
+  "clean_formD": 2,
+  "since2024": 1,
+  "raw_entities": 1,
+  "raw_formD": 2
+ },
+ "Legacy Land Fund": {
+  "clean_entities": 6,
+  "clean_formD": 8,
+  "since2024": 3,
+  "raw_entities": 6,
+  "raw_formD": 8
+ },
+ "Harvest Returns": {
+  "clean_entities": 2,
+  "clean_formD": 8,
+  "since2024": 0,
+  "raw_entities": 2,
+  "raw_formD": 8
+ },
+ "BTI Partners": {
+  "clean_entities": 1,
+  "clean_formD": 1,
+  "since2024": 0,
+  "raw_entities": 5,
+  "raw_formD": 15
+ },
+ "13th Floor": {
+  "clean_entities": 1,
+  "clean_formD": 1,
+  "since2024": 0,
+  "raw_entities": 1,
+  "raw_formD": 1
+ },
+ "Hearthstone": {
+  "clean_entities": 4,
+  "clean_formD": 4,
+  "since2024": 2,
+  "raw_entities": 4,
+  "raw_formD": 4
+ },
+ "GTIS Partners": {
+  "clean_entities": 41,
+  "clean_formD": 88,
+  "since2024": 7,
+  "raw_entities": 41,
+  "raw_formD": 88
+ },
+ "Crow Holdings": {
+  "clean_entities": 44,
+  "clean_formD": 84,
+  "since2024": 17,
+  "raw_entities": 44,
+  "raw_formD": 84
+ },
+ "Hines": {
+  "clean_entities": 33,
+  "clean_formD": 228,
+  "since2024": 61,
+  "raw_entities": 34,
+  "raw_formD": 261
+ },
+ "Velur": {
+  "clean_entities": 0,
+  "clean_formD": 0,
+  "since2024": 0,
+  "raw_entities": 0,
+  "raw_formD": 0
+ },
+ "NexMetro": {
+  "clean_entities": 13,
+  "clean_formD": 35,
+  "since2024": 16,
+  "raw_entities": 13,
+  "raw_formD": 35
+ },
+ "AHV Communities": {
+  "clean_entities": 5,
+  "clean_formD": 6,
+  "since2024": 5,
+  "raw_entities": 6,
+  "raw_formD": 7
+ }
+}
