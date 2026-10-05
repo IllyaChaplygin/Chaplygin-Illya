@@ -285,7 +285,7 @@ def main():
 
     # ---------------- 5. Каналы ----------------
     mix = read_csv('channel_mix.csv')
-    ws = wb.create_sheet('5. Каналы')
+    ws = wb.create_sheet('5. Бюджет по каналам')
     ws.append(['Распределение бюджета по каналам — модельная оценка на основе наблюдаемых сигналов'])
     ws['A1'].font = TITLE_FONT
     ws.append([])
@@ -349,9 +349,184 @@ def main():
         ws.cell(row=r, column=7).alignment = Alignment(wrap_text=True, vertical='top')
     autosize(ws, maxw=34); ws.column_dimensions['G'].width = 86
 
+    add_channel_sheets(wb)
+    add_marketing_sheets(wb)
     wb.save(OUTX)
     print('Сохранено:', OUTX)
     print('Листов:', len(wb.sheetnames), '->', ', '.join(wb.sheetnames))
+
+
+
+
+def add_channel_sheets(wb):
+    """Листы 8-10: каналы, языки/регионы, статус инструментов измерения."""
+    import json as _j
+    ch = _j.load(open(os.path.join(DATA, 'channels.json'), encoding='utf-8'))
+
+    ws = wb.create_sheet('8. Каналы продвижения')
+    ws.append(['КАНАЛЫ ПРОДВИЖЕНИЯ: что измерено по каждой компании'])
+    ws['A1'].font = TITLE_FONT
+    ws.append(['Google и Meta — количество активных объявлений. Соцсети — наличие канала по ссылкам с сайта. '
+               'Суммы расходов не раскрывает ни одна из платформ.'])
+    ws['A2'].font = NOTE_FONT
+    ws.append([])
+    rows = ch['matrix']
+    cols = list(rows[0].keys())
+    ws.append(cols)
+    style_header(ws, row=4)
+    for r in rows:
+        ws.append([r[c] for c in cols])
+    for r in range(5, ws.max_row + 1):
+        g = ws.cell(row=r, column=2)
+        gv = g.value if isinstance(g.value, (int, float)) else 0
+        g.fill = PatternFill('solid', fgColor='F8CBAD' if gv == 0 else 'C6E0B4')
+        rel = ws.cell(row=r, column=4)
+        if isinstance(rel.value, str) and rel.value.startswith('НЕДОСТОВЕРНО'):
+            rel.fill = PatternFill('solid', fgColor='FFE699')
+            ws.cell(row=r, column=3).fill = PatternFill('solid', fgColor='FFE699')
+        ws.cell(row=r, column=4).alignment = Alignment(wrap_text=True, vertical='top')
+    autosize(ws, maxw=30)
+    ws.column_dimensions['D'].width = 52
+
+    ws = wb.create_sheet('9. Языки и регионы')
+    ws.append(['ЯЗЫКИ И РЕГИОНЫ ПРОДВИЖЕНИЯ'])
+    ws['A1'].font = TITLE_FONT
+    ws.append([])
+    ws.append(['Компания', 'Языки', 'Региональные порталы', 'Офисы', 'Регионы', 'Активность 2025-2026'])
+    style_header(ws, row=3)
+    for r in ch['lang_region']:
+        ws.append([r['name'], r['langs'], r['portals'], r['offices'], r['regions'], r['activity_2026']])
+    for r in range(4, ws.max_row + 1):
+        for c in range(1, 7):
+            ws.cell(row=r, column=c).alignment = Alignment(wrap_text=True, vertical='top')
+    autosize(ws, maxw=30)
+    for c, w in zip('BCDEF', (34, 30, 38, 30, 90)):
+        ws.column_dimensions[c].width = w
+
+    e = ch['eb5']
+    ws.append([]); ws.append([])
+    base = ws.max_row + 1
+    ws.cell(row=base, column=1, value='ОТДЕЛЬНЫЙ КАНАЛ ИНОСТРАННОГО КАПИТАЛА: ' + e['channel']).font = Font(bold=True, size=11, color='1F3A5F')
+    for k, lab in [('what', 'Что это'), ('why', 'Зачем смотреть'), ('geography', 'География'),
+                   ('example', 'Примеры'), ('mechanics', 'Механика'), ('caveat', 'Оговорка')]:
+        ws.append([lab, e[k]])
+        ws.cell(row=ws.max_row, column=2).alignment = Alignment(wrap_text=True, vertical='top')
+
+    ws = wb.create_sheet('10. Инструменты')
+    ws.append(['СТАТУС ИНСТРУМЕНТОВ ИЗМЕРЕНИЯ — каждый проверен контрольным запросом'])
+    ws['A1'].font = TITLE_FONT
+    ws.append(['Контрольный запрос обязан вернуть много. Если инструмент возвращает ноль на Nike — '
+               'его нули ничего не значат и в выводы не идут.'])
+    ws['A2'].font = NOTE_FONT
+    ws.append([])
+    ws.append(['Источник', 'Статус', 'Контрольный запрос', 'Что покрывает', 'Примечание'])
+    style_header(ws, row=4)
+    for r in ch['instruments']:
+        ws.append([r['source'], r['status'], r['control'], r['covers'], r['note']])
+    for r in range(5, ws.max_row + 1):
+        st = ws.cell(row=r, column=2)
+        st.fill = PatternFill('solid', fgColor={'ВАЛИДЕН': 'C6E0B4'}.get(st.value, 'F8CBAD'))
+        ws.cell(row=r, column=5).alignment = Alignment(wrap_text=True, vertical='top')
+    autosize(ws, maxw=34)
+    ws.column_dimensions['E'].width = 80
+
+
+def add_marketing_sheets(wb):
+    """Листы 11-14: разбор воронок, экономика крупного чека, конференции, города."""
+    import json as _j
+    fun = _j.load(open(os.path.join(DATA, 'funnels.json'), encoding='utf-8'))
+    big = _j.load(open(os.path.join(DATA, 'bigticket.json'), encoding='utf-8'))
+    metro = _j.load(open(os.path.join(DATA, 'metro.json'), encoding='utf-8'))
+
+    # --- 11. Разбор воронок ---
+    ws = wb.create_sheet('11. Разбор воронок')
+    ws.append(['СЛЕПОК ВОРОНКИ: куда ведут трафик и чем цепляют'])
+    ws['A1'].font = TITLE_FONT
+    ws.append(['Пиксель на сайте = канал реально используется. Это точнее рекламных библиотек: '
+               'библиотека может не показать объявления, но пиксель стоит только у того, кто льёт трафик.'])
+    ws['A2'].font = NOTE_FONT
+    ws.append([])
+    cols = list(fun[0].keys())
+    ws.append(cols); style_header(ws, row=4)
+    for r in fun:
+        ws.append([r[c] for c in cols])
+    npaid = cols.index('Платных каналов, шт') + 1
+    for r in range(5, ws.max_row + 1):
+        c = ws.cell(row=r, column=npaid)
+        v = c.value if isinstance(c.value, int) else 0
+        c.fill = PatternFill('solid', fgColor='C6E0B4' if v >= 4 else ('FFE699' if v >= 1 else 'F8CBAD'))
+        acc = ws.cell(row=r, column=cols.index('Спрашивают аккредитацию') + 1)
+        if acc.value == 'ДА':
+            acc.fill = PatternFill('solid', fgColor='DDEBF7')
+        for cc in (3, 4, 5, 7):
+            ws.cell(row=r, column=cc).alignment = Alignment(wrap_text=True, vertical='top')
+    autosize(ws, maxw=26)
+    for c, w in zip('CDEG', (40, 46, 44, 40)):
+        ws.column_dimensions[c].width = w
+
+    # --- 12. Экономика крупного чека ---
+    ws = wb.create_sheet('12. Крупный чек')
+    ws.append(['ЭКОНОМИКА КАНАЛА $1 МЛН+ — выбранный сегмент'])
+    ws['A1'].font = TITLE_FONT
+    ws.append(['Это каналы, которыми пользуются Walton, Crow, Domain и Bedrock. '
+               'Ни один из них не виден в рекламных библиотеках, потому что это не реклама.'])
+    ws['A2'].font = NOTE_FONT
+    ws.append([])
+    ws.append(['СЦЕНАРИЙ', 'Логика расчёта', 'Стоимость', 'Вердикт', 'Обоснование'])
+    style_header(ws, row=4)
+    for r in big['scenarios']:
+        ws.append([r['scenario'], r['logic'], r['nominal_cost'], r['verdict'], r['why']])
+    for r in range(5, ws.max_row + 1):
+        v = ws.cell(row=r, column=4)
+        v.fill = PatternFill('solid', fgColor='F8CBAD' if 'НЕ РАБОТАЕТ' in str(v.value) else 'C6E0B4')
+        for cc in (2, 5):
+            ws.cell(row=r, column=cc).alignment = Alignment(wrap_text=True, vertical='top')
+    autosize(ws, maxw=30)
+    ws.column_dimensions['B'].width = 56; ws.column_dimensions['E'].width = 88
+
+    ws.append([]); ws.append([])
+    base = ws.max_row + 1
+    ws.cell(row=base, column=1, value='РАСЦЕНКИ PLACEMENT AGENTS').font = Font(bold=True, size=11, color='1F3A5F')
+    ws.append(['Позиция', 'Значение', 'Источник']); style_header(ws, row=base + 1, ncols=3)
+    for r in big['placement']:
+        ws.append([r['item'], r['value'], r['src']])
+
+    # --- 13. Конференции ---
+    ws = wb.create_sheet('13. Конференции 2026')
+    ws.append(['ГДЕ ФИЗИЧЕСКИ НАХОДЯТСЯ ДЕНЬГИ: профильные события 2026'])
+    ws['A1'].font = TITLE_FONT
+    ws.append(['Экономика этих событий устроена в вашу пользу наоборот: инвесторы от $100 млн проходят '
+               'бесплатно, платит тот, кто ищет капитал. Организатор гарантирует нужную аудиторию в зале.'])
+    ws['A2'].font = NOTE_FONT
+    ws.append([])
+    ws.append(['Событие', 'Когда', 'Где', 'Цена входа для управляющего', 'Комментарий'])
+    style_header(ws, row=4)
+    for r in big['conferences']:
+        ws.append([r['event'], r['when'], r['where'], r['cost_manager'], r['note']])
+    for r in range(5, ws.max_row + 1):
+        ws.cell(row=r, column=5).alignment = Alignment(wrap_text=True, vertical='top')
+    autosize(ws, maxw=34); ws.column_dimensions['E'].width = 64
+
+    # --- 14. Города ---
+    ws = wb.create_sheet('14. Города')
+    ws.append(['РАЗРЕЗ ПО ГОРОДАМ: где сидят игроки двадцатки'])
+    ws['A1'].font = TITLE_FONT
+    ws.append(['Нью-Йорка в этом рынке нет: ни одна компания двадцатки там не базируется. '
+               'Рынок земли сконцентрирован в Солнечном поясе, где есть пригодная к застройке земля.'])
+    ws['A2'].font = NOTE_FONT
+    ws.append([])
+    ws.append(['Метрополия', 'Компаний', 'Сумма объявлений Google', 'Компании'])
+    style_header(ws, row=4)
+    for r in metro:
+        ws.append([r['Метрополия'], r['Компаний'], r['Сумма объявлений Google'], r['Компании']])
+    for r in range(5, ws.max_row + 1):
+        ws.cell(row=r, column=4).alignment = Alignment(wrap_text=True, vertical='top')
+    autosize(ws, maxw=30); ws.column_dimensions['D'].width = 62
+    ch = BarChart(); ch.title = 'Компаний двадцатки по метрополиям'
+    ch.add_data(Reference(ws, min_col=2, min_row=4, max_row=ws.max_row), titles_from_data=True)
+    ch.set_categories(Reference(ws, min_col=1, min_row=5, max_row=ws.max_row))
+    ch.height, ch.width = 14, 24
+    ws.add_chart(ch, 'F5')
 
 
 if __name__ == '__main__':
