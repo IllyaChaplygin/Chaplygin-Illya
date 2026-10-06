@@ -141,51 +141,63 @@ FIN = [("BSCM стакан 150 г", 13, 0.500), ("BSCM пауч 150 г", 5, 0.47
 def s_fin():
     s = new_slide()
     header(s, "ЦІНОУТВОРЕННЯ", "З чого складається ціна на полиці",
-           "Полиця — це собівартість плюс бонус мережі, наша маржа й націнка магазину. Закупівля (FOB) — окремо, справа.")
-    parts = [("Собівартість (СС)", NAVY_L), ("Бонус мережі", GOLD), ("Наша маржа", ORANGE), ("Націнка магазину", LGREY)]
-    sh = [0.4 / 1.4 * 100, 0.25 / 1.4 * 100, 0.35 / 1.4 * 100, 0.4 / 1.4 * 100]
-    rect(s, M, 1.80, 11.98, 1.12, MIST, rounded=True, adj=0.1)
-    text(s, M + 0.25, 1.88, 8, 0.24, "З КОЖНИХ 100 ГРН НА ПОЛИЦІ", size=10, bold=True, color=GREY)
-    xx = M + 0.25; full = 11.48
-    for (lb, col), v in zip(parts, sh):
-        ww = full * v / 100
-        rect(s, xx, 2.18, ww, 0.40, col)
-        text(s, xx, 2.18, ww, 0.40, f"{num(v, 1)} %", size=12.5, bold=True, color=NAVY if col in (LGREY, ORANGE) else WHITE,
-             align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-        text(s, xx + 0.04, 2.62, ww - 0.06, 0.24, lb, size=9.5, bold=True, color=INK, align=PP_ALIGN.CENTER)
-        xx += ww
-    y0 = 3.12; rh = 0.46
-    bx = M + 2.45; scale = 4.9 / 340.0
-    text(s, M, y0 - 0.02, 2.3, 0.22, "ТОВАР", size=8.5, bold=True, color=GREY)
-    text(s, bx, y0 - 0.02, 5.4, 0.22, "ПОЛИЦЯ, ГРН ЗА ОДНУ УПАКОВКУ", size=8.5, bold=True, color=GREY)
-    zx = M + 8.55
-    rect(s, zx - 0.12, y0 - 0.04, 0.012, 3.6, MIST_D)
+           "Як у фінмоделі: ціна партнеру = 100 %, а мережа додає до неї 40 % — так виходить полиця. Закупівля (FOB) — окремо.")
+    CO, BO, MA, MK_ = NAVY_L, GOLD, ORANGE, LGREY
+    # ── схема з відсотками фінмоделі
+    rect(s, M, 1.80, 11.98, 1.42, MIST, rounded=True, adj=0.08)
+    bx0 = M + 0.25; fw = 11.48; unit = fw / 1.4
+    text(s, bx0, 1.86, 7, 0.22, "ЦІНА ПАРТНЕРУ — ЗА НЕЮ МИ ПРОДАЄМО МЕРЕЖІ (100 %)", size=9, bold=True, color=GREY)
+    xx = bx0
+    for lb, v, col, fg in (("Собівартість 40 %", 0.40, CO, WHITE), ("Бонус мережі 25 %", 0.25, BO, WHITE), ("Наша маржа 35 %", 0.35, MA, NAVY)):
+        rect(s, xx, 2.10, unit * v, 0.36, col)
+        text(s, xx, 2.10, unit * v, 0.36, lb, size=10.5, bold=True, color=fg, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+        xx += unit * v
+    rect(s, xx, 2.10, unit * 0.4, 0.36, MK_)
+    text(s, xx, 2.10, unit * 0.4, 0.36, "Націнка магазину +40 %", size=10.5, bold=True, color=NAVY, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+    text(s, bx0, 2.52, unit, 0.22, "= ціна партнеру", size=9.5, bold=True, color=INK, align=PP_ALIGN.CENTER)
+    rect(s, bx0, 2.50, unit, 0.012, NAVY)
+    text(s, bx0 + unit, 2.52, unit * 0.4, 0.22, "", size=9)
+    rect(s, bx0, 2.82, fw, 0.012, NAVY)
+    text(s, bx0, 2.86, fw, 0.24, "ПОЛИЦЯ = ціна партнеру × 1,40.  Бонус 25 % і маржа 35 % — частки ціни партнеру; націнка 40 % — понад ціну партнеру.",
+         size=10, bold=True, color=NAVY, align=PP_ALIGN.CENTER)
+    # ── по товарах
+    y0 = 3.34; rh = 0.40
+    bx = M + 2.3; scale = 4.3 / 340.0
+    text(s, M, y0 - 0.02, 2.2, 0.22, "ТОВАР", size=8.5, bold=True, color=GREY)
+    text(s, bx, y0 - 0.02, 5, 0.22, "ГРН ЗА ОДНУ УПАКОВКУ: ЦІНА ПАРТНЕРУ + НАЦІНКА МАГАЗИНУ", size=8.5, bold=True, color=GREY)
+    zx = M + 8.7
+    text(s, M + 7.2, y0 - 0.02, 1.2, 0.22, "ЦІНА ПАРТНЕРУ", size=8.5, bold=True, color=GREY, align=PP_ALIGN.RIGHT)
+    rect(s, zx - 0.12, y0 - 0.04, 0.012, 3.3, MIST_D)
     text(s, zx, y0 - 0.02, 3.4, 0.22, "ЗАКУПІВЛЯ · ОКРЕМО ВІД ПОЛИЦІ", size=8.5, bold=True, color=NAVY)
-    for lb, dx, w_, al in (("FOB, $", 0.0, 0.9, PP_ALIGN.LEFT), ("СС, $", 1.0, 0.9, PP_ALIGN.LEFT), ("СС, грн", 2.0, 1.0, PP_ALIGN.LEFT)):
-        text(s, zx + dx, y0 + 0.2, w_, 0.2, lb, size=8.5, bold=True, color=GREY, align=al)
+    for lb, dx in (("FOB, $", 0.0), ("СС, $", 1.0), ("СС, грн", 2.0)):
+        text(s, zx + dx, y0 + 0.2, 0.9, 0.2, lb, size=8.5, bold=True, color=GREY)
     y = y0 + 0.42
     for i, (nm, n_, fob) in enumerate(FIN):
         p = _PR[n_]; cc = p['cc_uah']; partner = p['partner']; shelf = p['shelf']
-        segs = [cc, 0.25 * partner, 0.35 * partner, shelf - partner]
+        segs = [(cc, CO), (0.25 * partner, BO), (0.35 * partner, MA), (shelf - partner, MK_)]
         if i % 2 == 0: rect(s, M, y - 0.03, 11.98, rh - 0.02, MIST, rounded=True, adj=0.2)
-        text(s, M + 0.12, y + 0.07, 2.3, 0.3, nm, size=12, bold=True, color=NAVY)
+        text(s, M + 0.12, y + 0.05, 2.2, 0.3, nm, size=11.5, bold=True, color=NAVY)
         xx = bx
-        for (lb, col), v in zip(parts, segs):
+        for k_, (v, col) in enumerate(segs):
             ww = v * scale
-            rect(s, xx, y + 0.05, ww, 0.32, col)
-            if ww > 0.34:
-                text(s, xx, y + 0.05, ww, 0.32, num(v), size=10, bold=True, color=NAVY if col in (LGREY, ORANGE) else WHITE,
+            rect(s, xx, y + 0.03, ww, 0.28, col)
+            if ww > 0.25:
+                text(s, xx, y + 0.03, ww, 0.28, num(v), size=9.5, bold=True, color=NAVY if col in (LGREY, ORANGE) else WHITE,
                      align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
             xx += ww
-        text(s, xx + 0.1, y + 0.05, 0.7, 0.32, f"{num(shelf)}", size=13, bold=True, color=NAVY, anchor=MSO_ANCHOR.MIDDLE)
-        text(s, zx, y + 0.07, 0.9, 0.3, f"${fob:.3f}" if fob else "н/д*", size=11.5, bold=True, color=NAVY if fob else GREY)
-        text(s, zx + 1.0, y + 0.07, 0.9, 0.3, f"${p['cc']:.3f}", size=11.5, color=INK)
-        text(s, zx + 2.0, y + 0.07, 1.0, 0.3, num(cc, 1), size=11.5, color=INK)
+            if k_ == 2:
+                rect(s, xx - 0.012, y - 0.01, 0.024, 0.36, NAVY)
+        text(s, xx + 0.08, y + 0.03, 0.6, 0.3, f"{num(shelf)}", size=12.5, bold=True, color=NAVY, anchor=MSO_ANCHOR.MIDDLE)
+        text(s, M + 7.4, y + 0.03, 1.0, 0.3, f"{num(partner)}", size=11.5, bold=True, color=INK, align=PP_ALIGN.RIGHT)
+        text(s, zx, y + 0.05, 0.9, 0.3, f"${fob:.3f}" if fob else "н/д*", size=11, bold=True, color=NAVY if fob else GREY)
+        text(s, zx + 1.0, y + 0.05, 0.9, 0.3, f"${p['cc']:.3f}", size=11, color=INK)
+        text(s, zx + 2.0, y + 0.05, 1.0, 0.3, num(cc, 1), size=11, color=INK)
         y += rh
     lx = M
-    for lb, col in parts:
-        rect(s, lx, y + 0.14, 0.15, 0.15, col, rounded=True, adj=0.3)
-        text(s, lx + 0.22, y + 0.10, 2.4, 0.24, lb, size=9.5, color=INK); lx += 0.55 + 0.085 * len(lb)
+    for lb, col in (("Собівартість (СС)", CO), ("Бонус мережі", BO), ("Наша маржа", MA), ("Націнка магазину", MK_)):
+        rect(s, lx, y + 0.12, 0.15, 0.15, col, rounded=True, adj=0.3)
+        text(s, lx + 0.22, y + 0.08, 2.4, 0.24, lb, size=9.5, color=INK); lx += 0.55 + 0.085 * len(lb)
+    text(s, M + 7.0, y + 0.08, 5.0, 0.24, "Чорна риска — ціна партнеру; праворуч від неї — націнка магазину.", size=9.5, color=GREY)
     foot(s, "Фінмодель покупця (20' FCL навалом, курс 45 грн/$, ціна вже з ПДВ): ціна партнеру = СС ÷ 0,4; бонус мережі = 25 % і наша маржа = 35 % "
             "від ціни партнеру; полиця = ціна партнеру × 1,4. СС — Self_Cost. FOB — комерційна пропозиція постачальника, до полиці не входить. "
             "*ONE'S не розкрив FOB.")
