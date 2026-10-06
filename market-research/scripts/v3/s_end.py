@@ -315,3 +315,94 @@ def s_stand_neighbors():
         y += rh
     foot(s, "Формат запису: бренд, назва, вага, мінімальна ціна на сайтах продавців, грн. Коридор — позиції сегментів 1–2 із ціною ±20 % від медіани нашого товару. "
             "Наші ціни — полиця за фінмоделлю з ПДВ. Саморозігрів і сублімат — інший привід, до сусідів не входять.")
+
+
+# ══ ДЕ ПРОДАЄТЬСЯ: магазини за каналами для кожного формату ═══════════════════
+CH_ALIAS = {'Gurm.': 'Gurmissimo', 'Апетіт.': 'Апетітаріум', 'OMG!': 'OMG! Asia', 'Тайякі': 'Тайякі Март', 'MK': 'MK-Sport',
+            'Klever': 'Klever-Shop', 'Клуб Мандрівник': 'Клуб Мандрівників', 'Військторг': 'Гайдамака'}
+IHERB = {'FRESH', 'BIOLIFE', 'VITADOBI', 'Карман', 'ТАБЛЕТКА', 'Zdorovo', 'FAIR'}
+CH_DEF = [("Мережевий роздріб", ROSE, "ЦІЛЬОВИЙ КАНАЛ", {'Сільпо'}),
+          ("Онлайн-маркетплейси", GOLD, "ЦІЛЬОВИЙ КАНАЛ", {'MAUDAU', 'Rozetka', 'Prom'} | IHERB),
+          ("Азійські й етнічні фудшопи", TEAL, "ЦІЛЬОВИЙ · ВХІД", set(CH_ASIAN)),
+          ("Гастро- й фірмові інтернет-магазини", GREEN, "СУМІЖНИЙ", set(CH_FOOD)),
+          ("Туристичні й військові магазини", PLUM, "НЕ НАШ ПОКУПЕЦЬ", set(CH_OUTDOOR))]
+
+
+def _stores(f):
+    """{канал: Counter(магазин → позицій формату)} + кількість непойменованих продавців"""
+    out = [collections.Counter() for _ in CH_DEF]
+    unnamed = 0
+    for x in by_fmt(f):
+        for t in re.split(r'\s*·\s*', x['seller']):
+            t = t.strip()
+            if not t: continue
+            if t == 'власний магазин': t = x['brand'] if x['brand'] in CH_FOOD else 'Харчі ТМ'
+            t = CH_ALIAS.get(t, t)
+            if t in ('ще 3', '8 продавців', 'спец. магазини'):
+                unnamed += int(re.search(r'\d+', t).group()) if re.search(r'\d+', t) else 0
+                continue
+            for i, (_, _, _, names) in enumerate(CH_DEF):
+                if t in names:
+                    out[i][t] += 1; break
+            else:
+                raise KeyError(('невідомий продавець', t))
+    return out, unnamed
+
+
+def s_where(f):
+    stores, unnamed = _stores(f)
+    L = by_fmt(f)
+    n_st = sum(len(c) for c in stores)
+    s = new_slide()
+    header(s, f"{FMT_NAME[f].upper()} · ДЕ ПРОДАЄТЬСЯ", f"{FMT_NAME[f]}: де продається",
+           f"{n_st} магазинів у {sum(1 for c in stores if c)} каналах; число поруч — скільки позицій цього формату є в магазині.")
+    # ліва колонка: стовпчики за каналами
+    x0, w = M, 3.55
+    rect(s, x0, 1.80, w, 5.14, MIST, rounded=True, adj=0.03)
+    text(s, x0 + 0.22, 1.92, w - 0.4, 0.26, "МАГАЗИНІВ У КАНАЛІ", size=10, bold=True, color=GREY)
+    mx = max(max(len(c) for c in stores), 1)
+    y = 2.30
+    for (lb, col, tag, _), c in zip(CH_DEF, stores):
+        text(s, x0 + 0.22, y, w - 0.4, 0.46, lb, size=11.5, bold=True, color=NAVY if c else LGREY, line=1.05)
+        bw_ = max((w - 1.3) * len(c) / mx, 0.1) if c else 0.1
+        rect(s, x0 + 0.22, y + 0.50, bw_, 0.30, col if c else MIST_D, rounded=True, adj=0.25)
+        text(s, x0 + 0.22 + bw_ + 0.1, y + 0.46, 0.8, 0.4, str(len(c)), size=18, bold=True, color=NAVY if c else LGREY)
+        y += 0.88
+    # права колонка: магазини плашками
+    rx = x0 + w + 0.2; rw = W - M - rx
+    active = [(d, c) for d, c in zip(CH_DEF, stores) if c]
+    # висота картки залежить від кількості рядків плашок
+    def layout(c):
+        items = sorted(c.items(), key=lambda kv: (-kv[1], kv[0]))
+        rows, cur, cw_ = [], [], 0
+        for nm, n in items:
+            iw = 0.32 + 0.078 * len(nm) + 0.30
+            if cw_ + iw > rw - 0.5 and cur:
+                rows.append(cur); cur, cw_ = [], 0
+            cur.append((nm, n, iw)); cw_ += iw + 0.1
+        if cur: rows.append(cur)
+        return rows
+    lays = [layout(c) for _, c in active]
+    hs = [0.46 + 0.31 * len(r) for r in lays]
+    gap = 0.06
+    y = 1.80
+    for ((lb, col, tag, _), c), rows, h_ in zip(active, lays, hs):
+        rect(s, rx, y, rw, h_, WHITE, line=MIST_D, lw=1.2, rounded=True, adj=0.06)
+        rect(s, rx, y, 0.08, h_, col, rounded=True, adj=0.5)
+        text(s, rx + 0.24, y + 0.08, rw - 2.6, 0.26, f"{lb} · {len(c)}", size=11.5, bold=True, color=NAVY)
+        chip(s, rx + rw - 1.9, y + 0.09, tag, col, size=8, w=1.78, h=0.22)
+        yy = y + 0.40
+        for row in rows:
+            xx = rx + 0.24
+            for nm, n, iw in row:
+                rect(s, xx, yy, iw, 0.27, MIST, rounded=True, adj=0.4)
+                text(s, xx + 0.12, yy, iw - 0.5, 0.27, nm, size=9.5, color=INK, anchor=MSO_ANCHOR.MIDDLE)
+                rect(s, xx + iw - 0.34, yy + 0.025, 0.30, 0.22, col, rounded=True, adj=0.5)
+                text(s, xx + iw - 0.34, yy + 0.025, 0.30, 0.22, str(n), size=9, bold=True, color=WHITE, align=PP_ALIGN.CENTER,
+                     anchor=MSO_ANCHOR.MIDDLE)
+                xx += iw + 0.1
+            yy += 0.31
+        y += h_ + gap
+    note = (f" У частини карток продавці названі не всі (ще ~{unnamed} не названо)." if unnamed else "")
+    foot(s, f"Магазини — за картками продавців 23.09–06.10.2026 ({len(L)} позицій формату «{FMT_NAME[f].lower()}»). Канали — як на слайді «Де продається категорія»; "
+            "Prom-перепродавці iHerb — продавці Seeds of Change." + note)

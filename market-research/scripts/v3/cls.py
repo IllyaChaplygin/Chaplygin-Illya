@@ -4,7 +4,7 @@ idx={h:i for i,h in enumerate(hdr)}
 def g(r,k): return r[idx[k]]
 def seg(r):
     d=(g(r,'product_description') or '').upper(); m=(g(r,'manufacturer_normalized') or '').upper()
-    if 'ЗАМОРОЖ' in d or 'VICI' in d or 'MEXICAN PAN' in d or 'ARB' in d.split() or 'БАСКСКАЯ' in d: return 'frozen'
+    if 'ЗАМОРОЖ' in d or 'VICI' in d or 'MEXICAN PAN' in d or ('ARB' in d.split() and 'ТАЙСЬКИЙ' not in d and 'КРУГЛИЙ' not in d) or 'БАСКСКАЯ' in d: return 'frozen'
     if 'ЧІПС' in d or 'ЧИПС' in d or 'CHIPS' in d: return 'chips'
     if 'ПОСИПК' in d: return 'topping'
     if 'ДОЛМ' in d: return 'dolma'

@@ -11,43 +11,43 @@ for r in C_ROWS:
 CODE_KG = sum(KG.values())
 S1_KG = sum(v for k, v in KG.items() if k.startswith('S1'))
 S2_KG = KG['S2_boilwater']
-OTHER_KG = CODE_KG - KG['frozen'] - KG['chips'] - KG['dolma'] - KG['risotto_kit'] - S1_KG - S2_KG
+NONRICE_KG = KG['chips'] + KG['dolma']                 # рисові чіпси й долма — не рис, з аналізу виключено
+RICE_KG = CODE_KG - NONRICE_KG
+OTHER_KG = RICE_KG - KG['frozen'] - KG['risotto_kit'] - S1_KG - S2_KG
 COMP = [  # (підпис, кг, колір, пояснення)
-    ("Заморожені суміші рис + овочі", KG['frozen'], SLATE, "Oerlemans, «Рудь», АТБ-маркет: гавайська суміш, паелья — у морозилку, не готова страва"),
-    ("Рисові чіпси й снеки", KG['chips'], LGREY, "Ficosota «Livity»: солоний снек, не страва"),
-    ("Долма в банці", KG['dolma'], ROSE, "Виноградне листя з рисом, Болгарія: інший формат і привід"),
+    ("Заморожені суміші рис + овочі", KG['frozen'], SLATE, "Oerlemans, «Рудь», АТБ-маркет: гавайська суміш, паелья — сира, у морозилку"),
     ("Різото «довести до готовності»", KG['risotto_kit'], NAVY_L, "Riso Gallo, Casa Rinaldi, Trevijano: рис сирий, варити 15–18 хв"),
     ("Інше: топінги, сирий рис, спорт-каша", OTHER_KG, MIST_D, "Посипки, промисловий рис, GymBeam, ттокпоккі, сублімат"),
     ("Сегмент 2 · рис під окріп", S2_KG, TEAL, "Китайський рис у чаші 144/174 г (тип Henan); 30 кг — тайський"),
     ("Сегмент 1 · готовий рис для розігріву", S1_KG, ORANGE, "Ben's (Mars), CJ Hetbahn, Clearspring, Haldiram RTE"),
 ]
 CUST_FOOT = (f"Митна база (codexmb), вивантаження 28.09.2026, УКТ ЗЕД 1904901000, {PERIOD} (у базі немає 12–31 березня 2025). "
-             "Класифікація — за описом кожної декларації. Вага нетто.")
+             "Рисові чіпси й долму виключено. Класифікація — за описом кожної декларації. Вага нетто.")
 
 
 def s_composition():
     s = new_slide()
     header(s, "ОБСЯГ РИНКУ · МИТНА БАЗА", "Скільки готового рису ввозять в Україну",
-           f"Код 1904901000, {PERIOD}: {num(T(CODE_KG))} т, з них готовий рис для розігріву — лише {num(T(S1_KG), 2)} т.")
+           f"Код 1904901000, {PERIOD}: {num(T(RICE_KG))} т рису, готового для розігріву — лише {num(T(S1_KG), 2)} т.")
     px0, pw = M, 7.95
     rect(s, px0, 1.86, pw, 5.06, MIST, rounded=True, adj=0.03)
-    text(s, px0 + 0.28, 2.0, 7.4, 0.26, "З ЧОГО СКЛАДАЄТЬСЯ КОД, ТОНН ЗА ПЕРІОД", size=10.5, bold=True, color=GREY)
-    yy = 2.34
+    text(s, px0 + 0.28, 2.0, 7.4, 0.26, "ЯКИЙ РИС ВВОЗЯТЬ, ТОНН ЗА ПЕРІОД", size=10.5, bold=True, color=GREY)
+    yy = 2.45
     mx = max(v for _, v, _, _ in COMP)
     for lb, kg, c, note in COMP:
-        sh = kg / CODE_KG
-        text(s, px0 + 0.28, yy, 5.6, 0.26, lb, size=12.5, bold=True, color=INK)
-        text(s, px0 + 5.9, yy, 1.85, 0.26, f"{num(T(kg), 2 if T(kg) < 10 else 1)} т · {num(sh * 100, 1)} %", size=12.5,
+        sh = kg / RICE_KG
+        text(s, px0 + 0.28, yy, 5.6, 0.28, lb, size=13, bold=True, color=INK)
+        text(s, px0 + 5.9, yy, 1.85, 0.28, f"{num(T(kg), 2 if T(kg) < 10 else 1)} т · {num(sh * 100, 1)} %", size=13,
              bold=True, color=NAVY, align=PP_ALIGN.RIGHT)
-        rect(s, px0 + 0.28, yy + 0.28, 7.4, 0.16, WHITE, rounded=True, adj=0.5)
-        rect(s, px0 + 0.28, yy + 0.28, max(7.4 * kg / mx, 0.06), 0.16, c, rounded=True, adj=0.5)
-        text(s, px0 + 0.28, yy + 0.47, 7.4, 0.2, note, size=8.5, color=GREY)
-        yy += 0.655
+        rect(s, px0 + 0.28, yy + 0.34, 7.4, 0.2, WHITE, rounded=True, adj=0.5)
+        rect(s, px0 + 0.28, yy + 0.34, max(7.4 * kg / mx, 0.06), 0.2, c, rounded=True, adj=0.5)
+        text(s, px0 + 0.28, yy + 0.58, 7.4, 0.22, note, size=9.5, color=GREY)
+        yy += 0.88
     rx = px0 + pw + 0.22; rw = W - M - rx
     rect(s, rx, 1.86, rw, 3.30, NAVY, rounded=True, adj=0.05); rect(s, rx, 1.86, 0.09, 3.30, ORANGE, rounded=True, adj=0.5)
     text(s, rx + 0.3, 2.02, rw - 0.5, 0.3, "Наш ринок: сегменти 1–2", size=13, bold=True, color=AMBER)
     text(s, rx + 0.3, 2.38, rw - 0.5, 0.7, f"{num(T(S1_KG + S2_KG), 1)} т", size=38, bold=True, color=WHITE)
-    text(s, rx + 0.3, 3.12, rw - 0.5, 0.3, f"{num((S1_KG + S2_KG) / CODE_KG * 100, 1)} % коду за весь період",
+    text(s, rx + 0.3, 3.12, rw - 0.5, 0.3, f"{num((S1_KG + S2_KG) / RICE_KG * 100, 1)} % рису в коді за весь період",
          size=11, color=RGBColor(0xB9, 0xC2, 0xDA))
     for i, (lb, v) in enumerate([("Сегмент 1 · розігрів", f"{num(T(S1_KG), 2)} т"), ("Сегмент 2 · під окріп", f"{num(T(S2_KG), 2)} т"),
                                  ("Ben's — одна партія", "676 кг")]):
@@ -56,9 +56,9 @@ def s_composition():
     rect(s, rx, 5.30, rw, 1.62, WHITE, line=MIST_D, lw=1.2, rounded=True, adj=0.06)
     text(s, rx + 0.24, 5.42, rw - 0.4, 0.26, "ПЕРІОД І МЕТОД", size=9, bold=True, color=ROSE)
     text(s, rx + 0.24, 5.70, rw - 0.4, 1.2,
-         "17 місяців: січень 2025 – травень 2026. У вивантаженні немає 12–31 березня 2025. "
-         "Кожну декларацію віднесено до типу продукту за її описом. Показано вагу нетто, а не вартість.", size=10.5, color=INK, line=1.2)
-    foot(s, CUST_FOOT + " Фактурна вартість USD без ПДВ і мита.")
+         f"17 місяців: січень 2025 – травень 2026 (немає 12–31 березня 2025). Код містить {num(T(NONRICE_KG), 1)} т рисових чіпсів і долми — "
+         f"це не рис, їх виключено: лишилось {num(T(RICE_KG), 1)} т. Вага нетто.", size=10, color=INK, line=1.2)
+    foot(s, CUST_FOOT)
 
 
 # ── 2025 проти 2026: по типах продукту, середнє на місяць ──
@@ -66,7 +66,8 @@ def _year_kg():
     Y = collections.defaultdict(collections.Counter)
     for r in C_ROWS:
         sg = cseg(r); y = str(cg(r, 'report_month'))[:4]; kg = cg(r, 'net_weight_kg') or 0
-        k = {'frozen': 'frozen', 'chips': 'chips', 'dolma': 'dolma', 'risotto_kit': 'risotto'}.get(sg, sg if sg.startswith('S') else 'other')
+        if sg in ('chips', 'dolma'): continue
+        k = {'frozen': 'frozen', 'risotto_kit': 'risotto'}.get(sg, sg if sg.startswith('S') else 'other')
         if k.startswith('S1'): k = 'S1'
         Y[k][y] += kg
     return Y
@@ -86,24 +87,23 @@ def s_dynamics():
     # ліва панель: масові типи, т/міс
     lx, lw = M, 7.35
     rect(s, lx, 1.80, lw, 5.14, MIST, rounded=True, adj=0.03)
-    text(s, lx + 0.28, 1.92, lw - 0.5, 0.26, "ЩО ВВОЗЯТЬ МАСОВО · ТОНН НА МІСЯЦЬ", size=10.5, bold=True, color=GREY)
+    text(s, lx + 0.28, 1.92, lw - 0.5, 0.26, "РИС У КОДІ · ТОНН НА МІСЯЦЬ", size=10.5, bold=True, color=GREY)
     for i, (nm, c, col) in enumerate([("2025", "2025", SLATE), ("2026 · січ–трав", "2026", ORANGE)]):
         rect(s, lx + 4.2 + i * 1.6, 1.97, 0.16, 0.16, col, rounded=True, adj=0.3)
         text(s, lx + 4.45 + i * 1.6, 1.94, 1.3, 0.24, nm, size=10, color=INK)
-    types = [("Заморожені суміші", 'frozen', "рис + овочі, у морозилку"), ("Рисові чіпси", 'chips', "снек, не страва"),
-             ("Долма в банці", 'dolma', "листя з рисом"), ("Різото-набори", 'risotto', "сирий рис, варити"),
-             ("Інше", 'other', "топінги, сирий рис, каша")]
+    types = [("Заморожені суміші рис + овочі", 'frozen', "сира суміш, у морозилку"), ("Різото-набори", 'risotto', "сирий рис, варити 15–18 хв"),
+             ("Інше", 'other', "топінги, промисловий рис, каша")]
     mx = max(_pm(k, y) for _, k, _ in types for y in ('2025', '2026'))
-    yy = 2.36; bx = lx + 0.28; bwmax = 5.3
+    yy = 2.45; bx = lx + 0.28; bwmax = 5.3
     for nm, k, note in types:
-        text(s, bx, yy, 3.5, 0.28, nm, size=13, bold=True, color=NAVY)
-        text(s, bx + 2.45, yy + 0.03, 2.4, 0.24, note, size=9.5, color=GREY)
+        text(s, bx, yy, 4.0, 0.28, nm, size=13.5, bold=True, color=NAVY)
+        text(s, bx, yy + 0.30, 4.0, 0.24, note, size=10, color=GREY)
         for j, (y, col) in enumerate([('2025', SLATE), ('2026', ORANGE)]):
             v = _pm(k, y) / 1000
             ww = max(bwmax * (v * 1000) / mx, 0.05)
-            rect(s, bx, yy + 0.34 + j * 0.30, ww, 0.24, col, rounded=True, adj=0.25)
-            text(s, bx + ww + 0.1, yy + 0.33 + j * 0.30, 1.3, 0.26, f"{num(v, 1 if v >= 1 else 2)} т", size=11.5, bold=True, color=NAVY)
-        yy += 0.90
+            rect(s, bx, yy + 0.62 + j * 0.34, ww, 0.27, col, rounded=True, adj=0.25)
+            text(s, bx + ww + 0.1, yy + 0.61 + j * 0.34, 1.3, 0.26, f"{num(v, 1 if v >= 1 else 2)} т", size=11.5, bold=True, color=NAVY)
+        yy += 1.45
     # права панель: наші сегменти, кг/міс
     rx = lx + lw + 0.22; rw = W - M - rx
     rect(s, rx, 1.80, rw, 3.26, WHITE, line=MIST_D, lw=1.2, rounded=True, adj=0.04)
@@ -128,31 +128,30 @@ def s_dynamics():
     foot(s, CUST_FOOT + " Заморожені суміші в 2025 мали великі разові партії, тому середнє на місяць у 2026 нижче; тренд — за місяцями нестабільний.")
 
 
-# ── імпортери: топ-10 за вагою ──
+# ── імпортери: топ-10 за вагою (без чіпсів і долми) ──
 def _importers():
-    imp = collections.defaultdict(lambda: dict(kg=0, seg=collections.Counter(), man=collections.Counter(), cty=collections.Counter(),
-                                               n=0, months=set()))
+    imp = collections.defaultdict(lambda: dict(kg=0, n=0))
     for r in C_ROWS:
-        d = imp[cg(r, 'importer_display_name')]; kg = cg(r, 'net_weight_kg') or 0
-        d['kg'] += kg; d['seg'][cseg(r)] += kg; d['n'] += 1; d['months'].add(cg(r, 'report_month'))
-        d['man'][(cg(r, 'manufacturer_normalized') or '—')] += kg; d['cty'][cg(r, 'origin_country_normalized_ua') or '—'] += kg
+        if cseg(r) in ('chips', 'dolma'): continue
+        d = imp[cg(r, 'importer_display_name')]
+        d['kg'] += cg(r, 'net_weight_kg') or 0; d['n'] += 1
     return imp
 
 
-IMP_NAME = {'ТОВ "АТБ-маркет"': 'АТБ-маркет', 'ТОВ «Торгова фірма «Рудь»': 'ТФ «Рудь»', 'ТОВ "ФОЗЗІ КОММЕРЦ"': 'Фоззі Коммерц',
-            'ТОВ "Метро Кеш Енд Кері Україна"': 'Метро Кеш енд Кері', 'ТОВ "ФУДКОМ"': 'Фудком', 'ТОВ "Таврія-В"': 'Таврія-В',
-            'ТОВ ВІЧУНАЙ УКРАЇНА 03110 М КИЇВ ВУЛ СОЛ': 'Вічунай Україна', 'АТ "Рудь"': 'АТ «Рудь»',
-            'ТОВ КОПІЙКА ЦЕНТР 65007 ОДЕСЬКА ОБЛ МІСТ': 'Копійка Центр', 'ТОВ "ВЕНДІНГ КІНГЗ"': 'Вендінг Кінгз'}
+IMP_KEYS = [('АТБ', 'АТБ-маркет'), ('Торгова фірма', 'ТФ «Рудь»'), ('ФОЗЗІ', 'Фоззі Коммерц'), ('ВІЧУНАЙ', 'Вічунай Україна'),
+            ('АТ "Рудь"', 'АТ «Рудь»'), ('ВЕНДІНГ', 'Вендінг Кінгз'), ('КАЗА РІНАЛЬДІ', 'Каза Рінальді'), ('Бюро', 'Бюро Він'),
+            ('АШАН', 'Ашан Україна'), ('БЕЙКЕРІ', 'Бейкері.юа'), ('ДЖИМБІМ', 'Джимбім Україна')]
 IMP_WHAT = {'АТБ-маркет': ("Заморожені суміші рис + овочі", "Oerlemans Foods", "Польща · ЄС"),
             'ТФ «Рудь»': ("Заморожені суміші рис + овочі", "Oerlemans Foods", "Польща"),
-            'Фоззі Коммерц': ("Долма, різото, Ben's 676 кг", "Palirria, Mars Austria", "Греція · ЄС"),
-            'Метро Кеш енд Кері': ("Рисові чіпси", "Ficosota Food", "ЄС (Болгарія)"),
-            'Фудком': ("Рисові чіпси", "Ficosota Food", "ЄС (Болгарія)"),
-            'Таврія-В': ("Рисові чіпси", "Ficosota Food", "ЄС (Болгарія)"),
+            'Фоззі Коммерц': ("Різото-набори; Ben's 676 кг", "Mars Austria; решта не вказана", "ЄС · Італія"),
             'Вічунай Україна': ("Заморожені суміші рис + овочі", "Oerlemans, Bonduelle", "Польща"),
             'АТ «Рудь»': ("Заморожені суміші рис + овочі", "Oerlemans Foods", "Польща"),
-            'Копійка Центр': ("Рисові чіпси", "Ficosota Food", "ЄС (Болгарія)"),
-            'Вендінг Кінгз': ("Рис у чаші під окріп (сегм. 2)", "не вказано в описі", "Китай")}
+            'Вендінг Кінгз': ("Рис у чаші під окріп (сегм. 2)", "не вказано в описі", "Китай"),
+            'Каза Рінальді': ("Різото-набори", "не вказано в описі", "ЄС"),
+            'Бюро Він': ("Різото-набори; Clearspring 63 кг", "Trevijano, Principato", "ЄС"),
+            'Ашан Україна': ("Заморожені суміші, рис 10 хв", "Auchan (власна марка)", "ЄС · Таїланд"),
+            'Бейкері.юа': ("Посипка з повітряного рису", "Decordolce", "ЄС"),
+            'Джимбім Україна': ("Спортивна рисова каша", "GymBeam", "ЄС")}
 
 
 def s_importers():
@@ -161,7 +160,7 @@ def s_importers():
     top = sorted(imp.items(), key=lambda kv: -kv[1]['kg'])[:10]
     s = new_slide()
     header(s, "МИТНА БАЗА · ІМПОРТЕРИ", "Хто завозить",
-           f"Топ-10 імпортерів коду за вагою, {PERIOD_S}. Усього в базі {len(imp)} імпортерів.")
+           f"Топ-10 імпортерів рису за вагою, {PERIOD_S}. Усього в базі {len(imp)} імпортерів рису.")
     tw = 8.45
     cols = [("№", 0.45), ("ІМПОРТЕР", 1.95), ("ЩО ЗАВОЗИТЬ", 2.55), ("КРАЇНА", 1.2), ("ТОНН", 0.95), ("ЧАСТКА", 1.35)]
     xx = M
@@ -175,7 +174,7 @@ def s_importers():
         xx += w_
     y = 2.06; rh = 0.475; mxs = top[0][1]['kg']
     for i, (k, d) in enumerate(top):
-        nm = next((v for kk, v in IMP_NAME.items() if k.startswith(kk[:20])), k[:22]); what, man, cty = IMP_WHAT[nm]
+        nm = next(v for kk, v in IMP_KEYS if kk in k); what, man, cty = IMP_WHAT[nm]
         rect(s, M, y, tw, rh - 0.04, MIST if i % 2 == 0 else WHITE, rounded=True, adj=0.2)
         text(s, M + 0.1, y + 0.11, 0.4, 0.26, str(i + 1), size=12, bold=True, color=GREY)
         text(s, M + 0.53, y + 0.10, 1.9, 0.28, nm, size=12.5, bold=True, color=NAVY)
@@ -189,7 +188,7 @@ def s_importers():
         text(s, M + 7.28 + bw2 + 0.07, y + 0.12, 0.7, 0.22, f"{num(d['kg'] / tot * 100, 1)} %", size=9.5, bold=True, color=GREY)
         y += rh
     top_sum = sum(d['kg'] for _, d in top)
-    text(s, M + 0.1, y + 0.04, tw, 0.24, f"Топ-10 — {num(top_sum / tot * 100, 1)} % ваги коду; ще {len(imp) - 10} імпортерів — {num(T(tot - top_sum), 1)} т.",
+    text(s, M + 0.1, y + 0.04, tw, 0.24, f"Топ-10 — {num(top_sum / tot * 100, 1)} % ваги рису; ще {len(imp) - 10} імпортерів — {num(T(tot - top_sum), 1)} т.",
          size=10.5, color=GREY)
     rx = M + tw + 0.22; rw = W - M - rx
     rect(s, rx, 1.80, rw, 5.14, NAVY, rounded=True, adj=0.04); rect(s, rx, 1.80, 0.09, 5.14, ORANGE, rounded=True, adj=0.5)
@@ -206,4 +205,4 @@ def s_importers():
         rect(s, rx + 0.3, yy + 0.50, max((rw - 0.6) * kg / mxo, 0.05), 0.07, ORANGE, rounded=True, adj=0.5)
         yy += 0.70
     text(s, rx + 0.3, yy + 0.02, rw - 0.5, 0.5, "Жоден не возить регулярно: 1–4 партії за 17 місяців.", size=10.5, bold=True, color=WHITE, line=1.15)
-    foot(s, CUST_FOOT + " Частка — від ваги коду. Імпортер «Рудь» представлений двома юрособами (ТОВ і АТ).")
+    foot(s, CUST_FOOT + " Частка — від ваги рису. «Рудь» — два юрособи (ТОВ і АТ).")

@@ -26,6 +26,7 @@ mk(s_kpi); mk(s_composition); mk(s_dynamics); mk(s_importers); mk(s_overview)
 for f in FMT_ORDER:
     mk(s_format, f)                       # слайд формату, одразу за ним — його каталог
     before = len(slide_ids()); cat_slides(f); order += slide_ids()[before:]
+    mk(s_where, f)
 for fn in (s_heat, s_top13, s_ladder1, s_ladder2, s_ladder3, s_retail_matrix, s_retail_table, s_channels,
            s_fin, s_price_table, s_stand_pouch, s_stand_cup, s_stand_matrix, s_stand_neighbors):
     mk(fn)
