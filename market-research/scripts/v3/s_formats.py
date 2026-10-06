@@ -32,57 +32,48 @@ def s_overview():
     for i, f in enumerate(FMT_ORDER):
         L, gs, brands = fmt_stats(f)
         x = M + i * (cw + 0.16); c = FMT_COL[f]
-        rect(s, x, 1.80, cw, 3.62, WHITE, line=MIST_D, lw=1.2, rounded=True, adj=0.045)
-        rect(s, x, 1.82, cw, 0.42, c, rounded=True, adj=0.3)
-        text(s, x + 0.16, 1.82, cw - 0.3, 0.42, FMT_FULL[f], size=11, bold=True, color=WHITE, anchor=MSO_ANCHOR.MIDDLE)
-        rect(s, x + 0.12, 2.34, cw - 0.24, 1.62, MIST, rounded=True, adj=0.06)
-        pic(s, HERO[f], x + 0.2, 2.38, cw - 0.4, 1.54)
-        text(s, x + 0.16, 3.99, 0.9, 0.42, str(len(L)), size=26, bold=True, color=c)
-        text(s, x + 0.16 + 0.62 + 0.14 * (len(str(len(L))) - 1), 4.12, cw - 1.1, 0.3, f"позицій · {num(len(L)/ALLN*100)} % ринку",
+        rect(s, x, 1.80, cw, 3.36, WHITE, line=MIST_D, lw=1.2, rounded=True, adj=0.045)
+        rect(s, x, 1.82, cw, 0.40, c, rounded=True, adj=0.3)
+        text(s, x + 0.16, 1.82, cw - 0.3, 0.40, FMT_FULL[f], size=11, bold=True, color=WHITE, anchor=MSO_ANCHOR.MIDDLE)
+        rect(s, x + 0.12, 2.30, cw - 0.24, 1.40, MIST, rounded=True, adj=0.06)
+        pic(s, HERO[f], x + 0.2, 2.34, cw - 0.4, 1.32)
+        text(s, x + 0.16, 3.72, 0.9, 0.42, str(len(L)), size=26, bold=True, color=c)
+        text(s, x + 0.16 + 0.62 + 0.14 * (len(str(len(L))) - 1), 3.85, cw - 1.1, 0.3, f"позицій · {num(len(L)/ALLN*100)} %",
              size=10.5, color=GREY)
         facts = [("ГРАМАЖ", f"{num(min(gs))}–{num(max(gs))} г"), ("МЕДІАНА ЦІНИ", f"{num(med_lo(L))} грн"),
                  ("БРЕНДІВ", f"{len(brands)}")]
         for j, (lb, v) in enumerate(facts):
-            text(s, x + 0.16, 4.50 + j * 0.30, 1.3, 0.24, lb, size=8, bold=True, color=GREY)
-            text(s, x + 1.16, 4.47 + j * 0.30, cw - 1.3, 0.26, v, size=12, bold=True, color=NAVY, align=PP_ALIGN.RIGHT)
-        text(s, x + 0.16, 5.38 - 0.06, cw - 0.3, 0.2, "", size=7)
-    # ── нижня смуга: формат × спосіб приготування
-    y0 = 5.56
-    text(s, M, y0, 6, 0.26, "ФОРМАТ × СПОСІБ ПРИГОТУВАННЯ, ПОЗИЦІЙ", size=10, bold=True, color=GREY)
-    colw = [1.55, 1.30, 1.30, 1.30, 1.30]
+            text(s, x + 0.16, 4.27 + j * 0.28, 1.3, 0.24, lb, size=8, bold=True, color=GREY)
+            text(s, x + 1.16, 4.24 + j * 0.28, cw - 1.3, 0.26, v, size=12, bold=True, color=NAVY, align=PP_ALIGN.RIGHT)
+    # ── нижня смуга: формат × спосіб приготування (кількість і медіана ціни)
+    y0 = 5.30
+    text(s, M, y0, 9, 0.26, "ФОРМАТ × СПОСІБ ПРИГОТУВАННЯ · ПОЗИЦІЙ І МЕДІАНА ЦІНИ", size=10, bold=True, color=GREY)
+    colw = [1.9, 2.52, 2.52, 2.52, 2.52]
     heads = ["", "1 · Розігрів", "2 · Під окріп", "3 · Саморозігрів", "4 · Сублімат"]
     xx = M
     for h_, w_ in zip(heads, colw):
-        text(s, xx, y0 + 0.30, w_, 0.2, h_, size=8.5, bold=True, color=GREY, align=PP_ALIGN.CENTER if h_ else PP_ALIGN.LEFT)
+        text(s, xx, y0 + 0.30, w_, 0.22, h_, size=10, bold=True, color=NAVY, align=PP_ALIGN.CENTER if h_ else PP_ALIGN.LEFT)
         xx += w_
     mxv = max(sum(1 for x in SKU if x['fmt'] == f and x['seg'] == sg) for f in FMT_ORDER for sg in (1, 2, 3, 4))
     for r, f in enumerate(FMT_ORDER):
-        yy = y0 + 0.56 + r * 0.205
+        yy = y0 + 0.56 + r * 0.275
         xx = M
-        text(s, xx, yy - 0.01, colw[0], 0.2, FMT_NAME[f], size=9.5, bold=True, color=FMT_COL[f])
+        text(s, xx, yy + 0.01, colw[0], 0.24, FMT_NAME[f], size=11.5, bold=True, color=FMT_COL[f])
         xx += colw[0]
         for sg in (1, 2, 3, 4):
-            n = sum(1 for x in SKU if x['fmt'] == f and x['seg'] == sg)
+            L_ = [x for x in SKU if x['fmt'] == f and x['seg'] == sg]
+            n = len(L_)
             if n:
                 a = 0.25 + 0.75 * n / mxv
                 col = RGBColor(*[int(255 - (255 - v) * a) for v in (NAVY[0], NAVY[1], NAVY[2])])
-                rect(s, xx + 0.12, yy, colw[1] - 0.24, 0.18, col, rounded=True, adj=0.3)
-                text(s, xx, yy - 0.005, colw[1], 0.17, str(n), size=9, bold=True,
-                     color=WHITE if a > 0.5 else NAVY, align=PP_ALIGN.CENTER)
+                rect(s, xx + 0.10, yy, colw[1] - 0.2, 0.245, col, rounded=True, adj=0.3)
+                text(s, xx, yy + 0.01, colw[1], 0.23, f"{n} · {num(st.median([q['lo'] for q in L_]))} грн", size=10.5, bold=True,
+                     color=WHITE if a > 0.5 else NAVY, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
             else:
-                text(s, xx, yy - 0.005, colw[1], 0.17, "—", size=9, color=LGREY, align=PP_ALIGN.CENTER)
+                text(s, xx, yy + 0.01, colw[1], 0.23, "—", size=10.5, color=LGREY, align=PP_ALIGN.CENTER)
             xx += colw[1]
-    # суміжна полиця
-    cx = M + 7.0
-    rect(s, cx, y0 - 0.02, 12.64 - cx, 1.42, MIST, rounded=True, adj=0.06)
-    rect(s, cx + 0.12, y0 + 0.06, 0.95, 1.20, WHITE, rounded=True, adj=0.08)
-    pic(s, RTE + 'sku/ch_hapay_rice.jpg', cx + 0.15, y0 + 0.09, 0.89, 1.14)
-    text(s, cx + 1.22, y0 + 0.06, 12.64 - cx - 1.3, 0.24, "СУМІЖНА ПОЛИЦЯ · БЛЯШАНКА", size=9, bold=True, color=GREEN)
-    text(s, cx + 1.22, y0 + 0.34, 12.64 - cx - 1.3, 0.9,
-         "250–350 г · 63–160 грн. Консерва готова до вживання, але не для мікрохвильовки. "
-         "У 84 позиції не входить — це орієнтир ціни мережевої полиці.", size=9, color=INK, line=1.18)
     foot(s, "Формат визначено за фактичною упаковкою на фото картки; способи приготування: 1 — розігрів у НВЧ/воді, 2 — сухий рис під окріп, "
-            "3 — саморозігрів, 4 — сублімація. Qiaoshanmei — плоский пакет під окріп, віднесено до дойпаку.")
+            "3 — саморозігрів, 4 — сублімація. Медіана — за мінімальною ціною позиції. Qiaoshanmei — плоский пакет під окріп, віднесено до дойпаку.")
 
 
 def band_rows(f):
@@ -102,26 +93,29 @@ def s_format(f):
     s = new_slide()
     titles = {'pouch': ("Пауч", "Від порційних 220 г до реторту 400 г."),
               'cup': ("Чаша", "Найширший діапазон ваги: від 84 до 320 г."),
-              'doypack': ("Дойпак", "Найбільший формат за кількістю — але туристичний."),
+              'doypack': ("Дойпак", "Стільки ж позицій, скільки в пауча, — але це туризм."),
               'box': ("Коробка з нагрівачем", "Найдорожчий формат: без техніки й окропу.")}
     header(s, f"ФОРМАТ {FMT_ORDER.index(f) + 1} З 4 · {FMT_FULL[f]}", titles[f][0], titles[f][1])
     # ліва картка
     lx, lw = M, 3.85
     rect(s, lx, 1.80, lw, 5.14, WHITE, line=MIST_D, lw=1.2, rounded=True, adj=0.03)
     rect(s, lx, 1.80, lw, 0.10, c, rounded=True, adj=0.5)
-    rect(s, lx + 0.15, 2.02, lw - 0.3, 1.86, MIST, rounded=True, adj=0.05)
-    pic(s, HERO[f], lx + 0.25, 2.06, lw - 0.5, 1.78)
+    rect(s, lx + 0.15, 2.02, lw - 0.3, 1.62, MIST, rounded=True, adj=0.05)
+    pic(s, HERO[f], lx + 0.25, 2.06, lw - 0.5, 1.54)
     sellers = collections.Counter()
     for x in L:
         for t in x['seller'].replace(' · ', '·').split('·'):
             t = t.strip()
             if t and not t.startswith('ще'): sellers[t] += 1
     top_sellers = ", ".join(k for k, _ in sellers.most_common(3))
-    facts = [("ПОЗИЦІЙ · БРЕНДІВ", f"{len(L)} · {len(brands)}  ({num(len(L)/ALLN*100)} % ринку)"),
+    _cc = collections.Counter()
+    for _b in brands: _cc[COUNTRY[_b]] += 1
+    ctry_txt = " · ".join(f"{k} {v}" for k, v in _cc.most_common())
+    facts = [("ПОЗИЦІЙ · БРЕНДІВ", f"{len(L)} · {len(brands)}  ({num(len(L)/ALLN*100)} % асортименту)"),
              ("ГРАМАЖ", f"{num(min(gs))}–{num(max(gs))} г"),
              ("МЕДІАНА · ДІАПАЗОН", f"{num(med_lo(L))} грн · {num(min(x['lo'] for x in L))}–{num(max(x['hi'] for x in L))}"),
-             ("ПРИГОТУВАННЯ", HOW[f]), ("ПРОДАВЦІ", top_sellers)]
-    yy = 3.98
+             ("ПРИГОТУВАННЯ", HOW[f]), ("ПОХОДЖЕННЯ БРЕНДІВ", ctry_txt), ("ПРОДАВЦІ", top_sellers)]
+    yy = 3.76
     for lb, v in facts:
         text(s, lx + 0.22, yy, lw - 0.4, 0.16, lb, size=8, bold=True, color=GREY)
         hh = 0.40 if len(v) > 36 else 0.24
@@ -169,15 +163,21 @@ def s_format(f):
         text(s, px, y + (rh - 0.08) / 2 - 0.16, cols[3][1] - 0.1, 0.3, rngs(lo, hi), size=14, bold=True, color=c,
              anchor=MSO_ANCHOR.MIDDLE)
         y += rh
+    _P, _C, _D, _B = (by_fmt(k) for k in FMT_ORDER)
+    _ua = [x for x in _P if COUNTRY[x['brand']] == 'Україна']
+    _soc = [x for x in _P if x['brand'] == 'Seeds of Change']
+    _hd = sum(1 for x in _B if x['brand'] == 'Haidilao')
     INS = {
-        'pouch': "220 г — найпоширеніша вага пауча (7 позицій), і вся вона — Ben's Original. Решта — поодинокі: Clearspring 250 г "
-                 "(252–446 грн), Portion і Маркел 350 г, Adventure Menu 400 г. У смугах 150–199 і 300 г пауча немає взагалі.",
-        'cup': "Чаша — єдиний формат, представлений у всіх вагових смугах від 84 до 320 г. Найдешевша — Henan 144 г (83 грн), "
+        'pouch': f"Пауч — найдешевший формат: від 45 грн. 350 г — український реторт: {len(_ua)} позицій, {len(set(x['brand'] for x in _ua))} брендів, "
+                 f"медіана {num(st.median([x['lo'] for x in _ua]))} грн. 220–250 г — Ben's Original. 240 г — органіка Seeds of Change "
+                 f"({num(min(x['lo'] for x in _soc))}–{num(max(x['hi'] for x in _soc))} грн, перепродаж iHerb). Вагових смуг 150–199 і 300 г немає.",
+        'cup': "Чаша — єдиний формат у всіх вагових смугах від 84 до 320 г. Найдешевша — Henan 144 г (83 грн), "
                "найдорожча готова — Ottogi 320 г (356 грн). Наш стакан 150 г стає між Henan (144–174 г) і Bibigo (210 г).",
-        'doypack': "30 позицій, але 28 із них — сублімат для походів: вага 80–146 г, ціни 55–889 грн. Це туристичний канал, "
-                   "а не мережева полиця: без outdoor-магазинів частка дойпаку падає з 36 % до 4 %.",
-        'box': "12 позицій і лише три бренди: Haidilao дає 10 із 12. Нагрівач у коробці замінює мікрохвильовку, але медіана 708 грн — "
-               "у шість з половиною разів вища за пауч (109 грн).",
+        'doypack': f"{len(_D)} позицій, але {sum(1 for x in _D if x['seg'] == 4)} із них — сублімат для походів: вага 80–250 г, ціни 55–889 грн. "
+                   f"Це туристичний канал, а не мережева полиця: без туристичних магазинів частка дойпаку падає з "
+                   f"{num(len(_D) / ALLN * 100)} % до {num(MASS_BY_FMT['doypack'] / N_MASS * 100)} %.",
+        'box': f"{len(_B)} позицій і {len(set(x['brand'] for x in _B))} бренди: Haidilao дає {_hd} із {len(_B)}. Нагрівач у коробці замінює "
+               f"мікрохвильовку, але медіана {num(med_lo(_B))} грн — у {num(med_lo(_B) / med_lo(_P), 1)} раза вища за пауч ({num(med_lo(_P))} грн).",
     }
     iy = y + 0.04
     insight(s, bx0, iy, bw, 6.94 - iy, None, INS[f], c, size=10.5 if 6.94 - iy < 1.3 else 11.5)

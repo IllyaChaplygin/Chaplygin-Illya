@@ -135,7 +135,7 @@ def sku_cell(s, x, y, w, h, img, name, grams, lo, hi, seller, c, brand=None, tag
     gt = f"{num(grams, 0 if float(grams).is_integer() else 1)} г" if grams else "маса н/д"
     if brand:
         text(s, x + 0.11, yy + 0.42, w - 0.22, 0.2, [([(brand.upper() + " · ", {"bold": True, "color": c}), gt], {})],
-             size=8, color=GREY)
+             size=8 if len(brand) < 15 else 6.8, color=GREY)
     else:
         text(s, x + 0.11, yy + 0.42, w - 0.22, 0.2, gt, size=8, color=GREY)
     price = (num(lo) if lo == hi else f"{num(lo)}–{num(hi)}") + " грн"

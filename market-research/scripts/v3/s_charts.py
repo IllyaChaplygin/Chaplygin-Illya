@@ -55,7 +55,7 @@ def s_heat():
     cw = (W - 2 * M - 0.32) / 3
     cards = [("ПОРЦІЙНЕ ВІКНО 200–299 г", f"{cnt_win} позицій",
               "Пауч і чаша: одна порція на людину. Тут стоять BSCM 200/240, CM Premium, ONE'S і подвійний стакан.", ORANGE),
-             ("НАЙЩІЛЬНІША КЛІТИНКА", "дойпак 100–149 г — 16",
+             ("НАЙЩІЛЬНІША КЛІТИНКА", f"дойпак 100–149 г — {sum(1 for x in SKU if x['fmt'] == 'doypack' and x['g'] and 100 <= x['g'] < 150)}",
               "Це сухий сублімат для походів, інший привід і канал. Наші формати з ним не перетинаються.", PLUM),
              ("ВІЛЬНІ КЛІТИНКИ ДЛЯ НАС", "пауч 150–199 г — 0",
               "Жодного пауча 150–199 г. BSCM пауч 150 г заходить без прямого конкурента; найближчий — Ben's 220 г.", GREEN)]
@@ -69,12 +69,17 @@ def s_heat():
             "Наші формати — за комерційними пропозиціями BSCM, CM Premium, One's.")
 
 
-TOP13 = [('pouch', 220, 129, "Ben's Original"), ('pouch', 250, 90, "Ben's Original · Clearspring"),
-         ('cup', 174, 148, "Henan"), ('doypack', 85, 120, "Харчі · Їжа в Похід"),
-         ('doypack', 110, 378, "Mountain House · Adventure Menu · SubliMate"), ('doypack', 125, 515, "Travellunch"),
-         ('cup', 144, 135, "Henan"), ('doypack', 90, 133, "James Cook"),
-         ('doypack', 146, 501, "Qiaoshanmei · Adventure Food"), ('doypack', 250, 811, "Travellunch"),
-         ('box', 187, 665, "Haidilao"), ('box', 272, 799, "Haidilao"), ('pouch', 400, 356, "Adventure Menu")]
+def _top13():
+    c = collections.Counter((x['fmt'], x['g']) for x in SKU if x['g'])
+    out = []
+    for (f, g_), n in sorted(c.items(), key=lambda kv: (-kv[1], kv[0][0], kv[0][1]))[:13]:
+        L = [x for x in SKU if x['fmt'] == f and x['g'] == g_]
+        br = collections.Counter(x['brand'] for x in L)
+        out.append((f, g_, round(st.median([x['lo'] for x in L])), " · ".join(b for b, _ in br.most_common(3))))
+    return out
+
+
+TOP13 = _top13()
 
 
 def s_top13():
@@ -84,19 +89,24 @@ def s_top13():
     rect(s, M, 1.80, 8.45, 5.14, MIST, rounded=True, adj=0.03)
     text(s, M + 0.26, 1.90, 8.0, 0.26, "ТОП-13 ПОЄДНАНЬ «ФОРМАТ + ГРАМАЖ», ПОЗИЦІЙ", size=10.5, bold=True, color=GREY)
     y = 2.24; rh = 0.355
+    mxn = max(sum(1 for x in SKU if x['fmt'] == f and x['g'] == g_) for f, g_, _, _ in TOP13)
     for f, g_, med, br in TOP13:
         n = sum(1 for x in SKU if x['fmt'] == f and x['g'] == g_)
-        text(s, M + 0.22, y + 0.05, 1.75, 0.3, f"{FMT_NAME[f]} {g_} г", size=12.5, bold=True, color=NAVY)
-        rect(s, M + 2.0, y + 0.06, 0.30 * n, 0.25, FMT_COL[f], rounded=True, adj=0.25)
-        text(s, M + 2.0 + 0.30 * n + 0.08, y + 0.03, 0.4, 0.3, str(n), size=14, bold=True, color=NAVY)
+        text(s, M + 0.22, y + 0.05, 1.75, 0.3, f"{FMT_NAME[f]} {num(g_)} г", size=12.5, bold=True, color=NAVY)
+        bw_ = 1.85 * n / mxn
+        rect(s, M + 2.0, y + 0.06, bw_, 0.25, FMT_COL[f], rounded=True, adj=0.25)
+        text(s, M + 2.0 + bw_ + 0.08, y + 0.03, 0.4, 0.3, str(n), size=14, bold=True, color=NAVY)
         text(s, M + 4.35, y + 0.06, 1.6, 0.26, f"медіана {med} грн", size=10.5, color=INK)
         text(s, M + 5.95, y + 0.07, 2.4, 0.26, br, size=8.8, color=GREY)
         y += rh
     rx = M + 8.67; rw = W - M - rx
     rect(s, rx, 1.80, rw, 2.34, WHITE, line=MIST_D, lw=1.2, rounded=True, adj=0.05)
     text(s, rx + 0.2, 1.90, rw - 0.3, 0.24, "ЧАСТКА ФОРМАТУ", size=10, bold=True, color=GREY)
-    for k, (lab, parts) in enumerate([("Усі 84 позиції", [('doypack', 30), ('cup', 23), ('pouch', 19), ('box', 12)]),
-                                       ("Лише масовий канал · 46", [('cup', 23), ('pouch', 19), ('box', 2), ('doypack', 2)])]):
+    _all = [(f, len(by_fmt(f))) for f in ('doypack', 'pouch', 'cup', 'box')]
+    _all.sort(key=lambda t: -t[1])
+    _mass = sorted([(f, MASS_BY_FMT[f]) for f in FMT_ORDER], key=lambda t: -t[1])
+    for k, (lab, parts) in enumerate([(f"Усі {len(SKU)} позицій", _all),
+                                       (f"Без туристичних і військових · {N_MASS}", _mass)]):
         yy = 2.20 + k * 0.92
         text(s, rx + 0.2, yy, rw - 0.3, 0.22, lab, size=9.5, bold=True, color=INK)
         tot = sum(n for _, n in parts); xx = rx + 0.2; full = rw - 0.4
@@ -107,9 +117,7 @@ def s_top13():
                 text(s, xx, yy + 0.26, ww, 0.36, f"{num(n / tot * 100)} %", size=11 if ww > 0.55 else 9, bold=True, color=WHITE,
                      align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
             xx += ww
-    ly = 3.58
-    for f in FMT_ORDER:
-        pass
+    text(s, rx + 0.2, 3.80, rw - 0.35, 0.34, "Тобто є хоча б в одному магазині поза цим каналом", size=8.5, color=GREY, line=1.1)
     # наші формати
     oy = 4.28
     rect(s, rx, oy, rw, 2.66, NAVY, rounded=True, adj=0.05); rect(s, rx, oy, 0.09, 2.66, ORANGE, rounded=True, adj=0.5)
@@ -123,7 +131,8 @@ def s_top13():
         text(s, rx + rw - 1.25, yy, 1.05, 0.3, "0 конкурентів" if n == 0 else f"{n} в цій вазі", size=10.5, bold=True,
              color=AMBER if n == 0 else RGBColor(0xD5, 0xDB, 0xEA), align=PP_ALIGN.RIGHT)
         yy += 0.34
-    foot(s, "Позиції — за картками продавців (84 SKU). Медіани — за даними колоди. Масовий канал — без туристичних і військових магазинів. "
+    foot(s, f"Позиції — за картками продавців ({len(SKU)} SKU). «Поза туристичними й військовими магазинами» — позиції, які є хоча б в одному "
+            "магазині, що не є туристичним чи військовим (мережі, маркетплейси, азійські й гастро-магазини). "
             "«Конкурентів» — позицій того самого формату з точно такою вагою.")
 
 
@@ -161,7 +170,7 @@ def _ladder(title, eyebrow, dek, groups, axmax, ticks, note, window=True):
             rect(s, x0, cy - 0.06, max(x1 - x0, 0.04), 0.12, col, rounded=True, adj=0.5)
             dot(s, ax(med), cy, 0.24, col, line=NAVY if ours else WHITE, lw=2.0 if ours else 1.5)
             lbl = num(lo) if lo == hi else f"{num(lo)}–{num(hi)}"
-            text(s, x1 + 0.12, cy - 0.12, 1.5, 0.26, lbl, size=10.5, bold=True, color=NAVY)
+            text(s, x1 + 0.2, cy - 0.12, 1.5, 0.26, lbl, size=10.5, bold=True, color=NAVY)
             y += rh
     foot(s, note)
 
@@ -180,30 +189,41 @@ def _ours_rows():
     return [row('BSCM Foods', bscm), row('CM Premium · Chefrey', cm), row("ONE'S International", on)]
 
 
+def _rows_for(spec):
+    rows = [brand_row(b, f, sg, lb) for (b, f, sg, lb) in spec]
+    return sorted(rows, key=lambda r: r[3])
+
+
 def s_ladder1():
-    R1 = [("Ben's Original", 45, 179, 90, 13, 'ЄС', False), ("Маркел", 94, 96, 95, 1, 'Україна', False),
-          ("Portion", 109, 109, 109, 1, 'Україна', False), ("Bibigo", 135, 189, 162, 1, 'Корея', False),
-          ("Ottogi", 225, 356, 255, 10, 'Корея', False), ("Clearspring", 252, 446, 349, 1, 'ЄС', False),
-          ("Adventure Menu · пауч 400 г", 315, 404, 336, 3, 'ЄС', False)]
-    R2 = [("Henan", 83, 156, 140, 8, 'Китай', False), ("Gallina Blanca", 229, 229, 229, 2, 'ЄС', False),
-          ("Qiaoshanmei", 501, 501, 501, 2, 'Китай', False)]
-    groups = [("СЕГМЕНТ 1 · ГОТОВИЙ РИС ДО РОЗІГРІВУ", GOLD, R1), ("СЕГМЕНТ 2 · СУХИЙ РИС ПІД ОКРІП", TEAL, R2),
+    R1 = _rows_for([("Ben's Original", 'pouch', 1, None), ('Seeds of Change', 'pouch', 1, None), ('Маркел', 'pouch', 1, None),
+                    ('Portion', 'pouch', 1, None), ("М'ясниця", 'pouch', 1, None), ('МАКРО', 'pouch', 1, None),
+                    ('Верес', 'pouch', 1, None), ('Ходорівський', 'pouch', 1, None), ('Bibigo', 'cup', 1, None),
+                    ('Ottogi', 'cup', 1, None), ('Clearspring', 'pouch', 1, None),
+                    ('Adventure Menu', 'pouch', 1, 'Adventure Menu · пауч 400 г')])
+    groups = [("СЕГМЕНТ 1 · ГОТОВИЙ РИС ДО РОЗІГРІВУ", GOLD, R1),
               ("НАШІ БРЕНДИ · ПОЛИЦЯ ЗА ФІНМОДЕЛЛЮ (З ПДВ)", NAVY, _ours_rows())]
-    _ladder("Ціна: сегменти 1–2 і наші бренди", "ЦІНА ЗА ОДНУ УПАКОВКУ 1 З 2",
-            "Готовий рис, рис під окріп і наші бренди на одній шкалі.", groups, 520, [0, 100, 200, 300, 400, 500],
-            "Роздрібна ціна за одну упаковку на сайтах продавців (конкуренти); наші бренди — полиця = собівартість × 3,5 "
-            "(20' навалом, курс 45, бонус мережі 25 %, маржа 35 %). Смуга — від найдешевшої до найдорожчої позиції.")
+    _ladder("Ціна: готовий рис і наші бренди", "ЦІНА ЗА ОДНУ УПАКОВКУ · 1 З 3",
+            "Сегмент 1 — розігрів у мікрохвильовці — і наші бренди на одній шкалі.", groups, 520, [0, 100, 200, 300, 400, 500],
+            "Роздрібна ціна за одну упаковку на сайтах продавців; точка — медіана мінімальних цін позицій бренду. Наші бренди — "
+            "полиця = собівартість × 3,5 (20' навалом, курс 45, бонус мережі 25 %, маржа 35 %). Смуга — від найдешевшої до найдорожчої.")
 
 
 def s_ladder2():
-    R3 = [("Haidilao", 380, 1190, 680, 10, 'Китай', False), ("Mo Xiao Xian", 931, 931, 931, 2, 'Китай', False),
-          ("Zihaiguo", 735, 735, 735, 1, 'Китай', False), ("Rongcheng Haoji", 735, 735, 735, 1, 'Китай', False)]
-    R4 = [("James Cook", 55, 156, 133, 4, 'Україна', False), ("!FEST", 133, 140, 137, 1, 'Україна', False),
-          ("Їжа в Похід", 130, 145, 138, 2, 'Україна', False), ("Харчі", 83, 321, 120, 4, 'Україна', False),
-          ("SubliMate", 290, 370, 309, 3, 'Україна', False), ("Adventure Menu · дойпак 110 г", 378, 483, 433, 2, 'ЄС', False),
-          ("Trek'n Eat", 269, 715, 492, 2, 'ЄС', False), ("Adventure Food", 492, 492, 492, 1, 'ЄС', False),
-          ("Travellunch", 275, 889, 515, 7, 'ЄС', False), ("Mountain House", 699, 699, 699, 2, 'США', False)]
-    groups = [("СЕГМЕНТ 3 · САМОРОЗІГРІВ", ROSE, R3), ("СЕГМЕНТ 4 · СУБЛІМАЦІЯ", PLUM, R4)]
-    _ladder("Ціна: сегменти 3–4", "ЦІНА ЗА ОДНУ УПАКОВКУ 2 З 2",
-            "Саморозігрів і сублімація — інший привід і канал, з нами не конкурують.", groups, 1250, [0, 250, 500, 750, 1000, 1250],
-            "Роздрібна ціна за одну упаковку на сайтах продавців. Інший привід споживання і інший канал: туризм, армія, подарунок.")
+    R2 = _rows_for([('Henan', 'cup', 2, None), ('Gallina Blanca', 'cup', 2, None), ('Qiaoshanmei', 'doypack', 2, None)])
+    R3 = _rows_for([('Haidilao', 'box', 3, None), ('Zihaiguo', 'box', 3, None), ('Rongcheng Haoji', 'box', 3, None),
+                    ('Mo Xiao Xian', 'cup', 3, None), ('Forestia', 'box', 3, None)])
+    groups = [("СЕГМЕНТ 2 · СУХИЙ РИС ПІД ОКРІП", TEAL, R2), ("СЕГМЕНТ 3 · САМОРОЗІГРІВ", ROSE, R3)]
+    _ladder("Ціна: під окріп і саморозігрів", "ЦІНА ЗА ОДНУ УПАКОВКУ · 2 З 3",
+            "Рис під окріп коштує як пауч, саморозігрів — у п'ять–шість разів дорожче.", groups, 1250, [0, 250, 500, 750, 1000, 1250],
+            "Роздрібна ціна за одну упаковку на сайтах продавців; точка — медіана мінімальних цін позицій бренду.", window=False)
+
+
+def s_ladder3():
+    R4 = _rows_for([(b, 'doypack', 4, None) for b in ('James Cook', '!FEST', 'Їжа в Похід', 'Харчі', 'SubliMate', 'Trek\'n Eat',
+                                                   'Adventure Food', 'Travellunch', 'Mountain House')] +
+                   [('Adventure Menu', 'doypack', 4, 'Adventure Menu · дойпак 110 г')])
+    groups = [("СЕГМЕНТ 4 · СУБЛІМАЦІЯ", PLUM, R4)]
+    _ladder("Ціна: сублімація", "ЦІНА ЗА ОДНУ УПАКОВКУ · 3 З 3",
+            "Український сублімат — від 55 до 370 грн, імпортний — від 270 до 890.", groups, 950, [0, 200, 400, 600, 800],
+            "Роздрібна ціна за одну упаковку на сайтах продавців; точка — медіана мінімальних цін позицій бренду. "
+            "Інший привід споживання і канал: туризм, армія.", window=False)
