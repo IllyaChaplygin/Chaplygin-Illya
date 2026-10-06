@@ -6,6 +6,7 @@ exec(open('s_customs.py').read())
 exec(open('s_formats.py').read())
 exec(open('s_charts.py').read())
 exec(open('s_rest.py').read())
+exec(open('s_end.py').read())
 
 orig = slide_ids()          # 23 слайди колоди користувача; лишаємо лише обкладинку
 o_cover = orig[0]
@@ -26,7 +27,7 @@ for f in FMT_ORDER:
     mk(s_format, f)                       # слайд формату, одразу за ним — його каталог
     before = len(slide_ids()); cat_slides(f); order += slide_ids()[before:]
 for fn in (s_heat, s_top13, s_ladder1, s_ladder2, s_ladder3, s_retail_matrix, s_retail_table, s_channels,
-           s_stand, s_fin, s_price_table):
+           s_fin, s_price_table, s_stand_pouch, s_stand_cup, s_stand_matrix, s_stand_neighbors):
     mk(fn)
 for el in orig:
     if el is not o_cover:

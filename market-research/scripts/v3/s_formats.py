@@ -124,7 +124,7 @@ def s_format(f):
     # права частина: рядки по вазі
     rows = band_rows(f)
     bx0 = lx + lw + 0.25; bw = W - M - bx0
-    cols = [("ФОТО", 1.78), ("ГРАМАЖ", 1.30), ("ПОЗИЦІЙ І БРЕНДИ", 3.35), ("ЦІНА, ГРН", 1.55)]
+    cols = [("ФОТО", 1.78), ("ГРАМАЖ", 1.30), ("ПОЗИЦІЙ · КОЛІР = БРЕНД", 3.35), ("ЦІНА, ГРН", 1.55)]
     xx = bx0
     for lb, w_ in cols:
         text(s, xx + 0.08, 1.82, w_, 0.2, lb, size=8.5, bold=True, color=GREY); xx += w_
@@ -147,17 +147,25 @@ def s_format(f):
             pic(s, x['img'], bx0 + 0.12 + k * (tw + 0.06), y + 0.10, tw - 0.04, rh - 0.28)
         text(s, bx0 + cols[0][1] + 0.08, y + (rh - 0.08) / 2 - 0.2, cols[1][1], 0.4, lab, size=15, bold=True, color=NAVY,
              anchor=MSO_ANCHOR.MIDDLE)
-        # стовпчик по брендах
+        # стовпчик по брендах + легенда «колір = бренд»
         sx = bx0 + cols[0][1] + cols[1][1] + 0.08
         bc = collections.Counter(x['brand'] for x in part)
         full = 1.45
         cx_ = sx
         for b, n in sorted(bc.items(), key=lambda kv: -kv[1]):
             ww = full * n / mxn
-            rect(s, cx_, y + 0.10, ww, 0.24, colr[b]); cx_ += ww
-        text(s, sx + full + 0.06, y + 0.07, 0.5, 0.3, str(len(part)), size=14, bold=True, color=NAVY)
-        btxt = " · ".join(f"{b} ×{n}" if n > 1 else b for b, n in sorted(bc.items(), key=lambda kv: -kv[1]))
-        text(s, sx, y + 0.40, cols[2][1] - 0.15, rh - 0.5, btxt, size=8.8, color=INK, line=1.05)
+            rect(s, cx_, y + 0.08, ww, 0.20, colr[b]); cx_ += ww
+        text(s, sx + full + 0.06, y + 0.04, 0.5, 0.3, str(len(part)), size=14, bold=True, color=NAVY)
+        lx_, ly_ = sx, y + 0.34
+        maxw = cols[2][1] - 0.12
+        for b, n in sorted(bc.items(), key=lambda kv: -kv[1]):
+            lab = f"{b} ×{n}" if n > 1 else b
+            iw = 0.16 + 0.066 * len(lab) + 0.12
+            if lx_ + iw > sx + maxw and lx_ > sx:
+                lx_ = sx; ly_ += 0.17
+            rect(s, lx_, ly_ + 0.035, 0.10, 0.10, colr[b], rounded=True, adj=0.3)
+            text(s, lx_ + 0.14, ly_, iw, 0.17, lab, size=8.5, color=INK)
+            lx_ += iw
         lo = min(x['lo'] for x in part); hi = max(x['hi'] for x in part)
         px = bx0 + cols[0][1] + cols[1][1] + cols[2][1] + 0.08
         text(s, px, y + (rh - 0.08) / 2 - 0.16, cols[3][1] - 0.1, 0.3, rngs(lo, hi), size=14, bold=True, color=c,
