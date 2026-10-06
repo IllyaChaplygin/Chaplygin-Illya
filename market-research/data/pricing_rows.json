@@ -1,0 +1,362 @@
+[
+ {
+  "n": 1,
+  "group": "BSCM — пауч 240 г",
+  "name": "Ready Rice, Jasmine Rice 6x240 g.",
+  "g": 240,
+  "cc": 0.995418606770833,
+  "cc_uah": 44.793837304687486,
+  "partner": 111.98459326171871,
+  "shelf": 156.7784305664062
+ },
+ {
+  "n": 2,
+  "group": "BSCM — пауч 240 г",
+  "name": "Ready Rice, Mexican Rice 6x240 g.",
+  "g": 240,
+  "cc": 1.13762102083333,
+  "cc_uah": 51.19294593749985,
+  "partner": 127.98236484374962,
+  "shelf": 179.17531078124946
+ },
+ {
+  "n": 3,
+  "group": "BSCM — пауч 240 г",
+  "name": "Ready Rice, Japanese Style Rice 6x240 g.",
+  "g": 240,
+  "cc": 1.13762102083333,
+  "cc_uah": 51.19294593749985,
+  "partner": 127.98236484374962,
+  "shelf": 179.17531078124946
+ },
+ {
+  "n": 4,
+  "group": "BSCM — пауч 240 г",
+  "name": "Ready Rice, Hot and Spicy Rice 6x240 g",
+  "g": 240,
+  "cc": 1.27982343489583,
+  "cc_uah": 57.59205457031235,
+  "partner": 143.98013642578087,
+  "shelf": 201.5721909960932
+ },
+ {
+  "n": 5,
+  "group": "BSCMFoods - Навалом (150г)Pouch",
+  "name": "Ready Rice, Jasmine Rice 6x240 g.",
+  "g": 150,
+  "cc": 0.842849973738682,
+  "cc_uah": 37.92824881824069,
+  "partner": 94.82062204560172,
+  "shelf": 132.7488708638424
+ },
+ {
+  "n": 6,
+  "group": "BSCMFoods - Навалом (150г)Pouch",
+  "name": "Ready Rice, Mexican Rice 6x240 g.",
+  "g": 150,
+  "cc": 0.981094929271472,
+  "cc_uah": 44.14927181721624,
+  "partner": 110.37317954304059,
+  "shelf": 154.5224513602568
+ },
+ {
+  "n": 7,
+  "group": "BSCMFoods - Навалом (150г)Pouch",
+  "name": "Ready Rice, Japanese Style Rice 6x240 g.",
+  "g": 150,
+  "cc": 0.981094929271472,
+  "cc_uah": 44.14927181721624,
+  "partner": 110.37317954304059,
+  "shelf": 154.5224513602568
+ },
+ {
+  "n": 8,
+  "group": "BSCMFoods - Навалом (150г)Pouch",
+  "name": "Ready Rice, Hot and Spicy Rice 6x240 g",
+  "g": 150,
+  "cc": 1.07028522316359,
+  "cc_uah": 48.16283504236155,
+  "partner": 120.40708760590387,
+  "shelf": 168.56992264826542
+ },
+ {
+  "n": 9,
+  "group": "BSCMFoods - Навалом (200г)Pouch",
+  "name": "Ready Rice, Jasmine Rice 6x240 g.",
+  "g": 200,
+  "cc": 0.952556220056099,
+  "cc_uah": 42.865029902524455,
+  "partner": 107.16257475631113,
+  "shelf": 150.02760465883557
+ },
+ {
+  "n": 10,
+  "group": "BSCMFoods - Навалом (200г)Pouch",
+  "name": "Ready Rice, Mexican Rice 6x240 g.",
+  "g": 200,
+  "cc": 1.07379043215039,
+  "cc_uah": 48.32056944676755,
+  "partner": 120.80142361691887,
+  "shelf": 169.1219930636864
+ },
+ {
+  "n": 11,
+  "group": "BSCMFoods - Навалом (200г)Pouch",
+  "name": "Ready Rice, Japanese Style Rice 6x240 g.",
+  "g": 200,
+  "cc": 1.07379043215039,
+  "cc_uah": 48.32056944676755,
+  "partner": 120.80142361691887,
+  "shelf": 169.1219930636864
+ },
+ {
+  "n": 12,
+  "group": "BSCMFoods - Навалом (200г)Pouch",
+  "name": "Ready Rice, Hot and Spicy Rice 6x240 g",
+  "g": 200,
+  "cc": 1.17770547108835,
+  "cc_uah": 52.99674619897576,
+  "partner": 132.4918654974394,
+  "shelf": 185.48861169641515
+ },
+ {
+  "n": 13,
+  "group": "BSCM — стакан 150 г",
+  "name": "Ready Rice — Thai Jasmine Rice 150 g (Single Cup)",
+  "g": 150,
+  "cc": 0.881437262584171,
+  "cc_uah": 39.664676816287695,
+  "partner": 99.16169204071923,
+  "shelf": 138.8263688570069
+ },
+ {
+  "n": 14,
+  "group": "BSCM — стакан 150 г",
+  "name": "Ready Rice — Thai Brown Jasmine Rice 150 g (Single Cup)",
+  "g": 150,
+  "cc": 0.881407859256575,
+  "cc_uah": 39.66335366654588,
+  "partner": 99.1583841663647,
+  "shelf": 138.82173783291057
+ },
+ {
+  "n": 15,
+  "group": "BSCM — стакан 150 г",
+  "name": "Ready Rice — Thai Red Jasmine Rice 150 g (Single Cup)",
+  "g": 150,
+  "cc": 0.954858269166893,
+  "cc_uah": 42.96862211251018,
+  "partner": 107.42155528127545,
+  "shelf": 150.39017739378562
+ },
+ {
+  "n": 16,
+  "group": "BSCM — стакан 150 г",
+  "name": "Ready Rice — Rice Berry 150 g (Single Cup)",
+  "g": 150,
+  "cc": 0.954858269166893,
+  "cc_uah": 42.96862211251018,
+  "partner": 107.42155528127545,
+  "shelf": 150.39017739378562
+ },
+ {
+  "n": 17,
+  "group": "BSCM — подвійний стакан 2x125 г",
+  "name": "Ready Rice — Jasmine Rice з олією 2x125 г",
+  "g": 250,
+  "cc": 1.6275694066699,
+  "cc_uah": 73.2406233001455,
+  "partner": 183.10155825036375,
+  "shelf": 256.3421815505092
+ },
+ {
+  "n": 18,
+  "group": "BSCM — подвійний стакан 2x125 г",
+  "name": "Ready Rice — Jasmine Rice (Pathum) з олією 2x125 г",
+  "g": 250,
+  "cc": 1.47960898899142,
+  "cc_uah": 66.58240450461389,
+  "partner": 166.4560112615347,
+  "shelf": 233.03841576614857
+ },
+ {
+  "n": 19,
+  "group": "BSCM — подвійний стакан 2x125 г",
+  "name": "Ready Rice — Brown Jasmine Rice з олією 2x125 г",
+  "g": 250,
+  "cc": 1.6275694066699,
+  "cc_uah": 73.2406233001455,
+  "partner": 183.10155825036375,
+  "shelf": 256.3421815505092
+ },
+ {
+  "n": 20,
+  "group": "BSCM — подвійний стакан 2x125 г",
+  "name": "Ready Rice — Brown Rice з олією 2x125 г",
+  "g": 250,
+  "cc": 1.62761752873563,
+  "cc_uah": 73.24278879310336,
+  "partner": 183.10697198275838,
+  "shelf": 256.34976077586174
+ },
+ {
+  "n": 21,
+  "group": "BSCM — подвійний стакан 2x125 г",
+  "name": "Ready Rice — Basmati Rice* з олією 2x125 г",
+  "g": 250,
+  "cc": 1.77552982434839,
+  "cc_uah": 79.89884209567755,
+  "partner": 199.74710523919387,
+  "shelf": 279.6459473348714
+ },
+ {
+  "n": 22,
+  "group": "BSCM — подвійний стакан 2x125 г",
+  "name": "Ready Rice — Long Grain Rice з олією 2x125 г",
+  "g": 250,
+  "cc": 1.39083273838433,
+  "cc_uah": 62.58747322729485,
+  "partner": 156.4686830682371,
+  "shelf": 219.05615629553193
+ },
+ {
+  "n": 23,
+  "group": "CM Premium — пауч 250 г (органік)",
+  "name": "Organic Garlic Fried Rice 6x250g",
+  "g": 250,
+  "cc": 1.13300100081699,
+  "cc_uah": 50.98504503676455,
+  "partner": 127.46261259191137,
+  "shelf": 178.4476576286759
+ },
+ {
+  "n": 24,
+  "group": "CM Premium — пауч 250 г (органік)",
+  "name": "Organic Cilantro Lime Rice 6x250g",
+  "g": 250,
+  "cc": 1.13300100081699,
+  "cc_uah": 50.98504503676455,
+  "partner": 127.46261259191137,
+  "shelf": 178.4476576286759
+ },
+ {
+  "n": 25,
+  "group": "CM Premium — пауч 250 г (органік)",
+  "name": "Organic Turmeric Basmati Rice With Cumin 6x250g",
+  "g": 250,
+  "cc": 1.13300100081699,
+  "cc_uah": 50.98504503676455,
+  "partner": 127.46261259191137,
+  "shelf": 178.4476576286759
+ },
+ {
+  "n": 26,
+  "group": "CM Premium — пауч 250 г (органік)",
+  "name": "Organic Jasmine Rice        6x250g",
+  "g": 250,
+  "cc": 1.13300100081699,
+  "cc_uah": 50.98504503676455,
+  "partner": 127.46261259191137,
+  "shelf": 178.4476576286759
+ },
+ {
+  "n": 27,
+  "group": "ONE'S International — корейський рис",
+  "name": "Kimchi Fried Rice 200g",
+  "g": 200,
+  "cc": 2.1048630417902,
+  "cc_uah": 94.71883688055901,
+  "partner": 236.7970922013975,
+  "shelf": 331.5159290819565
+ },
+ {
+  "n": 28,
+  "group": "ONE'S International — корейський рис",
+  "name": "Vegetable Fried Rice 200g",
+  "g": 200,
+  "cc": 2.1048630417902,
+  "cc_uah": 94.71883688055901,
+  "partner": 236.7970922013975,
+  "shelf": 331.5159290819565
+ },
+ {
+  "n": 29,
+  "group": "ONE'S International — корейський рис",
+  "name": "Japchae Fried Rice 200g",
+  "g": 200,
+  "cc": 2.1048630417902,
+  "cc_uah": 94.71883688055901,
+  "partner": 236.7970922013975,
+  "shelf": 331.5159290819565
+ },
+ {
+  "n": 30,
+  "group": "ONE'S International — корейський рис",
+  "name": "Cooked White Rice 210g",
+  "g": 210,
+  "cc": 0.971476418890301,
+  "cc_uah": 43.71643885006355,
+  "partner": 109.29109712515886,
+  "shelf": 153.0075359752224
+ },
+ {
+  "n": 31,
+  "group": "BSCM — стакан 150 г",
+  "name": "Ready Rice — Brown Jasmine Rice with Red Quinoa 150 g (Single Cup)",
+  "g": 150,
+  "cc": 0.954858269166893,
+  "cc_uah": 42.96862211251018,
+  "partner": 107.42155528127545,
+  "shelf": 150.39017739378562
+ },
+ {
+  "n": 32,
+  "group": "BSCM — подвійний стакан 2x125 г",
+  "name": "Ready Rice — Jasmine Rice (без олії) 2x125 г",
+  "g": 250,
+  "cc": 1.6275694066699,
+  "cc_uah": 73.2406233001455,
+  "partner": 183.10155825036375,
+  "shelf": 256.3421815505092
+ },
+ {
+  "n": 33,
+  "group": "BSCM — пауч 240 г, мікс Bags+Cups",
+  "name": "Ready Rice — Jasmine Rice 240 g",
+  "g": 240,
+  "cc": 1.02831161940997,
+  "cc_uah": 46.27402287344865,
+  "partner": 115.68505718362162,
+  "shelf": 161.95908005707025
+ },
+ {
+  "n": 34,
+  "group": "BSCM — пауч 240 г, мікс Bags+Cups",
+  "name": "Ready Rice — Mexican Rice 240 g",
+  "g": 240,
+  "cc": 1.17521243923061,
+  "cc_uah": 52.88455976537745,
+  "partner": 132.21139941344362,
+  "shelf": 185.09595917882106
+ },
+ {
+  "n": 35,
+  "group": "BSCM — пауч 240 г, мікс Bags+Cups",
+  "name": "Ready Rice — Japanese Style Rice 240 g",
+  "g": 240,
+  "cc": 1.17521243923061,
+  "cc_uah": 52.88455976537745,
+  "partner": 132.21139941344362,
+  "shelf": 185.09595917882106
+ },
+ {
+  "n": 36,
+  "group": "BSCM — пауч 240 г, мікс Bags+Cups",
+  "name": "Ready Rice — Hot and Spicy Rice 240 g",
+  "g": 240,
+  "cc": 1.32211325905124,
+  "cc_uah": 59.49509665730581,
+  "partner": 148.7377416432645,
+  "shelf": 208.2328383005703
+ }
+]
