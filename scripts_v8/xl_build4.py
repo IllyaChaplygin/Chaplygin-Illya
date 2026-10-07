@@ -44,6 +44,13 @@ def build(cfg):
     # скрытый расчёт запроса и СС «после»: C21 запрос, C22 предел, F22.. СС после ₴
     ASK="C21"
     put("B3",f'="Полка "&ROUND({SH},0)&" ₴ достижима при себестоимости "&ROUND(D9,2)&" ₴ (сейчас "&ROUND(D7,2)&"–"&ROUND(D8,2)&" ₴). Для этого закупка SIAS должна быть €"&ROUND({ASK},2)&" вместо €"&MIN(C20,E20)&"–€"&MAX(C20,E20)&" (−"&ROUND((1-{ASK}/MIN(C20,E20))*100,0)&"…"&ROUND((1-{ASK}/MAX(C20,E20))*100,0)&"%)."',font(11,True,NAVY),KEY,al=LF,merge="B3:N3"); ws.row_dimensions[3].height=30
+    # --- видимый результат: запрашиваемая цена для SIAS
+    put("B4","ЗАПРОС ДЛЯ SIAS, €/пачку",font(11,True,NAVY),KEY,al=LF,border=True)
+    put("C4",f"={ASK}",font(20,True),AFTER,'"€"0.00',CT,border=True,merge="C4:D4")
+    put("E4",'="сейчас €"&C20&" (4 SKU) / €"&E20&" (2 SKU)"',font(10,False,GREYT),KEY,al=CT,border=True,merge="E4:H4")
+    put("I4",f'="снижение −"&ROUND((1-{ASK}/C20)*100,0)&" % / −"&ROUND((1-{ASK}/E20)*100,0)&" %"',font(10,True,'B53A3A'),KEY,al=CT,border=True,merge="I4:K4")
+    put("L4","одна цена для всех 6 SKU",font(10,False,GREYT),KEY,al=CT,border=True,merge="L4:N4")
+    ws.row_dimensions[4].height=38
     groups=["Себестоимость в Украине (СС)","Цена партнёру (магазину)","Бонус сети","Наша прибыль","Наценка магазина","ПОЛКА с НДС"]
     put("B5","",font(9,True,'FFFFFF'),'3E5A85'); put("B6","Вариант",font(9,True,'FFFFFF'),'3E5A85')
     for i,g in enumerate(groups):
