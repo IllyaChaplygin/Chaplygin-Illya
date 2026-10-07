@@ -17,11 +17,11 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 1.2145,
-   "cost_uah": 54.65,
-   "partner_uah": 136.625,
-   "bonus_uah": 34.15625,
-   "profit_uah": 47.818749999999994,
-   "shelf_uah": 191.27499999999998,
+   "cost_uah": 54.652499999999996,
+   "partner_uah": 136.63125,
+   "bonus_uah": 34.1578125,
+   "profit_uah": 47.82093749999999,
+   "shelf_uah": 191.28374999999997,
    "margin_check": 0.35
   },
   {
@@ -36,12 +36,12 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 1.2554,
-   "cost_uah": 56.49,
-   "partner_uah": 141.225,
-   "bonus_uah": 35.30625,
-   "profit_uah": 49.42874999999999,
-   "shelf_uah": 197.71499999999997,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 56.493,
+   "partner_uah": 141.2325,
+   "bonus_uah": 35.308125,
+   "profit_uah": 49.431374999999996,
+   "shelf_uah": 197.72549999999998,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "singha",
@@ -55,11 +55,11 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 1.3591,
-   "cost_uah": 61.16,
-   "partner_uah": 152.89999999999998,
-   "bonus_uah": 38.224999999999994,
-   "profit_uah": 53.514999999999986,
-   "shelf_uah": 214.05999999999995,
+   "cost_uah": 61.1595,
+   "partner_uah": 152.89875,
+   "bonus_uah": 38.2246875,
+   "profit_uah": 53.5145625,
+   "shelf_uah": 214.05825,
    "margin_check": 0.35
   },
   {
@@ -74,12 +74,12 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 1.3776,
-   "cost_uah": 61.99,
-   "partner_uah": 154.975,
-   "bonus_uah": 38.74375,
-   "profit_uah": 54.24124999999999,
-   "shelf_uah": 216.96499999999997,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 61.992,
+   "partner_uah": 154.98,
+   "bonus_uah": 38.745,
+   "profit_uah": 54.243,
+   "shelf_uah": 216.97199999999998,
+   "margin_check": 0.35000000000000003
   },
   {
    "supplier_id": "singha",
@@ -93,11 +93,11 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 1.2145,
-   "cost_uah": 54.65,
-   "partner_uah": 136.625,
-   "bonus_uah": 34.15625,
-   "profit_uah": 47.818749999999994,
-   "shelf_uah": 191.27499999999998,
+   "cost_uah": 54.652499999999996,
+   "partner_uah": 136.63125,
+   "bonus_uah": 34.1578125,
+   "profit_uah": 47.82093749999999,
+   "shelf_uah": 191.28374999999997,
    "margin_check": 0.35
   },
   {
@@ -112,12 +112,12 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 1.2554,
-   "cost_uah": 56.49,
-   "partner_uah": 141.225,
-   "bonus_uah": 35.30625,
-   "profit_uah": 49.42874999999999,
-   "shelf_uah": 197.71499999999997,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 56.493,
+   "partner_uah": 141.2325,
+   "bonus_uah": 35.308125,
+   "profit_uah": 49.431374999999996,
+   "shelf_uah": 197.72549999999998,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "singha",
@@ -131,11 +131,11 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 1.3591,
-   "cost_uah": 61.16,
-   "partner_uah": 152.89999999999998,
-   "bonus_uah": 38.224999999999994,
-   "profit_uah": 53.514999999999986,
-   "shelf_uah": 214.05999999999995,
+   "cost_uah": 61.1595,
+   "partner_uah": 152.89875,
+   "bonus_uah": 38.2246875,
+   "profit_uah": 53.5145625,
+   "shelf_uah": 214.05825,
    "margin_check": 0.35
   },
   {
@@ -150,12 +150,12 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 1.3776,
-   "cost_uah": 61.99,
-   "partner_uah": 154.975,
-   "bonus_uah": 38.74375,
-   "profit_uah": 54.24124999999999,
-   "shelf_uah": 216.96499999999997,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 61.992,
+   "partner_uah": 154.98,
+   "bonus_uah": 38.745,
+   "profit_uah": 54.243,
+   "shelf_uah": 216.97199999999998,
+   "margin_check": 0.35000000000000003
   },
   {
    "supplier_id": "thainichi",
@@ -169,12 +169,12 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 0.9443,
-   "cost_uah": 42.49,
-   "partner_uah": 106.225,
-   "bonus_uah": 26.55625,
-   "profit_uah": 37.178749999999994,
-   "shelf_uah": 148.71499999999997,
-   "margin_check": 0.35
+   "cost_uah": 42.493500000000004,
+   "partner_uah": 106.23375,
+   "bonus_uah": 26.5584375,
+   "profit_uah": 37.18181249999999,
+   "shelf_uah": 148.72725,
+   "margin_check": 0.3499999999999999
   },
   {
    "supplier_id": "thainichi",
@@ -188,11 +188,11 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 0.9764,
-   "cost_uah": 43.94,
-   "partner_uah": 109.85,
-   "bonus_uah": 27.4625,
-   "profit_uah": 38.4475,
-   "shelf_uah": 153.79,
+   "cost_uah": 43.938,
+   "partner_uah": 109.845,
+   "bonus_uah": 27.46125,
+   "profit_uah": 38.44575,
+   "shelf_uah": 153.783,
    "margin_check": 0.35
   },
   {
@@ -207,11 +207,11 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 1.0665,
-   "cost_uah": 47.99,
-   "partner_uah": 119.975,
-   "bonus_uah": 29.99375,
-   "profit_uah": 41.99124999999999,
-   "shelf_uah": 167.96499999999997,
+   "cost_uah": 47.9925,
+   "partner_uah": 119.98124999999999,
+   "bonus_uah": 29.995312499999997,
+   "profit_uah": 41.993437499999985,
+   "shelf_uah": 167.97374999999997,
    "margin_check": 0.3499999999999999
   },
   {
@@ -226,12 +226,12 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 1.0875,
-   "cost_uah": 48.94,
-   "partner_uah": 122.35,
-   "bonus_uah": 30.5875,
-   "profit_uah": 42.8225,
-   "shelf_uah": 171.29,
-   "margin_check": 0.35
+   "cost_uah": 48.93749999999999,
+   "partner_uah": 122.34374999999997,
+   "bonus_uah": 30.585937499999993,
+   "profit_uah": 42.82031249999998,
+   "shelf_uah": 171.28124999999994,
+   "margin_check": 0.3499999999999999
   },
   {
    "supplier_id": "thainichi",
@@ -245,11 +245,11 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 1.1421,
-   "cost_uah": 51.39,
-   "partner_uah": 128.475,
-   "bonus_uah": 32.11875,
-   "profit_uah": 44.966249999999995,
-   "shelf_uah": 179.86499999999998,
+   "cost_uah": 51.394499999999994,
+   "partner_uah": 128.48624999999998,
+   "bonus_uah": 32.121562499999996,
+   "profit_uah": 44.970187499999994,
+   "shelf_uah": 179.88074999999998,
    "margin_check": 0.35
   },
   {
@@ -264,11 +264,11 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 1.2205,
-   "cost_uah": 54.92,
-   "partner_uah": 137.29999999999998,
-   "bonus_uah": 34.324999999999996,
-   "profit_uah": 48.054999999999986,
-   "shelf_uah": 192.21999999999997,
+   "cost_uah": 54.9225,
+   "partner_uah": 137.30624999999998,
+   "bonus_uah": 34.326562499999994,
+   "profit_uah": 48.05718749999998,
+   "shelf_uah": 192.22874999999996,
    "margin_check": 0.3499999999999999
   },
   {
@@ -283,12 +283,12 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 1.3332,
-   "cost_uah": 59.99,
-   "partner_uah": 149.975,
-   "bonus_uah": 37.49375,
-   "profit_uah": 52.49124999999999,
-   "shelf_uah": 209.96499999999997,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 59.994,
+   "partner_uah": 149.98499999999999,
+   "bonus_uah": 37.496249999999996,
+   "profit_uah": 52.49474999999999,
+   "shelf_uah": 209.97899999999996,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "thainichi",
@@ -302,12 +302,12 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 1.3593,
-   "cost_uah": 61.17,
-   "partner_uah": 152.92499999999998,
-   "bonus_uah": 38.231249999999996,
-   "profit_uah": 53.523749999999986,
-   "shelf_uah": 214.09499999999997,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 61.168499999999995,
+   "partner_uah": 152.92125,
+   "bonus_uah": 38.2303125,
+   "profit_uah": 53.522437499999995,
+   "shelf_uah": 214.08974999999998,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "tmk",
@@ -321,12 +321,12 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 0.2113,
-   "cost_uah": 9.51,
-   "partner_uah": 23.775,
-   "bonus_uah": 5.94375,
-   "profit_uah": 8.32125,
-   "shelf_uah": 33.285,
-   "margin_check": 0.35
+   "cost_uah": 9.5085,
+   "partner_uah": 23.77125,
+   "bonus_uah": 5.9428125,
+   "profit_uah": 8.319937499999998,
+   "shelf_uah": 33.27974999999999,
+   "margin_check": 0.3499999999999999
   },
   {
    "supplier_id": "tmk",
@@ -340,12 +340,12 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 0.2361,
-   "cost_uah": 10.62,
-   "partner_uah": 26.549999999999997,
-   "bonus_uah": 6.637499999999999,
-   "profit_uah": 9.292499999999999,
-   "shelf_uah": 37.169999999999995,
-   "margin_check": 0.35
+   "cost_uah": 10.6245,
+   "partner_uah": 26.561249999999998,
+   "bonus_uah": 6.640312499999999,
+   "profit_uah": 9.2964375,
+   "shelf_uah": 37.18574999999999,
+   "margin_check": 0.35000000000000003
   },
   {
    "supplier_id": "tmk",
@@ -359,12 +359,12 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 0.2663,
-   "cost_uah": 11.98,
-   "partner_uah": 29.95,
-   "bonus_uah": 7.4875,
-   "profit_uah": 10.482499999999998,
-   "shelf_uah": 41.93,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 11.9835,
+   "partner_uah": 29.95875,
+   "bonus_uah": 7.4896875,
+   "profit_uah": 10.4855625,
+   "shelf_uah": 41.942249999999994,
+   "margin_check": 0.35000000000000003
   },
   {
    "supplier_id": "tmk",
@@ -378,11 +378,11 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 0.2691,
-   "cost_uah": 12.11,
-   "partner_uah": 30.275,
-   "bonus_uah": 7.56875,
-   "profit_uah": 10.59625,
-   "shelf_uah": 42.385,
+   "cost_uah": 12.1095,
+   "partner_uah": 30.27375,
+   "bonus_uah": 7.5684375,
+   "profit_uah": 10.5958125,
+   "shelf_uah": 42.38325,
    "margin_check": 0.35
   },
   {
@@ -397,12 +397,12 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 0.2113,
-   "cost_uah": 9.51,
-   "partner_uah": 23.775,
-   "bonus_uah": 5.94375,
-   "profit_uah": 8.32125,
-   "shelf_uah": 33.285,
-   "margin_check": 0.35
+   "cost_uah": 9.5085,
+   "partner_uah": 23.77125,
+   "bonus_uah": 5.9428125,
+   "profit_uah": 8.319937499999998,
+   "shelf_uah": 33.27974999999999,
+   "margin_check": 0.3499999999999999
   },
   {
    "supplier_id": "tmk",
@@ -416,12 +416,12 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 0.2361,
-   "cost_uah": 10.62,
-   "partner_uah": 26.549999999999997,
-   "bonus_uah": 6.637499999999999,
-   "profit_uah": 9.292499999999999,
-   "shelf_uah": 37.169999999999995,
-   "margin_check": 0.35
+   "cost_uah": 10.6245,
+   "partner_uah": 26.561249999999998,
+   "bonus_uah": 6.640312499999999,
+   "profit_uah": 9.2964375,
+   "shelf_uah": 37.18574999999999,
+   "margin_check": 0.35000000000000003
   },
   {
    "supplier_id": "tmk",
@@ -435,12 +435,12 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 0.2663,
-   "cost_uah": 11.98,
-   "partner_uah": 29.95,
-   "bonus_uah": 7.4875,
-   "profit_uah": 10.482499999999998,
-   "shelf_uah": 41.93,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 11.9835,
+   "partner_uah": 29.95875,
+   "bonus_uah": 7.4896875,
+   "profit_uah": 10.4855625,
+   "shelf_uah": 41.942249999999994,
+   "margin_check": 0.35000000000000003
   },
   {
    "supplier_id": "tmk",
@@ -454,11 +454,11 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 0.2691,
-   "cost_uah": 12.11,
-   "partner_uah": 30.275,
-   "bonus_uah": 7.56875,
-   "profit_uah": 10.59625,
-   "shelf_uah": 42.385,
+   "cost_uah": 12.1095,
+   "partner_uah": 30.27375,
+   "bonus_uah": 7.5684375,
+   "profit_uah": 10.5958125,
+   "shelf_uah": 42.38325,
    "margin_check": 0.35
   },
   {
@@ -473,12 +473,12 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 0.2113,
-   "cost_uah": 9.51,
-   "partner_uah": 23.775,
-   "bonus_uah": 5.94375,
-   "profit_uah": 8.32125,
-   "shelf_uah": 33.285,
-   "margin_check": 0.35
+   "cost_uah": 9.5085,
+   "partner_uah": 23.77125,
+   "bonus_uah": 5.9428125,
+   "profit_uah": 8.319937499999998,
+   "shelf_uah": 33.27974999999999,
+   "margin_check": 0.3499999999999999
   },
   {
    "supplier_id": "tmk",
@@ -492,12 +492,12 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 0.2361,
-   "cost_uah": 10.62,
-   "partner_uah": 26.549999999999997,
-   "bonus_uah": 6.637499999999999,
-   "profit_uah": 9.292499999999999,
-   "shelf_uah": 37.169999999999995,
-   "margin_check": 0.35
+   "cost_uah": 10.6245,
+   "partner_uah": 26.561249999999998,
+   "bonus_uah": 6.640312499999999,
+   "profit_uah": 9.2964375,
+   "shelf_uah": 37.18574999999999,
+   "margin_check": 0.35000000000000003
   },
   {
    "supplier_id": "tmk",
@@ -511,12 +511,12 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 0.2663,
-   "cost_uah": 11.98,
-   "partner_uah": 29.95,
-   "bonus_uah": 7.4875,
-   "profit_uah": 10.482499999999998,
-   "shelf_uah": 41.93,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 11.9835,
+   "partner_uah": 29.95875,
+   "bonus_uah": 7.4896875,
+   "profit_uah": 10.4855625,
+   "shelf_uah": 41.942249999999994,
+   "margin_check": 0.35000000000000003
   },
   {
    "supplier_id": "tmk",
@@ -530,11 +530,11 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 0.2691,
-   "cost_uah": 12.11,
-   "partner_uah": 30.275,
-   "bonus_uah": 7.56875,
-   "profit_uah": 10.59625,
-   "shelf_uah": 42.385,
+   "cost_uah": 12.1095,
+   "partner_uah": 30.27375,
+   "bonus_uah": 7.5684375,
+   "profit_uah": 10.5958125,
+   "shelf_uah": 42.38325,
    "margin_check": 0.35
   },
   {
@@ -549,11 +549,11 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 0.3793,
-   "cost_uah": 17.07,
-   "partner_uah": 42.675,
-   "bonus_uah": 10.66875,
-   "profit_uah": 14.936249999999998,
-   "shelf_uah": 59.74499999999999,
+   "cost_uah": 17.0685,
+   "partner_uah": 42.67125,
+   "bonus_uah": 10.6678125,
+   "profit_uah": 14.9349375,
+   "shelf_uah": 59.739749999999994,
    "margin_check": 0.35
   },
   {
@@ -568,12 +568,12 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 0.4218,
-   "cost_uah": 18.98,
-   "partner_uah": 47.449999999999996,
-   "bonus_uah": 11.862499999999999,
-   "profit_uah": 16.607499999999995,
-   "shelf_uah": 66.42999999999999,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 18.981,
+   "partner_uah": 47.4525,
+   "bonus_uah": 11.863125,
+   "profit_uah": 16.608375,
+   "shelf_uah": 66.4335,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "tmk",
@@ -587,12 +587,12 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 0.4758,
-   "cost_uah": 21.41,
-   "partner_uah": 53.525,
-   "bonus_uah": 13.38125,
-   "profit_uah": 18.733749999999993,
-   "shelf_uah": 74.93499999999999,
-   "margin_check": 0.34999999999999987
+   "cost_uah": 21.411,
+   "partner_uah": 53.5275,
+   "bonus_uah": 13.381875,
+   "profit_uah": 18.734625,
+   "shelf_uah": 74.9385,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "tmk",
@@ -606,12 +606,12 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 0.4808,
-   "cost_uah": 21.64,
-   "partner_uah": 54.1,
-   "bonus_uah": 13.525,
-   "profit_uah": 18.935000000000002,
-   "shelf_uah": 75.74,
-   "margin_check": 0.35000000000000003
+   "cost_uah": 21.636,
+   "partner_uah": 54.089999999999996,
+   "bonus_uah": 13.522499999999999,
+   "profit_uah": 18.931499999999993,
+   "shelf_uah": 75.72599999999998,
+   "margin_check": 0.34999999999999987
   },
   {
    "supplier_id": "tmk",
@@ -625,11 +625,11 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 0.3793,
-   "cost_uah": 17.07,
-   "partner_uah": 42.675,
-   "bonus_uah": 10.66875,
-   "profit_uah": 14.936249999999998,
-   "shelf_uah": 59.74499999999999,
+   "cost_uah": 17.0685,
+   "partner_uah": 42.67125,
+   "bonus_uah": 10.6678125,
+   "profit_uah": 14.9349375,
+   "shelf_uah": 59.739749999999994,
    "margin_check": 0.35
   },
   {
@@ -644,12 +644,12 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 0.4218,
-   "cost_uah": 18.98,
-   "partner_uah": 47.449999999999996,
-   "bonus_uah": 11.862499999999999,
-   "profit_uah": 16.607499999999995,
-   "shelf_uah": 66.42999999999999,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 18.981,
+   "partner_uah": 47.4525,
+   "bonus_uah": 11.863125,
+   "profit_uah": 16.608375,
+   "shelf_uah": 66.4335,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "tmk",
@@ -663,12 +663,12 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 0.4758,
-   "cost_uah": 21.41,
-   "partner_uah": 53.525,
-   "bonus_uah": 13.38125,
-   "profit_uah": 18.733749999999993,
-   "shelf_uah": 74.93499999999999,
-   "margin_check": 0.34999999999999987
+   "cost_uah": 21.411,
+   "partner_uah": 53.5275,
+   "bonus_uah": 13.381875,
+   "profit_uah": 18.734625,
+   "shelf_uah": 74.9385,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "tmk",
@@ -682,226 +682,226 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 0.4808,
-   "cost_uah": 21.64,
-   "partner_uah": 54.1,
-   "bonus_uah": 13.525,
-   "profit_uah": 18.935000000000002,
-   "shelf_uah": 75.74,
-   "margin_check": 0.35000000000000003
-  },
-  {
-   "supplier_id": "tmk",
-   "supplier": "TMK · KOKIRI",
-   "brand": "KOKIRI Wow",
-   "sku": "KOKIRI WOW SEAWEED - Original",
-   "title": "Wow SEAWEED Original",
-   "unit": "1 пакет 12 г",
-   "badge": "12 г · 36 пак/карт.",
-   "scenario": "40'",
-   "scenario_name": "40′ контейнер",
-   "is_cheapest": true,
-   "cost_usd": 0.7748,
-   "cost_uah": 34.86,
-   "partner_uah": 87.14999999999999,
-   "bonus_uah": 21.787499999999998,
-   "profit_uah": 30.502499999999994,
-   "shelf_uah": 122.00999999999998,
-   "margin_check": 0.35
-  },
-  {
-   "supplier_id": "tmk",
-   "supplier": "TMK · KOKIRI",
-   "brand": "KOKIRI Wow",
-   "sku": "KOKIRI WOW SEAWEED - Original",
-   "title": "Wow SEAWEED Original",
-   "unit": "1 пакет 12 г",
-   "badge": "12 г · 36 пак/карт.",
-   "scenario": "LCL 34",
-   "scenario_name": "Збірний 34 м³",
-   "is_cheapest": false,
-   "cost_usd": 0.8688,
-   "cost_uah": 39.09,
-   "partner_uah": 97.72500000000001,
-   "bonus_uah": 24.431250000000002,
-   "profit_uah": 34.20375,
-   "shelf_uah": 136.815,
-   "margin_check": 0.35
-  },
-  {
-   "supplier_id": "tmk",
-   "supplier": "TMK · KOKIRI",
-   "brand": "KOKIRI Wow",
-   "sku": "KOKIRI WOW SEAWEED - Original",
-   "title": "Wow SEAWEED Original",
-   "unit": "1 пакет 12 г",
-   "badge": "12 г · 36 пак/карт.",
-   "scenario": "20'",
-   "scenario_name": "20′ контейнер",
-   "is_cheapest": false,
-   "cost_usd": 0.9799,
-   "cost_uah": 44.1,
-   "partner_uah": 110.25,
-   "bonus_uah": 27.5625,
-   "profit_uah": 38.587500000000006,
-   "shelf_uah": 154.35,
-   "margin_check": 0.35000000000000003
-  },
-  {
-   "supplier_id": "tmk",
-   "supplier": "TMK · KOKIRI",
-   "brand": "KOKIRI Wow",
-   "sku": "KOKIRI WOW SEAWEED - Original",
-   "title": "Wow SEAWEED Original",
-   "unit": "1 пакет 12 г",
-   "badge": "12 г · 36 пак/карт.",
-   "scenario": "LCL 17",
-   "scenario_name": "Збірний 17 м³",
-   "is_cheapest": false,
-   "cost_usd": 0.9903,
-   "cost_uah": 44.56,
-   "partner_uah": 111.4,
-   "bonus_uah": 27.85,
-   "profit_uah": 38.99,
-   "shelf_uah": 155.96,
-   "margin_check": 0.35
-  },
-  {
-   "supplier_id": "tmk",
-   "supplier": "TMK · KOKIRI",
-   "brand": "KOKIRI Wow",
-   "sku": "KOKIRI WOW SEAWEED - Spicy",
-   "title": "Wow SEAWEED Spicy",
-   "unit": "1 пакет 12 г",
-   "badge": "12 г · 36 пак/карт.",
-   "scenario": "40'",
-   "scenario_name": "40′ контейнер",
-   "is_cheapest": true,
-   "cost_usd": 0.7748,
-   "cost_uah": 34.86,
-   "partner_uah": 87.14999999999999,
-   "bonus_uah": 21.787499999999998,
-   "profit_uah": 30.502499999999994,
-   "shelf_uah": 122.00999999999998,
-   "margin_check": 0.35
-  },
-  {
-   "supplier_id": "tmk",
-   "supplier": "TMK · KOKIRI",
-   "brand": "KOKIRI Wow",
-   "sku": "KOKIRI WOW SEAWEED - Spicy",
-   "title": "Wow SEAWEED Spicy",
-   "unit": "1 пакет 12 г",
-   "badge": "12 г · 36 пак/карт.",
-   "scenario": "LCL 34",
-   "scenario_name": "Збірний 34 м³",
-   "is_cheapest": false,
-   "cost_usd": 0.8688,
-   "cost_uah": 39.09,
-   "partner_uah": 97.72500000000001,
-   "bonus_uah": 24.431250000000002,
-   "profit_uah": 34.20375,
-   "shelf_uah": 136.815,
-   "margin_check": 0.35
-  },
-  {
-   "supplier_id": "tmk",
-   "supplier": "TMK · KOKIRI",
-   "brand": "KOKIRI Wow",
-   "sku": "KOKIRI WOW SEAWEED - Spicy",
-   "title": "Wow SEAWEED Spicy",
-   "unit": "1 пакет 12 г",
-   "badge": "12 г · 36 пак/карт.",
-   "scenario": "20'",
-   "scenario_name": "20′ контейнер",
-   "is_cheapest": false,
-   "cost_usd": 0.9799,
-   "cost_uah": 44.1,
-   "partner_uah": 110.25,
-   "bonus_uah": 27.5625,
-   "profit_uah": 38.587500000000006,
-   "shelf_uah": 154.35,
-   "margin_check": 0.35000000000000003
-  },
-  {
-   "supplier_id": "tmk",
-   "supplier": "TMK · KOKIRI",
-   "brand": "KOKIRI Wow",
-   "sku": "KOKIRI WOW SEAWEED - Spicy",
-   "title": "Wow SEAWEED Spicy",
-   "unit": "1 пакет 12 г",
-   "badge": "12 г · 36 пак/карт.",
-   "scenario": "LCL 17",
-   "scenario_name": "Збірний 17 м³",
-   "is_cheapest": false,
-   "cost_usd": 0.9903,
-   "cost_uah": 44.56,
-   "partner_uah": 111.4,
-   "bonus_uah": 27.85,
-   "profit_uah": 38.99,
-   "shelf_uah": 155.96,
-   "margin_check": 0.35
-  },
-  {
-   "supplier_id": "tmk",
-   "supplier": "TMK · KOKIRI",
-   "brand": "KOKIRI Wow",
-   "sku": "KOKIRI WOW SEAWEED - Squid",
-   "title": "Wow SEAWEED Squid",
-   "unit": "1 пакет 12 г",
-   "badge": "12 г · 36 пак/карт.",
-   "scenario": "40'",
-   "scenario_name": "40′ контейнер",
-   "is_cheapest": true,
-   "cost_usd": 0.7748,
-   "cost_uah": 35.64,
-   "partner_uah": 89.1,
-   "bonus_uah": 22.275,
-   "profit_uah": 31.184999999999995,
-   "shelf_uah": 124.73999999999998,
-   "margin_check": 0.35
-  },
-  {
-   "supplier_id": "tmk",
-   "supplier": "TMK · KOKIRI",
-   "brand": "KOKIRI Wow",
-   "sku": "KOKIRI WOW SEAWEED - Squid",
-   "title": "Wow SEAWEED Squid",
-   "unit": "1 пакет 12 г",
-   "badge": "12 г · 36 пак/карт.",
-   "scenario": "LCL 34",
-   "scenario_name": "Збірний 34 м³",
-   "is_cheapest": false,
-   "cost_usd": 0.8688,
-   "cost_uah": 39.96,
-   "partner_uah": 99.89999999999999,
-   "bonus_uah": 24.974999999999998,
-   "profit_uah": 34.96499999999999,
-   "shelf_uah": 139.85999999999999,
-   "margin_check": 0.3499999999999999
-  },
-  {
-   "supplier_id": "tmk",
-   "supplier": "TMK · KOKIRI",
-   "brand": "KOKIRI Wow",
-   "sku": "KOKIRI WOW SEAWEED - Squid",
-   "title": "Wow SEAWEED Squid",
-   "unit": "1 пакет 12 г",
-   "badge": "12 г · 36 пак/карт.",
-   "scenario": "20'",
-   "scenario_name": "20′ контейнер",
-   "is_cheapest": false,
-   "cost_usd": 0.9799,
-   "cost_uah": 45.07,
-   "partner_uah": 112.675,
-   "bonus_uah": 28.16875,
-   "profit_uah": 39.43624999999999,
-   "shelf_uah": 157.74499999999998,
+   "cost_uah": 21.636,
+   "partner_uah": 54.089999999999996,
+   "bonus_uah": 13.522499999999999,
+   "profit_uah": 18.931499999999993,
+   "shelf_uah": 75.72599999999998,
    "margin_check": 0.34999999999999987
   },
   {
    "supplier_id": "tmk",
    "supplier": "TMK · KOKIRI",
    "brand": "KOKIRI Wow",
+   "sku": "KOKIRI WOW SEAWEED - Original",
+   "title": "Wow SEAWEED Original",
+   "unit": "1 пакет 12 г",
+   "badge": "12 г · 36 пак/карт.",
+   "scenario": "40'",
+   "scenario_name": "40′ контейнер",
+   "is_cheapest": true,
+   "cost_usd": 0.7748,
+   "cost_uah": 34.866,
+   "partner_uah": 87.16499999999999,
+   "bonus_uah": 21.791249999999998,
+   "profit_uah": 30.507749999999994,
+   "shelf_uah": 122.03099999999998,
+   "margin_check": 0.35
+  },
+  {
+   "supplier_id": "tmk",
+   "supplier": "TMK · KOKIRI",
+   "brand": "KOKIRI Wow",
+   "sku": "KOKIRI WOW SEAWEED - Original",
+   "title": "Wow SEAWEED Original",
+   "unit": "1 пакет 12 г",
+   "badge": "12 г · 36 пак/карт.",
+   "scenario": "LCL 34",
+   "scenario_name": "Збірний 34 м³",
+   "is_cheapest": false,
+   "cost_usd": 0.8688,
+   "cost_uah": 39.096000000000004,
+   "partner_uah": 97.74000000000001,
+   "bonus_uah": 24.435000000000002,
+   "profit_uah": 34.209,
+   "shelf_uah": 136.836,
+   "margin_check": 0.35
+  },
+  {
+   "supplier_id": "tmk",
+   "supplier": "TMK · KOKIRI",
+   "brand": "KOKIRI Wow",
+   "sku": "KOKIRI WOW SEAWEED - Original",
+   "title": "Wow SEAWEED Original",
+   "unit": "1 пакет 12 г",
+   "badge": "12 г · 36 пак/карт.",
+   "scenario": "20'",
+   "scenario_name": "20′ контейнер",
+   "is_cheapest": false,
+   "cost_usd": 0.9799,
+   "cost_uah": 44.0955,
+   "partner_uah": 110.23875,
+   "bonus_uah": 27.5596875,
+   "profit_uah": 38.5835625,
+   "shelf_uah": 154.33425,
+   "margin_check": 0.35000000000000003
+  },
+  {
+   "supplier_id": "tmk",
+   "supplier": "TMK · KOKIRI",
+   "brand": "KOKIRI Wow",
+   "sku": "KOKIRI WOW SEAWEED - Original",
+   "title": "Wow SEAWEED Original",
+   "unit": "1 пакет 12 г",
+   "badge": "12 г · 36 пак/карт.",
+   "scenario": "LCL 17",
+   "scenario_name": "Збірний 17 м³",
+   "is_cheapest": false,
+   "cost_usd": 0.9903,
+   "cost_uah": 44.5635,
+   "partner_uah": 111.40874999999998,
+   "bonus_uah": 27.852187499999996,
+   "profit_uah": 38.99306249999999,
+   "shelf_uah": 155.97224999999997,
+   "margin_check": 0.35
+  },
+  {
+   "supplier_id": "tmk",
+   "supplier": "TMK · KOKIRI",
+   "brand": "KOKIRI Wow",
+   "sku": "KOKIRI WOW SEAWEED - Spicy",
+   "title": "Wow SEAWEED Spicy",
+   "unit": "1 пакет 12 г",
+   "badge": "12 г · 36 пак/карт.",
+   "scenario": "40'",
+   "scenario_name": "40′ контейнер",
+   "is_cheapest": true,
+   "cost_usd": 0.7748,
+   "cost_uah": 34.866,
+   "partner_uah": 87.16499999999999,
+   "bonus_uah": 21.791249999999998,
+   "profit_uah": 30.507749999999994,
+   "shelf_uah": 122.03099999999998,
+   "margin_check": 0.35
+  },
+  {
+   "supplier_id": "tmk",
+   "supplier": "TMK · KOKIRI",
+   "brand": "KOKIRI Wow",
+   "sku": "KOKIRI WOW SEAWEED - Spicy",
+   "title": "Wow SEAWEED Spicy",
+   "unit": "1 пакет 12 г",
+   "badge": "12 г · 36 пак/карт.",
+   "scenario": "LCL 34",
+   "scenario_name": "Збірний 34 м³",
+   "is_cheapest": false,
+   "cost_usd": 0.8688,
+   "cost_uah": 39.096000000000004,
+   "partner_uah": 97.74000000000001,
+   "bonus_uah": 24.435000000000002,
+   "profit_uah": 34.209,
+   "shelf_uah": 136.836,
+   "margin_check": 0.35
+  },
+  {
+   "supplier_id": "tmk",
+   "supplier": "TMK · KOKIRI",
+   "brand": "KOKIRI Wow",
+   "sku": "KOKIRI WOW SEAWEED - Spicy",
+   "title": "Wow SEAWEED Spicy",
+   "unit": "1 пакет 12 г",
+   "badge": "12 г · 36 пак/карт.",
+   "scenario": "20'",
+   "scenario_name": "20′ контейнер",
+   "is_cheapest": false,
+   "cost_usd": 0.9799,
+   "cost_uah": 44.0955,
+   "partner_uah": 110.23875,
+   "bonus_uah": 27.5596875,
+   "profit_uah": 38.5835625,
+   "shelf_uah": 154.33425,
+   "margin_check": 0.35000000000000003
+  },
+  {
+   "supplier_id": "tmk",
+   "supplier": "TMK · KOKIRI",
+   "brand": "KOKIRI Wow",
+   "sku": "KOKIRI WOW SEAWEED - Spicy",
+   "title": "Wow SEAWEED Spicy",
+   "unit": "1 пакет 12 г",
+   "badge": "12 г · 36 пак/карт.",
+   "scenario": "LCL 17",
+   "scenario_name": "Збірний 17 м³",
+   "is_cheapest": false,
+   "cost_usd": 0.9903,
+   "cost_uah": 44.5635,
+   "partner_uah": 111.40874999999998,
+   "bonus_uah": 27.852187499999996,
+   "profit_uah": 38.99306249999999,
+   "shelf_uah": 155.97224999999997,
+   "margin_check": 0.35
+  },
+  {
+   "supplier_id": "tmk",
+   "supplier": "TMK · KOKIRI",
+   "brand": "KOKIRI Wow",
+   "sku": "KOKIRI WOW SEAWEED - Squid",
+   "title": "Wow SEAWEED Squid",
+   "unit": "1 пакет 12 г",
+   "badge": "12 г · 36 пак/карт.",
+   "scenario": "40'",
+   "scenario_name": "40′ контейнер",
+   "is_cheapest": true,
+   "cost_usd": 0.7748,
+   "cost_uah": 34.866,
+   "partner_uah": 87.16499999999999,
+   "bonus_uah": 21.791249999999998,
+   "profit_uah": 30.507749999999994,
+   "shelf_uah": 122.03099999999998,
+   "margin_check": 0.35
+  },
+  {
+   "supplier_id": "tmk",
+   "supplier": "TMK · KOKIRI",
+   "brand": "KOKIRI Wow",
+   "sku": "KOKIRI WOW SEAWEED - Squid",
+   "title": "Wow SEAWEED Squid",
+   "unit": "1 пакет 12 г",
+   "badge": "12 г · 36 пак/карт.",
+   "scenario": "LCL 34",
+   "scenario_name": "Збірний 34 м³",
+   "is_cheapest": false,
+   "cost_usd": 0.8688,
+   "cost_uah": 39.096000000000004,
+   "partner_uah": 97.74000000000001,
+   "bonus_uah": 24.435000000000002,
+   "profit_uah": 34.209,
+   "shelf_uah": 136.836,
+   "margin_check": 0.35
+  },
+  {
+   "supplier_id": "tmk",
+   "supplier": "TMK · KOKIRI",
+   "brand": "KOKIRI Wow",
+   "sku": "KOKIRI WOW SEAWEED - Squid",
+   "title": "Wow SEAWEED Squid",
+   "unit": "1 пакет 12 г",
+   "badge": "12 г · 36 пак/карт.",
+   "scenario": "20'",
+   "scenario_name": "20′ контейнер",
+   "is_cheapest": false,
+   "cost_usd": 0.9799,
+   "cost_uah": 44.0955,
+   "partner_uah": 110.23875,
+   "bonus_uah": 27.5596875,
+   "profit_uah": 38.5835625,
+   "shelf_uah": 154.33425,
+   "margin_check": 0.35000000000000003
+  },
+  {
+   "supplier_id": "tmk",
+   "supplier": "TMK · KOKIRI",
+   "brand": "KOKIRI Wow",
    "sku": "KOKIRI WOW SEAWEED - Squid",
    "title": "Wow SEAWEED Squid",
    "unit": "1 пакет 12 г",
@@ -910,12 +910,12 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 0.9903,
-   "cost_uah": 45.55,
-   "partner_uah": 113.87499999999999,
-   "bonus_uah": 28.468749999999996,
-   "profit_uah": 39.85624999999999,
-   "shelf_uah": 159.42499999999998,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 44.5635,
+   "partner_uah": 111.40874999999998,
+   "bonus_uah": 27.852187499999996,
+   "profit_uah": 38.99306249999999,
+   "shelf_uah": 155.97224999999997,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "tmk",
@@ -929,11 +929,11 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 0.7802,
-   "cost_uah": 35.11,
-   "partner_uah": 87.77499999999999,
-   "bonus_uah": 21.943749999999998,
-   "profit_uah": 30.721249999999994,
-   "shelf_uah": 122.88499999999998,
+   "cost_uah": 35.109,
+   "partner_uah": 87.7725,
+   "bonus_uah": 21.943125,
+   "profit_uah": 30.720374999999994,
+   "shelf_uah": 122.88149999999999,
    "margin_check": 0.35
   },
   {
@@ -948,12 +948,12 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 0.863,
-   "cost_uah": 38.83,
-   "partner_uah": 97.07499999999999,
-   "bonus_uah": 24.268749999999997,
-   "profit_uah": 33.97624999999999,
-   "shelf_uah": 135.90499999999997,
-   "margin_check": 0.35
+   "cost_uah": 38.835,
+   "partner_uah": 97.08749999999999,
+   "bonus_uah": 24.271874999999998,
+   "profit_uah": 33.98062499999999,
+   "shelf_uah": 135.92249999999999,
+   "margin_check": 0.3499999999999999
   },
   {
    "supplier_id": "tmk",
@@ -967,12 +967,12 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 0.9733,
-   "cost_uah": 43.8,
-   "partner_uah": 109.49999999999999,
-   "bonus_uah": 27.374999999999996,
-   "profit_uah": 38.32499999999999,
-   "shelf_uah": 153.29999999999998,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 43.798500000000004,
+   "partner_uah": 109.49625,
+   "bonus_uah": 27.3740625,
+   "profit_uah": 38.3236875,
+   "shelf_uah": 153.29475,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "tmk",
@@ -986,12 +986,12 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 0.9837,
-   "cost_uah": 44.27,
-   "partner_uah": 110.675,
-   "bonus_uah": 27.66875,
-   "profit_uah": 38.73625,
-   "shelf_uah": 154.945,
-   "margin_check": 0.35
+   "cost_uah": 44.2665,
+   "partner_uah": 110.66624999999999,
+   "bonus_uah": 27.666562499999998,
+   "profit_uah": 38.733187499999985,
+   "shelf_uah": 154.93274999999997,
+   "margin_check": 0.3499999999999999
   },
   {
    "supplier_id": "tmk",
@@ -1005,11 +1005,11 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 0.7802,
-   "cost_uah": 35.11,
-   "partner_uah": 87.77499999999999,
-   "bonus_uah": 21.943749999999998,
-   "profit_uah": 30.721249999999994,
-   "shelf_uah": 122.88499999999998,
+   "cost_uah": 35.109,
+   "partner_uah": 87.7725,
+   "bonus_uah": 21.943125,
+   "profit_uah": 30.720374999999994,
+   "shelf_uah": 122.88149999999999,
    "margin_check": 0.35
   },
   {
@@ -1024,12 +1024,12 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 0.863,
-   "cost_uah": 38.83,
-   "partner_uah": 97.07499999999999,
-   "bonus_uah": 24.268749999999997,
-   "profit_uah": 33.97624999999999,
-   "shelf_uah": 135.90499999999997,
-   "margin_check": 0.35
+   "cost_uah": 38.835,
+   "partner_uah": 97.08749999999999,
+   "bonus_uah": 24.271874999999998,
+   "profit_uah": 33.98062499999999,
+   "shelf_uah": 135.92249999999999,
+   "margin_check": 0.3499999999999999
   },
   {
    "supplier_id": "tmk",
@@ -1043,12 +1043,12 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 0.9733,
-   "cost_uah": 43.8,
-   "partner_uah": 109.49999999999999,
-   "bonus_uah": 27.374999999999996,
-   "profit_uah": 38.32499999999999,
-   "shelf_uah": 153.29999999999998,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 43.798500000000004,
+   "partner_uah": 109.49625,
+   "bonus_uah": 27.3740625,
+   "profit_uah": 38.3236875,
+   "shelf_uah": 153.29475,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "tmk",
@@ -1062,12 +1062,12 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 0.9837,
-   "cost_uah": 44.27,
-   "partner_uah": 110.675,
-   "bonus_uah": 27.66875,
-   "profit_uah": 38.73625,
-   "shelf_uah": 154.945,
-   "margin_check": 0.35
+   "cost_uah": 44.2665,
+   "partner_uah": 110.66624999999999,
+   "bonus_uah": 27.666562499999998,
+   "profit_uah": 38.733187499999985,
+   "shelf_uah": 154.93274999999997,
+   "margin_check": 0.3499999999999999
   },
   {
    "supplier_id": "zek",
@@ -1081,12 +1081,12 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 0.7534,
-   "cost_uah": 33.9,
-   "partner_uah": 84.74999999999999,
-   "bonus_uah": 21.187499999999996,
-   "profit_uah": 29.66249999999999,
-   "shelf_uah": 118.64999999999998,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 33.903,
+   "partner_uah": 84.7575,
+   "bonus_uah": 21.189375,
+   "profit_uah": 29.665124999999996,
+   "shelf_uah": 118.66049999999998,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "zek",
@@ -1100,11 +1100,11 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 0.8045,
-   "cost_uah": 36.2,
-   "partner_uah": 90.5,
-   "bonus_uah": 22.625,
-   "profit_uah": 31.674999999999997,
-   "shelf_uah": 126.69999999999999,
+   "cost_uah": 36.2025,
+   "partner_uah": 90.50625,
+   "bonus_uah": 22.6265625,
+   "profit_uah": 31.677187499999995,
+   "shelf_uah": 126.70874999999998,
    "margin_check": 0.35
   },
   {
@@ -1119,12 +1119,12 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 0.8472,
-   "cost_uah": 38.13,
-   "partner_uah": 95.325,
-   "bonus_uah": 23.83125,
-   "profit_uah": 33.363749999999996,
-   "shelf_uah": 133.45499999999998,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 38.123999999999995,
+   "partner_uah": 95.30999999999999,
+   "bonus_uah": 23.827499999999997,
+   "profit_uah": 33.35849999999999,
+   "shelf_uah": 133.43399999999997,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "zek",
@@ -1138,12 +1138,12 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 0.9236,
-   "cost_uah": 41.56,
-   "partner_uah": 103.9,
-   "bonus_uah": 25.975,
-   "profit_uah": 36.365,
-   "shelf_uah": 145.46,
-   "margin_check": 0.35
+   "cost_uah": 41.562,
+   "partner_uah": 103.90499999999999,
+   "bonus_uah": 25.976249999999997,
+   "profit_uah": 36.366749999999996,
+   "shelf_uah": 145.46699999999998,
+   "margin_check": 0.35000000000000003
   },
   {
    "supplier_id": "zek",
@@ -1157,12 +1157,12 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 0.7534,
-   "cost_uah": 33.9,
-   "partner_uah": 84.74999999999999,
-   "bonus_uah": 21.187499999999996,
-   "profit_uah": 29.66249999999999,
-   "shelf_uah": 118.64999999999998,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 33.903,
+   "partner_uah": 84.7575,
+   "bonus_uah": 21.189375,
+   "profit_uah": 29.665124999999996,
+   "shelf_uah": 118.66049999999998,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "zek",
@@ -1176,11 +1176,11 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 0.8045,
-   "cost_uah": 36.2,
-   "partner_uah": 90.5,
-   "bonus_uah": 22.625,
-   "profit_uah": 31.674999999999997,
-   "shelf_uah": 126.69999999999999,
+   "cost_uah": 36.2025,
+   "partner_uah": 90.50625,
+   "bonus_uah": 22.6265625,
+   "profit_uah": 31.677187499999995,
+   "shelf_uah": 126.70874999999998,
    "margin_check": 0.35
   },
   {
@@ -1195,12 +1195,12 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 0.8472,
-   "cost_uah": 38.13,
-   "partner_uah": 95.325,
-   "bonus_uah": 23.83125,
-   "profit_uah": 33.363749999999996,
-   "shelf_uah": 133.45499999999998,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 38.123999999999995,
+   "partner_uah": 95.30999999999999,
+   "bonus_uah": 23.827499999999997,
+   "profit_uah": 33.35849999999999,
+   "shelf_uah": 133.43399999999997,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "zek",
@@ -1214,12 +1214,12 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 0.9236,
-   "cost_uah": 41.56,
-   "partner_uah": 103.9,
-   "bonus_uah": 25.975,
-   "profit_uah": 36.365,
-   "shelf_uah": 145.46,
-   "margin_check": 0.35
+   "cost_uah": 41.562,
+   "partner_uah": 103.90499999999999,
+   "bonus_uah": 25.976249999999997,
+   "profit_uah": 36.366749999999996,
+   "shelf_uah": 145.46699999999998,
+   "margin_check": 0.35000000000000003
   },
   {
    "supplier_id": "zek",
@@ -1233,12 +1233,12 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 0.7534,
-   "cost_uah": 33.9,
-   "partner_uah": 84.74999999999999,
-   "bonus_uah": 21.187499999999996,
-   "profit_uah": 29.66249999999999,
-   "shelf_uah": 118.64999999999998,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 33.903,
+   "partner_uah": 84.7575,
+   "bonus_uah": 21.189375,
+   "profit_uah": 29.665124999999996,
+   "shelf_uah": 118.66049999999998,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "zek",
@@ -1252,11 +1252,11 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 0.8045,
-   "cost_uah": 36.2,
-   "partner_uah": 90.5,
-   "bonus_uah": 22.625,
-   "profit_uah": 31.674999999999997,
-   "shelf_uah": 126.69999999999999,
+   "cost_uah": 36.2025,
+   "partner_uah": 90.50625,
+   "bonus_uah": 22.6265625,
+   "profit_uah": 31.677187499999995,
+   "shelf_uah": 126.70874999999998,
    "margin_check": 0.35
   },
   {
@@ -1271,12 +1271,12 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 0.8472,
-   "cost_uah": 38.13,
-   "partner_uah": 95.325,
-   "bonus_uah": 23.83125,
-   "profit_uah": 33.363749999999996,
-   "shelf_uah": 133.45499999999998,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 38.123999999999995,
+   "partner_uah": 95.30999999999999,
+   "bonus_uah": 23.827499999999997,
+   "profit_uah": 33.35849999999999,
+   "shelf_uah": 133.43399999999997,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "zek",
@@ -1290,12 +1290,12 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 0.9236,
-   "cost_uah": 41.56,
-   "partner_uah": 103.9,
-   "bonus_uah": 25.975,
-   "profit_uah": 36.365,
-   "shelf_uah": 145.46,
-   "margin_check": 0.35
+   "cost_uah": 41.562,
+   "partner_uah": 103.90499999999999,
+   "bonus_uah": 25.976249999999997,
+   "profit_uah": 36.366749999999996,
+   "shelf_uah": 145.46699999999998,
+   "margin_check": 0.35000000000000003
   },
   {
    "supplier_id": "zek",
@@ -1309,11 +1309,11 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 1.1388,
-   "cost_uah": 51.25,
-   "partner_uah": 128.125,
-   "bonus_uah": 32.03125,
-   "profit_uah": 44.84375,
-   "shelf_uah": 179.375,
+   "cost_uah": 51.246,
+   "partner_uah": 128.115,
+   "bonus_uah": 32.02875,
+   "profit_uah": 44.84025,
+   "shelf_uah": 179.361,
    "margin_check": 0.35
   },
   {
@@ -1328,11 +1328,11 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 1.2161,
-   "cost_uah": 54.72,
-   "partner_uah": 136.79999999999998,
-   "bonus_uah": 34.199999999999996,
-   "profit_uah": 47.87999999999999,
-   "shelf_uah": 191.51999999999995,
+   "cost_uah": 54.7245,
+   "partner_uah": 136.81125,
+   "bonus_uah": 34.2028125,
+   "profit_uah": 47.883937499999995,
+   "shelf_uah": 191.53574999999998,
    "margin_check": 0.35
   },
   {
@@ -1347,12 +1347,12 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 1.2807,
-   "cost_uah": 57.63,
-   "partner_uah": 144.075,
-   "bonus_uah": 36.01875,
-   "profit_uah": 50.426249999999996,
-   "shelf_uah": 201.70499999999998,
-   "margin_check": 0.35
+   "cost_uah": 57.631499999999996,
+   "partner_uah": 144.07874999999999,
+   "bonus_uah": 36.019687499999996,
+   "profit_uah": 50.4275625,
+   "shelf_uah": 201.71024999999997,
+   "margin_check": 0.35000000000000003
   },
   {
    "supplier_id": "zek",
@@ -1366,12 +1366,12 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 1.3961,
-   "cost_uah": 62.83,
-   "partner_uah": 157.075,
-   "bonus_uah": 39.26875,
-   "profit_uah": 54.97624999999999,
-   "shelf_uah": 219.90499999999997,
-   "margin_check": 0.35
+   "cost_uah": 62.82449999999999,
+   "partner_uah": 157.06124999999997,
+   "bonus_uah": 39.26531249999999,
+   "profit_uah": 54.97143749999998,
+   "shelf_uah": 219.88574999999994,
+   "margin_check": 0.3499999999999999
   },
   {
    "supplier_id": "zek",
@@ -1385,11 +1385,11 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 1.1388,
-   "cost_uah": 51.25,
-   "partner_uah": 128.125,
-   "bonus_uah": 32.03125,
-   "profit_uah": 44.84375,
-   "shelf_uah": 179.375,
+   "cost_uah": 51.246,
+   "partner_uah": 128.115,
+   "bonus_uah": 32.02875,
+   "profit_uah": 44.84025,
+   "shelf_uah": 179.361,
    "margin_check": 0.35
   },
   {
@@ -1404,11 +1404,11 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 1.2161,
-   "cost_uah": 54.72,
-   "partner_uah": 136.79999999999998,
-   "bonus_uah": 34.199999999999996,
-   "profit_uah": 47.87999999999999,
-   "shelf_uah": 191.51999999999995,
+   "cost_uah": 54.7245,
+   "partner_uah": 136.81125,
+   "bonus_uah": 34.2028125,
+   "profit_uah": 47.883937499999995,
+   "shelf_uah": 191.53574999999998,
    "margin_check": 0.35
   },
   {
@@ -1423,12 +1423,12 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 1.2807,
-   "cost_uah": 57.63,
-   "partner_uah": 144.075,
-   "bonus_uah": 36.01875,
-   "profit_uah": 50.426249999999996,
-   "shelf_uah": 201.70499999999998,
-   "margin_check": 0.35
+   "cost_uah": 57.631499999999996,
+   "partner_uah": 144.07874999999999,
+   "bonus_uah": 36.019687499999996,
+   "profit_uah": 50.4275625,
+   "shelf_uah": 201.71024999999997,
+   "margin_check": 0.35000000000000003
   },
   {
    "supplier_id": "zek",
@@ -1442,12 +1442,12 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 1.3961,
-   "cost_uah": 62.83,
-   "partner_uah": 157.075,
-   "bonus_uah": 39.26875,
-   "profit_uah": 54.97624999999999,
-   "shelf_uah": 219.90499999999997,
-   "margin_check": 0.35
+   "cost_uah": 62.82449999999999,
+   "partner_uah": 157.06124999999997,
+   "bonus_uah": 39.26531249999999,
+   "profit_uah": 54.97143749999998,
+   "shelf_uah": 219.88574999999994,
+   "margin_check": 0.3499999999999999
   },
   {
    "supplier_id": "zek",
@@ -1461,11 +1461,11 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 1.1388,
-   "cost_uah": 51.25,
-   "partner_uah": 128.125,
-   "bonus_uah": 32.03125,
-   "profit_uah": 44.84375,
-   "shelf_uah": 179.375,
+   "cost_uah": 51.246,
+   "partner_uah": 128.115,
+   "bonus_uah": 32.02875,
+   "profit_uah": 44.84025,
+   "shelf_uah": 179.361,
    "margin_check": 0.35
   },
   {
@@ -1480,11 +1480,11 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 1.2161,
-   "cost_uah": 54.72,
-   "partner_uah": 136.79999999999998,
-   "bonus_uah": 34.199999999999996,
-   "profit_uah": 47.87999999999999,
-   "shelf_uah": 191.51999999999995,
+   "cost_uah": 54.7245,
+   "partner_uah": 136.81125,
+   "bonus_uah": 34.2028125,
+   "profit_uah": 47.883937499999995,
+   "shelf_uah": 191.53574999999998,
    "margin_check": 0.35
   },
   {
@@ -1499,12 +1499,12 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 1.2807,
-   "cost_uah": 57.63,
-   "partner_uah": 144.075,
-   "bonus_uah": 36.01875,
-   "profit_uah": 50.426249999999996,
-   "shelf_uah": 201.70499999999998,
-   "margin_check": 0.35
+   "cost_uah": 57.631499999999996,
+   "partner_uah": 144.07874999999999,
+   "bonus_uah": 36.019687499999996,
+   "profit_uah": 50.4275625,
+   "shelf_uah": 201.71024999999997,
+   "margin_check": 0.35000000000000003
   },
   {
    "supplier_id": "zek",
@@ -1518,12 +1518,12 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 1.3961,
-   "cost_uah": 62.83,
-   "partner_uah": 157.075,
-   "bonus_uah": 39.26875,
-   "profit_uah": 54.97624999999999,
-   "shelf_uah": 219.90499999999997,
-   "margin_check": 0.35
+   "cost_uah": 62.82449999999999,
+   "partner_uah": 157.06124999999997,
+   "bonus_uah": 39.26531249999999,
+   "profit_uah": 54.97143749999998,
+   "shelf_uah": 219.88574999999994,
+   "margin_check": 0.3499999999999999
   },
   {
    "supplier_id": "zek",
@@ -1537,12 +1537,12 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 0.5663,
-   "cost_uah": 25.49,
-   "partner_uah": 63.724999999999994,
-   "bonus_uah": 15.931249999999999,
-   "profit_uah": 22.30375,
-   "shelf_uah": 89.21499999999999,
-   "margin_check": 0.35000000000000003
+   "cost_uah": 25.4835,
+   "partner_uah": 63.708749999999995,
+   "bonus_uah": 15.927187499999999,
+   "profit_uah": 22.298062499999997,
+   "shelf_uah": 89.19224999999999,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "zek",
@@ -1556,12 +1556,12 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 0.6043,
-   "cost_uah": 27.19,
-   "partner_uah": 67.975,
-   "bonus_uah": 16.99375,
-   "profit_uah": 23.791249999999998,
-   "shelf_uah": 95.16499999999999,
-   "margin_check": 0.35
+   "cost_uah": 27.193499999999997,
+   "partner_uah": 67.98374999999999,
+   "bonus_uah": 16.995937499999997,
+   "profit_uah": 23.79431249999999,
+   "shelf_uah": 95.17724999999997,
+   "margin_check": 0.3499999999999999
   },
   {
    "supplier_id": "zek",
@@ -1575,12 +1575,12 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 0.6108,
-   "cost_uah": 27.49,
-   "partner_uah": 68.725,
-   "bonus_uah": 17.18125,
-   "profit_uah": 24.05375,
-   "shelf_uah": 96.21499999999999,
-   "margin_check": 0.35000000000000003
+   "cost_uah": 27.486,
+   "partner_uah": 68.715,
+   "bonus_uah": 17.17875,
+   "profit_uah": 24.05025,
+   "shelf_uah": 96.201,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "zek",
@@ -1594,12 +1594,12 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 0.6931,
-   "cost_uah": 31.19,
-   "partner_uah": 77.975,
-   "bonus_uah": 19.49375,
-   "profit_uah": 27.291249999999998,
-   "shelf_uah": 109.16499999999999,
-   "margin_check": 0.35
+   "cost_uah": 31.189500000000002,
+   "partner_uah": 77.97375,
+   "bonus_uah": 19.4934375,
+   "profit_uah": 27.290812499999994,
+   "shelf_uah": 109.16324999999999,
+   "margin_check": 0.3499999999999999
   },
   {
    "supplier_id": "zek",
@@ -1613,12 +1613,12 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 0.5663,
-   "cost_uah": 25.49,
-   "partner_uah": 63.724999999999994,
-   "bonus_uah": 15.931249999999999,
-   "profit_uah": 22.30375,
-   "shelf_uah": 89.21499999999999,
-   "margin_check": 0.35000000000000003
+   "cost_uah": 25.4835,
+   "partner_uah": 63.708749999999995,
+   "bonus_uah": 15.927187499999999,
+   "profit_uah": 22.298062499999997,
+   "shelf_uah": 89.19224999999999,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "zek",
@@ -1632,12 +1632,12 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 0.6043,
-   "cost_uah": 27.19,
-   "partner_uah": 67.975,
-   "bonus_uah": 16.99375,
-   "profit_uah": 23.791249999999998,
-   "shelf_uah": 95.16499999999999,
-   "margin_check": 0.35
+   "cost_uah": 27.193499999999997,
+   "partner_uah": 67.98374999999999,
+   "bonus_uah": 16.995937499999997,
+   "profit_uah": 23.79431249999999,
+   "shelf_uah": 95.17724999999997,
+   "margin_check": 0.3499999999999999
   },
   {
    "supplier_id": "zek",
@@ -1651,12 +1651,12 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 0.6108,
-   "cost_uah": 27.49,
-   "partner_uah": 68.725,
-   "bonus_uah": 17.18125,
-   "profit_uah": 24.05375,
-   "shelf_uah": 96.21499999999999,
-   "margin_check": 0.35000000000000003
+   "cost_uah": 27.486,
+   "partner_uah": 68.715,
+   "bonus_uah": 17.17875,
+   "profit_uah": 24.05025,
+   "shelf_uah": 96.201,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "zek",
@@ -1670,12 +1670,12 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 0.6931,
-   "cost_uah": 31.19,
-   "partner_uah": 77.975,
-   "bonus_uah": 19.49375,
-   "profit_uah": 27.291249999999998,
-   "shelf_uah": 109.16499999999999,
-   "margin_check": 0.35
+   "cost_uah": 31.189500000000002,
+   "partner_uah": 77.97375,
+   "bonus_uah": 19.4934375,
+   "profit_uah": 27.290812499999994,
+   "shelf_uah": 109.16324999999999,
+   "margin_check": 0.3499999999999999
   },
   {
    "supplier_id": "zek",
@@ -1689,11 +1689,11 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 0.7308,
-   "cost_uah": 32.88,
-   "partner_uah": 82.2,
-   "bonus_uah": 20.55,
-   "profit_uah": 28.77,
-   "shelf_uah": 115.08,
+   "cost_uah": 32.886,
+   "partner_uah": 82.215,
+   "bonus_uah": 20.55375,
+   "profit_uah": 28.77525,
+   "shelf_uah": 115.101,
    "margin_check": 0.35
   },
   {
@@ -1708,11 +1708,11 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 0.7797,
-   "cost_uah": 35.09,
-   "partner_uah": 87.72500000000001,
-   "bonus_uah": 21.931250000000002,
-   "profit_uah": 30.703750000000003,
-   "shelf_uah": 122.815,
+   "cost_uah": 35.0865,
+   "partner_uah": 87.71625,
+   "bonus_uah": 21.9290625,
+   "profit_uah": 30.7006875,
+   "shelf_uah": 122.80274999999999,
    "margin_check": 0.35
   },
   {
@@ -1727,11 +1727,11 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 0.7881,
-   "cost_uah": 35.47,
-   "partner_uah": 88.675,
-   "bonus_uah": 22.16875,
-   "profit_uah": 31.03625,
-   "shelf_uah": 124.14499999999998,
+   "cost_uah": 35.4645,
+   "partner_uah": 88.66125,
+   "bonus_uah": 22.1653125,
+   "profit_uah": 31.031437499999996,
+   "shelf_uah": 124.12574999999998,
    "margin_check": 0.35
   },
   {
@@ -1746,11 +1746,11 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 0.8943,
-   "cost_uah": 40.24,
-   "partner_uah": 100.6,
-   "bonus_uah": 25.15,
-   "profit_uah": 35.209999999999994,
-   "shelf_uah": 140.83999999999997,
+   "cost_uah": 40.2435,
+   "partner_uah": 100.60874999999999,
+   "bonus_uah": 25.152187499999997,
+   "profit_uah": 35.21306249999999,
+   "shelf_uah": 140.85224999999997,
    "margin_check": 0.35
   },
   {
@@ -1765,12 +1765,12 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 0.7008,
-   "cost_uah": 31.54,
-   "partner_uah": 78.85,
-   "bonus_uah": 19.7125,
-   "profit_uah": 27.597499999999997,
-   "shelf_uah": 110.38999999999999,
-   "margin_check": 0.35
+   "cost_uah": 31.535999999999998,
+   "partner_uah": 78.83999999999999,
+   "bonus_uah": 19.709999999999997,
+   "profit_uah": 27.59399999999999,
+   "shelf_uah": 110.37599999999998,
+   "margin_check": 0.3499999999999999
   },
   {
    "supplier_id": "zek",
@@ -1784,11 +1784,11 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 0.7797,
-   "cost_uah": 35.09,
-   "partner_uah": 87.72500000000001,
-   "bonus_uah": 21.931250000000002,
-   "profit_uah": 30.703750000000003,
-   "shelf_uah": 122.815,
+   "cost_uah": 35.0865,
+   "partner_uah": 87.71625,
+   "bonus_uah": 21.9290625,
+   "profit_uah": 30.7006875,
+   "shelf_uah": 122.80274999999999,
    "margin_check": 0.35
   },
   {
@@ -1803,11 +1803,11 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 0.7881,
-   "cost_uah": 35.47,
-   "partner_uah": 88.675,
-   "bonus_uah": 22.16875,
-   "profit_uah": 31.03625,
-   "shelf_uah": 124.14499999999998,
+   "cost_uah": 35.4645,
+   "partner_uah": 88.66125,
+   "bonus_uah": 22.1653125,
+   "profit_uah": 31.031437499999996,
+   "shelf_uah": 124.12574999999998,
    "margin_check": 0.35
   },
   {
@@ -1822,11 +1822,11 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 0.8943,
-   "cost_uah": 40.24,
-   "partner_uah": 100.6,
-   "bonus_uah": 25.15,
-   "profit_uah": 35.209999999999994,
-   "shelf_uah": 140.83999999999997,
+   "cost_uah": 40.2435,
+   "partner_uah": 100.60874999999999,
+   "bonus_uah": 25.152187499999997,
+   "profit_uah": 35.21306249999999,
+   "shelf_uah": 140.85224999999997,
    "margin_check": 0.35
   },
   {
@@ -1841,12 +1841,12 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 0.7008,
-   "cost_uah": 31.54,
-   "partner_uah": 78.85,
-   "bonus_uah": 19.7125,
-   "profit_uah": 27.597499999999997,
-   "shelf_uah": 110.38999999999999,
-   "margin_check": 0.35
+   "cost_uah": 31.535999999999998,
+   "partner_uah": 78.83999999999999,
+   "bonus_uah": 19.709999999999997,
+   "profit_uah": 27.59399999999999,
+   "shelf_uah": 110.37599999999998,
+   "margin_check": 0.3499999999999999
   },
   {
    "supplier_id": "zek",
@@ -1860,11 +1860,11 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 0.7797,
-   "cost_uah": 35.09,
-   "partner_uah": 87.72500000000001,
-   "bonus_uah": 21.931250000000002,
-   "profit_uah": 30.703750000000003,
-   "shelf_uah": 122.815,
+   "cost_uah": 35.0865,
+   "partner_uah": 87.71625,
+   "bonus_uah": 21.9290625,
+   "profit_uah": 30.7006875,
+   "shelf_uah": 122.80274999999999,
    "margin_check": 0.35
   },
   {
@@ -1879,11 +1879,11 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 0.7881,
-   "cost_uah": 35.47,
-   "partner_uah": 88.675,
-   "bonus_uah": 22.16875,
-   "profit_uah": 31.03625,
-   "shelf_uah": 124.14499999999998,
+   "cost_uah": 35.4645,
+   "partner_uah": 88.66125,
+   "bonus_uah": 22.1653125,
+   "profit_uah": 31.031437499999996,
+   "shelf_uah": 124.12574999999998,
    "margin_check": 0.35
   },
   {
@@ -1898,11 +1898,11 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 0.8943,
-   "cost_uah": 40.24,
-   "partner_uah": 100.6,
-   "bonus_uah": 25.15,
-   "profit_uah": 35.209999999999994,
-   "shelf_uah": 140.83999999999997,
+   "cost_uah": 40.2435,
+   "partner_uah": 100.60874999999999,
+   "bonus_uah": 25.152187499999997,
+   "profit_uah": 35.21306249999999,
+   "shelf_uah": 140.85224999999997,
    "margin_check": 0.35
   },
   {
@@ -1917,12 +1917,12 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 1.4192,
-   "cost_uah": 63.86,
-   "partner_uah": 159.64999999999998,
-   "bonus_uah": 39.912499999999994,
-   "profit_uah": 55.87749999999998,
-   "shelf_uah": 223.50999999999996,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 63.864000000000004,
+   "partner_uah": 159.66,
+   "bonus_uah": 39.915,
+   "profit_uah": 55.88099999999999,
+   "shelf_uah": 223.52399999999997,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "zek",
@@ -1936,11 +1936,11 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 1.5789,
-   "cost_uah": 71.05,
-   "partner_uah": 177.62499999999997,
-   "bonus_uah": 44.40624999999999,
-   "profit_uah": 62.16874999999998,
-   "shelf_uah": 248.67499999999995,
+   "cost_uah": 71.0505,
+   "partner_uah": 177.62625,
+   "bonus_uah": 44.4065625,
+   "profit_uah": 62.1691875,
+   "shelf_uah": 248.67674999999997,
    "margin_check": 0.35
   },
   {
@@ -1955,11 +1955,11 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 1.596,
-   "cost_uah": 71.82,
-   "partner_uah": 179.54999999999998,
-   "bonus_uah": 44.887499999999996,
-   "profit_uah": 62.842499999999994,
-   "shelf_uah": 251.36999999999995,
+   "cost_uah": 71.82000000000001,
+   "partner_uah": 179.55,
+   "bonus_uah": 44.8875,
+   "profit_uah": 62.8425,
+   "shelf_uah": 251.37,
    "margin_check": 0.35
   },
   {
@@ -1974,11 +1974,11 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 1.811,
-   "cost_uah": 81.49,
-   "partner_uah": 203.72499999999997,
-   "bonus_uah": 50.93124999999999,
-   "profit_uah": 71.30374999999998,
-   "shelf_uah": 285.2149999999999,
+   "cost_uah": 81.495,
+   "partner_uah": 203.7375,
+   "bonus_uah": 50.934375,
+   "profit_uah": 71.308125,
+   "shelf_uah": 285.2325,
    "margin_check": 0.35
   },
   {
@@ -1993,12 +1993,12 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 1.4192,
-   "cost_uah": 63.86,
-   "partner_uah": 159.64999999999998,
-   "bonus_uah": 39.912499999999994,
-   "profit_uah": 55.87749999999998,
-   "shelf_uah": 223.50999999999996,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 63.864000000000004,
+   "partner_uah": 159.66,
+   "bonus_uah": 39.915,
+   "profit_uah": 55.88099999999999,
+   "shelf_uah": 223.52399999999997,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "zek",
@@ -2012,11 +2012,11 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 1.5789,
-   "cost_uah": 71.05,
-   "partner_uah": 177.62499999999997,
-   "bonus_uah": 44.40624999999999,
-   "profit_uah": 62.16874999999998,
-   "shelf_uah": 248.67499999999995,
+   "cost_uah": 71.0505,
+   "partner_uah": 177.62625,
+   "bonus_uah": 44.4065625,
+   "profit_uah": 62.1691875,
+   "shelf_uah": 248.67674999999997,
    "margin_check": 0.35
   },
   {
@@ -2031,11 +2031,11 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 1.596,
-   "cost_uah": 71.82,
-   "partner_uah": 179.54999999999998,
-   "bonus_uah": 44.887499999999996,
-   "profit_uah": 62.842499999999994,
-   "shelf_uah": 251.36999999999995,
+   "cost_uah": 71.82000000000001,
+   "partner_uah": 179.55,
+   "bonus_uah": 44.8875,
+   "profit_uah": 62.8425,
+   "shelf_uah": 251.37,
    "margin_check": 0.35
   },
   {
@@ -2050,11 +2050,11 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 1.811,
-   "cost_uah": 81.49,
-   "partner_uah": 203.72499999999997,
-   "bonus_uah": 50.93124999999999,
-   "profit_uah": 71.30374999999998,
-   "shelf_uah": 285.2149999999999,
+   "cost_uah": 81.495,
+   "partner_uah": 203.7375,
+   "bonus_uah": 50.934375,
+   "profit_uah": 71.308125,
+   "shelf_uah": 285.2325,
    "margin_check": 0.35
   },
   {
@@ -2069,12 +2069,12 @@
    "scenario_name": "40′ контейнер",
    "is_cheapest": true,
    "cost_usd": 1.4192,
-   "cost_uah": 63.86,
-   "partner_uah": 159.64999999999998,
-   "bonus_uah": 39.912499999999994,
-   "profit_uah": 55.87749999999998,
-   "shelf_uah": 223.50999999999996,
-   "margin_check": 0.3499999999999999
+   "cost_uah": 63.864000000000004,
+   "partner_uah": 159.66,
+   "bonus_uah": 39.915,
+   "profit_uah": 55.88099999999999,
+   "shelf_uah": 223.52399999999997,
+   "margin_check": 0.35
   },
   {
    "supplier_id": "zek",
@@ -2088,11 +2088,11 @@
    "scenario_name": "Збірний 34 м³",
    "is_cheapest": false,
    "cost_usd": 1.5789,
-   "cost_uah": 71.05,
-   "partner_uah": 177.62499999999997,
-   "bonus_uah": 44.40624999999999,
-   "profit_uah": 62.16874999999998,
-   "shelf_uah": 248.67499999999995,
+   "cost_uah": 71.0505,
+   "partner_uah": 177.62625,
+   "bonus_uah": 44.4065625,
+   "profit_uah": 62.1691875,
+   "shelf_uah": 248.67674999999997,
    "margin_check": 0.35
   },
   {
@@ -2107,11 +2107,11 @@
    "scenario_name": "Збірний 17 м³",
    "is_cheapest": false,
    "cost_usd": 1.596,
-   "cost_uah": 71.82,
-   "partner_uah": 179.54999999999998,
-   "bonus_uah": 44.887499999999996,
-   "profit_uah": 62.842499999999994,
-   "shelf_uah": 251.36999999999995,
+   "cost_uah": 71.82000000000001,
+   "partner_uah": 179.55,
+   "bonus_uah": 44.8875,
+   "profit_uah": 62.8425,
+   "shelf_uah": 251.37,
    "margin_check": 0.35
   },
   {
@@ -2126,11 +2126,11 @@
    "scenario_name": "20′ контейнер",
    "is_cheapest": false,
    "cost_usd": 1.811,
-   "cost_uah": 81.49,
-   "partner_uah": 203.72499999999997,
-   "bonus_uah": 50.93124999999999,
-   "profit_uah": 71.30374999999998,
-   "shelf_uah": 285.2149999999999,
+   "cost_uah": 81.495,
+   "partner_uah": 203.7375,
+   "bonus_uah": 50.934375,
+   "profit_uah": 71.308125,
+   "shelf_uah": 285.2325,
    "margin_check": 0.35
   }
  ],
@@ -2142,20 +2142,20 @@
    "unit": "1 пакет 42 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 54.65,
+   "cost_uah": 54.652499999999996,
    "shelf_by_margin": {
-    "0.35": 191.27499999999998,
-    "0.3": 170.0222222222222,
-    "0.25": 153.01999999999998,
-    "0.2": 139.1090909090909,
-    "0.15": 127.51666666666665
+    "0.35": 191.28374999999997,
+    "0.3": 170.02999999999997,
+    "0.25": 153.027,
+    "0.2": 139.11545454545453,
+    "0.15": 127.52249999999998
    },
    "partner_by_margin": {
-    "0.35": 136.625,
-    "0.3": 121.44444444444444,
-    "0.25": 109.3,
-    "0.2": 99.36363636363636,
-    "0.15": 91.08333333333333
+    "0.35": 136.63125,
+    "0.3": 121.44999999999999,
+    "0.25": 109.30499999999999,
+    "0.2": 99.36818181818181,
+    "0.15": 91.08749999999999
    }
   },
   {
@@ -2165,20 +2165,20 @@
    "unit": "1 пакет 42 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 54.65,
+   "cost_uah": 54.652499999999996,
    "shelf_by_margin": {
-    "0.35": 191.27499999999998,
-    "0.3": 170.0222222222222,
-    "0.25": 153.01999999999998,
-    "0.2": 139.1090909090909,
-    "0.15": 127.51666666666665
+    "0.35": 191.28374999999997,
+    "0.3": 170.02999999999997,
+    "0.25": 153.027,
+    "0.2": 139.11545454545453,
+    "0.15": 127.52249999999998
    },
    "partner_by_margin": {
-    "0.35": 136.625,
-    "0.3": 121.44444444444444,
-    "0.25": 109.3,
-    "0.2": 99.36363636363636,
-    "0.15": 91.08333333333333
+    "0.35": 136.63125,
+    "0.3": 121.44999999999999,
+    "0.25": 109.30499999999999,
+    "0.2": 99.36818181818181,
+    "0.15": 91.08749999999999
    }
   },
   {
@@ -2188,20 +2188,20 @@
    "unit": "1 пакет 50 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 42.49,
+   "cost_uah": 42.493500000000004,
    "shelf_by_margin": {
-    "0.35": 148.71499999999997,
-    "0.3": 132.19111111111113,
-    "0.25": 118.972,
-    "0.2": 108.15636363636362,
-    "0.15": 99.14333333333335
+    "0.35": 148.72725,
+    "0.3": 132.202,
+    "0.25": 118.9818,
+    "0.2": 108.16527272727272,
+    "0.15": 99.1515
    },
    "partner_by_margin": {
-    "0.35": 106.225,
-    "0.3": 94.42222222222223,
-    "0.25": 84.98,
-    "0.2": 77.25454545454545,
-    "0.15": 70.81666666666668
+    "0.35": 106.23375,
+    "0.3": 94.43,
+    "0.25": 84.98700000000001,
+    "0.2": 77.2609090909091,
+    "0.15": 70.8225
    }
   },
   {
@@ -2211,20 +2211,20 @@
    "unit": "1 пакет 55 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 51.39,
+   "cost_uah": 51.394499999999994,
    "shelf_by_margin": {
-    "0.35": 179.86499999999998,
-    "0.3": 159.88,
-    "0.25": 143.892,
-    "0.2": 130.81090909090906,
-    "0.15": 119.91
+    "0.35": 179.88074999999998,
+    "0.3": 159.89399999999995,
+    "0.25": 143.90459999999996,
+    "0.2": 130.8223636363636,
+    "0.15": 119.92049999999999
    },
    "partner_by_margin": {
-    "0.35": 128.475,
-    "0.3": 114.2,
-    "0.25": 102.78,
-    "0.2": 93.43636363636362,
-    "0.15": 85.65
+    "0.35": 128.48624999999998,
+    "0.3": 114.20999999999998,
+    "0.25": 102.78899999999999,
+    "0.2": 93.44454545454543,
+    "0.15": 85.6575
    }
   },
   {
@@ -2234,20 +2234,20 @@
    "unit": "1 пакетик 2,5 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 9.51,
+   "cost_uah": 9.5085,
    "shelf_by_margin": {
-    "0.35": 33.285,
-    "0.3": 29.586666666666662,
-    "0.25": 26.627999999999997,
-    "0.2": 24.207272727272724,
-    "0.15": 22.189999999999998
+    "0.35": 33.27974999999999,
+    "0.3": 29.581999999999997,
+    "0.25": 26.6238,
+    "0.2": 24.20345454545454,
+    "0.15": 22.1865
    },
    "partner_by_margin": {
-    "0.35": 23.775,
-    "0.3": 21.133333333333333,
-    "0.25": 19.02,
-    "0.2": 17.29090909090909,
-    "0.15": 15.85
+    "0.35": 23.77125,
+    "0.3": 21.13,
+    "0.25": 19.017,
+    "0.2": 17.288181818181815,
+    "0.15": 15.8475
    }
   },
   {
@@ -2257,20 +2257,20 @@
    "unit": "1 пакетик 2,5 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 9.51,
+   "cost_uah": 9.5085,
    "shelf_by_margin": {
-    "0.35": 33.285,
-    "0.3": 29.586666666666662,
-    "0.25": 26.627999999999997,
-    "0.2": 24.207272727272724,
-    "0.15": 22.189999999999998
+    "0.35": 33.27974999999999,
+    "0.3": 29.581999999999997,
+    "0.25": 26.6238,
+    "0.2": 24.20345454545454,
+    "0.15": 22.1865
    },
    "partner_by_margin": {
-    "0.35": 23.775,
-    "0.3": 21.133333333333333,
-    "0.25": 19.02,
-    "0.2": 17.29090909090909,
-    "0.15": 15.85
+    "0.35": 23.77125,
+    "0.3": 21.13,
+    "0.25": 19.017,
+    "0.2": 17.288181818181815,
+    "0.15": 15.8475
    }
   },
   {
@@ -2280,20 +2280,20 @@
    "unit": "1 пакетик 2,5 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 9.51,
+   "cost_uah": 9.5085,
    "shelf_by_margin": {
-    "0.35": 33.285,
-    "0.3": 29.586666666666662,
-    "0.25": 26.627999999999997,
-    "0.2": 24.207272727272724,
-    "0.15": 22.189999999999998
+    "0.35": 33.27974999999999,
+    "0.3": 29.581999999999997,
+    "0.25": 26.6238,
+    "0.2": 24.20345454545454,
+    "0.15": 22.1865
    },
    "partner_by_margin": {
-    "0.35": 23.775,
-    "0.3": 21.133333333333333,
-    "0.25": 19.02,
-    "0.2": 17.29090909090909,
-    "0.15": 15.85
+    "0.35": 23.77125,
+    "0.3": 21.13,
+    "0.25": 19.017,
+    "0.2": 17.288181818181815,
+    "0.15": 15.8475
    }
   },
   {
@@ -2303,20 +2303,20 @@
    "unit": "1 пакетик 5 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 17.07,
+   "cost_uah": 17.0685,
    "shelf_by_margin": {
-    "0.35": 59.74499999999999,
-    "0.3": 53.10666666666666,
-    "0.25": 47.796,
-    "0.2": 43.450909090909086,
-    "0.15": 39.83
+    "0.35": 59.739749999999994,
+    "0.3": 53.102,
+    "0.25": 47.791799999999995,
+    "0.2": 43.4470909090909,
+    "0.15": 39.8265
    },
    "partner_by_margin": {
-    "0.35": 42.675,
-    "0.3": 37.93333333333333,
-    "0.25": 34.14,
-    "0.2": 31.036363636363635,
-    "0.15": 28.450000000000003
+    "0.35": 42.67125,
+    "0.3": 37.93,
+    "0.25": 34.137,
+    "0.2": 31.03363636363636,
+    "0.15": 28.4475
    }
   },
   {
@@ -2326,20 +2326,20 @@
    "unit": "1 пакетик 5 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 17.07,
+   "cost_uah": 17.0685,
    "shelf_by_margin": {
-    "0.35": 59.74499999999999,
-    "0.3": 53.10666666666666,
-    "0.25": 47.796,
-    "0.2": 43.450909090909086,
-    "0.15": 39.83
+    "0.35": 59.739749999999994,
+    "0.3": 53.102,
+    "0.25": 47.791799999999995,
+    "0.2": 43.4470909090909,
+    "0.15": 39.8265
    },
    "partner_by_margin": {
-    "0.35": 42.675,
-    "0.3": 37.93333333333333,
-    "0.25": 34.14,
-    "0.2": 31.036363636363635,
-    "0.15": 28.450000000000003
+    "0.35": 42.67125,
+    "0.3": 37.93,
+    "0.25": 34.137,
+    "0.2": 31.03363636363636,
+    "0.15": 28.4475
    }
   },
   {
@@ -2349,20 +2349,20 @@
    "unit": "1 пакет 12 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 34.86,
+   "cost_uah": 34.866,
    "shelf_by_margin": {
-    "0.35": 122.00999999999998,
-    "0.3": 108.45333333333333,
-    "0.25": 97.60799999999999,
-    "0.2": 88.73454545454544,
-    "0.15": 81.34
+    "0.35": 122.03099999999998,
+    "0.3": 108.472,
+    "0.25": 97.6248,
+    "0.2": 88.74981818181817,
+    "0.15": 81.354
    },
    "partner_by_margin": {
-    "0.35": 87.14999999999999,
-    "0.3": 77.46666666666667,
-    "0.25": 69.72,
-    "0.2": 63.381818181818176,
-    "0.15": 58.1
+    "0.35": 87.16499999999999,
+    "0.3": 77.48,
+    "0.25": 69.732,
+    "0.2": 63.392727272727264,
+    "0.15": 58.11
    }
   },
   {
@@ -2372,20 +2372,20 @@
    "unit": "1 пакет 12 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 34.86,
+   "cost_uah": 34.866,
    "shelf_by_margin": {
-    "0.35": 122.00999999999998,
-    "0.3": 108.45333333333333,
-    "0.25": 97.60799999999999,
-    "0.2": 88.73454545454544,
-    "0.15": 81.34
+    "0.35": 122.03099999999998,
+    "0.3": 108.472,
+    "0.25": 97.6248,
+    "0.2": 88.74981818181817,
+    "0.15": 81.354
    },
    "partner_by_margin": {
-    "0.35": 87.14999999999999,
-    "0.3": 77.46666666666667,
-    "0.25": 69.72,
-    "0.2": 63.381818181818176,
-    "0.15": 58.1
+    "0.35": 87.16499999999999,
+    "0.3": 77.48,
+    "0.25": 69.732,
+    "0.2": 63.392727272727264,
+    "0.15": 58.11
    }
   },
   {
@@ -2395,20 +2395,20 @@
    "unit": "1 пакет 12 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 35.64,
+   "cost_uah": 34.866,
    "shelf_by_margin": {
-    "0.35": 124.73999999999998,
-    "0.3": 110.88,
-    "0.25": 99.792,
-    "0.2": 90.71999999999998,
-    "0.15": 83.16
+    "0.35": 122.03099999999998,
+    "0.3": 108.472,
+    "0.25": 97.6248,
+    "0.2": 88.74981818181817,
+    "0.15": 81.354
    },
    "partner_by_margin": {
-    "0.35": 89.1,
-    "0.3": 79.2,
-    "0.25": 71.28,
-    "0.2": 64.8,
-    "0.15": 59.400000000000006
+    "0.35": 87.16499999999999,
+    "0.3": 77.48,
+    "0.25": 69.732,
+    "0.2": 63.392727272727264,
+    "0.15": 58.11
    }
   },
   {
@@ -2418,20 +2418,20 @@
    "unit": "1 пакет 10 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 35.11,
+   "cost_uah": 35.109,
    "shelf_by_margin": {
-    "0.35": 122.88499999999998,
-    "0.3": 109.2311111111111,
-    "0.25": 98.30799999999999,
-    "0.2": 89.37090909090908,
-    "0.15": 81.92333333333333
+    "0.35": 122.88149999999999,
+    "0.3": 109.228,
+    "0.25": 98.3052,
+    "0.2": 89.36836363636364,
+    "0.15": 81.921
    },
    "partner_by_margin": {
-    "0.35": 87.77499999999999,
-    "0.3": 78.02222222222223,
-    "0.25": 70.22,
-    "0.2": 63.83636363636363,
-    "0.15": 58.516666666666666
+    "0.35": 87.7725,
+    "0.3": 78.02,
+    "0.25": 70.218,
+    "0.2": 63.834545454545456,
+    "0.15": 58.51500000000001
    }
   },
   {
@@ -2441,20 +2441,20 @@
    "unit": "1 пакет 10 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 35.11,
+   "cost_uah": 35.109,
    "shelf_by_margin": {
-    "0.35": 122.88499999999998,
-    "0.3": 109.2311111111111,
-    "0.25": 98.30799999999999,
-    "0.2": 89.37090909090908,
-    "0.15": 81.92333333333333
+    "0.35": 122.88149999999999,
+    "0.3": 109.228,
+    "0.25": 98.3052,
+    "0.2": 89.36836363636364,
+    "0.15": 81.921
    },
    "partner_by_margin": {
-    "0.35": 87.77499999999999,
-    "0.3": 78.02222222222223,
-    "0.25": 70.22,
-    "0.2": 63.83636363636363,
-    "0.15": 58.516666666666666
+    "0.35": 87.7725,
+    "0.3": 78.02,
+    "0.25": 70.218,
+    "0.2": 63.834545454545456,
+    "0.15": 58.51500000000001
    }
   },
   {
@@ -2464,20 +2464,20 @@
    "unit": "1 пакет 30 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 33.9,
+   "cost_uah": 33.903,
    "shelf_by_margin": {
-    "0.35": 118.64999999999998,
-    "0.3": 105.46666666666665,
-    "0.25": 94.91999999999999,
-    "0.2": 86.29090909090907,
-    "0.15": 79.1
+    "0.35": 118.66049999999998,
+    "0.3": 105.47599999999998,
+    "0.25": 94.9284,
+    "0.2": 86.29854545454543,
+    "0.15": 79.107
    },
    "partner_by_margin": {
-    "0.35": 84.74999999999999,
-    "0.3": 75.33333333333333,
-    "0.25": 67.8,
-    "0.2": 61.636363636363626,
-    "0.15": 56.5
+    "0.35": 84.7575,
+    "0.3": 75.33999999999999,
+    "0.25": 67.806,
+    "0.2": 61.641818181818174,
+    "0.15": 56.505
    }
   },
   {
@@ -2487,20 +2487,20 @@
    "unit": "1 пакет 30 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 33.9,
+   "cost_uah": 33.903,
    "shelf_by_margin": {
-    "0.35": 118.64999999999998,
-    "0.3": 105.46666666666665,
-    "0.25": 94.91999999999999,
-    "0.2": 86.29090909090907,
-    "0.15": 79.1
+    "0.35": 118.66049999999998,
+    "0.3": 105.47599999999998,
+    "0.25": 94.9284,
+    "0.2": 86.29854545454543,
+    "0.15": 79.107
    },
    "partner_by_margin": {
-    "0.35": 84.74999999999999,
-    "0.3": 75.33333333333333,
-    "0.25": 67.8,
-    "0.2": 61.636363636363626,
-    "0.15": 56.5
+    "0.35": 84.7575,
+    "0.3": 75.33999999999999,
+    "0.25": 67.806,
+    "0.2": 61.641818181818174,
+    "0.15": 56.505
    }
   },
   {
@@ -2510,20 +2510,20 @@
    "unit": "1 пакет 30 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 33.9,
+   "cost_uah": 33.903,
    "shelf_by_margin": {
-    "0.35": 118.64999999999998,
-    "0.3": 105.46666666666665,
-    "0.25": 94.91999999999999,
-    "0.2": 86.29090909090907,
-    "0.15": 79.1
+    "0.35": 118.66049999999998,
+    "0.3": 105.47599999999998,
+    "0.25": 94.9284,
+    "0.2": 86.29854545454543,
+    "0.15": 79.107
    },
    "partner_by_margin": {
-    "0.35": 84.74999999999999,
-    "0.3": 75.33333333333333,
-    "0.25": 67.8,
-    "0.2": 61.636363636363626,
-    "0.15": 56.5
+    "0.35": 84.7575,
+    "0.3": 75.33999999999999,
+    "0.25": 67.806,
+    "0.2": 61.641818181818174,
+    "0.15": 56.505
    }
   },
   {
@@ -2533,20 +2533,20 @@
    "unit": "1 пакет 50 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 51.25,
+   "cost_uah": 51.246,
    "shelf_by_margin": {
-    "0.35": 179.375,
-    "0.3": 159.44444444444443,
-    "0.25": 143.5,
-    "0.2": 130.45454545454544,
-    "0.15": 119.58333333333333
+    "0.35": 179.361,
+    "0.3": 159.432,
+    "0.25": 143.4888,
+    "0.2": 130.44436363636362,
+    "0.15": 119.57400000000001
    },
    "partner_by_margin": {
-    "0.35": 128.125,
-    "0.3": 113.88888888888889,
-    "0.25": 102.5,
-    "0.2": 93.18181818181817,
-    "0.15": 85.41666666666667
+    "0.35": 128.115,
+    "0.3": 113.88,
+    "0.25": 102.492,
+    "0.2": 93.17454545454545,
+    "0.15": 85.41000000000001
    }
   },
   {
@@ -2556,20 +2556,20 @@
    "unit": "1 пакет 50 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 51.25,
+   "cost_uah": 51.246,
    "shelf_by_margin": {
-    "0.35": 179.375,
-    "0.3": 159.44444444444443,
-    "0.25": 143.5,
-    "0.2": 130.45454545454544,
-    "0.15": 119.58333333333333
+    "0.35": 179.361,
+    "0.3": 159.432,
+    "0.25": 143.4888,
+    "0.2": 130.44436363636362,
+    "0.15": 119.57400000000001
    },
    "partner_by_margin": {
-    "0.35": 128.125,
-    "0.3": 113.88888888888889,
-    "0.25": 102.5,
-    "0.2": 93.18181818181817,
-    "0.15": 85.41666666666667
+    "0.35": 128.115,
+    "0.3": 113.88,
+    "0.25": 102.492,
+    "0.2": 93.17454545454545,
+    "0.15": 85.41000000000001
    }
   },
   {
@@ -2579,20 +2579,20 @@
    "unit": "1 пакет 50 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 51.25,
+   "cost_uah": 51.246,
    "shelf_by_margin": {
-    "0.35": 179.375,
-    "0.3": 159.44444444444443,
-    "0.25": 143.5,
-    "0.2": 130.45454545454544,
-    "0.15": 119.58333333333333
+    "0.35": 179.361,
+    "0.3": 159.432,
+    "0.25": 143.4888,
+    "0.2": 130.44436363636362,
+    "0.15": 119.57400000000001
    },
    "partner_by_margin": {
-    "0.35": 128.125,
-    "0.3": 113.88888888888889,
-    "0.25": 102.5,
-    "0.2": 93.18181818181817,
-    "0.15": 85.41666666666667
+    "0.35": 128.115,
+    "0.3": 113.88,
+    "0.25": 102.492,
+    "0.2": 93.17454545454545,
+    "0.15": 85.41000000000001
    }
   },
   {
@@ -2602,20 +2602,20 @@
    "unit": "1 пакет 25 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 25.49,
+   "cost_uah": 25.4835,
    "shelf_by_margin": {
-    "0.35": 89.21499999999999,
-    "0.3": 79.30222222222221,
-    "0.25": 71.37199999999999,
-    "0.2": 64.88363636363634,
-    "0.15": 59.47666666666667
+    "0.35": 89.19224999999999,
+    "0.3": 79.28199999999998,
+    "0.25": 71.35379999999999,
+    "0.2": 64.8670909090909,
+    "0.15": 59.4615
    },
    "partner_by_margin": {
-    "0.35": 63.724999999999994,
-    "0.3": 56.64444444444444,
-    "0.25": 50.98,
-    "0.2": 46.34545454545454,
-    "0.15": 42.483333333333334
+    "0.35": 63.708749999999995,
+    "0.3": 56.629999999999995,
+    "0.25": 50.967,
+    "0.2": 46.33363636363636,
+    "0.15": 42.472500000000004
    }
   },
   {
@@ -2625,20 +2625,20 @@
    "unit": "1 пакет 25 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 25.49,
+   "cost_uah": 25.4835,
    "shelf_by_margin": {
-    "0.35": 89.21499999999999,
-    "0.3": 79.30222222222221,
-    "0.25": 71.37199999999999,
-    "0.2": 64.88363636363634,
-    "0.15": 59.47666666666667
+    "0.35": 89.19224999999999,
+    "0.3": 79.28199999999998,
+    "0.25": 71.35379999999999,
+    "0.2": 64.8670909090909,
+    "0.15": 59.4615
    },
    "partner_by_margin": {
-    "0.35": 63.724999999999994,
-    "0.3": 56.64444444444444,
-    "0.25": 50.98,
-    "0.2": 46.34545454545454,
-    "0.15": 42.483333333333334
+    "0.35": 63.708749999999995,
+    "0.3": 56.629999999999995,
+    "0.25": 50.967,
+    "0.2": 46.33363636363636,
+    "0.15": 42.472500000000004
    }
   },
   {
@@ -2648,20 +2648,20 @@
    "unit": "1 пакет 35 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 32.88,
+   "cost_uah": 32.886,
    "shelf_by_margin": {
-    "0.35": 115.08,
-    "0.3": 102.29333333333334,
-    "0.25": 92.06400000000001,
-    "0.2": 83.69454545454545,
-    "0.15": 76.72
+    "0.35": 115.101,
+    "0.3": 102.312,
+    "0.25": 92.0808,
+    "0.2": 83.70981818181818,
+    "0.15": 76.73400000000001
    },
    "partner_by_margin": {
-    "0.35": 82.2,
-    "0.3": 73.06666666666668,
-    "0.25": 65.76,
-    "0.2": 59.78181818181818,
-    "0.15": 54.800000000000004
+    "0.35": 82.215,
+    "0.3": 73.08,
+    "0.25": 65.772,
+    "0.2": 59.79272727272728,
+    "0.15": 54.81000000000001
    }
   },
   {
@@ -2671,20 +2671,20 @@
    "unit": "1 пакет 35 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 31.54,
+   "cost_uah": 31.535999999999998,
    "shelf_by_margin": {
-    "0.35": 110.38999999999999,
-    "0.3": 98.12444444444444,
-    "0.25": 88.312,
-    "0.2": 80.28363636363635,
-    "0.15": 73.59333333333333
+    "0.35": 110.37599999999998,
+    "0.3": 98.112,
+    "0.25": 88.3008,
+    "0.2": 80.27345454545453,
+    "0.15": 73.58399999999999
    },
    "partner_by_margin": {
-    "0.35": 78.85,
-    "0.3": 70.08888888888889,
-    "0.25": 63.08,
-    "0.2": 57.34545454545454,
-    "0.15": 52.56666666666667
+    "0.35": 78.83999999999999,
+    "0.3": 70.08,
+    "0.25": 63.071999999999996,
+    "0.2": 57.33818181818181,
+    "0.15": 52.559999999999995
    }
   },
   {
@@ -2694,20 +2694,20 @@
    "unit": "1 пакет 35 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 31.54,
+   "cost_uah": 31.535999999999998,
    "shelf_by_margin": {
-    "0.35": 110.38999999999999,
-    "0.3": 98.12444444444444,
-    "0.25": 88.312,
-    "0.2": 80.28363636363635,
-    "0.15": 73.59333333333333
+    "0.35": 110.37599999999998,
+    "0.3": 98.112,
+    "0.25": 88.3008,
+    "0.2": 80.27345454545453,
+    "0.15": 73.58399999999999
    },
    "partner_by_margin": {
-    "0.35": 78.85,
-    "0.3": 70.08888888888889,
-    "0.25": 63.08,
-    "0.2": 57.34545454545454,
-    "0.15": 52.56666666666667
+    "0.35": 78.83999999999999,
+    "0.3": 70.08,
+    "0.25": 63.071999999999996,
+    "0.2": 57.33818181818181,
+    "0.15": 52.559999999999995
    }
   },
   {
@@ -2717,20 +2717,20 @@
    "unit": "1 пакет 70 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 63.86,
+   "cost_uah": 63.864000000000004,
    "shelf_by_margin": {
-    "0.35": 223.50999999999996,
-    "0.3": 198.67555555555552,
-    "0.25": 178.808,
-    "0.2": 162.55272727272725,
-    "0.15": 149.00666666666666
+    "0.35": 223.52399999999997,
+    "0.3": 198.68800000000002,
+    "0.25": 178.8192,
+    "0.2": 162.56290909090907,
+    "0.15": 149.01600000000002
    },
    "partner_by_margin": {
-    "0.35": 159.64999999999998,
-    "0.3": 141.9111111111111,
-    "0.25": 127.72,
-    "0.2": 116.1090909090909,
-    "0.15": 106.43333333333334
+    "0.35": 159.66,
+    "0.3": 141.92000000000002,
+    "0.25": 127.72800000000001,
+    "0.2": 116.11636363636363,
+    "0.15": 106.44000000000001
    }
   },
   {
@@ -2740,20 +2740,20 @@
    "unit": "1 пакет 70 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 63.86,
+   "cost_uah": 63.864000000000004,
    "shelf_by_margin": {
-    "0.35": 223.50999999999996,
-    "0.3": 198.67555555555552,
-    "0.25": 178.808,
-    "0.2": 162.55272727272725,
-    "0.15": 149.00666666666666
+    "0.35": 223.52399999999997,
+    "0.3": 198.68800000000002,
+    "0.25": 178.8192,
+    "0.2": 162.56290909090907,
+    "0.15": 149.01600000000002
    },
    "partner_by_margin": {
-    "0.35": 159.64999999999998,
-    "0.3": 141.9111111111111,
-    "0.25": 127.72,
-    "0.2": 116.1090909090909,
-    "0.15": 106.43333333333334
+    "0.35": 159.66,
+    "0.3": 141.92000000000002,
+    "0.25": 127.72800000000001,
+    "0.2": 116.11636363636363,
+    "0.15": 106.44000000000001
    }
   },
   {
@@ -2763,20 +2763,20 @@
    "unit": "1 пакет 70 г",
    "scenario": "40'",
    "scenario_name": "40′ контейнер",
-   "cost_uah": 63.86,
+   "cost_uah": 63.864000000000004,
    "shelf_by_margin": {
-    "0.35": 223.50999999999996,
-    "0.3": 198.67555555555552,
-    "0.25": 178.808,
-    "0.2": 162.55272727272725,
-    "0.15": 149.00666666666666
+    "0.35": 223.52399999999997,
+    "0.3": 198.68800000000002,
+    "0.25": 178.8192,
+    "0.2": 162.56290909090907,
+    "0.15": 149.01600000000002
    },
    "partner_by_margin": {
-    "0.35": 159.64999999999998,
-    "0.3": 141.9111111111111,
-    "0.25": 127.72,
-    "0.2": 116.1090909090909,
-    "0.15": 106.43333333333334
+    "0.35": 159.66,
+    "0.3": 141.92000000000002,
+    "0.25": 127.72800000000001,
+    "0.2": 116.11636363636363,
+    "0.15": 106.44000000000001
    }
   }
  ]

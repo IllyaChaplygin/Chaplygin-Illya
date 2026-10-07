@@ -22,6 +22,7 @@ DECK = os.path.join(HERE, '..', 'deck')
 sys.path.insert(0, DECK)
 from catalog import SUPPLIERS, DATA  # noqa: E402
 
+RATE = 45          # грн/$ — one rate for the whole model, as in the rice workbook (D3)
 BONUS = 0.25
 MARGIN = 0.35
 RETAIL_MARKUP = 1.40
@@ -62,13 +63,14 @@ def build():
             cheapest = order[0]
             for scen in order:
                 c = cost[scen]
-                chain = price_chain(c['uah'])
+                cost_uah = c['usd'] * RATE      # same as the workbook: $ x rate
+                chain = price_chain(cost_uah)
                 rows.append(dict(
                     supplier_id=sup['id'], supplier=sup['short'], brand=sup['brand'],
                     sku=p['key'], title=p['title'].replace('\n', ' '), unit=p['unit'],
                     badge=p['badge'], scenario=scen, scenario_name=SC_NAME[scen],
                     is_cheapest=(scen == cheapest),
-                    cost_usd=c['usd'], cost_uah=c['uah'],
+                    cost_usd=c['usd'], cost_uah=cost_uah,
                     partner_uah=chain['partner'], bonus_uah=chain['bonus'],
                     profit_uah=chain['profit'], shelf_uah=chain['shelf'],
                     margin_check=chain['margin_check'],
@@ -85,11 +87,11 @@ def build_sensitivity():
             cost = costs(sup['sheet'], p['key'])
             scen = sc_order(cost)[0]
             c = cost[scen]
-            by_margin = {m: price_chain(c['uah'], margin=m) for m in SENSITIVITY_MARGINS}
+            by_margin = {m: price_chain(c['usd'] * RATE, margin=m) for m in SENSITIVITY_MARGINS}
             rows.append(dict(
                 supplier_id=sup['id'], supplier=sup['short'], title=p['title'].replace('\n', ' '),
                 unit=p['unit'], scenario=scen, scenario_name=SC_NAME[scen],
-                cost_uah=c['uah'],
+                cost_uah=c['usd'] * RATE,
                 shelf_by_margin={m: by_margin[m]['shelf'] for m in SENSITIVITY_MARGINS},
                 partner_by_margin={m: by_margin[m]['partner'] for m in SENSITIVITY_MARGINS},
             ))
