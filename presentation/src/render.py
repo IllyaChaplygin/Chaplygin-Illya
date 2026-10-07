@@ -3,7 +3,7 @@ import os
 import shutil
 import sys
 
-sys.path.insert(0, '/root/.claude/skills/pptx/scripts')
+sys.path.insert(0, '/mnt/skills/public/pptx/scripts')
 from office.soffice import run_soffice  # noqa: E402
 
 SRC = sys.argv[1] if len(sys.argv) > 1 else '/home/user/work/deck_out.pptx'
