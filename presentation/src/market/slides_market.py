@@ -57,41 +57,29 @@ def cover(deck):
 
 # ------------------------------------------------------------- methodology
 def method(deck):
-    s = deck.slide('Методологія · джерела', 'Що перевірили і як рахували')
+    s = deck.slide('Методологія · джерела', 'Що перевірили')
+    sub(s, 'Онлайн-каталоги 18 мереж на zakaz.ua: ціна — поточна ціна на онлайн-полиці одного магазину мережі, грн за упаковку; діапазон показує різницю між мережами та акціями. Позиція = унікальний штрихкод.')
     n_chain = len(CHAINS_ORDER)
-    kpi(s, 0.62, 1.55, 2.9, 1.2, 'Позицій у дослідженні', '%d SKU' % len(ROWS), 'унікальні штрихкоди (EAN)')
-    kpi(s, 3.68, 1.55, 2.9, 1.2, 'Мереж із позиціями', '%d з 18' % n_chain, '7 національних · %d регіональних' % (n_chain - len([c for c in CHAINS_ORDER if c in NATIONAL])))
-    kpi(s, 6.74, 1.55, 2.9, 1.2, 'Брендів', '%d' % len({r['brand'] for r in ROWS}), 'без обліку приватних марок мереж', color=AMBER)
-    kpi(s, 9.8, 1.55, 2.9, 1.2, 'Дата зрізу', '07.10.2026', 'онлайн-каталоги мереж', color=PURPLE)
-    section_tag(s, 0.62, 3.0, 5, 'Як рахували')
-    pts = ['Ціна — поточна ціна на онлайн-полиці мережі (zakaz.ua), грн за упаковку; діапазон показує різницю між мережами та акціями.',
-           'Позиція = унікальний штрихкод. Лінійка = бренд + вага; смаки однієї лінійки згруповано в одну картку.',
-           'Сегменти — за форматом упаковки й вагою (те, що бачить покупець на полиці), так само, як у дослідженнях рису і рамену.',
-           'Наші SKU порівнюємо з сегментом за ціною упаковки та ціною за грам; коридор «поруч» — ±20 % від нашої полиці.']
-    for i, t in enumerate(pts):
-        rect(s, 0.62, 3.4 + i * 0.78, 0.34, 0.34, fill=NAVY, radius=0.5)
-        text(s, 0.62, 3.4 + i * 0.78 + 0.05, 0.34, 0.25, str(i + 1), size=10, color=WHITE, bold=True, align='c')
-        text(s, 1.1, 3.4 + i * 0.78, 5.2, 0.7, t, size=8.6, color=INK)
-    section_tag(s, 6.9, 3.0, 5, 'Мережі в зрізі', color=AMBER)
+    nn = len([c for c in CHAINS_ORDER if c in NATIONAL])
+    kpi(s, 0.62, 1.95, 3.9, 1.3, 'Позицій у дослідженні', '%d SKU' % len(ROWS), 'унікальні штрихкоди (EAN) нори-снеків і рисових снеків')
+    kpi(s, 4.72, 1.95, 3.9, 1.3, 'Мереж із позиціями', '%d з 18' % n_chain, '%d національних · %d регіональних' % (nn, n_chain - nn), color=AMBER)
+    kpi(s, 8.82, 1.95, 3.9, 1.3, 'Брендів', '%d' % len({r['brand'] for r in ROWS}), 'без обліку приватних марок мереж', color=PURPLE)
+    cnt = collections.Counter(c for r in ROWS for c in r['chains'])
     nat = [c for c in CHAINS_ORDER if c in NATIONAL]; reg = [c for c in CHAINS_ORDER if c not in NATIONAL]
-    def chips(y, label, cs, col):
-        caps(s, 6.9, y, 5, label, size=7)
-        x, yy = 6.9, y + 0.28
+    def chips(x0, y, label, cs, col, w_total):
+        section_tag(s, x0, y, w_total, label, color=col)
+        x, yy = x0, y + 0.45
         for c in cs:
-            w = 0.2 + 0.085 * len(CHAIN[c])
-            if x + w > 12.7: x, yy = 6.9, yy + 0.34
-            rect(s, x, yy, w, 0.27, fill=tint(col, 0.14), radius=0.3)
-            text(s, x, yy + 0.02, w, 0.24, CHAIN[c], size=7.8, color=INK, bold=True, align='c', anchor='m')
-            x += w + 0.1
-        return yy + 0.4
-    y = chips(3.4, 'Національне покриття', nat, AMBER)
-    y = chips(y + 0.05, 'Регіональні', reg, NAVY)
-    rect(s, 6.9, y + 0.15, 5.8, 1.5, fill=rgb('FFF3DC'))
-    rect(s, 6.9, y + 0.15, 0.04, 1.5, fill=GOLD)
-    text(s, 7.15, y + 0.27, 5.4, 1.3, [[('Що ще в зрізі. ', {'bold': True, 'color': NAVY}),
-         ('Митна база (УКТ ЗЕД, 2025 + січень–травень 2026) — обсяги, імпортери, країни й митна ціна. ', {}),
-         ('Чого немає: ', {'bold': True, 'color': NAVY}),
-         ('офлайн-акцій «в залі»; товарів під іншими кодами УКТ ЗЕД. Арарe/норімакі в мережах не знайдено — «не знайдено в каталогах» не означає «не продається».', {})]], size=8.2, color=INK)
+            lab = CHAIN[c]; w = 0.55 + 0.11 * len(lab) + 0.45
+            if x + w > x0 + w_total: x, yy = x0, yy + 0.62
+            rect(s, x, yy, w, 0.46, fill=tint(col, 0.12), radius=0.25)
+            text(s, x + 0.14, yy, w - 0.65, 0.46, lab, size=10.5, color=INK, bold=True, anchor='m')
+            rect(s, x + w - 0.52, yy + 0.09, 0.42, 0.28, fill=col, radius=0.3)
+            text(s, x + w - 0.52, yy + 0.09, 0.42, 0.28, str(cnt[c]), size=8.8, color=WHITE, bold=True, align='c', anchor='m')
+            x += w + 0.14
+        return yy + 0.7
+    y2 = chips(0.62, 3.55, 'Національні мережі · число позицій у мережі', nat, AMBER, 12.1)
+    chips(0.62, y2 + 0.05, 'Регіональні мережі · число позицій у мережі', reg, NAVY, 12.1)
     src_note(s)
     return s
 
@@ -219,23 +207,37 @@ def where_sold(deck, sgs, headline, eyebrow):
     col = SEG_COLOR[sgs[0]]
     s = deck.slide(eyebrow, headline)
     cnt = collections.Counter(c for r in rs for c in r['chains'])
-    sub(s, 'Скільки позицій цього сегмента стоїть у кожній мережі (ліворуч) і розклад мереж за типом: національні — головний цільовий канал, регіональні — вхід, без позицій — вільна полиця.', y=1.34, size=8.4)
-    caps(s, 0.62, 1.95, 5, 'Позицій сегмента в мережі', size=7)
+    sub(s, 'Скільки позицій цього сегмента стоїть у кожній мережі, які бренди та за яку ціну упаковки; праворуч — мережі за типом: національні — головний цільовий канал, регіональні — вхід, без позицій — вільна полиця.', y=1.34, size=8.4)
     order = sorted(CHAINS_ORDER, key=lambda c: -cnt.get(c, 0))
-    rows = [(CHAIN[c], cnt[c]) for c in order if cnt.get(c)]
-    hbars(s, 0.62, 2.25, 6.4, rows, color=col, row_h=min(0.4, 4.7 / len(rows)), name_w=1.6, val_w=0.5, maxv=max(cnt.values()), size=9.2)
+    rows = [c for c in order if cnt.get(c)]
+    caps(s, 0.62, 1.95, 3, 'Мережа', size=6.6); caps(s, 2.15, 1.95, 3, 'Позицій', size=6.6); caps(s, 4.2, 1.95, 3, 'Бренди · ціна упаковки, ₴', size=6.6)
+    top, avail = 2.25, 4.75
+    rh = min(0.78, avail / len(rows))
+    mxv = max(cnt.values())
+    for i, c in enumerate(rows):
+        y = top + i * rh
+        if i % 2 == 0: rect(s, 0.62, y, 7.0, rh, fill=rgb('F8F9FC'))
+        here = [r for r in rs if c in r['chains']]
+        text(s, 0.72, y, 1.4, rh, CHAIN[c], size=9.6, color=NAVY, bold=True, anchor='m')
+        bw = 1.5 * cnt[c] / mxv
+        rect(s, 2.15, y + rh * 0.25, max(0.05, bw), rh * 0.5, fill=col)
+        text(s, 2.15 + bw + 0.07, y, 0.5, rh, str(cnt[c]), size=9.4, color=NAVY, bold=True, anchor='m')
+        brs = collections.Counter(r['brand'] for r in here).most_common(4)
+        pr = sorted(r['pmed'] for r in here)
+        text(s, 4.2, y + rh * 0.08, 3.4, rh * 0.5, ', '.join('%s %d' % (b, n) for b, n in brs), size=7.6, color=INK, bold=True)
+        text(s, 4.2, y + rh * 0.52, 3.4, rh * 0.4, '%s ₴ · типова %d ₴' % (rng(pr[0], pr[-1]), round(med(pr))), size=7.4, color=MUTED)
     # right: chips by channel group
-    x0 = 7.3
+    x0 = 7.9
     def block(y, title, cs, tag, tagcol, fillc):
-        rect(s, x0, y, 5.4, 0.3, fill=WHITE, line=None)
-        text(s, x0, y + 0.02, 3.5, 0.26, title, size=9.4, color=NAVY, bold=True)
-        rect(s, x0 + 3.5, y + 0.02, 1.9, 0.24, fill=tagcol)
-        text(s, x0 + 3.5, y + 0.02, 1.9, 0.24, tag, size=6.4, color=WHITE, bold=True, align='c', anchor='m')
+        rect(s, x0, y, 4.8, 0.3, fill=WHITE, line=None)
+        text(s, x0, y + 0.02, 3.2, 0.26, title, size=9.0, color=NAVY, bold=True)
+        rect(s, x0 + 3.1, y + 0.02, 1.7, 0.24, fill=tagcol)
+        text(s, x0 + 3.1, y + 0.02, 1.7, 0.24, tag, size=6.4, color=WHITE, bold=True, align='c', anchor='m')
         xx, yy = x0, y + 0.42
         for c in cs:
             n = cnt.get(c, 0)
             lab = CHAIN[c]; w = 0.5 + 0.082 * len(lab) + (0.3 if n else 0)
-            if xx + w > x0 + 5.4: xx, yy = x0, yy + 0.36
+            if xx + w > x0 + 4.8: xx, yy = x0, yy + 0.36
             rect(s, xx, yy, w, 0.28, fill=WHITE, line=RULE)
             text(s, xx + 0.08, yy + 0.02, w - 0.4, 0.24, lab, size=7.6, color=INK, bold=True, anchor='m')
             if n:
@@ -286,7 +288,7 @@ def popular_packs(deck, sgs, headline, eyebrow, note=None):
     x0 = 0.62
     heads = [('№', 0, 0.35), ('ВАГА', 0.4, 0.9), ('ПРИСУТНІСТЬ · ПОЗИЦІЙ × МЕРЕЖ', 1.4, 3.1), ('SKU · БРЕНДІВ', 4.6, 1.0), ('МЕРЕЖ', 5.7, 0.6), ('ЦІНА, ₴ · МІН.–МАКС.', 6.4, 1.6), ('МЕДІАНА ЦІНИ', 8.0, 1.2)]
     ny = sum(len(p) for _, p in tabs)
-    rh = min(0.62, 4.0 / (ny + 1.3 * len(tabs)))
+    rh = min(0.8, 4.9 / (ny + 1.3 * len(tabs)))
     y = 1.85
     pos = {}
     for sg, part in tabs:
@@ -314,30 +316,6 @@ def popular_packs(deck, sgs, headline, eyebrow, note=None):
             y += rh
         y += 0.12
     # column captions under the first band are folded into one caption line at the bottom of the table
-    # what it means for our pack sizes
-    if y < 6.3:
-        notes = []
-        seen_w = set()
-        for o in OUR:
-            if o['seg'] not in sgs or (o['seg'], o['grams']) in seen_w:
-                continue
-            seen_w.add((o['seg'], o['grams']))
-            part = dict(tabs)[o['seg']]
-            exact = [p for p in part if abs(p['grams'] - o['grams']) < 0.05]
-            sup = {'tmk': 'TMK', 'zek': 'ZEK', 'singha': 'Singha', 'thainichi': 'Thai-Nichi'}[o['sup']]
-            if exact:
-                p = exact[0]
-                notes.append('%s %s — такий розмір є на ринку: №%d, %d %% присутності, типова ціна %d ₴.' % (sup, gfmt(o['grams']), p['rank'], round(100 * p['share']), round(p['pmed'])))
-            else:
-                nr = sorted(part, key=lambda p: abs(p['grams'] - o['grams']))[:2]
-                notes.append('%s %s — такого розміру на ринку немає; найближчі: %s.' % (sup, gfmt(o['grams']), ', '.join('%s (№%d, %d %%)' % (gfmt(p['grams']), p['rank'], round(100 * p['share'])) for p in nr)))
-        notes = notes[:6]
-        by = y + 0.1
-        bh = 0.3 + 0.24 * len(notes)
-        rect(s, x0, by, 9.4, bh, fill=rgb('FFF3DC')); rect(s, x0, by, 0.04, bh, fill=GOLD)
-        text(s, x0 + 0.2, by + 0.08, 8, 0.18, 'ЩО ЦЕ ЗНАЧИТЬ ДЛЯ НАШИХ РОЗМІРІВ', size=7, color=AMBER, bold=True, spc=0.2)
-        for k, t_ in enumerate(notes):
-            text(s, x0 + 0.2, by + 0.3 + k * 0.24, 9.0, 0.22, t_, size=8, color=INK)
     # right: ours
     ours = collections.OrderedDict()
     for o in OUR:

@@ -156,3 +156,41 @@ def basket(o):
         rs = sorted(pool, key=lambda r: abs(r['grams'] - o['grams']))[:3]
     return dict(n=len(rs), gmin=min(r['grams'] for r in rs), gmax=max(r['grams'] for r in rs), pmed=med(r['pmed'] for r in rs),
                 pmin=min(r['pmed'] for r in rs), pmax=max(r['pmed'] for r in rs), brands=sorted({r['brand'] for r in rs}))
+
+
+# ---------------------------------------------------------------- brand directory
+# Importer / origin come ONLY from the customs base (importer names and brand tokens in the
+# declaration descriptions). Where the base shows nothing, the cell says so — no guessing.
+_CUST = json.load(open(os.path.join(HERE, 'customs.json'), encoding='utf-8'))
+_TOKEN = {'Haelove': 'Haelove / Delisse', 'Tao Kae Noi': 'Tao Kae Noi', 'Akura': 'Akura', 'Royal Tiger': 'Royal Tiger',
+          'Ock Dong Ja': 'Ock Dong Ja', 'Metro Chef': 'Metro Chef'}
+BRAND_SRC = {'Norris': ('Норріс Груп', 'Китай'), 'Clearspring': ('Бюро Вин', 'Корея (Sahm Yook Sea Foods)')}
+
+
+def _short_imp(n):
+    return n.replace('ТОВ ', '').replace('ОРІЄНТАЛЬ ПЛЮС', 'Оріенталь Плюс').replace('ФОЗЗІ КОММЕРЦ', 'Фоззі Коммерс').replace('ОРІЄНТАЛ МЕРЧАНТ', 'Оріентал Мерчант').replace('Метро Кеш Енд Кері Україна', 'Metro Cash & Carry').replace('Торговий дім ІТС', 'ТД ІТС').replace('АЗІАТІК', 'Азіатік').replace('НОРРІС ГРУП', 'Норріс Груп')
+
+
+def brand_origin(brand):
+    if brand in BRAND_SRC:
+        return BRAND_SRC[brand]
+    tok = _TOKEN.get(brand)
+    if tok:
+        imps = [i for i in _CUST['seaweed']['importers'] if tok in i['brands']]
+        if imps:
+            ctry = {'КОРЕЯ РЕСПУБЛІКА': 'Корея', 'КИТАЙ': 'Китай', 'ТАЇЛАНД': 'Таїланд'}.get(imps[0]['origin'], imps[0]['origin'].title())
+            if brand == 'Tao Kae Noi':
+                ctry = 'Таїланд (Taokaenoi Food)'
+            return (', '.join(_short_imp(i['name']) for i in imps[:2]), ctry)
+    return (None, None)
+
+
+def brand_profile(brand):
+    rs = [r for r in ROWS if r['brand'] == brand]
+    segs = collections.OrderedDict()
+    for r in rs:
+        segs.setdefault(SEGS[r['seg']]['short'], set()).add(r['grams'])
+    fmt = '; '.join('%s %s' % (k, ' / '.join(('%g' % g).replace('.', ',') for g in sorted(v)) + ' г') for k, v in segs.items())
+    pr = [r['pmed'] for r in rs]
+    return dict(brand=brand, fmt=fmt, n=len(rs), chains=len({c for r in rs for c in r['chains']}), pmin=min(pr), pmax=max(pr), pmed=med(pr),
+                imp=brand_origin(brand))

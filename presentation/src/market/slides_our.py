@@ -32,10 +32,10 @@ def fnum(v, d=2):
 def brand_network(deck):
     s = deck.slide('Зведення · бренди × мережі', 'Який бренд у якій мережі і за скільки')
     rs = [r for r in ROWS if r['seg'] in NORI_SEGS]
-    brands = collections.Counter(r['brand'] for r in rs).most_common(13)
+    brands = collections.Counter(r['brand'] for r in rs).most_common(12)
     chains = [c for c in CHAINS_ORDER]
-    x0, y0, nw, cw, rh = 0.62, 1.95, 1.5, 0.585, 0.35
-    text(s, 0.62, 1.36, 12.1, 0.5, 'У клітинці — типова ціна упаковки цього бренду в цій мережі, ₴ (медіана по його позиціях). Тире — бренду в мережі немає. Чим темніше клітинка, тим більше позицій бренду там стоїть (від 1 до 6 і більше).', size=8.6, color=MUTED)
+    x0, y0, nw, cw, rh = 0.62, 1.95, 2.05, 0.555, 0.37
+    text(s, 0.62, 1.36, 12.1, 0.5, 'У клітинці — типова ціна упаковки цього бренду в цій мережі, ₴. Тире — бренду там немає. Чим темніше, тим більше позицій бренду. Під назвою бренду — що саме він продає (формат і вага); хто бренд і хто його завозить — на наступному слайді.', size=8.6, color=MUTED)
     for j, c in enumerate(chains):
         x = x0 + nw + j * cw
         rect(s, x + 0.02, y0, cw - 0.04, 0.42, fill=NAVY if c in NATIONAL else TEAL)
@@ -47,7 +47,9 @@ def brand_network(deck):
     mx = 6
     for i, (b, n) in enumerate(brands):
         y = y0 + 0.48 + i * rh
-        text(s, x0, y, nw - 0.1, rh, b, size=8.2, color=NAVY, bold=True, anchor='m', align='r')
+        pf = D.brand_profile(b)
+        text(s, x0, y + 0.02, nw - 0.1, rh * 0.5, b, size=8.4, color=NAVY, bold=True, align='r')
+        text(s, x0, y + rh * 0.5, nw - 0.1, rh * 0.5, pf['fmt'][:34], size=6.0, color=MUTED, align='r')
         brs = [r for r in rs if r['brand'] == b]
         for j, c in enumerate(chains):
             here = [r for r in brs if c in r['chains']]
@@ -61,6 +63,31 @@ def brand_network(deck):
             text(s, x, y, cw, rh, '%d' % round(med(r['pmed'] for r in here)), size=9, color=WHITE if t > 0.45 else NAVY, bold=True, align='c', anchor='m')
         text(s, xs, y, 0.54, rh, str(n), size=8.2, color=NAVY, bold=True, align='c', anchor='m')
         text(s, xs + 0.56, y, 0.54, rh, str(len({c for r in brs for c in r['chains']})), size=8.2, color=NAVY, bold=True, align='c', anchor='m')
+    src_note(s)
+    return s
+
+
+def brand_directory(deck):
+    s = deck.slide('Бренди · що це і хто стоїть за ними', 'Бренди на полиці: що продають і хто завозить')
+    text(s, 0.62, 1.36, 12.1, 0.45, 'Формат і ціна — з каталогів мереж. Імпортер і країна — з митної бази (за описами декларацій і назвою імпортера); якщо в базі бренд не знайдено, так і написано — власника бренду не вгадуємо.', size=8.6, color=MUTED)
+    brands = [b for b, _ in collections.Counter(r['brand'] for r in ROWS if r['seg'] in NORI_SEGS or r['seg'] == 'ricecr').most_common(15)]
+    top = 1.98
+    heads = [('БРЕНД', 0.1, 1.6, 'l'), ('ЩО ПРОДАЄ · ФОРМАТ І ВАГА', 1.8, 3.9, 'l'), ('SKU', 5.75, 0.5, 'r'), ('МЕРЕЖ', 6.3, 0.6, 'r'), ('ЦІНА УПАКОВКИ, ₴', 7.0, 1.4, 'l'), ('ІМПОРТЕР В УКРАЇНІ (МИТНА БАЗА)', 8.5, 2.4, 'l'), ('ВИРОБНИК / КРАЇНА', 10.95, 1.2, 'l')]
+    rect(s, 0.62, top, 12.1, 0.3, fill=NAVY)
+    for t, dx, w, al in heads:
+        text(s, 0.62 + dx, top, w, 0.3, t, size=6.2, color=WHITE, bold=True, anchor='m', align=al)
+    rh = min(0.33, (7.0 - top - 0.4) / len(brands))
+    for i, b in enumerate(brands):
+        pf = D.brand_profile(b); imp, ctry = pf['imp']
+        y = top + 0.34 + i * rh
+        if i % 2 == 0: rect(s, 0.62, y, 12.1, rh, fill=rgb('F8F9FC'))
+        text(s, 0.72, y, 1.7, rh, b, size=8.4, color=NAVY, bold=True, anchor='m')
+        text(s, 2.42, y, 3.95, rh, pf['fmt'], size=7.4, color=INK, anchor='m')
+        text(s, 6.37, y, 0.5, rh, str(pf['n']), size=8, color=INK, anchor='m', align='r')
+        text(s, 6.92, y, 0.6, rh, str(pf['chains']), size=8, color=INK, anchor='m', align='r')
+        text(s, 7.62, y, 1.4, rh, '%s ₴' % rng(pf['pmin'], pf['pmax']), size=7.6, color=INK, anchor='m')
+        text(s, 9.12, y, 2.4, rh, imp or 'у митній базі не знайдено', size=7.6, color=(INK if imp else MUTED), bold=bool(imp), anchor='m')
+        text(s, 11.57, y, 1.15, rh, ctry or '—', size=7, color=(INK if ctry else MUTED), anchor='m')
     src_note(s)
     return s
 
@@ -236,42 +263,44 @@ def audit_networks(deck):
 def channels(deck):
     s = deck.slide('Канали продажу', 'Де продається категорія і кому')
     rs = [r for r in ROWS if r['seg'] in NORI_SEGS]
+    cnt = collections.Counter(c for r in rs for c in r['chains'])
     ncn = len({c for r in rs for c in r['chains'] if c in NATIONAL}); nre = len({c for r in rs for c in r['chains'] if c not in NATIONAL})
     tk = sorted({CHAIN[c] for r in ROWS if r['brand'] == 'Tao Kae Noi' for c in r['chains']})
     ww = sorted({CHAIN[c] for r in ROWS if r['brand'] == 'Want Want' for c in r['chains']})
     mini = [r['pmed'] for r in rows_of('mini')]
-    text(s, 0.62, 1.38, 12.1, 0.22, 'Мережі закривають мініпакети 4–5 г і чипси 25 г; темпура (Tao Kae Noi) є лише в %s, а рисові крекери — майже тільки Want Want.' % ', '.join(tk), size=8.8, color=MUTED)
-    blocks = [
-        ('Супермаркети · %d національних і %d регіональних мереж' % (ncn, nre), 'ЦІЛЬОВИЙ КАНАЛ', RED,
-         ['Мініпакет 4–5 г: від %d ₴ до %d ₴, медіана %d ₴ (Ock Dong Ja, Akura, Norris, Haelove — найширша присутність)' % (round(min(mini)), round(max(mini)), round(med(mini))),
-          'Чипси 25 г — Hokkaido Club і Norris: 47–88 ₴ залежно від мережі',
-          'Рисові крекери: Want Want mini 60 г — 140–149 ₴ (%s)' % ', '.join(ww),
-          'Окремі розділи «Норі» / «Азія» є в каталогах METRO, NOVUS, Ашан, Зараз, Onde, Епіцентр']),
+    text(s, 0.62, 1.34, 12.1, 0.45, 'Ліворуч — скільки позицій нори-снеків і рисових крекерів стоїть у кожній мережі; праворуч — чотири канали: що в них знайшли, за які гроші і що це означає для нашого асортименту.', size=8.6, color=MUTED)
+    caps(s, 0.62, 1.95, 5, 'Позицій у мережі', size=6.8)
+    order = sorted([c for c in cnt], key=lambda c: -cnt[c])
+    hbars(s, 0.62, 2.25, 5.2, [(CHAIN[c], cnt[c], (NAVY if c in NATIONAL else TEAL)) for c in order], color=NAVY, row_h=min(0.3, 4.3 / len(order)), name_w=1.3, val_w=0.5, maxv=max(cnt.values()), size=8.4)
+    rect(s, 0.62, 6.78, 0.13, 0.13, fill=NAVY); text(s, 0.82, 6.75, 1.6, 0.2, 'національні (%d)' % ncn, size=7, color=MUTED)
+    rect(s, 2.4, 6.78, 0.13, 0.13, fill=TEAL); text(s, 2.6, 6.75, 1.8, 0.2, 'регіональні (%d)' % nre, size=7, color=MUTED)
+    cards = [
+        ('Супермаркети · %d мереж' % len(cnt), 'ЦІЛЬОВИЙ КАНАЛ', RED,
+         ['Знайшли: мініпакети 4–5 г (%d ₴ типова), чипси 25 г (47–88 ₴), темпура Tao Kae Noi — лише %s, рисові крекери Want Want mini 60 г (140–149 ₴) — %s.' % (round(med(mini)), ', '.join(tk), ', '.join(ww)),
+          'Постачальники за митною базою: Metro Cash & Carry (Metro Chef), Норріс Груп, ТД ІТС (Haelove), Оріенталь Плюс (Akura).',
+          'Для нас: через мережі йдуть мініпакети — це TMK ROLL / DOUBLE; ZEK й рисові крекери в мережах майже без конкурентів.']),
         ('Азійські інтернет-магазини · Asia Foods, Японський Квартал, До Смаку, Суші Повар', 'ЦІЛЬОВИЙ КАНАЛ', AMBER,
-         ['Tao Kae Noi Hot & Spicy 15 г — 107 ₴ (Asia Foods); Wasabi 15 г — 78 ₴ (Суші Повар)',
-          'Tao Kae Noi Roll 6 × 3 г — 89 ₴ (Суші Повар)',
-          'Kimnori 5 г — 55 ₴ (Японський Квартал); Akura 4,5 г — 35 ₴ (До Смаку)',
-          'Рисові крекери з водоростями Want Want 160 г — 357 ₴ (Asia Foods)']),
+         ['Знайшли: Tao Kae Noi Hot & Spicy 15 г — 107 ₴, Wasabi 15 г — 78 ₴, Roll 6 × 3 г — 89 ₴; Kimnori 5 г — 55 ₴; Akura 4,5 г — 35 ₴; Want Want 160 г — 357 ₴.',
+          'Для нас: тут стоять формати 15–160 г, яких немає в мережах, — місце для ZEK Tempura / Topping і рисових крекерів.']),
         ('Маркетплейси · Rozetka, Prom.ua', 'ВХІД', TEAL,
-         ['Akura Nori Chips 3 × 4,5 г — 129 ₴ (Original) і 89 ₴ (Kimchi) на Rozetka',
-          'Tao Kae Noi Big Roll Classic 6 × 3 г — 154,85 ₴ на Prom.ua',
-          'Edward & Sons рисові крекери з нори 100 г — 351 ₴ (Prom.ua, органіка)',
-          'Опт: Akura 72 × 4,5 г — 1 820 ₴ (Exotic Food, Prom.ua)']),
+         ['Знайшли: Akura 3 × 4,5 г — 129 ₴ і 89 ₴ (Rozetka); Tao Kae Noi Big Roll 6 × 3 г — 154,85 ₴; Edward & Sons 100 г — 351 ₴; опт Akura 72 × 4,5 г — 1 820 ₴ (Prom.ua).',
+          'Для нас: ціни тут вищі за мережі, є опт і преміум — канал для невеликих партій.']),
         ('HoReCa · суші-бари, азійські ресторани', 'НЕ ОХОПЛЕНО', GREY,
-         ['У каталогах мереж є листи норі для суші (Katana, JS, Hokkaido Club, Akura) — це інша категорія, у зріз не включено',
-          'Окремий аудит HoReCa не проводили']),
+         ['У каталогах мереж є листи норі для суші (Katana, JS, Hokkaido Club, Akura) — інша категорія, у зріз не входить. Окремий аудит HoReCa не проводили.']),
     ]
-    heights = [1.38, 1.38, 1.38, 0.88]
-    y = 1.72
-    for (ttl, tag, col, lines_), h in zip(blocks, heights):
-        rect(s, 0.62, y, 12.1, h, fill=PANEL); rect(s, 0.62, y, 0.05, h, fill=col)
-        text(s, 0.9, y + 0.1, 9.0, 0.24, ttl, size=9.4, color=NAVY, bold=True)
-        rect(s, 10.6, y + 0.1, 1.9, 0.24, fill=col)
-        text(s, 10.6, y + 0.1, 1.9, 0.24, tag, size=6.4, color=WHITE, bold=True, align='c', anchor='m')
-        for k, t in enumerate(lines_):
-            text(s, 0.9, y + 0.42 + k * 0.235, 11.5, 0.22, '•  ' + t, size=8.0, color=INK)
-        y += h + 0.09
-    footnote(s, 'Мережі — каталоги zakaz.ua, 07.10.2026. Онлайн-магазини й маркетплейси — оголошення, знайдені пошуком; повного аудиту цих каналів не проводили, ціни можуть змінитись.')
+    x0, y = 6.1, 1.95
+    heights = [1.62, 1.28, 1.2, 0.76]
+    for (ttl, tag, col, lns), h in zip(cards, heights):
+        rect(s, x0, y, 6.62, h, fill=PANEL); rect(s, x0, y, 0.05, h, fill=col)
+        text(s, x0 + 0.2, y + 0.08, 4.5, 0.4, ttl, size=8.8, color=NAVY, bold=True)
+        rect(s, x0 + 4.85, y + 0.1, 1.65, 0.22, fill=col)
+        text(s, x0 + 4.85, y + 0.1, 1.65, 0.22, tag, size=6.2, color=WHITE, bold=True, align='c', anchor='m')
+        yy = y + (0.48 if len(ttl) > 40 else 0.4)
+        for t in lns:
+            text(s, x0 + 0.2, yy, 6.25, 0.5, '•  ' + t, size=7.2, color=INK)
+            yy += 0.27 + 0.15 * (len(t) // 100)
+        y += h + 0.08
+    footnote(s, 'Мережі — каталоги zakaz.ua, 07.10.2026; імпортери — митна база. Онлайн-магазини й маркетплейси — оголошення, знайдені пошуком; повного аудиту цих каналів не проводили, ціни можуть змінитись.')
     return s
 
 
@@ -486,12 +515,103 @@ def neighbours(deck):
     return s
 
 
+def verification(deck):
+    from sc_breakdown import breakdown
+    s = deck.slide('Перевірка розрахунку', 'Перевірка: як з FOB виходить полиця')
+    text(s, 0.62, 1.34, 12.1, 0.45, 'Усі числа взято з вашого Self-Cost_Snacks (контейнер 40′, рядок вказано під назвою) і перераховано: собівартість = FOB + мито + імпортний ПДВ + транспорт + кредитні гроші; ціна мережі = собівартість ÷ %s; полиця = ціна мережі × 1,40.' % ('%.2f' % (SSP / 100)).replace('.', ','), size=8.4, color=MUTED)
+    picks = [('singha', 'SINGHA KAMEDA - Retail', 0, 'Singha · Norimaki Original 42 г'), ('thainichi', 'Thai-Nichi - Retail', 0, 'Thai-Nichi · Norimaki Original 50 г'),
+             ('tmk', 'TMK Thailand Co., Ltd -Retail', 0, 'TMK · WOW ROLL Original 2,5 г'), ('zek', 'ZEK -Retail', 0, 'ZEK · Tempura Corn 30 г')]
+    for i, (sid, sheet, idx, ttl) in enumerate(picks):
+        b = breakdown(sheet, idx)
+        x = 0.62 + i * 3.06; w = 2.95; col = SUP_COLOR[sid]
+        rect(s, x, 1.95, w, 0.36, fill=col)
+        text(s, x + 0.12, 2.03, w - 0.2, 0.22, ttl.upper(), size=7.2, color=WHITE, bold=True)
+        rect(s, x, 2.31, w, 4.72, fill=PANEL)
+        rate = 45.0
+        pr = b['parts']
+        rows = [('FOB', pr['fob']), ('Мито', pr['duty']), ('Імпортний ПДВ', pr['vat']), ('Транспорт', pr['transport'] + pr['other']), ('Кредитні гроші', pr['credit'])]
+        mx = b['ss_usd']
+        text(s, x + 0.14, 2.4, w - 0.28, 0.16, 'СОБІВАРТІСТЬ УПАКОВКИ · рядок %d' % b['row'], size=5.8, color=col, bold=True, spc=0.2)
+        yy = 2.62
+        for lab, v in rows:
+            text(s, x + 0.14, yy, 1.1, 0.2, lab, size=7.2, color=INK)
+            bwid = 0.5 * v / mx
+            rect(s, x + 1.25, yy + 0.04, max(0.03, bwid), 0.13, fill=col if lab == 'FOB' else tint(col, 0.45))
+            text(s, x + 1.25 + bwid + 0.05, yy, 1.4, 0.2, '$%s · %s ₴' % (('%.3f' % v).replace('.', ','), ('%.2f' % (v * rate)).replace('.', ',')), size=6.4, color=MUTED)
+            yy += 0.24
+        rect(s, x + 0.14, yy + 0.03, w - 0.28, 0.012, fill=INK)
+        text(s, x + 0.14, yy + 0.08, w - 0.28, 0.24, 'СС = $%s × 45 = %s ₴' % (('%.4f' % b['ss_usd']).replace('.', ','), ('%.2f' % b['ss_uah']).replace('.', ',')), size=8.8, color=INK, bold=True)
+        ss = b['ss_usd'] * 45
+        partner = ss / (SSP / 100)
+        bon = partner * BON; mar = partner * MAR; shelf = partner * MUP
+        yy += 0.5
+        lines_ = [('Ціна мережі', '%s ÷ %s = %s ₴' % (('%.2f' % ss).replace('.', ','), ('%.2f' % (SSP / 100)).replace('.', ','), ('%.2f' % partner).replace('.', ',')), False),
+                  ('Бонус 25 %', '%s ₴' % ('%.2f' % bon).replace('.', ','), False),
+                  ('Маржа %d %%' % MP, '%s ₴' % ('%.2f' % mar).replace('.', ','), False),
+                  ('Собівартість', '%s ₴' % ('%.2f' % ss).replace('.', ','), False),
+                  ('Сума (перевірка)', '%s ₴' % ('%.2f' % (bon + mar + ss)).replace('.', ','), False)]
+        for lab, v, bd in lines_:
+            text(s, x + 0.14, yy, 1.0, 0.2, lab, size=7.4, color=INK)
+            text(s, x + 1.0, yy, w - 1.14, 0.2, v, size=7.2, color=INK, bold=(lab == 'Ціна мережі'), align='r')
+            yy += 0.25
+        yy += 0.1
+        rect(s, x + 0.14, yy, w - 0.28, 0.6, fill=WHITE)
+        text(s, x + 0.2, yy + 0.04, w - 0.4, 0.2, 'ПОЛИЦЯ = %s × 1,40' % ('%.2f' % partner).replace('.', ','), size=7.4, color=MUTED, bold=True)
+        text(s, x + 0.2, yy + 0.24, w - 0.4, 0.34, '%s ₴' % ('%.2f' % shelf).replace('.', ','), size=16, color=col, bold=True)
+        yy += 0.72
+        text(s, x + 0.14, yy, w - 0.28, 0.6, 'ПДВ у собівартості: %d %% СС. Полиця / FOB = ×%s.' % (round(100 * pr['vat'] / b['ss_usd']), ('%.1f' % (shelf / (pr['fob'] * 45))).replace('.', ',')), size=7, color=MUTED)
+    footnote(s, 'Імпортний ПДВ входить у собівартість за методикою Self-Cost (так само, як у фінмоделі рису); ціна мережі і полиця — вже з ПДВ.')
+    return s
+
+
+def scenarios(deck):
+    s = deck.slide('Перевірка розрахунку · контейнери', 'Полиця за сценаріями поставки')
+    text(s, 0.62, 1.34, 12.1, 0.45, 'Полиця при марже %d %% для кожного сценарію поставки з Self-Cost. У презентації для кожного SKU береться найдешевший (виділено); «Retail + Bulk» — той самий товар у змішаному контейнері з навалом, де собівартість нижча.' % MP, size=8.4, color=MUTED)
+    scen = [("20'", '20′'), ("40'", '40′'), ('LCL 17', 'LCL 17'), ('LCL 34', 'LCL 34')]
+    byk = collections.OrderedDict()
+    for r in PM['rows']:
+        byk.setdefault((r['supplier_id'], r['title']), {})[r['scenario']] = r
+    seen = set(); rows = []
+    for o in OUR:
+        key = (o['sup'], o['title'])
+        if key in seen: continue
+        seen.add(key); rows.append((o, byk[key]))
+    # collapse flavours with identical numbers
+    uniq = collections.OrderedDict()
+    for o, sc in rows:
+        sig = (o['sup'], o['grams'], tuple(round(sc[k]['shelf_uah']) for k, _ in scen))
+        uniq.setdefault(sig, (o, sc, []))[2].append(o)
+    top = 1.95
+    heads = [('ПОЗИЦІЯ', 0.1, 3.0, 'l'), ('FOB, $', 3.1, 0.7, 'r')] + [('СС %s' % lab, 3.95 + k * 0.85, 0.8, 'r') for k, (_, lab) in enumerate(scen)] + [('ПОЛИЦЯ %s' % lab, 7.5 + k * 1.15, 1.05, 'r') for k, (_, lab) in enumerate(scen)]
+    rect(s, 0.62, top, 12.1, 0.3, fill=NAVY)
+    for t, dx, w, al in heads:
+        text(s, 0.62 + dx, top, w, 0.3, t, size=5.8, color=WHITE, bold=True, anchor='m', align=al)
+    rh = min(0.32, (6.85 - top - 0.36) / len(uniq))
+    for i, (sig, (o, sc, grp)) in enumerate(uniq.items()):
+        y = top + 0.34 + i * rh
+        if i % 2 == 0: rect(s, 0.62, y, 12.1, rh, fill=rgb('F8F9FC'))
+        rect(s, 0.62, y, 0.05, rh, fill=SUP_COLOR[o['sup']])
+        text(s, 0.78, y, 3.0, rh, '%s %s%s' % (clean_title(o), gfmt(o['grams']), (' · %d смаки' % len(grp)) if len(grp) > 1 else ''), size=7.4, color=NAVY, bold=True, anchor='m')
+        text(s, 0.62 + 3.1, y, 0.7, rh, '$%s' % fnum(o['fob'], 3), size=7.4, color=MUTED, anchor='m', align='r')
+        cheapest = min(sc.values(), key=lambda r: r['cost_usd'])['scenario']
+        for k, (key, lab) in enumerate(scen):
+            r = sc[key]
+            text(s, 0.62 + 3.95 + k * 0.85, y, 0.8, rh, fnum(r['cost_uah'], 1), size=7.4, color=MUTED, anchor='m', align='r')
+            hit = key == cheapest
+            if hit: rect(s, 0.62 + 7.5 + k * 1.15 + 0.1, y + 0.03, 0.95, rh - 0.06, fill=tint(GOLD, 0.35))
+            text(s, 0.62 + 7.5 + k * 1.15, y, 1.05, rh, '%d ₴' % round(r['shelf_uah']), size=8.2, color=INK, bold=hit, anchor='m', align='r')
+    ly = top + 0.34 + rh * len(uniq) + 0.1
+    text(s, 0.62, ly, 12.1, 0.5, 'Для порівняння: у файлі Retail + Bulk собівартість того ж товару в 40′ нижча — Singha Original 42 г: 50,3 ₴ → полиця %d ₴; Thai-Nichi Original 50 г: 40,3 ₴ → %d ₴ (у таблиці Retail: 54,7 ₴ і 42,5 ₴). Для презентації взято таблицю Retail, як у каталозі постачальників.' % (round(50.26 / (SSP / 100) * MUP), round(40.27 / (SSP / 100) * MUP)), size=7.6, color=MUTED)
+    footnote(s, 'Self-Cost_Snacks: «ИТОГО С/С, UAH ед. товара»; собівартість у таблиці = $ × 45. Ціна мережі = СС ÷ %s; полиця = ціна мережі × 1,40.' % ('%.2f' % (SSP / 100)).replace('.', ','))
+    return s
+
+
 def sensitivity(deck):
-    s = deck.slide('Чутливість', 'Як змінюється полиця при іншій марже')
+    s = deck.slide('Чутливість', 'Полиця при різній марже: усі маржі на одному слайді')
     ms = ['0.35', '0.3', '0.25', '0.2', '0.15']
     sens = {r['title']: r for r in PM['sensitivity']}
     groups = D.our_groups()
-    text(s, 0.62, 1.38, 12.1, 0.22, 'Полиця при цільовій маржі 35 → 15 % (бонус 25 %, ×1,40). Зелена — не вище за медіану упаковки близьких за вагою позицій ринку; червона — вище за весь їхній діапазон.', size=8.6, color=MUTED)
+    text(s, 0.62, 1.34, 12.1, 0.45, 'Наша маржа 35 → 15 %% ціни партнеру (бонус мережі 25 %%, націнка ×1,40). Основна колонка — маржа %d %% (жирним). Зелена клітинка — полиця не вище за типову ціну близьких за вагою позицій ринку; червона — вище за весь їхній діапазон.' % MP, size=8.4, color=MUTED)
     top = 1.78; rh = min(0.34, 4.9 / (len(groups) + 0.5))
     rect(s, 0.62, top, 12.1, 0.3, fill=NAVY)
     text(s, 0.78, top, 3.5, 0.3, 'ТОВАР', size=6.4, color=WHITE, bold=True, anchor='m')

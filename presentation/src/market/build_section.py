@@ -118,7 +118,6 @@ def build(prs):
     X.customs_seaweed(deck)
     X.customs_importers(deck)
     X.customs_rice(deck)
-    X.customs_price(deck)
     M.segmentation(deck)
     # --- segment 1: mini
     ls = lines(rows_of('mini')); rs = rows_of('mini')
@@ -157,6 +156,7 @@ def build(prs):
     M.where_sold(deck, ['ricecr', 'ricechip'], 'Рисові крекери та чипси: де продається', 'Сегмент · Рисові крекери та чипси · де продається')
     # --- cross-segment maps
     O.brand_network(deck)
+    O.brand_directory(deck)
     O.weight_map(deck)
     O.audit_networks(deck)
     O.channels(deck)
@@ -167,6 +167,9 @@ def build(prs):
     O.shelf_table(deck, ['singha', 'thainichi'], market_cards=cards)
     O.shelf_table(deck, ['tmk'])
     O.shelf_table(deck, ['zek'])
+    O.verification(deck)
+    O.scenarios(deck)
+    O.sensitivity(deck)
     O.pack_price_map(deck)
     def Ln(sg, brand, g):
         return next(l for l in lines(rows_of(sg)) if l['brand'] == brand and l['grams'] == g)
@@ -206,7 +209,6 @@ def build(prs):
                        ('SINGHA KAMEDA', '42 г — %s: на %d ₴ (%d %%) вище за найдорожчий крекер у мережах (Ultra Pop 60 г — 148 ₴) і на %d ₴ вище за Want Want.' % (P(sk['shelf']), round(sk['shelf'] - 148), round((sk['shelf'] / 148 - 1) * 100), round(sk['shelf'] - ww['pmed'])), RED),
                        ('ЩО ВАЖЛИВО', 'Це єдині аналоги, які знайшлися в мережах: Want Want mini — 3 мережі. Арарe/норімакі на кшталт наших не знайдено — полицю варто перевірити наживо.', NAVY)])
     O.neighbours(deck)
-    O.sensitivity(deck)
     conclusions(deck)
     return deck
 

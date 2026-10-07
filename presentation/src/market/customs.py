@@ -36,7 +36,8 @@ def main():
         d = df[df.hs_code_normalized == c]
         top = d.groupby('importer_display_name').kg.sum().sort_values(ascending=False)
         co = d.groupby('origin_country_normalized_ua').kg.sum().sort_values(ascending=False)
-        ov.append(dict(code=c, name=nm, tons=d.kg.sum() / 1000, usd=d.usd.sum(), usd_kg=d.usd.sum() / d.kg.sum(), decl=int(d.declaration_number.nunique()),
+        y25, y26 = d[d.report_year == 2025].kg.sum() / 1000, d[d.report_year == 2026].kg.sum() / 1000
+        ov.append(dict(code=c, name=nm, tons_2025=y25, tons_2026=y26, usd_2025=d[d.report_year == 2025].usd.sum(), usd_2026=d[d.report_year == 2026].usd.sum(), tons=d.kg.sum() / 1000, usd=d.usd.sum(), usd_kg=d.usd.sum() / d.kg.sum(), decl=int(d.declaration_number.nunique()),
                        importers=int(d.importer_display_name.nunique()), top_importer=short(top.index[0]), top_share=top.iloc[0] / d.kg.sum(),
                        top_origin=co.index[0], origin_share=co.iloc[0] / d.kg.sum()))
     out['overview'] = ov
@@ -54,6 +55,8 @@ def main():
         return dict(tons=x.kg.sum() / 1000, usd=x.usd.sum(), usd_kg=(x.usd.sum() / x.kg.sum()) if x.kg.sum() else 0, rows=int(len(x)), decl=int(x.declaration_number.nunique()))
     out['seaweed'] = dict(A=pack(A), B=pack(B), all=pack(S), code_total_tons=d.kg.sum() / 1000)
     months = out['months']
+    for y in (2025, 2026):
+        out['seaweed']['y%d' % y] = pack(S[S.report_year == y])
     out['seaweed']['monthly_A'] = [round(A[A.report_month == m].kg.sum() / 1000, 2) for m in months]
     out['seaweed']['monthly_B'] = [round(B[B.report_month == m].kg.sum() / 1000, 2) for m in months]
     imp = S.groupby('importer_display_name').agg(a=('kg', lambda s: s[S.loc[s.index, 'tier'] == 'A'].sum()), tot=('kg', 'sum'), usd=('usd', 'sum'))
@@ -62,11 +65,11 @@ def main():
     for name, r in imp.head(12).iterrows():
         sub = S[S.importer_display_name == name]
         brands = [b for b, p in BRAND_TOKENS.items() if sub.U.str.contains(p).any()]
-        rows.append(dict(name=short(name), tons=r.tot / 1000, tons_pure=r.a / 1000, share=r.tot / S.kg.sum(), usd_kg=r.usd / r.tot, brands=brands,
+        rows.append(dict(name=short(name), t25=sub[sub.report_year == 2025].kg.sum() / 1000, t26=sub[sub.report_year == 2026].kg.sum() / 1000, tons=r.tot / 1000, tons_pure=r.a / 1000, share=r.tot / S.kg.sum(), usd_kg=r.usd / r.tot, brands=brands,
                          origin=sub.origin_country_normalized_ua.value_counts().index[0]))
     out['seaweed']['importers'] = rows
     og = S.groupby('origin_country_normalized_ua').agg(kg=('kg', 'sum'), usd=('usd', 'sum')).sort_values('kg', ascending=False)
-    out['seaweed']['origins'] = [dict(country=c, tons=r.kg / 1000, share=r.kg / S.kg.sum(), usd_kg=r.usd / r.kg) for c, r in og.iterrows()]
+    out['seaweed']['origins'] = [dict(country=c, t25=S[(S.origin_country_normalized_ua == c) & (S.report_year == 2025)].kg.sum() / 1000, t26=S[(S.origin_country_normalized_ua == c) & (S.report_year == 2026)].kg.sum() / 1000, tons=r.kg / 1000, share=r.kg / S.kg.sum(), usd_kg=r.usd / r.kg) for c, r in og.iterrows()]
     mf = S.groupby('manufacturer_normalized').agg(kg=('kg', 'sum'), usd=('usd', 'sum'), country=('origin_country_normalized_ua', 'first')).sort_values('kg', ascending=False)
     out['seaweed']['manufacturers'] = [dict(name=n[:40], tons=r.kg / 1000, usd_kg=r.usd / r.kg, country=r.country) for n, r in mf.head(10).iterrows()]
     # --- rice snacks / rice crackers inside 1905 90 55 00
@@ -75,8 +78,9 @@ def main():
     cracker = d2.U.str.contains('КРЕКЕР|CRACKER|SENBEI|АРАРЕ|ARARE|NORIMAKI')
     sea2 = d2.U.str.contains('ВОДОРОСТ|НОРІ|NORI|SEAWEED')
     R = d2[rice]
+    R25, R26 = R[R.report_year == 2025].kg.sum(), R[R.report_year == 2026].kg.sum()
     rc = d2[rice & cracker]
-    out['rice'] = dict(code_total_tons=d2.kg.sum() / 1000, rice_all=pack(R), rice_cracker=pack(rc), nori_anything=pack(d2[sea2]),
+    out['rice'] = dict(y25=d2[d2.report_year == 2025].kg.sum() / 1000, y26=d2[d2.report_year == 2026].kg.sum() / 1000, rice25=R25 / 1000, rice26=R26 / 1000, code_total_tons=d2.kg.sum() / 1000, rice_all=pack(R), rice_cracker=pack(rc), nori_anything=pack(d2[sea2]),
                        importers=[dict(name=short(n), tons=v / 1000) for n, v in R.groupby('importer_display_name').kg.sum().sort_values(ascending=False).head(8).items()],
                        manufacturers=[dict(name=n[:40], tons=v / 1000, country=R[R.manufacturer_normalized == n].origin_country_normalized_ua.iloc[0]) for n, v in R.groupby('manufacturer_normalized').kg.sum().sort_values(ascending=False).head(8).items()],
                        cracker_importers=[dict(name=short(n), tons=v / 1000) for n, v in rc.groupby('importer_display_name').kg.sum().sort_values(ascending=False).head(5).items()])

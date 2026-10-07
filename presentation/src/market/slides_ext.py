@@ -32,67 +32,72 @@ def cnote(s):
 # ---------------------------------------------------------------- customs 1
 def customs_overview(deck):
     s = deck.slide('Обсяг ринку · митна база', 'Що показує митна база за нашими кодами')
-    text(s, 0.62, 1.36, 12.1, 0.4, 'Чотири точні коди УКТ ЗЕД: два з них — наші снеки (мито за вашою таблицею), два інші — локшина й готовий рис із попередніх досліджень, для порівняння масштабу.', size=8.8, color=MUTED)
-    mine = {'2008999990': ('TMK · KOKIRI (усі), ZEK Sandwich, ZEK Topping', 'мито 10 % пільгове · 15 % повне', SUP_COLOR['tmk']),
-            '1905905500': ('Singha Kameda, Thai-Nichi, ZEK Tempura', 'мито 10 % пільгове · 10 % повне', SUP_COLOR['singha'])}
-    mx = max(o['tons'] for o in C['overview'])
-    x0, y0, rh = 0.62, 1.95, 1.18
-    order = ['2008999990', '1905905500', '1902301000', '1904901000']
+    text(s, 0.62, 1.36, 12.1, 0.4, 'Чотири точні коди УКТ ЗЕД за 2025 рік і січень–травень 2026 (5 місяців). Кольорова смужка зліва — коди, під якими оформлюються наші продукти; сірі — локшина й готовий рис із попередніх досліджень, для масштабу.', size=8.8, color=MUTED)
+    colr = {'2008999990': SUP_COLOR['tmk'], '1905905500': SUP_COLOR['singha']}
     ov = {o['code']: o for o in C['overview']}
+    order = ['2008999990', '1905905500', '1902301000', '1904901000']
+    mx = max(max(o['tons_2025'] / 12, o['tons_2026'] / 5) for o in C['overview'])
+    x0, y0, rh = 0.62, 1.95, 1.2
     for i, c in enumerate(order):
         o = ov[c]; y = y0 + i * (rh + 0.08)
-        ours = c in mine
-        rect(s, x0, y, 12.1, rh, fill=PANEL); rect(s, x0, y, 0.06, rh, fill=(mine[c][2] if ours else GREY))
-        text(s, x0 + 0.25, y + 0.1, 2.6, 0.2, '%s %s %s %s' % (c[:4], c[4:6], c[6:8], c[8:]), size=12, color=NAVY, bold=True)
-        text(s, x0 + 0.25, y + 0.38, 2.7, 0.6, o['name'], size=8, color=MUTED)
-        bw = 3.4 * o['tons'] / mx
-        rect(s, x0 + 3.1, y + 0.18, max(0.05, bw), 0.3, fill=(NAVY if ours else GREY))
-        text(s, x0 + 3.1 + bw + 0.1, y + 0.14, 1.4, 0.36, '%s т' % n0(o['tons']), size=11, color=NAVY, bold=True, anchor='m')
-        text(s, x0 + 3.1, y + 0.6, 3.5, 0.2, '$%s млн · $%s/кг · %d декларацій' % (n1(o['usd'] / 1e6), n1(o['usd_kg']), o['decl']), size=8, color=MUTED)
-        text(s, x0 + 3.1, y + 0.82, 3.7, 0.3, '%d імпортерів · найбільший %s (%d %%) · %s %d %%' % (o['importers'], o['top_importer'].replace('ТОВ ', '').replace('ПРАТ', 'ПрАТ '), round(100 * o['top_share']), cname(o['top_origin']), round(100 * o['origin_share'])), size=7.2, color=MUTED)
-        if ours:
-            text(s, x0 + 7.4, y + 0.1, 4.5, 0.2, 'НАШІ ПОЗИЦІЇ В ЦЬОМУ КОДІ', size=6.8, color=mine[c][2], bold=True, spc=0.3)
-            text(s, x0 + 7.4, y + 0.36, 4.6, 0.5, mine[c][0], size=9.4, color=INK, bold=True)
-            text(s, x0 + 7.4, y + 0.82, 4.6, 0.25, mine[c][1], size=8.2, color=MUTED)
-        else:
-            text(s, x0 + 7.4, y + 0.4, 4.6, 0.5, 'Інші дослідження (SIAS, готовий рис) — не наш продукт', size=8.4, color=MUTED, italic=True)
+        rect(s, x0, y, 12.1, rh, fill=PANEL); rect(s, x0, y, 0.06, rh, fill=colr.get(c, GREY))
+        text(s, x0 + 0.25, y + 0.1, 2.9, 0.22, '%s %s %s %s' % (c[:4], c[4:6], c[6:8], c[8:]), size=12, color=NAVY, bold=True)
+        text(s, x0 + 0.25, y + 0.4, 2.9, 0.5, o['name'], size=8, color=MUTED)
+        text(s, x0 + 0.25, y + 0.88, 2.9, 0.25, '%d імпортерів · %d декларацій' % (o['importers'], o['decl']), size=7.4, color=MUTED)
+        text(s, x0 + 3.3, y + 0.1, 3.2, 0.3, '%s т' % n0(o['tons']), size=15, color=NAVY, bold=True)
+        text(s, x0 + 3.3, y + 0.46, 3.2, 0.22, '$%s млн · $%s/кг' % (n1(o['usd'] / 1e6), n1(o['usd_kg'])), size=8.4, color=MUTED)
+        text(s, x0 + 3.3, y + 0.72, 3.4, 0.4, 'найбільший імпортер %s — %d %%; головна країна %s — %d %%' % (o['top_importer'].replace('ТОВ ', '').replace('ПРАТ', 'ПрАТ '), round(100 * o['top_share']), cname(o['top_origin']), round(100 * o['origin_share'])), size=7.2, color=MUTED)
+        bw = 3.6
+        for k, (lab, tons, mths) in enumerate([('2025 · 12 міс.', o['tons_2025'], 12), ('2026 · січ–трав.', o['tons_2026'], 5)]):
+            yy = y + 0.2 + k * 0.5
+            text(s, x0 + 7.0, yy, 1.1, 0.3, lab, size=7.4, color=MUTED, bold=True, anchor='m')
+            w = bw * (tons / mths) / mx * 0.6
+            rect(s, x0 + 8.15, yy + 0.04, max(0.04, w), 0.22, fill=(NAVY if k == 0 else AMBER))
+            text(s, x0 + 8.15 + w + 0.08, yy, 1.6, 0.3, '%s т · %s т/міс.' % (n0(tons), n1(tons / mths, 0 if tons / mths > 20 else 1)), size=7.8, color=NAVY, bold=True, anchor='m')
     cnote(s)
     return s
 
 
 # ---------------------------------------------------------------- customs 2
 def customs_seaweed(deck):
-    sw = C['seaweed']; al = sw['all']
+    sw = C['seaweed']; al = sw['all']; y25, y26 = sw['y2025'], sw['y2026']
     s = deck.slide('Митна база · нори-снеки', 'Нори-снеки: скільки і звідки ввозять')
-    text(s, 0.62, 1.36, 12.1, 0.4, 'Нори-снеки виділено серед усього коду 2008 99 99 90 за описом (смажені / хрусткі водорості, снек, чипси, топінг, рол) — решта коду (фрукти, соуси, водорості для салатів) не рахується.', size=8.8, color=MUTED)
-    kpi(s, 0.62, 1.9, 2.9, 1.2, 'Обсяг за 17 місяців', '%s т' % n1(al['tons']), 'з них чисті снеки %s т, змішані декларації %s т' % (n1(sw['A']['tons']), n1(sw['B']['tons'])))
-    kpi(s, 3.68, 1.9, 2.9, 1.2, 'Вартість за 17 місяців', '$%s млн' % n1(al['usd'] / 1e6, 2), 'фактурна вартість без ПДВ', color=AMBER)
-    kpi(s, 6.74, 1.9, 2.9, 1.2, 'Середня митна ціна', '$%s/кг' % n1(al['usd_kg']), 'за 1 кг нетто продукту', color=PURPLE)
-    kpi(s, 9.8, 1.9, 2.9, 1.2, 'Частка коду', '%s %%' % n1(100 * al['tons'] / sw['code_total_tons']), 'решта 2 793 т — інші продукти коду', color=GREEN)
+    text(s, 0.62, 1.36, 12.1, 0.4, 'Нори-снеки виділено серед усього коду 2008 99 99 90 за описом товару (смажені / хрусткі водорості, снек, чипси, топінг, рол). Решта коду — фрукти, соуси, водорості для салатів — не рахується.', size=8.8, color=MUTED)
+    kpi(s, 0.62, 1.9, 2.9, 1.2, 'Усього · 17 місяців', '%s т' % n1(al['tons']), '$%s млн · $%s/кг' % (n1(al['usd'] / 1e6, 2), n1(al['usd_kg'])))
+    kpi(s, 3.68, 1.9, 2.9, 1.2, '2025 рік · 12 місяців', '%s т' % n1(y25['tons']), '%s т на місяць · $%s млн' % (n1(y25['tons'] / 12), n1(y25['usd'] / 1e6, 2)), color=NAVY)
+    kpi(s, 6.74, 1.9, 2.9, 1.2, '2026 · січень–травень', '%s т' % n1(y26['tons']), '%s т на місяць · $%s млн' % (n1(y26['tons'] / 5), n1(y26['usd'] / 1e6, 2)), color=AMBER)
+    kpi(s, 9.8, 1.9, 2.9, 1.2, 'Зміна темпу імпорту', '%+d %%' % round((y26['tons'] / 5) / (y25['tons'] / 12) * 100 - 100), 'т/міс.: 2026 проти 2025', color=GREEN)
     section_tag(s, 0.62, 3.3, 8, 'Імпорт помісячно, тонн · темно — чисті снеки, світло — змішані декларації (снеки + листи для суші)')
     ma, mb = sw['monthly_A'], sw['monthly_B']
     mx = max(a + b for a, b in zip(ma, mb))
-    cx, cy, cw, ch = 0.62, 3.65, 8.0, 2.95
+    cx, cy, cw, ch = 0.62, 3.65, 8.0, 3.2
     n = len(ma); gap = 0.07; bw = (cw - gap * (n - 1)) / n
+    y_base = cy + ch - 0.5
     for i, (a, b) in enumerate(zip(ma, mb)):
         x = cx + i * (bw + gap)
-        ha = (ch - 0.5) * a / mx; hb = (ch - 0.5) * b / mx
-        y_base = cy + ch - 0.3
-        rect(s, x, y_base - ha, bw, ha, fill=NAVY)
-        if hb > 0: rect(s, x, y_base - ha - hb, bw, hb, fill=tint(NAVY, 0.4))
+        ha = (ch - 0.85) * a / mx; hb = (ch - 0.85) * b / mx
+        yr = int(C['months'][i][:4])
+        rect(s, x, y_base - ha, bw, ha, fill=(NAVY if yr == 2025 else AMBER))
+        if hb > 0: rect(s, x, y_base - ha - hb, bw, hb, fill=tint(NAVY if yr == 2025 else AMBER, 0.4))
         text(s, x - 0.1, y_base - ha - hb - 0.2, bw + 0.2, 0.18, n1(a + b, 1), size=6.8, color=NAVY, bold=True, align='c')
-        m = C['months'][i]
-        text(s, x - 0.1, y_base + 0.04, bw + 0.2, 0.16, MON[int(m[5:]) - 1], size=6.4, color=MUTED, align='c')
-        if m.endswith('-01') or i == 0:
-            text(s, x - 0.1, y_base + 0.2, bw + 0.2, 0.16, m[:4], size=6.4, color=NAVY, bold=True, align='c')
-    section_tag(s, 8.95, 3.3, 4, 'Країна походження · частка ваги', color=AMBER)
-    rows = [(cname(o['country']), o['tons'], AMBER) for o in sw['origins'] if o['share'] > 0.002]
-    hbars(s, 8.95, 3.7, 3.8, rows, color=AMBER, row_h=0.5, name_w=0.95, val_w=0.6, fmt=lambda v: '%s т' % n1(v), size=8.6)
-    for i, o in enumerate([o for o in sw['origins'] if o['share'] > 0.002]):
-        text(s, 8.95 + 0.95, 3.7 + i * 0.5 + 0.34, 2.8, 0.16, '%d %% · $%s/кг' % (round(100 * o['share']), n1(o['usd_kg'])), size=6.4, color=MUTED)
-    rect(s, 8.95, 5.85, 3.77, 0.95, fill=rgb('FFF3DC')); rect(s, 8.95, 5.85, 0.04, 0.95, fill=GOLD)
-    y25 = sum(ma[:12]) + sum(mb[:12])
-    text(s, 9.15, 5.92, 3.5, 0.85, 'За 2025 рік — %s т. Імпорт зростає: січень–травень 2026 вже %s т (%s т на місяць проти %s т у 2025).' % (n1(y25), n1(sum(ma[12:]) + sum(mb[12:])), n1((sum(ma[12:]) + sum(mb[12:])) / 5), n1(y25 / 12)), size=8, color=INK)
+        text(s, x - 0.1, y_base + 0.04, bw + 0.2, 0.16, MON[int(C['months'][i][5:]) - 1], size=6.4, color=MUTED, align='c')
+    # year brackets under the months
+    i26 = next(i for i, m in enumerate(C['months']) if m.startswith('2026'))
+    x_split = cx + i26 * (bw + gap) - gap / 2
+    rect(s, cx, y_base + 0.26, x_split - cx - 0.04, 0.26, fill=NAVY)
+    text(s, cx, y_base + 0.26, x_split - cx - 0.04, 0.26, '2025 · %s т' % n1(y25['tons']), size=7.8, color=WHITE, bold=True, align='c', anchor='m')
+    rect(s, x_split + 0.04, y_base + 0.26, cx + cw - x_split - 0.04, 0.26, fill=AMBER)
+    text(s, x_split + 0.04, y_base + 0.26, cx + cw - x_split - 0.04, 0.26, '2026 · %s т' % n1(y26['tons']), size=7.8, color=WHITE, bold=True, align='c', anchor='m')
+    section_tag(s, 8.95, 3.3, 4, 'Країна походження', color=AMBER)
+    orig = [o for o in sw['origins'] if o['share'] > 0.002]
+    omx = max(o['tons'] for o in orig)
+    for i, o in enumerate(orig):
+        yy = 3.7 + i * 0.78
+        text(s, 8.95, yy, 1.0, 0.3, cname(o['country']), size=9.4, color=NAVY, bold=True, anchor='m')
+        bwid = 2.2 * o['tons'] / omx
+        rect(s, 9.95, yy + 0.04, max(0.04, bwid), 0.26, fill=AMBER)
+        text(s, 9.95 + bwid + 0.08, yy, 1.0, 0.34, '%s т' % n1(o['tons']), size=9.4, color=NAVY, bold=True, anchor='m')
+        text(s, 8.95, yy + 0.36, 3.8, 0.34, '%d %% · 2025: %s т · 2026: %s т · $%s/кг' % (round(100 * o['share']), n1(o['t25']), n1(o['t26']), n1(o['usd_kg'])), size=7.6, color=MUTED)
     cnote(s)
     return s
 
@@ -102,21 +107,24 @@ def customs_importers(deck):
     sw = C['seaweed']
     s = deck.slide('Митна база · хто завозить', 'Хто завозить нори-снеки в Україну')
     text(s, 0.62, 1.36, 12.1, 0.4, 'Імпортери нори-снеків (код 2008 99 99 90) за 17 місяців; бренди — ті, що названо в описах декларацій. Це ті самі бренди, що ми бачили на полицях мереж.', size=8.8, color=MUTED)
-    caps(s, 0.62, 1.85, 6, 'Імпортер', size=6.6); caps(s, 4.6, 1.85, 3, 'Тонн за 17 місяців і частка', size=6.6)
-    caps(s, 8.3, 1.85, 2, 'Митна ціна', size=6.6); caps(s, 9.5, 1.85, 3.2, 'Бренди в описах · походження', size=6.6)
+    caps(s, 0.62, 1.85, 6, 'Імпортер', size=6.6); caps(s, 3.9, 1.85, 3, 'Тонн за 17 місяців і частка', size=6.6)
+    caps(s, 7.0, 1.85, 1.0, '2025, т', size=6.6, align='r'); caps(s, 8.1, 1.85, 1.3, '2026 січ–трав., т', size=6.6, align='r')
+    caps(s, 9.75, 1.85, 1.0, 'Митна ціна', size=6.6); caps(s, 10.85, 1.85, 1.8, 'Бренди', size=6.6)
     imps = [i for i in sw['importers'] if i['tons'] > 0.3][:8]
     mx = max(i['tons'] for i in imps)
     rh = 0.42
     for k, i in enumerate(imps):
         y = 2.12 + k * rh
         if k % 2 == 0: rect(s, 0.62, y, 12.1, rh, fill=rgb('F8F9FC'))
-        text(s, 0.75, y, 3.8, rh, i['name'].replace('ТОВ ', ''), size=8.4, color=NAVY, bold=True, anchor='m')
-        bw = 2.1 * i['tons'] / mx
-        rect(s, 4.6, y + 0.11, max(0.04, bw), rh - 0.22, fill=NAVY)
-        text(s, 4.6 + bw + 0.08, y, 1.3, rh, '%s т · %d %%' % (n1(i['tons']), round(100 * i['share'])), size=8, color=MUTED, bold=True, anchor='m')
-        text(s, 8.3, y, 1.1, rh, '$%s/кг' % n1(i['usd_kg']), size=9, color=INK, bold=True, anchor='m')
+        text(s, 0.75, y, 3.1, rh, i['name'].replace('ТОВ ', ''), size=8.2, color=NAVY, bold=True, anchor='m')
+        bw = 1.9 * i['tons'] / mx
+        rect(s, 3.9, y + 0.11, max(0.04, bw), rh - 0.22, fill=NAVY)
+        text(s, 3.9 + bw + 0.08, y, 1.7, rh, '%s т · %d %%' % (n1(i['tons']), round(100 * i['share'])), size=7.8, color=MUTED, bold=True, anchor='m')
+        text(s, 7.0, y, 1.0, rh, n1(i['t25']), size=8.4, color=INK, bold=True, anchor='m', align='r')
+        text(s, 8.1, y, 1.3, rh, n1(i['t26']), size=8.4, color=AMBER, bold=True, anchor='m', align='r')
+        text(s, 9.75, y, 1.0, rh, '$%s/кг' % n1(i['usd_kg']), size=8.6, color=INK, bold=True, anchor='m')
         br = ', '.join(i['brands']) if i['brands'] else ('Norris' if 'НОРРІС' in i['name'] else '—')
-        text(s, 9.5, y, 3.2, rh, [[(br, {'bold': True, 'color': INK, 'size': 8.2}), ('   ' + cname(i['origin']), {'color': MUTED, 'size': 7.4})]], anchor='m')
+        text(s, 10.85, y, 1.9, rh, [[(br, {'bold': True, 'color': INK, 'size': 7.4})]], anchor='m')
     y = 2.12 + len(imps) * rh + 0.2
     section_tag(s, 0.62, y, 6, 'Виробники за описами декларацій (Корея, Китай, Таїланд)', color=AMBER)
     mf = [m for m in sw['manufacturers'] if not m['name'].startswith('(')][:6]
@@ -136,8 +144,8 @@ def customs_rice(deck):
     r = C['rice']
     s = deck.slide('Митна база · рисові снеки', 'Рисові крекери з норі: імпорту майже немає')
     text(s, 0.62, 1.36, 12.1, 0.4, 'Код 1905 90 55 00 — екструдовані й експандовані снеки; під ним оформлюють і наші Singha Kameda, Thai-Nichi та ZEK Tempura. Дивимось, хто і що завозить за цим кодом.', size=8.8, color=MUTED)
-    kpi(s, 0.62, 1.9, 2.9, 1.2, 'Увесь код', '%s т' % n0(r['code_total_tons']), 'решта — картопляні, кукурудзяні та інші снеки')
-    kpi(s, 3.68, 1.9, 2.9, 1.2, 'Рисові снеки', '%s т' % n1(r['rice_all']['tons']), '$%s/кг · чипси, хлібці, кульки' % n1(r['rice_all']['usd_kg']), color=AMBER)
+    kpi(s, 0.62, 1.9, 2.9, 1.2, 'Увесь код', '%s т' % n0(r['code_total_tons']), '2025: %s т · 2026 (5 міс.): %s т' % (n0(r['y25']), n0(r['y26'])))
+    kpi(s, 3.68, 1.9, 2.9, 1.2, 'Рисові снеки', '%s т' % n1(r['rice_all']['tons']), '2025: %s т · 2026: %s т · $%s/кг' % (n1(r['rice25']), n1(r['rice26']), n1(r['rice_all']['usd_kg'])), color=AMBER)
     kpi(s, 6.74, 1.9, 2.9, 1.2, 'Рисові крекери в описах', '%s т' % n1(r['rice_cracker']['tons'], 2), '%d декларацій з 2 509 у коді' % r['rice_cracker']['decl'], color=RED)
     kpi(s, 9.8, 1.9, 2.9, 1.2, 'З водоростями (норі)', '%s т' % n1(r['nori_anything']['tons']), 'будь-які снеки з водоростями в коді', color=PURPLE)
     section_tag(s, 0.62, 3.3, 6, 'Хто завозить рисові снеки · тонн', color=AMBER)
