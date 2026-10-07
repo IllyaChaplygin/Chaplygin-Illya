@@ -334,7 +334,7 @@ def pricing_formula(deck, sids, part):
     ry0 = 3.25
     rh = min(0.30, (6.8 - ry0) / len(items))
     mx = max(o['shelf'] for o in OUR)
-    bw = 4.6
+    bw = 3.3
     for i, o in enumerate(items):
         y = ry0 + i * rh
         rect(s, 0.62, y, 12.1, rh - 0.03, fill=PANEL)
