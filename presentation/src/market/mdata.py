@@ -21,6 +21,7 @@ SEGS = collections.OrderedDict([
 ])
 # topping merged into tempura for the story (specialty formats from HanJin/ZEK's range)
 for r in ROWS:
+    r['sub'] = r['seg']
     if r['seg'] == 'topping':
         r['seg'] = 'tempura'
 
@@ -144,10 +145,14 @@ def basket(o):
     """Market positions of the same segment with a pack weight close to ours — the
     like-for-like shelf we are priced against. Weight window x0.55..x1.45, widened
     to x0.4..x1.7 when fewer than three positions fall inside."""
-    rs = [r for r in rows_of(o['seg']) if 0.55 * o['grams'] <= r['grams'] <= 1.45 * o['grams']]
+    pool = rows_of(o['seg'])
+    if o['seg'] == 'tempura':      # topping and tempura are different products: compare like with like
+        want_top = 'TOPPING' in o['key'].upper()
+        pool = [r for r in pool if (r['sub'] == 'topping') == want_top]
+    rs = [r for r in pool if 0.55 * o['grams'] <= r['grams'] <= 1.45 * o['grams']]
     if len(rs) < 3:
-        rs = [r for r in rows_of(o['seg']) if 0.4 * o['grams'] <= r['grams'] <= 1.7 * o['grams']]
-    if not rs:
-        rs = sorted(rows_of(o['seg']), key=lambda r: abs(r['grams'] - o['grams']))[:3]
+        rs = [r for r in pool if 0.4 * o['grams'] <= r['grams'] <= 1.7 * o['grams']]
+    if len(rs) < 3:
+        rs = sorted(pool, key=lambda r: abs(r['grams'] - o['grams']))[:3]
     return dict(n=len(rs), gmin=min(r['grams'] for r in rs), gmax=max(r['grams'] for r in rs), pmed=med(r['pmed'] for r in rs),
                 pmin=min(r['pmed'] for r in rs), pmax=max(r['pmed'] for r in rs), brands=sorted({r['brand'] for r in rs}))

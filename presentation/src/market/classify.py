@@ -72,6 +72,12 @@ def segment(t, g, brand):
 
 def main():
     raw = json.load(open(RAW, encoding='utf-8'))
+    extra = os.path.join(HERE, 'raw', 'zakaz_raw_extra.json')
+    # the wider query set (22 extra categories) only added generic crackers, bread-crisps and kimchi cabbage —
+    # no further nori snacks or nori rice crackers — so it is kept for the record but not merged
+    if False and os.path.exists(extra):
+        seen = {(x['chain'], x['ean']) for x in raw['items']}
+        raw['items'] += [x for x in json.load(open(extra, encoding='utf-8'))['items'] if (x['chain'], x['ean']) not in seen]
     by = collections.defaultdict(list)
     for x in raw['items']:
         by[x['ean']].append(x)

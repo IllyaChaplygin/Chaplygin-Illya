@@ -8,10 +8,16 @@ from mdata import SEGS, rows_of, lines, med, gfmt, uah, rng, CHAIN, NATIONAL, RO
 from slides_market import CHAINS_ORDER, src_note, HERE
 
 BON, MAR, MUP = PM['params']['bonus'], PM['params']['margin'], PM['params']['markup']
+MP = round(MAR * 100)                   # our margin, % of partner price
+SSP = round((1 - BON - MAR) * 100)      # self-cost share of partner price, %
 NORI_SEGS = ('mini', 'chips', 'tempura', 'ricecr')
 SHORT = {'megamarket': 'Мега-\nМаркет', 'ultramarket': 'Ultra-\nmarket', 'chudomarket': 'Чудо-\nМаркет', 'epicentr': 'Епі-\nцентр', 'vostorg': 'Вос-\nторг', 'tavriav': 'Таврія\nВ'}
 SUP_NAME = {'singha': 'Singha Kameda', 'thainichi': 'Thai-Nichi', 'tmk': 'TMK · KOKIRI', 'zek': 'HanJin · ZEK'}
 SEG_OF = {o['key']: o['seg'] for o in OUR}
+
+
+def sub_line(s, t_, y=1.34, size=8.4):
+    text(s, 0.62, y, 12.1, 0.45, t_, size=size, color=MUTED)
 
 
 def pct(a, b):
@@ -97,7 +103,7 @@ def weight_map(deck):
     boxes = [('ДЕ СТОЇТЬ НАШ АСОРТИМЕНТ',
               'Наші SKU є в усіх п’яти вагових смугах. Найщільніша полиця — до 5 г (%d SKU, %d %%); у смузі 35–60 г — %d позицій ринку й 10 наших SKU (Singha, Thai-Nichi, ZEK).' % (n5[0], round(100 * n5[0] / total), n35[0]), NAVY),
              ('ЦІНА ЗРОСТАЄ З ВАГОЮ',
-              'Типова упаковка до 5 г — %d ₴, 8–15 г — %d ₴, 20–30 г — %d ₴, 35–60 г — %d ₴. Наші TMK 10–12 г стоять по %d ₴ — удвічі-втричі вище за типову упаковку своєї смуги (%d ₴).' % (round(n5[1]), round(n8[1]), round(n20[1]), round(n35[1]), round(med(o['shelf'] for o in tm)), round(n8[1])), AMBER)]
+              'Типова упаковка до 5 г — %d ₴, 8–15 г — %d ₴, 20–30 г — %d ₴, 35–60 г — %d ₴. Наші TMK 10–12 г стоять по %d ₴ — у %s рази вище за типову упаковку своєї смуги (%d ₴).' % (round(n5[1]), round(n8[1]), round(n20[1]), round(n35[1]), round(med(o['shelf'] for o in tm)), ('%.1f' % (med(o['shelf'] for o in tm) / n8[1])).replace('.', ','), round(n8[1])), AMBER)]
     for k, (ttl, body, col) in enumerate(boxes):
         x = 0.62 + k * 6.15
         rect(s, x, y, 5.95, 0.92, fill=PANEL); rect(s, x, y, 0.04, 0.92, fill=col)
@@ -280,8 +286,8 @@ def pricing_formula(deck, sids, part):
     s = deck.slide('Ціноутворення · %s · %d з 2' % (', '.join(SUP_NAME[x] for x in sids), part), 'З чого складається ціна на полиці')
     rect(s, 0.62, 1.45, 12.1, 1.38, fill=PANEL)
     caps(s, 0.85, 1.56, 8, 'Ціна партнеру — за неї ми продаємо мережі (100 %)', size=7)
-    parts = [('Собівартість 40 %', 40, NAVY), ('Бонус мережі 25 %', 25, AMBER), ('Наша маржа 35 %', 35, GOLD), ('Націнка магазину +40 %', 40, GREY)]
-    tot = 140; w = 11.3; x = 0.85
+    parts = [('Собівартість %d %%' % SSP, SSP, NAVY), ('Бонус мережі 25 %', 25, AMBER), ('Наша маржа %d %%' % MP, MP, GOLD), ('Націнка магазину +40 %', 40, GREY)]
+    tot = 100 + 40; w = 11.3; x = 0.85
     for t, v, c in parts:
         ww = w * v / tot
         rect(s, x, 1.84, ww - 0.03, 0.38, fill=c)
@@ -289,7 +295,7 @@ def pricing_formula(deck, sids, part):
         x += ww
     rect(s, 0.85, 2.28, w * 100 / tot, 0.015, fill=INK)
     text(s, 0.85, 2.3, w * 100 / tot, 0.2, '= ціна партнеру (ціна, за якою купує мережа)', size=7.8, color=INK, bold=True, align='c')
-    text(s, 0.85, 2.55, 11.3, 0.22, 'ПОЛИЦЯ (ціна покупцю) = ціна партнеру × 1,40 · ціна партнеру = собівартість ÷ 0,40 · бонус 25 % і маржа 35 % — частки ціни партнеру', size=8.0, color=NAVY, bold=True, align='c')
+    text(s, 0.85, 2.55, 11.3, 0.22, 'ПОЛИЦЯ (ціна покупцю) = ціна партнеру × 1,40 · ціна партнеру = собівартість ÷ %s · бонус 25 %% і маржа %d %% — частки ціни партнеру' % (('%.2f' % (SSP / 100)).replace('.', ','), MP), size=8.0, color=NAVY, bold=True, align='c')
     items = [o for o in OUR if o['sup'] in sids]
     hy = 2.98
     caps(s, 0.62, hy, 4, 'Позиція (кожен SKU)', size=6.4)
@@ -333,8 +339,9 @@ def shelf_table(deck, sids, market_cards=None):
     # (title, right edge from x=0.62, width, align)
     cols = [('ВАГА', 3.45, 0.6), ('FOB, $', 4.2, 0.7), ('СС, ГРН', 5.0, 0.75), ('КОНТЕЙНЕР', 5.95, 0.85), ('ЦІНА МЕРЕЖІ', 6.9, 0.9), ('ПОЛИЦЯ', 7.85, 0.85)]
     n = len(items)
-    top = 1.5
-    rh = min(0.42, 5.0 / (n + 0.5)) if market_cards is None else 0.42
+    text(s, 0.62, 1.34, 12.1, 0.5, 'Як рахується: ціна мережі = собівартість ÷ %s (собівартість — %d %% ціни мережі, бонус мережі — 25 %%, наша маржа — %d %%); полиця = ціна мережі × 1,40. Праворуч — із чим порівнюється наша полиця на ринку.' % (('%.2f' % (SSP / 100)).replace('.', ','), SSP, MP), size=8.4, color=MUTED)
+    top = 1.98
+    rh = min(0.42, (6.75 - top - 0.35) / n) if market_cards is None else 0.42
     rect(s, 0.62, top - 0.05, 12.1, 0.3, fill=col)
     text(s, 0.62 + 0.75, top, 2.5, 0.22, 'ПОЗИЦІЯ', size=6.2, color=WHITE, bold=True, anchor='m')
     for t, edge, w in cols:
@@ -365,14 +372,14 @@ def shelf_table(deck, sids, market_cards=None):
         y0 = top + 0.35 + n * rh + 0.2
         section_tag(s, 0.62, y0, 8, 'Що стоїть поруч на полиці мереж · рисові крекери', color=RED)
         for k, l in enumerate(market_cards):
-            x = 0.62 + k * 2.4
-            rect(s, x, y0 + 0.32, 2.3, 1.45, fill=PANEL); rect(s, x, y0 + 0.32, 2.3, 0.04, fill=RED)
-            rect(s, x + 0.08, y0 + 0.44, 0.95, 0.95, fill=WHITE)
-            picture(s, os.path.join(HERE, l['img']), x + 0.1, y0 + 0.46, 0.91, 0.91)
-            text(s, x + 1.12, y0 + 0.46, 1.1, 0.4, '%s · %s' % (l['brand'], gfmt(l['grams'])), size=8, color=INK, bold=True)
-            text(s, x + 1.12, y0 + 0.9, 1.1, 0.26, '%s ₴' % rng(l['pmin'], l['pmax']), size=12, color=INK, bold=True)
-            text(s, x + 0.1, y0 + 1.46, 2.1, 0.2, ' · '.join(CHAIN[c] for c in l['chains'][:3]), size=6.8, color=MUTED)
-    footnote(s, '«Ринок поруч» — позиції того ж сегмента з близькою вагою пакета (приблизно ±45 % від нашої); «типова ціна» — медіана їхніх цін; другий рядок — скільки таких позицій, їхня вага та діапазон цін, ₴. «Наша полиця до ринку» = наша полиця − типова ціна. Фінмодель: курс 45 ₴/$, бонус 25 %, маржа 35 %, полиця = партнер × 1,40.')
+            x = 0.62 + k * 4.1
+            rect(s, x, y0 + 0.32, 3.95, 2.0, fill=PANEL); rect(s, x, y0 + 0.32, 3.95, 0.05, fill=RED)
+            rect(s, x + 0.14, y0 + 0.48, 1.5, 1.5, fill=WHITE)
+            picture(s, os.path.join(HERE, l['img']), x + 0.18, y0 + 0.52, 1.42, 1.42)
+            text(s, x + 1.8, y0 + 0.5, 2.05, 0.5, '%s · %s' % (l['brand'], gfmt(l['grams'])), size=10, color=INK, bold=True)
+            text(s, x + 1.8, y0 + 1.0, 2.05, 0.36, '%s ₴' % rng(l['pmin'], l['pmax']), size=16, color=INK, bold=True)
+            text(s, x + 1.8, y0 + 1.5, 2.05, 0.4, 'Мережі: ' + ' · '.join(CHAIN[c] for c in l['chains'][:3]), size=7.6, color=MUTED)
+    footnote(s, '«Типова ціна» — медіана цін позицій того ж сегмента з близькою вагою (±45 %%); «Різниця до ринку» = наша полиця − типова ціна. Розрахунок: курс 45 ₴/$, бонус мережі 25 %%, наша маржа %d %%. СС з Self-Cost включає імпортний ПДВ (≈16 %% СС).' % MP)
     return s
 
 
@@ -400,11 +407,11 @@ def stand(deck, seg_list, eyebrow, title, lo, hi, step, ours_filter=None, sub=No
     n = len(mk)
     compact = bool(takeaways) and n > 14
     if compact:
-        sub = (sub or '') + '  ' + '  '.join(t[1] for t in takeaways)
         takeaways = None
     text(s, 0.62, 1.34, 12.1, 0.55, sub or '', size=8.2 if compact else 9.0, color=MUTED)
     top = 1.98 if compact else 1.74
-    rh = min(0.285, (6.62 - top - 0.34) / n) if not takeaways else min(0.285, (6.95 - top - 0.34 - 1.65) / n)
+    cap = 0.285 if n > 10 else 0.42
+    rh = min(cap, (6.62 - top - 0.34) / n) if not takeaways else min(cap, (6.95 - top - 0.34 - 1.65) / n)
     tx, tw = 6.0, 6.2
     px = lambda v: tx + tw * (min(max(v, lo), hi) - lo) / (hi - lo)
     rect(s, 0.62, top - 0.04, 12.1, 0.3, fill=SEG_COLOR[seg_list[0]])
@@ -443,7 +450,7 @@ def stand(deck, seg_list, eyebrow, title, lo, hi, step, ours_filter=None, sub=No
             x = 0.62 + k * w
             rect(s, x, ty, w - 0.12, 1.0, fill=PANEL); rect(s, x, ty, 0.04, 1.0, fill=col)
             text(s, x + 0.2, ty + 0.1, w - 0.5, 0.16, ttl, size=7, color=col, bold=True, spc=0.2)
-            text(s, x + 0.2, ty + 0.32, w - 0.5, 0.8, body, size=8.0, color=INK)
+            text(s, x + 0.2, ty + 0.32, w - 0.5, 0.8, body, size=8.6, color=INK)
     src_note(s)
     return s
 
@@ -505,6 +512,6 @@ def sensitivity(deck):
             bg = tint(GREEN, 0.22) if v <= ps['pack'] else (tint(RED, 0.25) if v > ps['hi'] else None)
             if bg is not None:
                 rect(s, X0 + k * STEP + 0.02, y + 0.03, W, rh - 0.06, fill=bg)
-            text(s, X0 + k * STEP, y, W - 0.1, rh, '%d ₴' % round(v), size=8.2, color=INK, bold=(m == '0.35'), anchor='m', align='r')
+            text(s, X0 + k * STEP, y, W - 0.1, rh, '%d ₴' % round(v), size=8.2, color=INK, bold=(m == str(MAR)), anchor='m', align='r')
     footnote(s, 'Близькі за вагою позиції — той самий сегмент, вага ×0,5–×2 від нашої. Повна фінмодель з усіма сценаріями — SNACKS_FINMODEL_ALL_MARGINS.xlsx.')
     return s

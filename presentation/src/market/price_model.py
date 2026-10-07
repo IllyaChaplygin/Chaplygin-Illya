@@ -24,7 +24,7 @@ from catalog import SUPPLIERS, DATA  # noqa: E402
 
 RATE = 45          # грн/$ — one rate for the whole model, as in the rice workbook (D3)
 BONUS = 0.25
-MARGIN = 0.35
+MARGIN = 0.30
 RETAIL_MARKUP = 1.40
 SENSITIVITY_MARGINS = [0.35, 0.30, 0.25, 0.20, 0.15]
 

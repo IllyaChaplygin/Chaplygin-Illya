@@ -20,6 +20,10 @@ def img(r):
     return os.path.join(HERE, r['img'])
 
 
+def sub(s, t, y=1.36, size=8.8):
+    text(s, 0.62, y, 12.1, 0.4, t, size=size, color=MUTED)
+
+
 def src_note(s):
     d = D.DATE.split('-'); ds = '%s.%s.%s' % (d[2], d[1], d[0])
     footnote(s, SRC % ds)
@@ -82,11 +86,12 @@ def method(deck):
         return yy + 0.4
     y = chips(3.4, 'Національне покриття', nat, AMBER)
     y = chips(y + 0.05, 'Регіональні', reg, NAVY)
-    rect(s, 6.9, y + 0.15, 5.8, 1.3, fill=rgb('FFF3DC'))
-    rect(s, 6.9, y + 0.15, 0.04, 1.3, fill=GOLD)
-    text(s, 7.15, y + 0.27, 5.4, 1.1, [[('Чого в цьому зрізі немає. ', {'bold': True, 'color': NAVY}),
-         ('Немає митної бази: обсяги імпорту категорії не показано. Не охоплено офлайн-полицю й акції «в залі»; арарe/норімакі в мережах не знайдено — '
-          'їх перевірено лише на цифрових каталогах, тому «не знайдено» ≠ «не продається».', {})]], size=8.2, color=INK)
+    rect(s, 6.9, y + 0.15, 5.8, 1.5, fill=rgb('FFF3DC'))
+    rect(s, 6.9, y + 0.15, 0.04, 1.5, fill=GOLD)
+    text(s, 7.15, y + 0.27, 5.4, 1.3, [[('Що ще в зрізі. ', {'bold': True, 'color': NAVY}),
+         ('Митна база (УКТ ЗЕД, 2025 + січень–травень 2026) — обсяги, імпортери, країни й митна ціна. ', {}),
+         ('Чого немає: ', {'bold': True, 'color': NAVY}),
+         ('офлайн-акцій «в залі»; товарів під іншими кодами УКТ ЗЕД. Арарe/норімакі в мережах не знайдено — «не знайдено в каталогах» не означає «не продається».', {})]], size=8.2, color=INK)
     src_note(s)
     return s
 
@@ -99,13 +104,14 @@ def top_pack(sg):
 
 def segmentation(deck):
     s = deck.slide('Сегментація', 'Сегментація за форматом упаковки')
+    sub(s, 'Усі знайдені в мережах позиції розкладено за форматом упаковки й вагою — так, як їх бачить покупець на полиці. У кожній картці: скільки позицій, яка упаковка найходовіша, типова ціна і діапазон.')
     total = len(ROWS)
     order = list(SEGS)
-    cw, ch = 3.9, 2.55
+    cw, ch = 3.9, 2.5
     for i, sg in enumerate(order):
         rs = rows_of(sg); ls = lines(rs)
         col = SEG_COLOR[sg]
-        x = 0.62 + (i % 3) * 4.1; y = 1.5 + (i // 3) * 2.75
+        x = 0.62 + (i % 3) * 4.1; y = 1.85 + (i // 3) * 2.62
         rect(s, x, y, cw, 0.36, fill=col)
         text(s, x + 0.14, y + 0.07, cw - 0.2, 0.22, SEGS[sg]['name'].upper(), size=8.0, color=WHITE, bold=True, spc=0.2)
         rect(s, x + 0.04, y + 0.4, cw - 0.08, ch - 0.4, fill=PANEL)
@@ -124,7 +130,7 @@ def segmentation(deck):
             text(s, x + 0.14, yy + 0.02, 2.3, 0.16, a, size=6.4, color=MUTED, bold=True)
             text(s, x + 2.0, yy, 1.8, 0.2, b, size=8.6, color=NAVY, bold=True, align='r')
     # last tile: reading guide + heat strip of ours
-    x, y = 0.62 + 2 * 4.1, 1.5 + 2.75
+    x, y = 0.62 + 2 * 4.1, 1.85 + 2.62
     rect(s, x, y, cw, ch, fill=rgb('FFF3DC'))
     rect(s, x, y, 0.04, ch, fill=GOLD)
     caps(s, x + 0.25, y + 0.18, 3.4, 'Де наші постачальники', size=7.4, color=AMBER)
@@ -184,24 +190,25 @@ def seg_overview(deck, sg, headline, note=None, bins=None, rep_n=6):
 # ------------------------------------------------------------ catalogue
 def line_card(s, x, y, w, h, l, col):
     rect(s, x, y, w, h, fill=PANEL); rect(s, x, y, w, 0.04, fill=col)
-    rect(s, x + 0.08, y + 0.12, w - 0.16, 1.36, fill=WHITE)
-    picture(s, os.path.join(HERE, l['img']), x + 0.14, y + 0.16, w - 0.28, 1.28)
-    text(s, x + 0.1, y + 1.56, w - 0.2, 0.2, l['brand'], size=8.8, color=INK, bold=True)
+    rect(s, x + 0.08, y + 0.12, w - 0.16, 1.32, fill=WHITE)
+    picture(s, os.path.join(HERE, l['img']), x + 0.14, y + 0.15, w - 0.28, 1.26)
+    text(s, x + 0.1, y + 1.52, w - 0.2, 0.2, l['brand'], size=8.8, color=INK, bold=True)
     fl = ', '.join(f.lower() if i else f for i, f in enumerate(l['flavors'][:3]))
     if len(fl) > 52: fl = fl[:50].rsplit(',', 1)[0]
     if l['n'] > len(fl.split(',')): fl += ' +%d' % (l['n'] - len(fl.split(',')))
-    text(s, x + 0.1, y + 1.76, w - 0.2, 0.34, fl, size=7, color=MUTED)
-    text(s, x + 0.1, y + 2.12, w - 0.2, 0.28, uah(l['pmin']).replace(' ₴', '') + ('' if round(l['pmin']) == round(l['pmax']) else '–%d' % round(l['pmax'])) + ' ₴', size=13, color=INK, bold=True)
-    text(s, x + 0.1, y + 2.42, w - 0.2, 0.18, '%s · %d %s' % (gfmt(l['grams']), l['n'], 'смак' if l['n'] == 1 else ('смаки' if l['n'] < 5 else 'смаків')), size=7.2, color=MUTED)
-    text(s, x + 0.1, y + 2.62, w - 0.2, 0.2, ' · '.join(CHAIN[c] for c in l['chains'][:2]) + ('' if len(l['chains']) <= 2 else ' +%d' % (len(l['chains']) - 2)), size=6.8, color=MUTED)
+    text(s, x + 0.1, y + 1.72, w - 0.2, 0.34, fl, size=7, color=MUTED)
+    text(s, x + 0.1, y + 2.07, w - 0.2, 0.28, uah(l['pmin']).replace(' ₴', '') + ('' if round(l['pmin']) == round(l['pmax']) else '–%d' % round(l['pmax'])) + ' ₴', size=13, color=INK, bold=True)
+    text(s, x + 0.1, y + 2.36, w - 0.2, 0.18, '%s · %d %s' % (gfmt(l['grams']), l['n'], 'смак' if l['n'] == 1 else ('смаки' if l['n'] < 5 else 'смаків')), size=7.2, color=MUTED)
+    text(s, x + 0.1, y + 2.54, w - 0.2, 0.2, ' · '.join(CHAIN[c] for c in l['chains'][:2]) + ('' if len(l['chains']) <= 2 else ' +%d' % (len(l['chains']) - 2)), size=6.8, color=MUTED)
 
 
 def catalog(deck, items, eyebrow, title):
     """items: list of (line, colour) — 12 per slide, in 2 rows of 6."""
     s = deck.slide(eyebrow, title)
-    w, h = 1.92, 2.9
+    sub(s, 'Картка = лінійка бренда (бренд + вага пакета). Ціна — діапазон по мережах, де лінійка знайдена; смаки з однаковою упаковкою згруповано, кількість смаків — під ціною.', y=1.34, size=8.4)
+    w, h = 1.92, 2.78
     for i, (l, col) in enumerate(items):
-        x = 0.62 + (i % 6) * (w + 0.12); y = 1.45 + (i // 6) * (h + 0.08)
+        x = 0.62 + (i % 6) * (w + 0.12); y = 1.68 + (i // 6) * (h + 0.06)
         line_card(s, x, y, w, h, l, col)
     return s
 
@@ -212,10 +219,11 @@ def where_sold(deck, sgs, headline, eyebrow):
     col = SEG_COLOR[sgs[0]]
     s = deck.slide(eyebrow, headline)
     cnt = collections.Counter(c for r in rs for c in r['chains'])
-    caps(s, 0.62, 1.42, 5, 'Позицій сегмента в мережі', size=7)
+    sub(s, 'Скільки позицій цього сегмента стоїть у кожній мережі (ліворуч) і розклад мереж за типом: національні — головний цільовий канал, регіональні — вхід, без позицій — вільна полиця.', y=1.34, size=8.4)
+    caps(s, 0.62, 1.95, 5, 'Позицій сегмента в мережі', size=7)
     order = sorted(CHAINS_ORDER, key=lambda c: -cnt.get(c, 0))
     rows = [(CHAIN[c], cnt[c]) for c in order if cnt.get(c)]
-    hbars(s, 0.62, 1.7, 6.2, rows, color=col, row_h=0.285, name_w=1.5, maxv=max(cnt.values()))
+    hbars(s, 0.62, 2.25, 6.4, rows, color=col, row_h=min(0.4, 4.7 / len(rows)), name_w=1.6, val_w=0.5, maxv=max(cnt.values()), size=9.2)
     # right: chips by channel group
     x0 = 7.3
     def block(y, title, cs, tag, tagcol, fillc):
@@ -238,7 +246,7 @@ def where_sold(deck, sgs, headline, eyebrow):
     allc = [c for c in CHAINS_ORDER]
     nat = [c for c in D.CHAIN if c in NATIONAL and cnt.get(c)]; reg = [c for c in CHAINS_ORDER if c not in NATIONAL and cnt.get(c)]
     none = [c for c in CHAIN if not cnt.get(c)]
-    y = 1.5
+    y = 1.95
     y = block(y, 'Національні мережі · %d' % len(nat), sorted(nat, key=lambda c: -cnt[c]), 'ЦІЛЬОВИЙ КАНАЛ', RED, RED)
     y = block(y + 0.1, 'Регіональні мережі · %d' % len(reg), sorted(reg, key=lambda c: -cnt[c]), 'РЕГІОНАЛЬНИЙ ВХІД', TEAL, TEAL)
     if none:
@@ -278,8 +286,8 @@ def popular_packs(deck, sgs, headline, eyebrow, note=None):
     x0 = 0.62
     heads = [('№', 0, 0.35), ('ВАГА', 0.4, 0.9), ('ПРИСУТНІСТЬ · ПОЗИЦІЙ × МЕРЕЖ', 1.4, 3.1), ('SKU · БРЕНДІВ', 4.6, 1.0), ('МЕРЕЖ', 5.7, 0.6), ('ЦІНА, ₴ · МІН.–МАКС.', 6.4, 1.6), ('МЕДІАНА ЦІНИ', 8.0, 1.2)]
     ny = sum(len(p) for _, p in tabs)
-    rh = min(0.5, 3.6 / (ny + 1.3 * len(tabs)))
-    y = 1.78
+    rh = min(0.62, 4.0 / (ny + 1.3 * len(tabs)))
+    y = 1.85
     pos = {}
     for sg, part in tabs:
         col = SEG_COLOR[sg]
@@ -336,9 +344,9 @@ def popular_packs(deck, sgs, headline, eyebrow, note=None):
         if o['seg'] in sgs:
             ours.setdefault((o['sup'], o['grams'], round(o['shelf'])), []).append(o)
     px = 10.2
-    section_tag(s, px, 1.78, 2.5, 'Наша полиця проти ринку', color=AMBER)
+    section_tag(s, px, 1.85, 2.5, 'Наша полиця проти ринку', color=AMBER)
     ch = min(0.98, 5.0 / max(1, len(ours)))
-    yy = 2.12
+    yy = 2.2
     for (sid, g, sh), os_ in ours.items():
         o = os_[0]
         sg = o['seg']

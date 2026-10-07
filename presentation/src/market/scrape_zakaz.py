@@ -9,6 +9,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 QUERIES = ['нори', 'норі', 'водорості', 'морська капуста', 'чипси норі', 'снек норі', 'рисові крекери',
            'рисові чіпси', 'крекер рисовий', 'сенбей', 'аpare', 'арарe', 'tempura seaweed', 'seaweed',
            'tao kae noi', 'рисовий снек', 'кімнорі', 'снеки азійські', 'норі снек', 'рисові хлібці з водоростями']
+EXTRA = ['гім','кім','сушені водорості','хрусткі водорості','водорості снек','норі темпура','крекери','крекер азійський','чипси рисові','рисові кульки','мочі','снеки з морепродуктів','креветочні чипси','азійські снеки','корейські снеки','японські снеки','тайські снеки','снек з рису','рисовий крекер з водоростями','печиво рисове','хлібці рисові','тайський снек']
 SKIP = {'alcohub', 'winetime', 'okwine', 'masterzoo'}
 
 def get(url, tries=3):
@@ -30,7 +31,7 @@ def main():
         if cur is None or (s['city'] == 'kiev' and cur['city'] != 'kiev'): chosen[s['retail_chain']] = s
     hits = {}
     for chain, s in chosen.items():
-        for q in QUERIES:
+        for q in (EXTRA if os.environ.get('EXTRA') else QUERIES):
             d = get('https://stores-api.zakaz.ua/stores/%s/products/search/?q=%s' % (s['id'], urllib.parse.quote(q)))
             for p in d.get('results', []):
                 key = (chain, p['ean'])
@@ -42,5 +43,5 @@ def main():
                                  web_url=p.get('web_url'), q=q, cat=p.get('category_id') if 'category_id' in p else None)
         print(chain, s['name'], len([k for k in hits if k[0] == chain]), flush=True)
     out = dict(date=datetime.date.today().isoformat(), items=list(hits.values()))
-    json.dump(out, open(os.path.join(HERE, 'raw', 'zakaz_raw.json'), 'w'), ensure_ascii=False, indent=1)
+    json.dump(out, open(os.path.join(HERE, 'raw', ('zakaz_raw_extra.json' if os.environ.get('EXTRA') else 'zakaz_raw.json')), 'w'), ensure_ascii=False, indent=1)
 if __name__ == '__main__': main()
