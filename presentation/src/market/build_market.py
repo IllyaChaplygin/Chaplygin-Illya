@@ -101,6 +101,33 @@ def slide_cover(prs):
     close(s)
 
 
+def slide_divider(prs):
+    """Part-2 opener for when this content is appended onto the supplier
+    catalogue deck itself, rather than shipped as its own file."""
+    s = blank(prs, accent=SUPPLIER_COLORS['singha'])
+    seg = SW / len(SUP_ORDER)
+    for i, sid in enumerate(SUP_ORDER):
+        rect(s, i * seg, 0, seg, 0.07, fill=SUPPLIER_COLORS[sid])
+
+    label(s, M, 0.60, 8.6, 'ЧАСТИНА 2 · ЖОВТЕНЬ 2026', color=GOLD, size=9)
+    text(s, M, 0.90, 9.2, 1.50, 'Зріз ринку і ціна на полиці',
+         size=30, font=HEAD, color=INK, bold=True, line_spacing=1.10)
+    rect(s, M, 2.26, 1.10, 0.05, fill=SUPPLIER_COLORS['zek'])
+    text(s, M, 2.48, 8.6, 0.6,
+        'Хто вже стоїть на полиці, по чому продають і де в цій картині опиняється '
+        'асортимент чотирьох постачальників із цього каталогу.',
+        size=11.5, color=BODY_TX, line_spacing=1.34)
+
+    tiles = [('4', 'реальні позиції\nконкурентів знайдено'), ('6', 'мереж\nперевірено'),
+            ('0', 'мереж продають\nкатегорію'), ('28', 'SKU в каталозі\nвище')]
+    tw, gap = (SW - 2 * M - 0.16 * 3) / 4, 0.16
+    ty = 3.45
+    for i, (v, cap) in enumerate(tiles):
+        x = M + i * (tw + gap)
+        stat_tile(s, x, ty, tw, 0.92, v, cap, SUPPLIER_COLORS[SUP_ORDER[i]])
+    close(s)
+
+
 def slide_methodology(prs):
     accent = SUPPLIER_COLORS['tmk']
     s = blank(prs, accent=accent)
@@ -505,12 +532,11 @@ def slide_conclusions(prs):
     close(s)
 
 
-def main():
-    prs = Presentation()
-    prs.slide_width = Inches(SW)
-    prs.slide_height = Inches(SH)
-
-    slide_cover(prs)
+def build_content(prs, cover=slide_cover):
+    """The market-research content, as a sequence of slides appended to
+    whatever `prs` already holds. `cover` lets a caller swap in slide_divider
+    when this is being appended onto another deck instead of standing alone."""
+    cover(prs)
     slide_methodology(prs)
     slide_segmentation(prs)
     slide_competitors(prs)
@@ -523,6 +549,12 @@ def main():
     slide_sensitivity(prs)
     slide_conclusions(prs)
 
+
+def main():
+    prs = Presentation()
+    prs.slide_width = Inches(SW)
+    prs.slide_height = Inches(SH)
+    build_content(prs, cover=slide_cover)
     prs.save(OUT)
     print('saved %s — %d slides' % (OUT, len(prs.slides)))
 
