@@ -108,6 +108,15 @@ def build(cfg):
     for r in range(16,24): ws.row_dimensions[r].hidden=True
     ws.page_setup.orientation='landscape'; ws.page_setup.fitToWidth=1; ws.page_setup.fitToHeight=1
     ws.sheet_properties.pageSetUpPr=PageSetupProperties(fitToPage=True)
+# убрать пустые тёмные блоки-«призраки» (L2:M7, N2:O5) на вкладках 1–2: заливка 44546A без текста
+from openpyxl.styles import PatternFill as _PF
+for _n in wb.sheetnames[:2]:
+    _ws=wb[_n]
+    for _rng in [str(r) for r in _ws.merged_cells.ranges]:
+        _cells=[c for row in _ws[_rng] for c in row]
+        if all(c.value is None for c in _cells) and any(c.fill.fill_type=='solid' and c.fill.fgColor.type=='rgb' and c.fill.fgColor.rgb=='FF44546A' for c in _cells) and _cells[0].row<=8 and _cells[0].column>=12:
+            _ws.unmerge_cells(_rng)
+            for c in _cells: c.fill=_PF(fill_type=None)
 for c in CFG: build(c)
 wb.calculation=CalcProperties(fullCalcOnLoad=True)
 wb.save(OUT); print("saved",OUT)
