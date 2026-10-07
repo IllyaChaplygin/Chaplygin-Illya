@@ -102,11 +102,12 @@ def build(cfg):
     for c in "BCDEFGHIJKLMNOP": ws[f"{c}21"].border=Border(bottom=Side(style='medium',color=NAVY))
     put("B22","Запрос SIAS, €/уп. (вниз до евроцента)",font(10,True),KEY,al=LF,border=True)
     put("C22",f"=ROUNDDOWN((({SH}/{MK}*(1-{BO}-{MG}))/{RT}/(1+{FN})-{BATCH}/{PACKS})/((1+{DT})*(1+{VT})),2)",font(14,True),AFTER,'"€"0.00',CT,border=True,merge="C22:D22")
-    put("E22","Формула: (полка ÷ множитель × (1 − бонус − маржа) ÷ курс ÷ (1 + фин.) − расходы партии на пачку) ÷ (1 + ПДВ)(1 + пошлина), округлено вниз",font(9,False,GREYT),al=LF,merge="E22:P22")
+    put("E22","Считаем от полки 120 ₴ назад: цена партнёру → допустимая себестоимость → предельная закупка, округлено вниз до евроцента.",font(9,False,GREYT),al=LF,merge="E22:P22")
     put("B23","Предельная закупка до округления, €/уп.",font(10),None,al=LF,border=True)
     put("C23",f"=(({SH}/{MK}*(1-{BO}-{MG}))/{RT}/(1+{FN})-{BATCH}/{PACKS})/((1+{DT})*(1+{VT}))",font(11),None,'"€"0.0000',CT,border=True,merge="C23:D23")
     put("B24","Допущения: бонус и множитель — по модели (не подтверждены сетями); импортный ПДВ входит в себестоимость, как в Self-Cost; без листинг-фи, промо и отсрочки; согласие SIAS не получено — цена для переговоров.",font(8,False,GREYT,True),al=LF,merge="B24:P24"); ws.row_dimensions[24].height=28
     ws.row_dimensions[22].height=30; ws.row_dimensions[23].height=30
+    ws.row_dimensions[18].hidden=True; ws.row_dimensions[19].hidden=True
     ws.page_setup.orientation='landscape'; ws.page_setup.fitToWidth=1; ws.page_setup.fitToHeight=1
     ws.sheet_properties.pageSetUpPr=PageSetupProperties(fitToPage=True)
 for c in CFG: build(c)
