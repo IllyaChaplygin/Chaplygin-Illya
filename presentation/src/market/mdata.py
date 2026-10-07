@@ -116,3 +116,38 @@ if __name__ == '__main__':
               'range %.0f-%.0f' % (min(r['pmin'] for r in rs), max(r['pmax'] for r in rs)), 'brands', len({r['brand'] for r in rs}))
         mine = [o for o in OUR if o['seg'] == sg]
         for o in mine: print('   ours', o['sup'], o['title'][:40], o['grams'], round(o['shelf']), round(o['per_g'], 1))
+
+
+def analog(o):
+    """The market pack our SKU is actually compared with: the most widely stocked line
+    of the same segment whose weight is within x0.6..x1.7 of ours (fallback: nearest weight)."""
+    ls = lines(rows_of(o['seg']))
+    near = [l for l in ls if 0.6 * o['grams'] <= l['grams'] <= 1.7 * o['grams']]
+    if not near:
+        return min(ls, key=lambda l: abs(l['grams'] - o['grams']))
+    return max(near, key=lambda l: (l['n'] * len(l['chains']), -abs(l['grams'] - o['grams'])))
+
+
+def our_groups():
+    """Our SKUs collapsed by (supplier, weight, shelf price) — flavours with identical numbers."""
+    g = collections.OrderedDict()
+    for o in OUR:
+        g.setdefault((o['sup'], o['grams'], round(o['shelf'])), []).append(o)
+    out = []
+    for k, v in g.items():
+        o = dict(v[0]); o['n_sku'] = len(v); o['all'] = v
+        out.append(o)
+    return out
+
+
+def basket(o):
+    """Market positions of the same segment with a pack weight close to ours — the
+    like-for-like shelf we are priced against. Weight window x0.55..x1.45, widened
+    to x0.4..x1.7 when fewer than three positions fall inside."""
+    rs = [r for r in rows_of(o['seg']) if 0.55 * o['grams'] <= r['grams'] <= 1.45 * o['grams']]
+    if len(rs) < 3:
+        rs = [r for r in rows_of(o['seg']) if 0.4 * o['grams'] <= r['grams'] <= 1.7 * o['grams']]
+    if not rs:
+        rs = sorted(rows_of(o['seg']), key=lambda r: abs(r['grams'] - o['grams']))[:3]
+    return dict(n=len(rs), gmin=min(r['grams'] for r in rs), gmax=max(r['grams'] for r in rs), pmed=med(r['pmed'] for r in rs),
+                pmin=min(r['pmed'] for r in rs), pmax=max(r['pmed'] for r in rs), brands=sorted({r['brand'] for r in rs}))

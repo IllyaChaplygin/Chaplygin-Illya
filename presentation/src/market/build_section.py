@@ -40,7 +40,7 @@ def conclusions(deck):
     def ps(key_part, g=None):
         o = [x for x in OUR if key_part in x['key'] and (g is None or x['grams'] == g)][0]
         p = D.peer_stats(o)
-        return o, p, (o['per_g'] / p['per_g'] - 1) * 100
+        return o, p, 0
     roll, rp, rd = ps('Wow ROLL - Original')
     dbl, dp, dd = ps('DOUBLE ROLL - Original')
     sw, swp, swd = ps('WOW SEAWEED - Original')
@@ -57,21 +57,24 @@ def conclusions(deck):
     tk25 = next(l for l in lines(rows_of('tempura')) if l['brand'] == 'Tao Kae Noi' and l['grams'] == 25.0)
     tk40 = next(l for l in lines(rows_of('tempura')) if l['brand'] == 'Tao Kae Noi' and l['grams'] == 40.0)
     wwl = next(l for l in lines(rows_of('ricecr')) if l['brand'] == 'Want Want')
+    ww60 = next(l for l in lines(rows_of('ricecr')) if l['brand'] == 'Want Want')
+    top_mini = dict(M.pack_table(['mini']))['mini'][0]
+    sd = [x for x in OUR if 'SANDWICH' in x['key']][0]
     cols = [
         ('ЩО КАЖЕ РИНОК', NAVY, [
-            'Полиця мереж — це мініпакет 4–5 г: %d SKU, %d брендів, медіана %d ₴ (%s ₴/г).' % (len(mrs), len({r['brand'] for r in mrs}), round(med(r['pmed'] for r in mrs)), fm(med(r['per_g'] for r in mrs))),
-            'Чипси 8–40 г — лише 4 бренди (Norris, Hokkaido Club, Ock Dong Ja, Ocean Snack): %s ₴.' % rng(min(r['pmin'] for r in S['chips'][0]), max(r['pmax'] for r in S['chips'][0])),
+            'Полиця мереж — це міні-пакет: %d SKU, %d брендів. Найходовіша упаковка — %s (%d %% присутності), типова ціна %d ₴.' % (len(mrs), len({r['brand'] for r in mrs}), gfmt(top_mini['grams']), round(100 * top_mini['share']), round(top_mini['pmed'])),
+            'Чипси 8–40 г — лише 4 бренди (Norris, Hokkaido Club, Ock Dong Ja, Ocean Snack); найходовіша — 25 г, 47–88 ₴.',
             'Темпура — практично один бренд, Tao Kae Noi: 25 г — %d ₴, 40 г — %d ₴.' % (round(tk25['pmed']), round(tk40['pmed'])),
-            'Рисові крекери в мережах — лише Want Want mini 60 г (%d ₴, 3 мережі) і Ultra Pop.' % round(wwl['pmed'])]),
+            'Рисові крекери в мережах — лише Want Want mini 60 г (%d ₴, 3 мережі) та Ultra Pop.' % round(ww60['pmed'])]),
         ('ДЕ МИ В ЦІНІ', AMBER, [
-            'ZEK Tempura 30 г — %d ₴, 50 г — %d ₴: за грам %s–%s ₴ проти %s–%s у Tao Kae Noi. Topping 35/70 г — %d/%d ₴, нижче за Ock Dong Ja.' % (round(t30['shelf']), round(t50['shelf']), fm(t50['per_g']), fm(t30['per_g']), fm(tk40['per_g']), fm(tk25['per_g']), round(top35['shelf']), round(top70['shelf'])),
-            'TMK ROLL 2,5 г — %d ₴, DOUBLE 5 г — %d ₴: упаковка в коридорі мініпакетів, за грам %s…%s до медіани.' % (round(roll['shelf']), round(dbl['shelf']), O.pct(roll['per_g'], med(r['per_g'] for r in mrs)), O.pct(dbl['per_g'], med(r['per_g'] for r in mrs))),
-            'TMK SEAWEED/MINI 10–12 г — %d–%d ₴ за упаковку, у 3–4 рази дорожче за сусідні за вагою чипси за грам.' % (round(sw['shelf']), round(mini['shelf'])),
-            'Thai-Nichi 50–55 г — %d–%d ₴, Singha 42 г — %d ₴ проти Want Want 60 г — %d ₴.' % (round(tn50['shelf']), round(tn55['shelf']), round(sk['shelf']), round(wwl['pmed']))]),
+            'ZEK Tempura 30 г — %d ₴ (між Tao Kae Noi 25 г за %d ₴ і 40 г за %d ₴), 50 г — %d ₴. Topping 35 / 70 г — %d / %d ₴, нижче за Ock Dong Ja.' % (round(t30['shelf']), round(tk25['pmed']), round(tk40['pmed']), round(t50['shelf']), round(top35['shelf']), round(top70['shelf'])),
+            'ZEK Sandwich 25 г — %d ₴: вище за Norris 25 г (%d ₴), нижче за Ock Dong Ja 25 г (%d ₴).' % (round(sd['shelf']), round(next(l for l in lines(rows_of('chips')) if l['brand'] == 'Norris' and l['grams'] == 25.0)['pmed']), round(next(l for l in lines(rows_of('chips')) if l['brand'] == 'Ock Dong Ja' and l['grams'] == 25.0)['pmed'])),
+            'TMK ROLL 2,5 г — %d ₴, DOUBLE 5 г — %d ₴: у ціновому коридорі мініпакетів (типова 42 ₴). SEAWEED / MINI 10–12 г — %d–%d ₴: дорожче за всіх сусідів за вагою.' % (round(roll['shelf']), round(dbl['shelf']), round(sw['shelf']), round(mini['shelf'])),
+            'Thai-Nichi 50 / 55 г — %d / %d ₴, Singha 42 г — %d ₴ проти Want Want 60 г — %d ₴.' % (round(tn50['shelf']), round(tn55['shelf']), round(sk['shelf']), round(ww60['pmed']))]),
         ('ЩО З ЦИМ РОБИТИ', GREEN, [
             'ZEK: темпура й топінг мають найчистіше позиціонування — ціна в коридорі ринку, прямий конкурент один.',
-            'TMK: ROLL/DOUBLE можна виводити; SEAWEED/MINI 10–12 г перерахувати — навіть при марже 15 % полиця ~81–82 ₴ (див. чутливість).',
-            'Thai-Nichi: упаковка на рівні Want Want; Singha — шукати дешевший контейнерний сценарій або зменшувати маржу.',
+            'TMK: ROLL і DOUBLE можна виводити; SEAWEED / MINI 10–12 г перерахувати — навіть при марже 15 % полиця ~81–82 ₴ (див. чутливість).',
+            'Thai-Nichi 50 г — на рівні Want Want; Singha і Thai-Nichi 55 г — вище ринку: шукати дешевший контейнерний сценарій або знижувати маржу.',
             'Для всіх: перед замовленням підтвердити ціну на живій полиці й окремо в азійських магазинах.']),
         ('ОБМЕЖЕННЯ ЗРІЗУ', MUTED, [
             'Немає митної бази — обсяги ввозу категорії невідомі.',
@@ -148,13 +151,13 @@ def build(prs):
     O.audit_networks(deck)
     O.channels(deck)
     # --- our price
-    O.pricing_formula(deck)
+    O.pricing_formula(deck, ['singha', 'thainichi', 'tmk'], 1)
+    O.pricing_formula(deck, ['zek'], 2)
     cards = [l for l in lines(rows_of('ricecr'))]
     O.shelf_table(deck, ['singha', 'thainichi'], market_cards=cards)
     O.shelf_table(deck, ['tmk'])
     O.shelf_table(deck, ['zek'])
     O.pack_price_map(deck)
-    O.per_g_map(deck)
     def Ln(sg, brand, g):
         return next(l for l in lines(rows_of(sg)) if l['brand'] == brand and l['grams'] == g)
     def O1(key, g=None):
@@ -162,32 +165,35 @@ def build(prs):
     P = lambda v: '%d ₴' % round(v)
     below = lambda v, sg: round(100 * sum(1 for r in rows_of(sg) if r['pmed'] < v) / len(rows_of(sg)))
     roll, dbl = O1('Wow ROLL - Original'), O1('DOUBLE ROLL - Original')
-    mg = med(r['per_g'] for r in rows_of('mini'))
+    D_ = lambda o, an: o['shelf'] - an['pmed']
+    def vs(o):
+        an = D.analog(o)
+        d = o['shelf'] - an['pmed']
+        return '%s ₴ проти %s %s — %s %d ₴ (%+d %%)' % (round(o['shelf']), an['brand'], gfmt(an['grams']) + ' ' + str(round(an['pmed'])), 'вище на' if d > 0 else 'нижче на', abs(round(d)), round(d / an['pmed'] * 100))
     O.stand(deck, ['mini'], 'Хто з ким стоїть · міні-пакет', 'Де ми стоїмо: міні-пакет 4–5 г', 20, 100, 20,
-            sub='Наші TMK ROLL 2,5 г і DOUBLE ROLL 5 г — у ціновому коридорі мініпакетів; за грам ми дорожчі, бо ринок — це 4–5 г за ~42 ₴.',
-            takeaways=[('ЦІНА УПАКОВКИ', 'ROLL 2,5 г — %s: дешевше за %d %% позицій сегмента. DOUBLE 5 г — %s: дорожче за %d %% позицій, нижче лише за Kimnori (77–98 ₴) і Clearspring (84–89 ₴).' % (P(roll['shelf']), 100 - below(roll['shelf'], 'mini'), P(dbl['shelf']), below(dbl['shelf'], 'mini')), NAVY),
-                       ('ЦІНА ЗА ГРАМ', 'ROLL — %s ₴/г (%s), DOUBLE — %s ₴/г (%s) до медіани сегмента %s ₴/г. Найближчий за форматом аналог — Norris Рол 3 г: 30–32 ₴.' % (fm(roll['per_g']), O.pct(roll['per_g'], mg), fm(dbl['per_g']), O.pct(dbl['per_g'], mg), fm(mg)), AMBER)])
+            sub='TMK ROLL 2,5 г стоїть на самому низу цінової шкали мініпакетів, DOUBLE ROLL 5 г — у верхній частині. Найходовіша упаковка ринку — 4,5 г за ~40 ₴.',
+            takeaways=[('ROLL 2,5 Г', 'ROLL 2,5 г — полиця %d ₴, дешевше за %d %% позицій сегмента. Аналог за вагою — Norris Рол 3 г: 30–32 ₴.' % (round(roll['shelf']), 100 - below(roll['shelf'], 'mini')), NAVY),
+                       ('DOUBLE ROLL 5 Г', 'DOUBLE ROLL 5 г — полиця %d ₴, дорожче за %d %% позицій; вище лише Kimnori (77–98 ₴) і Clearspring (84–89 ₴). Ходова упаковка 4,5 г — %s.' % (round(dbl['shelf']), below(dbl['shelf'], 'mini'), P(Ln('mini', 'Akura', 4.5)['pmed'])), AMBER)])
     sw, mn, sd = O1('WOW SEAWEED - Original'), O1('WOW MINI - Original'), O1('SANDWICH SEAWEED - Sesame')
-    cm = med(r['per_g'] for r in rows_of('chips'))
     n25 = Ln('chips', 'Norris', 25.0); h25 = Ln('chips', 'Hokkaido Club', 25.0); os40 = Ln('chips', 'Ocean Snack', 40.0)
     O.stand(deck, ['chips'], 'Хто з ким стоїть · чипси та сендвічі', 'Де ми стоїмо: чипси та сендвічі', 0, 160, 40,
             sub='ZEK Sandwich 25 г стоїть між Norris і Ock Dong Ja; TMK SEAWEED/MINI 10–12 г по 122–123 ₴ — на рівні 40-грамових чипсів Ocean Snack.',
-            takeaways=[('ZEK SANDWICH 25 Г', '%s ₴ — вище за Norris 25 г (%s) і Hokkaido Club 25 г (%s), нижче за Ock Dong Ja 25 г (%s). За грам %s ₴ проти %s–%s у лідерів 25 г.' % (round(sd['shelf']), P(n25['pmed']), P(h25['pmed']), P(Ln('chips', 'Ock Dong Ja', 25.0)['pmed']), fm(sd['per_g']), fm(h25['per_g']), fm(n25['per_g'])), AMBER),
-                       ('TMK SEAWEED / MINI 10–12 Г', '%s ₴ за 10–12 г — стільки ж, скільки Ocean Snack 40 г (%s) і більше за сусідів за вагою (Norris 8–10 г: 31–33 ₴, Ock Dong Ja 15 г: %s). За грам %s–%s ₴ — у 3–4 рази вище за чипси.' % (round(sw['shelf']), P(os40['pmed']), P(Ln('chips', 'Ock Dong Ja', 15.0)['pmed']), fm(sw['per_g']), fm(mn['per_g'])), RED)])
+            takeaways=[('ZEK SANDWICH 25 Г', '%s ₴ — вище за Norris 25 г (%s) і Hokkaido Club 25 г (%s), нижче за Ock Dong Ja 25 г (%s).' % (round(sd['shelf']), P(n25['pmed']), P(h25['pmed']), P(Ln('chips', 'Ock Dong Ja', 25.0)['pmed'])), AMBER),
+                       ('TMK SEAWEED / MINI 10–12 Г', '%s ₴ за пакет 10–12 г — стільки ж, скільки Ocean Snack 40 г (%s). Сусіди за вагою: Norris 8–10 г — 31–33 ₴, Ock Dong Ja 15 г — %s.' % (round(sw['shelf']), P(os40['pmed']), P(Ln('chips', 'Ock Dong Ja', 15.0)['pmed'])), RED)])
     t30, t50 = O1('TEMPURA SEAWEED - Corn 30g'), O1('TEMPURA SEAWEED - Corn 50g')
     tk25, tk40 = Ln('tempura', 'Tao Kae Noi', 25.0), Ln('tempura', 'Tao Kae Noi', 40.0)
     z35, z70 = O1('TOPPING - Vegetables 35g'), O1('TOPPING - Vegetables 70g')
     o35, o70, mc = Ln('tempura', 'Ock Dong Ja', 35.0), Ln('tempura', 'Ock Dong Ja', 70.0), Ln('tempura', 'Metro Chef', 30.0)
     O.stand(deck, ['tempura'], 'Хто з ким стоїть · темпура й топінг', 'Де ми стоїмо: темпура й топінг', 60, 260, 40,
             sub='ZEK Tempura 30 і 50 г стоять поруч із Tao Kae Noi 25 і 40 г; ZEK Topping дешевший за Ock Dong Ja й Metro Chef.',
-            takeaways=[('ZEK TEMPURA', '30 г — %s: між Tao Kae Noi 25 г (%s) і 40 г (%s). 50 г — %s. За грам %s–%s ₴ проти %s–%s у Tao Kae Noi 25–40 г.' % (P(t30['shelf']), P(tk25['pmed']), P(tk40['pmed']), P(t50['shelf']), fm(t50['per_g']), fm(t30['per_g']), fm(tk40['per_g']), fm(tk25['per_g'])), PURPLE),
-                       ('ZEK TOPPING', '35 г — %s, 70 г — %s. Ock Dong Ja: 35 г — %s, 70 г — %s; Metro Chef 30 г — %s. За грам ZEK %s ₴ проти %s–%s.' % (P(z35['shelf']), P(z70['shelf']), P(o35['pmed']), P(o70['pmed']), P(mc['pmed']), fm(z35['per_g']), fm(o70['per_g']), fm(o35['per_g'])), TEAL)])
+            takeaways=[('ZEK TEMPURA', '30 г — %s: між Tao Kae Noi 25 г (%s) і 40 г (%s). 50 г — %s: дорожче за Tao Kae Noi 40 г.' % (P(t30['shelf']), P(tk25['pmed']), P(tk40['pmed']), P(t50['shelf'])), PURPLE),
+                       ('ZEK TOPPING', '35 г — %s, 70 г — %s. Ock Dong Ja: 35 г — %s, 70 г — %s; Metro Chef 30 г — %s. ZEK дешевший.' % (P(z35['shelf']), P(z70['shelf']), P(o35['pmed']), P(o70['pmed']), P(mc['pmed'])), TEAL)])
     ww = Ln('ricecr', 'Want Want', 60.0)
     sk, t50r, t55r = O1('Original Flavour'), O1('Norimaki Original'), O1('Norimaki Wasabi')
     O.stand(deck, ['ricecr'], 'Хто з ким стоїть · рисові крекери', 'Де ми стоїмо: рисові крекери', 100, 220, 20,
-            sub='Thai-Nichi 50–55 г — на верхній межі Want Want mini 60 г (140–149 ₴) і вище; Singha 42 г — вище за весь діапазон мережевої полиці.',
-            takeaways=[('THAI-NICHI', '50 г — %s і 55 г — %s проти Want Want 60 г — %s. За грам %s–%s ₴ проти %s: +%d…+%d %%.' % (P(t50r['shelf']), P(t55r['shelf']), P(ww['pmed']), fm(t50r['per_g']), fm(t55r['per_g']), fm(ww['per_g']), round((t50r['per_g'] / ww['per_g'] - 1) * 100), round((t55r['per_g'] / ww['per_g'] - 1) * 100)), RED),
-                       ('SINGHA KAMEDA', '42 г — %s: на %d %% вище за найдорожчий крекер у мережах (149 ₴). За грам %s ₴ проти %s у Want Want: %s.' % (P(sk['shelf']), round((sk['shelf'] / 148 - 1) * 100), fm(sk['per_g']), fm(ww['per_g']), O.pct(sk['per_g'], ww['per_g'])), RED),
+            sub='Thai-Nichi 50 г — на рівні Want Want mini 60 г (140–149 ₴); Thai-Nichi 55 г і Singha 42 г стоять вище всього діапазону мережевої полиці.',
+            takeaways=[('THAI-NICHI', '50 г — %s і 55 г — %s проти Want Want 60 г — %s: різниця %+d і %+d ₴.' % (P(t50r['shelf']), P(t55r['shelf']), P(ww['pmed']), round(t50r['shelf'] - ww['pmed']), round(t55r['shelf'] - ww['pmed'])), RED),
+                       ('SINGHA KAMEDA', '42 г — %s: на %d ₴ (%d %%) вище за найдорожчий крекер у мережах (Ultra Pop 60 г — 148 ₴) і на %d ₴ вище за Want Want.' % (P(sk['shelf']), round(sk['shelf'] - 148), round((sk['shelf'] / 148 - 1) * 100), round(sk['shelf'] - ww['pmed'])), RED),
                        ('ЩО ВАЖЛИВО', 'Це єдині аналоги, які знайшлися в мережах: Want Want mini — 3 мережі. Арарe/норімакі на кшталт наших не знайдено — полицю варто перевірити наживо.', NAVY)])
     O.neighbours(deck)
     O.sensitivity(deck)

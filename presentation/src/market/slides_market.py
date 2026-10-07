@@ -92,6 +92,11 @@ def method(deck):
 
 
 # ------------------------------------------------------------ segmentation
+def top_pack(sg):
+    t = dict(pack_table([sg]))[sg][0]
+    return '%s · %d %% присутності' % (gfmt(t['grams']), round(100 * t['share']))
+
+
 def segmentation(deck):
     s = deck.slide('Сегментація', 'Сегментація за форматом упаковки')
     total = len(ROWS)
@@ -112,7 +117,7 @@ def segmentation(deck):
         text(s, x + 1.4, y + 1.2, 2.45, 0.4, SEGS[sg]['desc'], size=7.4, color=MUTED)
         facts = [('ВАГА', '%s–%s' % (('%g' % min(r['grams'] for r in rs)).replace('.', ','), gfmt(max(r['grams'] for r in rs)))),
                  ('МЕДІАНА ЦІНИ ЗА УПАКОВКУ', uah(med(r['pmed'] for r in rs))),
-                 ('МЕДІАНА ЦІНИ ЗА ГРАМ', uah(med(r['per_g'] for r in rs), 1)),
+                 ('НАЙХОДОВІША УПАКОВКА', top_pack(sg)),
                  ('ДІАПАЗОН · БРЕНДІВ', '%s ₴ · %d' % (rng(min(r['pmin'] for r in rs), max(r['pmax'] for r in rs)), len({r['brand'] for r in rs})))]
         for k, (a, b) in enumerate(facts):
             yy = y + 1.68 + k * 0.215
@@ -143,7 +148,8 @@ def seg_overview(deck, sg, headline, note=None, bins=None, rep_n=6):
     mp = med(r['pmed'] for r in rs); mg = med(r['per_g'] for r in rs)
     kpi(s, 0.62, 1.74, 3.1, 1.18, 'Позицій у сегменті', '%d SKU' % len(rs), '%d лінійок · %d брендів' % (len(ls), len({r['brand'] for r in rs})), color=col)
     kpi(s, 3.88, 1.74, 3.1, 1.18, 'Медіана упаковки', uah(mp), 'діапазон %s ₴' % rng(min(r['pmin'] for r in rs), max(r['pmax'] for r in rs)), color=col)
-    kpi(s, 7.14, 1.74, 3.1, 1.18, 'Медіана за грам', uah(mg, 1), 'ціна за 1 г продукту', color=col)
+    tp = dict(pack_table([sg]))[sg][0]
+    kpi(s, 7.14, 1.74, 3.1, 1.18, 'Найходовіша упаковка', gfmt(tp['grams']), '%d %% присутності на полицях · медіана %d ₴' % (round(100 * tp['share']), round(tp['pmed'])), color=col)
     kpi(s, 10.4, 1.74, 2.32, 1.18, 'Вага', '%s–%s' % (('%g' % min(r['grams'] for r in rs)).replace('.', ','), gfmt(max(r['grams'] for r in rs))), None, color=col, vsize=15)
     # who holds the segment
     cnt = collections.Counter(r['brand'] for r in rs).most_common(8)
@@ -170,7 +176,7 @@ def seg_overview(deck, sg, headline, note=None, bins=None, rep_n=6):
         picture(s, os.path.join(HERE, l['img']), x + 0.09, 5.8, 0.76, 0.76)
         text(s, x + 0.94, 5.82, 0.95, 0.5, l['brand'], size=7.8, color=INK, bold=True)
         text(s, x + 0.94, 6.3, 0.95, 0.3, uah(l['pmed']), size=11, color=INK, bold=True)
-        text(s, x + 0.1, 6.68, w - 0.15, 0.2, '%s · %s ₴/г' % (gfmt(l['grams']), ('%.1f' % l['per_g']).replace('.', ',')), size=7, color=MUTED)
+        text(s, x + 0.1, 6.68, w - 0.15, 0.2, '%s · %d %s' % (gfmt(l['grams']), l['n'], 'смак' if l['n'] == 1 else ('смаки' if l['n'] < 5 else 'смаків')), size=7, color=MUTED)
         text(s, x + 0.1, 6.9, w - 0.15, 0.3, ' · '.join(CHAIN[c] for c in l['chains'][:3]) + ('' if len(l['chains']) <= 3 else ' +%d' % (len(l['chains']) - 3)), size=6.8, color=MUTED)
     return s
 
@@ -186,7 +192,7 @@ def line_card(s, x, y, w, h, l, col):
     if l['n'] > len(fl.split(',')): fl += ' +%d' % (l['n'] - len(fl.split(',')))
     text(s, x + 0.1, y + 1.76, w - 0.2, 0.34, fl, size=7, color=MUTED)
     text(s, x + 0.1, y + 2.12, w - 0.2, 0.28, uah(l['pmin']).replace(' ₴', '') + ('' if round(l['pmin']) == round(l['pmax']) else '–%d' % round(l['pmax'])) + ' ₴', size=13, color=INK, bold=True)
-    text(s, x + 0.1, y + 2.42, w - 0.2, 0.18, '%s · %d %s · %s ₴/г' % (gfmt(l['grams']), l['n'], 'смак' if l['n'] == 1 else ('смаки' if l['n'] < 5 else 'смаків'), ('%.1f' % l['per_g']).replace('.', ',')), size=7.2, color=MUTED)
+    text(s, x + 0.1, y + 2.42, w - 0.2, 0.18, '%s · %d %s' % (gfmt(l['grams']), l['n'], 'смак' if l['n'] == 1 else ('смаки' if l['n'] < 5 else 'смаків')), size=7.2, color=MUTED)
     text(s, x + 0.1, y + 2.62, w - 0.2, 0.2, ' · '.join(CHAIN[c] for c in l['chains'][:2]) + ('' if len(l['chains']) <= 2 else ' +%d' % (len(l['chains']) - 2)), size=6.8, color=MUTED)
 
 
@@ -268,11 +274,11 @@ def pack_table(sgs):
 def popular_packs(deck, sgs, headline, eyebrow, note=None):
     tabs = pack_table(sgs)
     s = deck.slide(eyebrow, headline)
-    text(s, 0.62, 1.38, 12.1, 0.22, note or 'Популярність — це присутність упаковки на полицях: кількість позицій × мереж, де вона стоїть (даних про продажі немає). Справа — наші SKU проти найходовішої сусідньої упаковки.', size=8.6, color=MUTED)
+    text(s, 0.62, 1.38, 12.1, 0.22, note or 'Популярність — це присутність упаковки на полицях: кількість позицій × мереж, де вона стоїть (даних про продажі немає). Справа — наша полиця проти типової ціни пакетів близької ваги.', size=8.6, color=MUTED)
     x0 = 0.62
-    heads = [('№', 0, 0.35), ('ВАГА', 0.4, 0.9), ('ПРИСУТНІСТЬ · ПОЗИЦІЙ × МЕРЕЖ', 1.4, 3.1), ('SKU · БРЕНДІВ', 4.6, 1.0), ('МЕРЕЖ', 5.7, 0.6), ('ЦІНА, ₴ · МІН.–МАКС.', 6.4, 1.6), ('МЕДІАНА', 8.1, 0.7), ('₴/Г', 8.75, 0.6)]
+    heads = [('№', 0, 0.35), ('ВАГА', 0.4, 0.9), ('ПРИСУТНІСТЬ · ПОЗИЦІЙ × МЕРЕЖ', 1.4, 3.1), ('SKU · БРЕНДІВ', 4.6, 1.0), ('МЕРЕЖ', 5.7, 0.6), ('ЦІНА, ₴ · МІН.–МАКС.', 6.4, 1.6), ('МЕДІАНА ЦІНИ', 8.0, 1.2)]
     ny = sum(len(p) for _, p in tabs)
-    rh = min(0.42, 4.5 / (ny + 1.3 * len(tabs)))
+    rh = min(0.5, 3.6 / (ny + 1.3 * len(tabs)))
     y = 1.78
     pos = {}
     for sg, part in tabs:
@@ -296,73 +302,53 @@ def popular_packs(deck, sgs, headline, eyebrow, note=None):
             text(s, x0 + 4.6, y, 1.0, rh, '%d · %d' % (p['n'], p['brands']), size=8, color=NAVY, anchor='m')
             text(s, x0 + 5.7, y, 0.6, rh, str(p['chains']), size=8, color=NAVY, anchor='m')
             text(s, x0 + 6.4, y, 1.6, rh, '%s ₴' % rng(p['pmin'], p['pmax']), size=8, color=MUTED, anchor='m')
-            text(s, x0 + 8.1, y, 0.7, rh, '%d ₴' % round(p['pmed']), size=9.2, color=INK, bold=True, anchor='m')
-            text(s, x0 + 8.75, y, 0.6, rh, ('%.1f' % p['per_g']).replace('.', ','), size=8, color=MUTED, anchor='m')
+            text(s, x0 + 8.0, y, 1.2, rh, '%d ₴' % round(p['pmed']), size=11, color=INK, bold=True, anchor='m', align='r')
             y += rh
         y += 0.12
     # column captions under the first band are folded into one caption line at the bottom of the table
-    # price-vs-weight map under the table when there is room
-    if y < 5.4 and len(tabs) == 1:
-        sg, part = tabs[0]
-        col = SEG_COLOR[sg]
-        ty0, ty1 = y + 0.12, 6.95
-        section_tag(s, x0, ty0, 8, 'Співвідношення ціни й ваги · точка = лінійка бренда, розмір = присутність; ромби — наші SKU', color=col)
-        ax, ay, aw, ah = x0 + 0.55, ty0 + 0.34, 8.7, ty1 - ty0 - 0.34 - 0.42
-        ls_ = lines(rows_of(sg))
-        mine = [o for o in OUR if o['seg'] == sg]
-        gmax = max([l['grams'] for l in ls_] + [o['grams'] for o in mine]) * 1.08
-        pcap = max([l['pmed'] for l in ls_ if l['pmed'] < 3.2 * med(l['pmed'] for l in ls_)] + [o['shelf'] for o in mine]) * 1.12
-        X = lambda g: ax + aw * g / gmax
-        Y = lambda p: ay + ah - ah * min(p, pcap) / pcap
-        pstep = next(st for st in (10, 20, 25, 50, 100) if pcap / st <= 5)
-        p = 0
-        while p <= pcap:
-            rect(s, ax, Y(p), aw, 0.008, fill=RULE)
-            text(s, ax - 0.5, Y(p) - 0.09, 0.42, 0.18, '%d' % p, size=6.4, color=MUTED, align='r')
-            p += pstep
-        step = 5 if gmax <= 30 else (10 if gmax <= 80 else 20)
-        g = 0
-        while g <= gmax:
-            text(s, X(g) - 0.3, ay + ah + 0.06, 0.6, 0.16, '%d г' % g, size=6.4, color=MUTED, align='c')
-            g += step
-        # median price-per-gram line
-        mg = med(l['per_g'] for l in ls_)
-        gx = min(gmax, pcap / mg)
-        cn = s.shapes.add_connector(1, Inches(X(0) * K), Inches(Y(0) * K), Inches(X(gx) * K), Inches(Y(mg * gx) * K))
-        cn.line.color.rgb = GREY; cn.line.width = Pt(1.0); cn.line.dash_style = 4
-        text(s, ax + 0.1, ay - 0.02, 4.5, 0.18, 'пунктир — ціна за грам на рівні медіани сегмента (%.1f ₴/г); вище лінії — дорожче за ринок' % mg, size=6.4, color=MUTED)
-        mxl = max(l['listings'] if 'listings' in l else 1 for l in ls_) if ls_ else 1
-        cnt = {}
-        for l in ls_:
-            n_l = len(l['chains']) * l['n']
-            d = 0.1 + 0.16 * (n_l / max(len(x['chains']) * x['n'] for x in ls_)) ** 0.5
-            rect(s, X(l['grams']) - d / 2, Y(l['pmed']) - d / 2, d, d, fill=col, line=WHITE, lw=0.75, radius=0.5)
-        for o in {(o['sup'], o['grams'], round(o['shelf'])): o for o in mine}.values():
-            d = 0.2
-            dm = rect(s, X(o['grams']) - d / 2, Y(o['shelf']) - d / 2, d, d, fill=SUP_COLOR[o['sup']], line=INK, lw=0.9)
-            dm.rotation = 45
-            text(s, X(o['grams']) + 0.14, Y(o['shelf']) - 0.09, 1.0, 0.18, '%d ₴' % round(o['shelf']), size=7, color=SUP_COLOR[o['sup']], bold=True)
+    # what it means for our pack sizes
+    if y < 6.3:
+        notes = []
+        seen_w = set()
+        for o in OUR:
+            if o['seg'] not in sgs or (o['seg'], o['grams']) in seen_w:
+                continue
+            seen_w.add((o['seg'], o['grams']))
+            part = dict(tabs)[o['seg']]
+            exact = [p for p in part if abs(p['grams'] - o['grams']) < 0.05]
+            sup = {'tmk': 'TMK', 'zek': 'ZEK', 'singha': 'Singha', 'thainichi': 'Thai-Nichi'}[o['sup']]
+            if exact:
+                p = exact[0]
+                notes.append('%s %s — такий розмір є на ринку: №%d, %d %% присутності, типова ціна %d ₴.' % (sup, gfmt(o['grams']), p['rank'], round(100 * p['share']), round(p['pmed'])))
+            else:
+                nr = sorted(part, key=lambda p: abs(p['grams'] - o['grams']))[:2]
+                notes.append('%s %s — такого розміру на ринку немає; найближчі: %s.' % (sup, gfmt(o['grams']), ', '.join('%s (№%d, %d %%)' % (gfmt(p['grams']), p['rank'], round(100 * p['share'])) for p in nr)))
+        notes = notes[:6]
+        by = y + 0.1
+        bh = 0.3 + 0.24 * len(notes)
+        rect(s, x0, by, 9.4, bh, fill=rgb('FFF3DC')); rect(s, x0, by, 0.04, bh, fill=GOLD)
+        text(s, x0 + 0.2, by + 0.08, 8, 0.18, 'ЩО ЦЕ ЗНАЧИТЬ ДЛЯ НАШИХ РОЗМІРІВ', size=7, color=AMBER, bold=True, spc=0.2)
+        for k, t_ in enumerate(notes):
+            text(s, x0 + 0.2, by + 0.3 + k * 0.24, 9.0, 0.22, t_, size=8, color=INK)
     # right: ours
     ours = collections.OrderedDict()
     for o in OUR:
         if o['seg'] in sgs:
             ours.setdefault((o['sup'], o['grams'], round(o['shelf'])), []).append(o)
     px = 10.2
-    section_tag(s, px, 1.78, 2.5, 'Наші SKU проти ходової упаковки', color=AMBER)
+    section_tag(s, px, 1.78, 2.5, 'Наша полиця проти ринку', color=AMBER)
     ch = min(0.98, 5.0 / max(1, len(ours)))
     yy = 2.12
     for (sid, g, sh), os_ in ours.items():
         o = os_[0]
         sg = o['seg']
         part = dict(tabs)[sg]
-        near = [p for p in part if 0.6 * g <= p['grams'] <= 1.7 * g] or [min(part, key=lambda p: abs(p['grams'] - g))]
-        ref = max(near, key=lambda p: p['listings'])
+        bk = D.basket(o)
+        diff = o['shelf'] - bk['pmed']
         rect(s, px, yy, 2.52, ch - 0.08, fill=PANEL); rect(s, px, yy, 0.05, ch - 0.08, fill=SUP_COLOR[sid])
-        nm = O_clean(o)
-        text(s, px + 0.14, yy + 0.04, 2.3, 0.2, '%s · %s' % (nm, gfmt(g)) + ('  ×%d' % len(os_) if len(os_) > 1 else ''), size=7.4, color=INK, bold=True)
-        d = round((o['shelf'] / ref['pmed'] - 1) * 100)
-        text(s, px + 0.14, yy + 0.25, 2.3, 0.2, '%d ₴ · %s ₴/г' % (round(o['shelf']), ('%.1f' % o['per_g']).replace('.', ',')), size=8.6, color=SUP_COLOR[sid], bold=True)
-        text(s, px + 0.14, yy + 0.47, 2.3, ch - 0.55, 'ходова поруч: %s (№%d), %d ₴ → %+d %%' % (gfmt(ref['grams']), ref['rank'], round(ref['pmed']), d), size=7, color=MUTED)
+        text(s, px + 0.14, yy + 0.04, 2.3, 0.2, '%s · %s' % (O_clean(o), gfmt(g)) + ('  ×%d' % len(os_) if len(os_) > 1 else ''), size=7.4, color=INK, bold=True)
+        text(s, px + 0.14, yy + 0.25, 2.3, 0.2, 'наша полиця %d ₴' % round(o['shelf']), size=8.6, color=SUP_COLOR[sid], bold=True)
+        text(s, px + 0.14, yy + 0.47, 2.3, ch - 0.55, 'ринок поруч: %d поз., типова %d ₴ → наша %s на %d ₴' % (bk['n'], round(bk['pmed']), 'вища' if diff > 0 else 'нижча', abs(round(diff))), size=7, color=MUTED)
         yy += ch
     src_note(s)
     return s
