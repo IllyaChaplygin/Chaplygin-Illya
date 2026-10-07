@@ -12,6 +12,7 @@ from md import Deck, text, rect, caps, kpi, section_tag, footnote, NAVY, AMBER, 
 import slides_market as M  # noqa: E402
 import slides_our as O  # noqa: E402
 import slides_ext as X  # noqa: E402
+import fix_supplier_prices as FX  # noqa: E402
 from mdata import SEGS, rows_of, lines, med, gfmt, uah, rng, OUR  # noqa: E402
 
 DEFAULT_SRC = '/root/.claude/uploads/c53f34b4-ae43-52db-aeb2-01bdcda48cc3/8a56c5c7-Snacks_Presentation_Final..pptx'
@@ -103,9 +104,13 @@ def media_hashes(path):
         return {n: hashlib.md5(z.read(n)).hexdigest() for n in z.namelist() if n.startswith('ppt/media/')}
 
 
-def slide_xml(path, n):
+def slide_xml(path, n, strip_text=False):
     with zipfile.ZipFile(path) as z:
-        return etree.tostring(etree.fromstring(z.read('ppt/slides/slide%d.xml' % n)), method='c14n')
+        root = etree.fromstring(z.read('ppt/slides/slide%d.xml' % n))
+    if strip_text:
+        for r in list(root.iter('{http://schemas.openxmlformats.org/drawingml/2006/main}r')):
+            r.getparent().remove(r)
+    return etree.tostring(root, method='c14n')
 
 
 def build(prs):
@@ -226,15 +231,25 @@ def standalone(out=os.path.join(HERE, '..', '..', 'Snacks_Market_Research_Final.
 def main(src=DEFAULT_SRC, out=DEFAULT_OUT):
     prs = Presentation(src)
     n0 = len(prs.slides)
+    # supplier slides 3-16: make every cost figure equal to the final SelfCost (text only)
+    changed = FX.fix(prs)
+    fixed_only = os.path.join(HERE, '..', '..', 'Snacks_Presentation_Final_prices_fixed.pptx')
+    prs.save(fixed_only)
     deck = build(prs)
     prs.save(out)
-    # --- the original slides must be untouched: media byte-identical, slide XML canonically equal
     b, a = media_hashes(src), media_hashes(out)
     assert not (set(b) - set(a)), 'media dropped'
     assert all(a[k] == v for k, v in b.items()), 'media altered'
     for n in range(1, n0 + 1):
-        assert slide_xml(src, n) == slide_xml(out, n), 'slide %d changed' % n
-    print('ok: %d original slides + %d new = %d; %d original media files identical' % (n0, len(prs.slides) - n0, len(prs.slides), len(b)))
+        price = n in FX.SLIDES
+        assert slide_xml(src, n, price) == slide_xml(out, n, price), 'slide %d changed beyond price text' % n
+        assert slide_xml(src, n, price) == slide_xml(fixed_only, n, price)
+    print('ok: %d original slides (%d price cells corrected on slides %s) + %d new = %d; %d original media files identical'
+          % (n0, len(changed), sorted({c[0] for c in changed}), len(prs.slides) - n0, len(prs.slides), len(b)))
+
+
+def standalone_unused():
+    pass
 
 
 if __name__ == '__main__':
