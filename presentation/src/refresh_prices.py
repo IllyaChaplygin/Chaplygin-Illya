@@ -50,8 +50,8 @@ def main(src=DEFAULT_SRC):
             cost = {}
             for start, scen in blocks.items():
                 r = start + i
-                cost[scen] = {'usd': round(ws[USD + str(r)].value, 4),
-                              'uah': round(ws[UAH + str(r)].value, 2),
+                cost[scen] = {'usd': ws[USD + str(r)].value,
+                              'uah': ws[UAH + str(r)].value,
                               'rate': ws[RATE + str(r)].value}
             if cost != item['cost']:
                 changed += 1

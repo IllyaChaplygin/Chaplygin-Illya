@@ -128,7 +128,7 @@ def weight_map(deck):
     tm = [o for o in OUR if 8 <= o['grams'] <= 15]
     y = 6.1
     boxes = [('ДЕ СТОЇТЬ НАШ АСОРТИМЕНТ',
-              'Наші SKU є в усіх п’яти вагових смугах. Найщільніша полиця — до 5 г (%d SKU, %d %%); у смузі 35–60 г — %d позицій ринку й 10 наших SKU (Singha, Thai-Nichi, ZEK).' % (n5[0], round(100 * n5[0] / total), n35[0]), NAVY),
+              'Наші SKU є в усіх п’яти вагових смугах. Найщільніша полиця — до 5 г (%d SKU, %d %%); у смузі 35–60 г — %d позицій ринку й %d наших SKU (Singha, Thai-Nichi, ZEK).' % (n5[0], round(100 * n5[0] / total), n35[0], len([o for o in OUR if 31 <= o['grams'] < 61])), NAVY),
              ('ЦІНА ЗРОСТАЄ З ВАГОЮ',
               'Типова упаковка до 5 г — %d ₴, 8–15 г — %d ₴, 20–30 г — %d ₴, 35–60 г — %d ₴. Наші TMK 10–12 г стоять по %d ₴ — у %s рази вище за типову упаковку своєї смуги (%d ₴).' % (round(n5[1]), round(n8[1]), round(n20[1]), round(n35[1]), round(med(o['shelf'] for o in tm)), ('%.1f' % (med(o['shelf'] for o in tm) / n8[1])).replace('.', ','), round(n8[1])), AMBER)]
     for k, (ttl, body, col) in enumerate(boxes):
@@ -601,7 +601,10 @@ def scenarios(deck):
             if hit: rect(s, 0.62 + 7.5 + k * 1.15 + 0.1, y + 0.03, 0.95, rh - 0.06, fill=tint(GOLD, 0.35))
             text(s, 0.62 + 7.5 + k * 1.15, y, 1.05, rh, '%d ₴' % round(r['shelf_uah']), size=8.2, color=INK, bold=hit, anchor='m', align='r')
     ly = top + 0.34 + rh * len(uniq) + 0.1
-    text(s, 0.62, ly, 12.1, 0.5, 'Для порівняння: у файлі Retail + Bulk собівартість того ж товару в 40′ нижча — Singha Original 42 г: 50,3 ₴ → полиця %d ₴; Thai-Nichi Original 50 г: 40,3 ₴ → %d ₴ (у таблиці Retail: 54,7 ₴ і 42,5 ₴). Для презентації взято таблицю Retail, як у каталозі постачальників.' % (round(50.26 / (SSP / 100) * MUP), round(40.27 / (SSP / 100) * MUP)), size=7.6, color=MUTED)
+    rb = lambda sh, k: D.DATA[sh][0]['cost'][k]['uah']
+    sk_b, sk_r = rb('SINGHA KAMEDA - Retail+Bulk', "40'"), rb('SINGHA KAMEDA - Retail', "40'")
+    tn_b, tn_r = rb('Thai-Nichi - Retail+Bulk', "40'"), rb('Thai-Nichi - Retail', "40'")
+    text(s, 0.62, ly, 12.1, 0.5, 'Для порівняння: у файлі Retail + Bulk собівартість того ж товару в 40′ нижча — Singha Original 42 г: %s ₴ → полиця %d ₴; Thai-Nichi Original 50 г: %s ₴ → %d ₴ (у таблиці Retail: %s ₴ і %s ₴). Для презентації взято таблицю Retail, як у каталозі постачальників.' % (fnum(sk_b, 1), round(sk_b / (SSP / 100) * MUP), fnum(tn_b, 1), round(tn_b / (SSP / 100) * MUP), fnum(sk_r, 1), fnum(tn_r, 1)), size=7.6, color=MUTED)
     footnote(s, 'Self-Cost_Snacks: «ИТОГО С/С, UAH ед. товара»; собівартість у таблиці = $ × 45. Ціна мережі = СС ÷ %s; полиця = ціна мережі × 1,40.' % ('%.2f' % (SSP / 100)).replace('.', ','))
     return s
 
@@ -633,5 +636,5 @@ def sensitivity(deck):
             if bg is not None:
                 rect(s, X0 + k * STEP + 0.02, y + 0.03, W, rh - 0.06, fill=bg)
             text(s, X0 + k * STEP, y, W - 0.1, rh, '%d ₴' % round(v), size=8.2, color=INK, bold=(m == str(MAR)), anchor='m', align='r')
-    footnote(s, 'Близькі за вагою позиції — той самий сегмент, вага ×0,5–×2 від нашої. Повна фінмодель з усіма сценаріями — SNACKS_FINMODEL_ALL_MARGINS.xlsx.')
+    footnote(s, 'Близькі за вагою позиції — той самий сегмент, вага ×0,5–×2 від нашої. Excel SNACKS_FINMODEL_ALL_MARGINS.xlsx: базова маржа в клітинці D5 — 35 %%, значення при 30 %% — блок «МАРЖА 30 %%» (колонка U).')
     return s

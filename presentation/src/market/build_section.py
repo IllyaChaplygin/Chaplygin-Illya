@@ -76,7 +76,7 @@ def conclusions(deck):
             'Thai-Nichi 50 / 55 г — %d / %d ₴, Singha 42 г — %d ₴ проти Want Want 60 г — %d ₴.' % (round(tn50['shelf']), round(tn55['shelf']), round(sk['shelf']), round(ww60['pmed']))]),
         ('ЩО З ЦИМ РОБИТИ', GREEN, [
             'ZEK: темпура й топінг мають найчистіше позиціонування — ціна в коридорі ринку, прямий конкурент один.',
-            'TMK: ROLL і DOUBLE можна виводити; SEAWEED / MINI 10–12 г перерахувати — навіть при марже 15 % полиця ~81–82 ₴ (див. чутливість).',
+            'TMK: ROLL і DOUBLE можна виводити; SEAWEED / MINI 10–12 г перерахувати — навіть при марже 15 %% полиця %d–%d ₴ (див. чутливість).' % (min(round(r['shelf_by_margin']['0.15']) for r in D.PM['sensitivity'] if r['title'].startswith(('Wow SEAWEED', 'Wow MINI'))), max(round(r['shelf_by_margin']['0.15']) for r in D.PM['sensitivity'] if r['title'].startswith(('Wow SEAWEED', 'Wow MINI')))),
             'Thai-Nichi 50 г (%d ₴) — нижче Want Want (%d ₴); Thai-Nichi 55 г (%d ₴) і Singha (%d ₴) — вище: шукати дешевший контейнер або знижувати маржу.' % (round(tn50['shelf']), round(ww60['pmed']), round(tn55['shelf']), round(sk['shelf'])),
             'Для всіх: перед замовленням підтвердити ціну на живій полиці й окремо в азійських магазинах.']),
         ('ОБМЕЖЕННЯ ЗРІЗУ', MUTED, [
@@ -213,6 +213,16 @@ def build(prs):
     return deck
 
 
+def standalone(out=os.path.join(HERE, '..', '..', 'Snacks_Market_Research_Final.pptx')):
+    """The market study on its own (no supplier slides): same slides, same page order, numbered from 1."""
+    from pptx.util import Inches
+    prs = Presentation()
+    prs.slide_width, prs.slide_height = Inches(10), Inches(5.625)
+    build(prs)
+    prs.save(out)
+    print('standalone saved: %d slides' % len(prs.slides))
+
+
 def main(src=DEFAULT_SRC, out=DEFAULT_OUT):
     prs = Presentation(src)
     n0 = len(prs.slides)
@@ -228,4 +238,7 @@ def main(src=DEFAULT_SRC, out=DEFAULT_OUT):
 
 
 if __name__ == '__main__':
-    main(*sys.argv[1:3])
+    if len(sys.argv) > 1 and sys.argv[1] == 'standalone':
+        standalone()
+    else:
+        main(*sys.argv[1:3])
