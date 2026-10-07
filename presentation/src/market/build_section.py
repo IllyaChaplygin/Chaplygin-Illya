@@ -192,10 +192,10 @@ def build(prs):
         an = D.analog(o)
         d = o['shelf'] - an['pmed']
         return '%s ₴ проти %s %s — %s %d ₴ (%+d %%)' % (round(o['shelf']), an['brand'], gfmt(an['grams']) + ' ' + str(round(an['pmed'])), 'вище на' if d > 0 else 'нижче на', abs(round(d)), round(d / an['pmed'] * 100))
-    O.stand(deck, ['mini'], 'Хто з ким стоїть · міні-пакет', 'Де ми стоїмо: міні-пакет 4–5 г', 20, 100, 20,
-            sub='TMK ROLL 2,5 г — %d ₴, DOUBLE ROLL 5 г — %d ₴. Найходовіша упаковка ринку — 4,5 г, типова ціна %d ₴.' % (round(roll['shelf']), round(dbl['shelf']), round(Ln('mini', 'Akura', 4.5)['pmed'])),
-            takeaways=[('ROLL 2,5 Г', 'ROLL 2,5 г — полиця %d ₴, дешевше за %d %% позицій сегмента. Аналог за вагою — Norris Рол 3 г: 30–32 ₴.' % (round(roll['shelf']), 100 - below(roll['shelf'], 'mini')), NAVY),
-                       ('DOUBLE ROLL 5 Г', 'DOUBLE ROLL 5 г — полиця %d ₴, дорожче за %d %% позицій; вище лише Kimnori (77–98 ₴) і Clearspring (84–89 ₴). Ходова упаковка 4,5 г — %s.' % (round(dbl['shelf']), below(dbl['shelf'], 'mini'), P(Ln('mini', 'Akura', 4.5)['pmed'])), AMBER)])
+    O.stand(deck, ['mini', 'chips'], 'Хто з ким стоїть · TMK, пакети 2,5–12 г', 'Де ми стоїмо: TMK — від міні-пакета 2,5 г до 12 г', 20, 140, 20,
+            ours_filter=lambda o: o['sup'] == 'tmk', comp_filter=lambda l: l['grams'] <= 15.5, seg_comp=['mini', 'chips'],
+            sub='TMK на ринку: ROLL 2,5 г — %d ₴, DOUBLE ROLL 5 г — %d ₴, MINI 10 г — %d ₴, SEAWEED 12 г — %d ₴. Поруч — усі конкуренти до 15 г: хто на полицях, скільки позицій, типова ціна й у яких мережах стоїть (найходовіша упаковка ринку — 4,5 г, типова ціна %d ₴).' % (round(roll['shelf']), round(dbl['shelf']), round(O1('WOW MINI - Original')['shelf']), round(O1('WOW SEAWEED - Original')['shelf']), round(Ln('mini', 'Akura', 4.5)['pmed'])),
+            takeaways=None)
     sw, mn, sd = O1('WOW SEAWEED - Original'), O1('WOW MINI - Original'), O1('SANDWICH SEAWEED - Sesame')
     n25 = Ln('chips', 'Norris', 25.0); h25 = Ln('chips', 'Hokkaido Club', 25.0); os40 = Ln('chips', 'Ocean Snack', 40.0)
     O.stand(deck, ['chips'], 'Хто з ким стоїть · чипси та сендвічі', 'Де ми стоїмо: чипси та сендвічі', 0, 160, 40,

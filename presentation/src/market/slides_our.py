@@ -427,23 +427,40 @@ def shelf_table(deck, sids, market_cards=None):
 
 
 # ======================================================== who stands with whom
-def stand(deck, seg_list, eyebrow, title, lo, hi, step, ours_filter=None, sub=None, takeaways=None):
+def stand(deck, seg_list, eyebrow, title, lo, hi, step, ours_filter=None, sub=None, takeaways=None, comp_filter=None, seg_comp=None):
     s = deck.slide(eyebrow, title)
     mk = []
-    for sg in seg_list:
+    comp = collections.OrderedDict()
+    for sg in (seg_comp or seg_list):
         for l in lines(rows_of(sg)):
-            mk.append(dict(name='%s · %s' % (l['brand'], gfmt(l['grams'])), lo=l['pmin'], hi=l['pmax'], med=l['pmed'], n=l['n'], seg=sg, ours=False, chains=l['chains']))
+            if comp_filter and not comp_filter(l):
+                continue
+            comp.setdefault(l['brand'], []).append((sg, l))
+    for brand, ll in comp.items():
+        ll.sort(key=lambda t: t[1]['grams'])
+        groups = []
+        for sg, l in ll:                              # same brand, weights within 0.6 g -> one row
+            if groups and abs(l['grams'] - groups[-1][-1][1]['grams']) <= 0.6:
+                groups[-1].append((sg, l))
+            else:
+                groups.append([(sg, l)])
+        for grp in groups:
+            gs = [l['grams'] for _, l in grp]
+            gtxt = ('%s' % ('%g' % min(gs)).replace('.', ',')) + (('–%s' % ('%g' % max(gs)).replace('.', ',')) if max(gs) != min(gs) else '') + ' г'
+            ch = sorted({c for _, l in grp for c in l['chains']}, key=lambda c: (-(c in NATIONAL), CHAIN[c]))
+            mk.append(dict(name='%s · %s' % (grp[0][1]['brand'], gtxt), gtxt=gtxt, lo=min(l['pmin'] for _, l in grp), hi=max(l['pmax'] for _, l in grp),
+                           med=med(l['pmed'] for _, l in grp), n=sum(l['n'] for _, l in grp), seg=grp[0][0], ours=False, chains=ch))
     og = collections.OrderedDict()
     for o in OUR:
         if o['seg'] in seg_list and (ours_filter is None or ours_filter(o)):
-            og.setdefault((o['sup'], o['grams'], round(o['shelf'])), []).append(o)
-    for (sid, g, sh), os_ in og.items():
-        o = os_[0]
-        base = clean_title(o)
-        for flv in (' Original', ' Corn', ' Chicken Floss', ' Vegetables', ' Sesame', ' Meat Floss', ' Hot Spicy', ' Spicy Squid', ' Squid', ' Spicy', ' Wasabi', ' Mala Crawfish', ' Mala', ' Chicken'):
-            base = base.replace(flv, '')
-        mk.append(dict(name='НАШ · %s · %s' % ({'tmk': 'TMK', 'zek': 'ZEK', 'singha': 'Singha', 'thainichi': 'Thai-Nichi'}[sid], base.replace('Wow ', '').replace('Norimaki', 'Norimaki')),
-                       lo=sh, hi=sh, med=sh, n=len(os_), seg=seg_list[0], ours=True, sid=sid, grams=g))
+            base = clean_title(o)
+            for flv in (' Original', ' Corn', ' Chicken Floss', ' Vegetables', ' Sesame', ' Meat Floss', ' Hot Spicy', ' Spicy Squid', ' Squid', ' Spicy', ' Wasabi', ' Mala Crawfish', ' Mala', ' Chicken'):
+                base = base.replace(flv, '')
+            og.setdefault((o['sup'], base, o['grams'], round(o['shelf'])), []).append(o)
+    for (sid, base, g, sh), os_ in og.items():
+        sup = {'tmk': 'TMK', 'zek': 'ZEK', 'singha': 'Singha', 'thainichi': 'Thai-Nichi'}[sid]
+        fl = ' ×%d' % len(os_) if len(os_) > 1 else ''
+        mk.append(dict(name='МИ · %s %s%s' % (sup, base.replace('Wow ', 'WOW '), fl), gtxt=gfmt(g), lo=sh, hi=sh, med=sh, n=len(os_), seg=seg_list[0], ours=True, sid=sid, grams=g, chains=[]))
     mk.sort(key=lambda m: m['med'])
     ours_prices = [m['med'] for m in mk if m['ours']]
     clo, chi = min(ours_prices) * 0.8, max(ours_prices) * 1.2
@@ -455,11 +472,11 @@ def stand(deck, seg_list, eyebrow, title, lo, hi, step, ours_filter=None, sub=No
     top = 1.98 if compact else 1.74
     cap = 0.285 if n > 10 else 0.42
     rh = min(cap, (6.62 - top - 0.34) / n) if not takeaways else min(cap, (6.95 - top - 0.34 - 1.65) / n)
-    tx, tw = 6.0, 6.2
+    tx, tw = 7.5, 5.0
     px = lambda v: tx + tw * (min(max(v, lo), hi) - lo) / (hi - lo)
     rect(s, 0.62, top - 0.04, 12.1, 0.3, fill=SEG_COLOR[seg_list[0]])
-    for t, dx, w, al in [('ЛІНІЙКА · ВІД ДЕШЕВИХ ДО ДОРОГИХ', 0.1, 4.0, 'l'), ('ВАГА', 3.5, 0.8, 'l'), ('SKU', 4.6, 0.5, 'l')]:
-        text(s, 0.62 + dx, top, w, 0.22, t, size=6.4, color=WHITE, bold=True, align=al, anchor='m')
+    for t, dx, w, al in [('ЛІНІЙКА · ВІД ДЕШЕВИХ ДО ДОРОГИХ', 0.1, 3.0, 'l'), ('ВАГА', 2.95, 0.7, 'l'), ('SKU', 3.7, 0.4, 'l'), ('ТИПОВА ЦІНА', 4.05, 0.8, 'l'), ('ДЕ СТОЇТЬ · МЕРЕЖІ', 4.95, 2.0, 'l')]:
+        text(s, 0.62 + dx, top, w, 0.22, t, size=6.2, color=WHITE, bold=True, align=al, anchor='m')
     rect(s, px(clo), top + 0.26, px(chi) - px(clo), rh * n + 0.05, fill=rgb('FFF3DC'))
     v = lo
     while v <= hi + 1e-9:
@@ -468,22 +485,26 @@ def stand(deck, seg_list, eyebrow, title, lo, hi, step, ours_filter=None, sub=No
         v += step
     for i, m in enumerate(mk):
         y = top + 0.3 + i * rh
-        if m['ours']:
-            rect(s, 0.62, y, 12.1, rh, fill=rgb('FFEBC2'))
         c = SUP_COLOR[m['sid']] if m['ours'] else SEG_COLOR[m['seg']]
-        text(s, 0.7, y, 3.9, rh, m['name'], size=7.8, color=INK, bold=True, anchor='m')
-        text(s, 4.2, y, 0.8, rh, gfmt(m['grams']) if m['ours'] else m['name'].split(' · ')[-1], size=7.2, color=MUTED, anchor='m')
-        text(s, 5.2, y, 0.5, rh, str(m['n']), size=7.4, color=MUTED, anchor='m')
+        if m['ours']:
+            rect(s, 0.62, y, 12.1, rh, fill=rgb('FFEBC2')); rect(s, 0.62, y, 0.07, rh, fill=c)
+        text(s, 0.78, y, 2.2, rh, m['name'] if not m['ours'] else m['name'], size=7.8 if not m['ours'] else 8.2, color=INK, bold=True, anchor='m')
+        text(s, 0.62 + 2.95, y, 0.8, rh, m['gtxt'], size=7.2, color=MUTED, anchor='m')
+        text(s, 0.62 + 3.7, y, 0.4, rh, str(m['n']), size=7.4, color=MUTED, anchor='m')
+        text(s, 0.62 + 4.05, y, 0.85, rh, '%d ₴' % round(m['med']), size=8.4, color=(c if m['ours'] else INK), bold=True, anchor='m')
+        where = 'наша полиця' if m['ours'] else (', '.join(CHAIN[x] for x in m['chains'][:2]) + (' +%d' % (len(m['chains']) - 2) if len(m['chains']) > 2 else ''))
+        text(s, 0.62 + 4.95, y, 2.0, rh, where, size=6.8, color=(c if m['ours'] else MUTED), bold=m['ours'], anchor='m')
         cy = y + rh / 2
         if m['hi'] > m['lo']:
             rect(s, px(m['lo']), cy - 0.025, px(m['hi']) - px(m['lo']), 0.05, fill=tint(c, 0.4))
             rect(s, px(m['lo']) - 0.04, cy - 0.04, 0.08, 0.08, fill=WHITE, line=c, lw=0.75, radius=0.5)
             rect(s, px(m['hi']) - 0.04, cy - 0.04, 0.08, 0.08, fill=WHITE, line=c, lw=0.75, radius=0.5)
-        d = 0.19 if m['ours'] else 0.14
+        d = 0.24 if m['ours'] else 0.14
         rect(s, px(m['med']) - d / 2, cy - d / 2, d, d, fill=c, line=(INK if m['ours'] else None), lw=1.0, radius=0.5)
         lab = ('%d' % round(m['med'])) if m['hi'] <= m['lo'] else '%d–%d' % (round(m['lo']), round(m['hi']))
         out = (' →' if m['hi'] > hi else '')
-        text(s, px(m['hi']) + 0.14 if px(m['hi']) < tx + tw - 1.0 else px(m['lo']) - 1.15, y, 1.0, rh, lab + out, size=7.6, color=INK, bold=True, anchor='m', align='l' if px(m['hi']) < tx + tw - 1.0 else 'r')
+        right = px(m['hi']) < tx + tw - 1.0
+        text(s, px(m['hi']) + 0.16 if right else px(m['lo']) - 1.15, y, 1.0, rh, lab + out, size=7.6, color=INK, bold=True, anchor='m', align='l' if right else 'r')
     ey = top + 0.34 + rh * n + 0.22
     text(s, 0.62, ey, 12.1, 0.2, 'Грн за упаковку · велика точка — медіана, малі — межі діапазону між мережами; золота зона — наша полиця ±20 %', size=7, color=MUTED)
     if takeaways:
