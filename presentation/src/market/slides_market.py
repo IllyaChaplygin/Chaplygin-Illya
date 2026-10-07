@@ -177,26 +177,35 @@ def seg_overview(deck, sg, headline, note=None, bins=None, rep_n=6):
 
 # ------------------------------------------------------------ catalogue
 def line_card(s, x, y, w, h, l, col):
+    ph = h - 1.52                                 # photo height grows with the card
     rect(s, x, y, w, h, fill=PANEL); rect(s, x, y, w, 0.04, fill=col)
-    rect(s, x + 0.08, y + 0.12, w - 0.16, 1.32, fill=WHITE)
-    picture(s, os.path.join(HERE, l['img']), x + 0.14, y + 0.15, w - 0.28, 1.26)
-    text(s, x + 0.1, y + 1.52, w - 0.2, 0.2, l['brand'], size=8.8, color=INK, bold=True)
+    rect(s, x + 0.08, y + 0.12, w - 0.16, ph + 0.06, fill=WHITE)
+    picture(s, os.path.join(HERE, l['img']), x + 0.14, y + 0.15, w - 0.28, ph)
+    b = y + ph + 0.26
+    text(s, x + 0.1, b, w - 0.2, 0.2, l['brand'], size=8.8 if w < 2.5 else 10, color=INK, bold=True)
     fl = ', '.join(f.lower() if i else f for i, f in enumerate(l['flavors'][:3]))
     if len(fl) > 52: fl = fl[:50].rsplit(',', 1)[0]
     if l['n'] > len(fl.split(',')): fl += ' +%d' % (l['n'] - len(fl.split(',')))
-    text(s, x + 0.1, y + 1.72, w - 0.2, 0.34, fl, size=7, color=MUTED)
-    text(s, x + 0.1, y + 2.07, w - 0.2, 0.28, uah(l['pmin']).replace(' ₴', '') + ('' if round(l['pmin']) == round(l['pmax']) else '–%d' % round(l['pmax'])) + ' ₴', size=13, color=INK, bold=True)
-    text(s, x + 0.1, y + 2.36, w - 0.2, 0.18, '%s · %d %s' % (gfmt(l['grams']), l['n'], 'смак' if l['n'] == 1 else ('смаки' if l['n'] < 5 else 'смаків')), size=7.2, color=MUTED)
-    text(s, x + 0.1, y + 2.54, w - 0.2, 0.2, ' · '.join(CHAIN[c] for c in l['chains'][:2]) + ('' if len(l['chains']) <= 2 else ' +%d' % (len(l['chains']) - 2)), size=6.8, color=MUTED)
+    text(s, x + 0.1, b + 0.2, w - 0.2, 0.34, fl, size=7 if w < 2.5 else 8, color=MUTED)
+    text(s, x + 0.1, b + 0.55, w - 0.2, 0.28, uah(l['pmin']).replace(' ₴', '') + ('' if round(l['pmin']) == round(l['pmax']) else '–%d' % round(l['pmax'])) + ' ₴', size=13 if w < 2.5 else 15, color=INK, bold=True)
+    text(s, x + 0.1, b + 0.84, w - 0.2, 0.18, '%s · %d %s' % (gfmt(l['grams']), l['n'], 'смак' if l['n'] == 1 else ('смаки' if l['n'] < 5 else 'смаків')), size=7.2 if w < 2.5 else 8, color=MUTED)
+    text(s, x + 0.1, b + 1.02, w - 0.2, 0.2, ' · '.join(CHAIN[c] for c in l['chains'][:2]) + ('' if len(l['chains']) <= 2 else ' +%d' % (len(l['chains']) - 2)), size=6.8 if w < 2.5 else 7.6, color=MUTED)
 
 
 def catalog(deck, items, eyebrow, title):
-    """items: list of (line, colour) — 12 per slide, in 2 rows of 6."""
+    """Cards fill the page: few cards -> bigger cards, never a half-empty slide."""
     s = deck.slide(eyebrow, title)
     sub(s, 'Картка = лінійка бренда (бренд + вага пакета). Ціна — діапазон по мережах, де лінійка знайдена; смаки з однаковою упаковкою згруповано, кількість смаків — під ціною.', y=1.34, size=8.4)
-    w, h = 1.92, 2.78
+    n = len(items)
+    rows = 1 if n <= 6 else 2
+    cols = (n + rows - 1) // rows
+    gap = 0.12
+    w = min(3.0, (12.1 - gap * (cols - 1)) / cols)
+    h = min(4.9 if rows == 1 else 2.78, (5.45 - gap * (rows - 1)) / rows) if rows == 1 else 2.78
+    total_w = cols * w + (cols - 1) * gap
+    x0 = 0.62 + (12.1 - total_w) / 2
     for i, (l, col) in enumerate(items):
-        x = 0.62 + (i % 6) * (w + 0.12); y = 1.68 + (i // 6) * (h + 0.06)
+        x = x0 + (i % cols) * (w + gap); y = 1.72 + (i // cols) * (h + 0.06)
         line_card(s, x, y, w, h, l, col)
     return s
 
@@ -212,7 +221,7 @@ def where_sold(deck, sgs, headline, eyebrow):
     rows = [c for c in order if cnt.get(c)]
     caps(s, 0.62, 1.95, 3, 'Мережа', size=6.6); caps(s, 2.15, 1.95, 3, 'Позицій', size=6.6); caps(s, 4.2, 1.95, 3, 'Бренди · ціна упаковки, ₴', size=6.6)
     top, avail = 2.25, 4.75
-    rh = min(0.78, avail / len(rows))
+    rh = min(1.05, avail / len(rows))
     mxv = max(cnt.values())
     for i, c in enumerate(rows):
         y = top + i * rh
@@ -288,7 +297,7 @@ def popular_packs(deck, sgs, headline, eyebrow, note=None):
     x0 = 0.62
     heads = [('№', 0, 0.35), ('ВАГА', 0.4, 0.9), ('ПРИСУТНІСТЬ · ПОЗИЦІЙ × МЕРЕЖ', 1.4, 3.1), ('SKU · БРЕНДІВ', 4.6, 1.0), ('МЕРЕЖ', 5.7, 0.6), ('ЦІНА, ₴ · МІН.–МАКС.', 6.4, 1.6), ('МЕДІАНА ЦІНИ', 8.0, 1.2)]
     ny = sum(len(p) for _, p in tabs)
-    rh = min(0.8, 4.9 / (ny + 1.3 * len(tabs)))
+    rh = min(1.0, 4.9 / (ny + 1.3 * len(tabs)))
     y = 1.85
     pos = {}
     for sg, part in tabs:

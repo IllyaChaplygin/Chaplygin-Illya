@@ -43,7 +43,11 @@ def lines(seg_rows):
     for (brand, grams), rs in g.items():
         chains = sorted({c for r in rs for c in r['chains']}, key=lambda c: (-(c in NATIONAL), CHAIN[c]))
         prices = [r['pmed'] for r in rs]
-        out.append(dict(brand=brand, grams=grams, n=len(rs), flavors=[r['name'] for r in rs],
+        cpl = {}
+        for r in rs:
+            for ch, pv in r['chain_prices'].items():
+                cpl.setdefault(ch, []).append(pv)
+        out.append(dict(chain_price={ch: med(v) for ch, v in cpl.items()}, brand=brand, grams=grams, n=len(rs), flavors=[r['name'] for r in rs],
                         pmin=min(r['pmin'] for r in rs), pmax=max(r['pmax'] for r in rs), pmed=med(prices),
                         per_g=med(prices) / grams, chains=chains, img=rs[0]['img'], seg=rs[0]['seg']))
     out.sort(key=lambda l: l['pmed'])

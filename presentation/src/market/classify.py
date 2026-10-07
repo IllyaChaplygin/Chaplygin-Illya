@@ -113,7 +113,11 @@ def main():
                     open(path, 'wb').write(urllib.request.urlopen(r, timeout=30).read())
                 except Exception as e:
                     path = None
-        rows.append(dict(ean=ean, brand=brand, title=t, name=short_title(t, brand), grams=g, seg=seg,
+        cp = {}
+        for p_ in v:
+            if p_.get('price'):
+                cp[p_['chain']] = min(cp.get(p_['chain'], 1e9), p_['price'] / 100)
+        rows.append(dict(chain_prices=cp, ean=ean, brand=brand, title=t, name=short_title(t, brand), grams=g, seg=seg,
                          pmin=prices[0], pmax=prices[-1], pmed=statistics.median(prices), chains=chains,
                          n_chains=len(chains), per_g=statistics.median(prices) / g,
                          img=os.path.relpath(path, HERE) if path else None))

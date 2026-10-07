@@ -29,8 +29,9 @@ def catalog_slides(deck, sgs, colors, eyebrow, title_base, per=12):
         for l in lines(rows_of(sg)):
             items.append((l, SEG_COLOR[sg]))
     n = (len(items) + per - 1) // per
+    size = (len(items) + n - 1) // n               # balanced pages: 13 -> 7 + 6, never 12 + 1
     for i in range(n):
-        chunk = items[i * per:(i + 1) * per]
+        chunk = items[i * size:(i + 1) * size]
         lo = min(l['pmin'] for l, _ in chunk); hi = max(l['pmax'] for l, _ in chunk)
         t = '%s: каталог %d з %d — %s ₴' % (title_base, i + 1, n, rng(lo, hi)) if n > 1 else '%s: каталог — %s ₴' % (title_base, rng(lo, hi))
         M.catalog(deck, chunk, eyebrow, t)
@@ -133,6 +134,7 @@ def build(prs):
     M.popular_packs(deck, ['mini'], 'Міні-пакет: %s — найходовіша, %d %% присутності' % (gfmt(pk['grams']), round(100 * pk['share'])), 'Сегмент · Норі-снек у міні-пакеті · популярні упаковки')
     catalog_slides(deck, ['mini'], None, 'Сегмент · Норі-снек у міні-пакеті · %d позицій' % len(rs), 'Міні-пакет')
     M.where_sold(deck, ['mini'], 'Міні-пакет: де продається', 'Сегмент · Норі-снек у міні-пакеті · де продається')
+    O.price_by_chain(deck, ['mini'], 'Міні-пакет: ціна конкурентів у кожній мережі', 'Сегмент · Норі-снек у міні-пакеті · ціни по мережах', must=('Akura',))
     # --- segment 2: chips
     rs = rows_of('chips')
     M.seg_overview(deck, 'chips', 'Чипси та сендвічі 8–40 г: %d позицій, медіана %d ₴' % (len(rs), round(med(r['pmed'] for r in rs))),
@@ -142,6 +144,7 @@ def build(prs):
     M.popular_packs(deck, ['chips'], 'Чипси: %s — найходовіша, %d %% присутності' % (gfmt(pk['grams']), round(100 * pk['share'])), 'Сегмент · Норі-чипси та сендвічі · популярні упаковки')
     catalog_slides(deck, ['chips'], None, 'Сегмент · Норі-чипси та сендвічі · %d позицій' % len(rs), 'Чипси та сендвічі')
     M.where_sold(deck, ['chips'], 'Чипси та сендвічі: де продається', 'Сегмент · Норі-чипси та сендвічі · де продається')
+    O.price_by_chain(deck, ['chips'], 'Чипси: ціна Hokkaido Club і Norris по мережах', 'Сегмент · Норі-чипси та сендвічі · ціни по мережах', must=('Hokkaido Club',))
     # --- segment 3: tempura & topping
     rs = rows_of('tempura')
     M.seg_overview(deck, 'tempura', 'Темпура й топінг: %d позицій, медіана %d ₴' % (len(rs), round(med(r['pmed'] for r in rs))),
@@ -151,6 +154,7 @@ def build(prs):
     M.popular_packs(deck, ['tempura'], 'Темпура й топінг: %s — найходовіша, %d %%' % (gfmt(pk['grams']), round(100 * pk['share'])), 'Сегмент · Темпура й топінг · популярні упаковки')
     catalog_slides(deck, ['tempura'], None, 'Сегмент · Темпура й топінг · %d позицій' % len(rs), 'Темпура й топінг')
     M.where_sold(deck, ['tempura'], 'Темпура й топінг: де продається', 'Сегмент · Темпура й топінг · де продається')
+    O.price_by_chain(deck, ['tempura'], 'Темпура й топінг: ціна конкурентів у кожній мережі', 'Сегмент · Темпура й топінг · ціни по мережах', must=('Tao Kae Noi',))
     # --- segment 4/5: rice
     rs = rows_of('ricecr')
     M.seg_overview(deck, 'ricecr', 'Рисові крекери: %d позицій, медіана %d ₴' % (len(rs), round(med(r['pmed'] for r in rs))),

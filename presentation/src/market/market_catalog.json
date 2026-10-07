@@ -2,6 +2,12 @@
  "date": "2026-10-07",
  "rows": [
   {
+   "chain_prices": {
+    "novus": 32.49,
+    "vostorg": 30.5,
+    "kharkiv": 30.5,
+    "onde": 29.6
+   },
    "ean": "04820265550319",
    "brand": "Norris",
    "title": "Норі Norris рол 3г",
@@ -22,6 +28,9 @@
    "img": "raw/img/04820265550319.jpg"
   },
   {
+   "chain_prices": {
+    "metro": 30.7
+   },
    "ean": "08809151909437",
    "brand": "Metro Chef",
    "title": "Норі снеки Metro Chef традиційні 4,5г",
@@ -39,6 +48,9 @@
    "img": "raw/img/08809151909437.jpg"
   },
   {
+   "chain_prices": {
+    "metro": 30.7
+   },
    "ean": "08809151909444",
    "brand": "Metro Chef",
    "title": "Норі снеки Metro Chef з оливковою олією 4,5г",
@@ -56,6 +68,9 @@
    "img": "raw/img/08809151909444.jpg"
   },
   {
+   "chain_prices": {
+    "metro": 30.7
+   },
    "ean": "08809151909468",
    "brand": "Metro Chef",
    "title": "Норі снеки Metro Chef зі смаком кімчі 4,5г",
@@ -73,6 +88,9 @@
    "img": "raw/img/08809151909468.jpg"
   },
   {
+   "chain_prices": {
+    "metro": 30.7
+   },
    "ean": "08809151909451",
    "brand": "Metro Chef",
    "title": "Норі снеки Metro Chef зі смаком васабі 4,5г",
@@ -90,6 +108,10 @@
    "img": "raw/img/08809151909451.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 29.0,
+    "zaraz": 33.0
+   },
    "ean": "08809094842464",
    "brand": "Ock Dong Ja",
    "title": "Норі снек Ock Dong Ja гострий 4,5г",
@@ -108,6 +130,10 @@
    "img": "raw/img/08809094842464.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 29.0,
+    "zaraz": 33.0
+   },
    "ean": "08809094842105",
    "brand": "Ock Dong Ja",
    "title": "Норі снек Ock Dong Ja з оливковою олією 4,5г",
@@ -126,6 +152,10 @@
    "img": "raw/img/08809094842105.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 29.0,
+    "zaraz": 33.5
+   },
    "ean": "08809094842112",
    "brand": "Ock Dong Ja",
    "title": "Чипси-норі Shin-Ock-Dong-Ja оригінальний смак 4г",
@@ -144,6 +174,11 @@
    "img": "raw/img/08809094842112.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 29.0,
+    "onde": 39.8,
+    "zaraz": 33.0
+   },
    "ean": "08809094842327",
    "brand": "Ock Dong Ja",
    "title": "Норі снек Ock Dong Ja з васабі 4,5г",
@@ -163,6 +198,11 @@
    "img": "raw/img/08809094842327.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 29.0,
+    "onde": 42.3,
+    "zaraz": 33.0
+   },
    "ean": "08809094842921",
    "brand": "Ock Dong Ja",
    "title": "Норі снек Ock Dong Ja смак барбекю 4,5г",
@@ -182,6 +222,11 @@
    "img": "raw/img/08809094842921.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 29.0,
+    "onde": 49.4,
+    "zaraz": 33.5
+   },
    "ean": "08809094842037",
    "brand": "Ock Dong Ja",
    "title": "Чипси норі Ock Dong Ja Чорниця 4г",
@@ -201,6 +246,12 @@
    "img": "raw/img/08809094842037.jpg"
   },
   {
+   "chain_prices": {
+    "vostorg": 33.0,
+    "kharkiv": 33.0,
+    "onde": 41.1,
+    "torba": 35.9
+   },
    "ean": "04820265550333",
    "brand": "Norris",
    "title": "Чипси норі Norris Теріякі 4,5г",
@@ -221,6 +272,15 @@
    "img": "raw/img/04820265550333.jpg"
   },
   {
+   "chain_prices": {
+    "cosmos": 39.1,
+    "vostorg": 33.0,
+    "kharkiv": 33.0,
+    "epicentr": 46.8,
+    "ideal": 36.3,
+    "onde": 39.1,
+    "torba": 36.5
+   },
    "ean": "04820265550180",
    "brand": "Norris",
    "title": "Чипси норі Norris класичні 4,5г",
@@ -244,6 +304,15 @@
    "img": "raw/img/04820265550180.jpg"
   },
   {
+   "chain_prices": {
+    "cosmos": 39.1,
+    "vostorg": 33.0,
+    "kharkiv": 33.0,
+    "epicentr": 43.5,
+    "ideal": 36.3,
+    "onde": 41.1,
+    "torba": 37.9
+   },
    "ean": "04820265550173",
    "brand": "Norris",
    "title": "Чипси норі Norris з васабі 4,5г",
@@ -267,6 +336,10 @@
    "img": "raw/img/04820265550173.jpg"
   },
   {
+   "chain_prices": {
+    "onde": 43.6,
+    "zaraz": 33.0
+   },
    "ean": "08809094848008",
    "brand": "Ock Dong Ja",
    "title": "Норі снек Ock Dong Ja з кунжутною олією 4,5г",
@@ -285,6 +358,9 @@
    "img": "raw/img/08809094848008.jpg"
   },
   {
+   "chain_prices": {
+    "ideal": 39.9
+   },
    "ean": "04820178464475",
    "brand": "Royal Tiger",
    "title": "Норі снек Royal Tiger традиційний 4г",
@@ -302,6 +378,9 @@
    "img": "raw/img/04820178464475.jpg"
   },
   {
+   "chain_prices": {
+    "ideal": 39.9
+   },
    "ean": "04820178464482",
    "brand": "Royal Tiger",
    "title": "Норі снек Royal Tiger зі смаком васабі 4г",
@@ -319,6 +398,15 @@
    "img": "raw/img/04820178464482.jpg"
   },
   {
+   "chain_prices": {
+    "novus": 39.99,
+    "epicentr": 28.8,
+    "auchan": 37.5,
+    "onde": 33.1,
+    "megamarket": 46.5,
+    "ultramarket": 46.5,
+    "zaraz": 46.5
+   },
    "ean": "08809151909239",
    "brand": "Haelove",
    "title": "Норі снек Haelove зі смаком кімчі 4,5г",
@@ -342,6 +430,9 @@
    "img": "raw/img/08809151909239.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 40.0
+   },
    "ean": "08809178815087",
    "brand": "Humanwell",
    "title": "Норі снек Humanwell зелений чай 4г",
@@ -359,6 +450,9 @@
    "img": "raw/img/08809178815087.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 40.1
+   },
    "ean": "08809178818385",
    "brand": "Humanwell",
    "title": "Норі снеки Humanwell гострий кімчі 4г",
@@ -376,6 +470,10 @@
    "img": "raw/img/08809178818385.jpg"
   },
   {
+   "chain_prices": {
+    "vostorg": 41.0,
+    "kharkiv": 41.0
+   },
    "ean": "05907381896565",
    "brand": "Akura",
    "title": "Чипси Akura з норі смак український борщ 4,5г",
@@ -394,6 +492,11 @@
    "img": "raw/img/05907381896565.jpg"
   },
   {
+   "chain_prices": {
+    "tavriav": 41.5,
+    "cosmos": 39.5,
+    "auchan": 42.3
+   },
    "ean": "08809178819610",
    "brand": "Humanwell",
    "title": "Норі снек Humanwell дитячі 4г",
@@ -413,6 +516,10 @@
    "img": "raw/img/08809178819610.jpg"
   },
   {
+   "chain_prices": {
+    "vostorg": 42.0,
+    "kharkiv": 42.0
+   },
    "ean": "05907381896510",
    "brand": "Akura",
    "title": "Чипси норі Akura Том Ям 4,5г",
@@ -431,6 +538,13 @@
    "img": "raw/img/05907381896510.jpg"
   },
   {
+   "chain_prices": {
+    "vostorg": 42.0,
+    "kharkiv": 42.0,
+    "chudomarket": 37.8,
+    "epicentr": 41.8,
+    "torba": 42.5
+   },
    "ean": "04820178464086",
    "brand": "Akura",
    "title": "Норі снек Akura Tрадиційний 4,5г",
@@ -452,6 +566,11 @@
    "img": "raw/img/04820178464086.jpg"
   },
   {
+   "chain_prices": {
+    "vostorg": 42.0,
+    "kharkiv": 42.0,
+    "chudomarket": 37.8
+   },
    "ean": "04820178464604",
    "brand": "Akura",
    "title": "Чипси норі Akura зі смаком теріякі 4,5г",
@@ -471,6 +590,13 @@
    "img": "raw/img/04820178464604.jpg"
   },
   {
+   "chain_prices": {
+    "vostorg": 42.0,
+    "kharkiv": 42.0,
+    "chudomarket": 37.2,
+    "epicentr": 41.8,
+    "torba": 44.5
+   },
    "ean": "04820178464109",
    "brand": "Akura",
    "title": "Норі снек Akura Кімчі 4,5г",
@@ -492,6 +618,12 @@
    "img": "raw/img/04820178464109.jpg"
   },
   {
+   "chain_prices": {
+    "vostorg": 42.0,
+    "kharkiv": 42.0,
+    "epicentr": 41.8,
+    "torba": 42.5
+   },
    "ean": "04820178464093",
    "brand": "Akura",
    "title": "Норі снек Akura Васабі 4,5г",
@@ -512,6 +644,15 @@
    "img": "raw/img/04820178464093.jpg"
   },
   {
+   "chain_prices": {
+    "novus": 39.99,
+    "epicentr": 42.8,
+    "auchan": 37.5,
+    "onde": 33.1,
+    "megamarket": 46.5,
+    "ultramarket": 46.5,
+    "zaraz": 46.5
+   },
    "ean": "08809151900717",
    "brand": "Haelove",
    "title": "Норі снек Haelove традиційний 4,5г",
@@ -535,6 +676,15 @@
    "img": "raw/img/08809151900717.jpg"
   },
   {
+   "chain_prices": {
+    "novus": 39.99,
+    "epicentr": 42.8,
+    "auchan": 37.5,
+    "onde": 33.1,
+    "megamarket": 46.5,
+    "ultramarket": 46.5,
+    "zaraz": 46.5
+   },
    "ean": "08809151909048",
    "brand": "Haelove",
    "title": "Норі снек Haelove зі смаком васабі 4,5г",
@@ -558,6 +708,14 @@
    "img": "raw/img/08809151909048.jpg"
   },
   {
+   "chain_prices": {
+    "novus": 39.99,
+    "epicentr": 42.8,
+    "auchan": 37.5,
+    "megamarket": 46.5,
+    "ultramarket": 46.5,
+    "zaraz": 46.5
+   },
    "ean": "08809151900540",
    "brand": "Haelove",
    "title": "Норі снек Haelove з оливковою олією 4,5г",
@@ -580,6 +738,10 @@
    "img": "raw/img/08809151900540.jpg"
   },
   {
+   "chain_prices": {
+    "cosmos": 44.1,
+    "chudomarket": 47.9
+   },
    "ean": "08936181660790",
    "brand": "Ямчан",
    "title": "Чипси Ямчан Норі Original 4,5г",
@@ -598,6 +760,10 @@
    "img": "raw/img/08936181660790.jpg"
   },
   {
+   "chain_prices": {
+    "cosmos": 44.1,
+    "chudomarket": 47.9
+   },
    "ean": "08936181660806",
    "brand": "Ямчан",
    "title": "Чипси Ямчан Норі Kimchi 4,5г",
@@ -616,6 +782,10 @@
    "img": "raw/img/08936181660806.jpg"
   },
   {
+   "chain_prices": {
+    "cosmos": 44.1,
+    "chudomarket": 47.9
+   },
    "ean": "08936181660820",
    "brand": "Ямчан",
    "title": "Чипси Ямчан Норі Teriyaki 4,5г",
@@ -634,6 +804,10 @@
    "img": "raw/img/08936181660820.jpg"
   },
   {
+   "chain_prices": {
+    "cosmos": 44.1,
+    "chudomarket": 47.9
+   },
    "ean": "08936181660813",
    "brand": "Ямчан",
    "title": "Чипси Ямчан Норі Wasabi 4,5г",
@@ -652,6 +826,9 @@
    "img": "raw/img/08936181660813.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 46.5
+   },
    "ean": "08801005198165",
    "brand": "Sempio",
    "title": "Норі снек Sempio Parae Gim солоний 5г",
@@ -669,6 +846,9 @@
    "img": "raw/img/08801005198165.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 46.5
+   },
    "ean": "08801005197311",
    "brand": "Sempio",
    "title": "Норі снек Sempio Jaerae Gim в прянощах 5г",
@@ -686,6 +866,9 @@
    "img": "raw/img/08801005197311.jpg"
   },
   {
+   "chain_prices": {
+    "chudomarket": 51.4
+   },
    "ean": "00883298617941",
    "brand": "Dong Won",
    "title": "Норі Dong Won Kimmy зі смаком кімчі 2,7г",
@@ -703,6 +886,9 @@
    "img": "raw/img/00883298617941.jpg"
   },
   {
+   "chain_prices": {
+    "chudomarket": 51.4
+   },
    "ean": "00883298617958",
    "brand": "Dong Won",
    "title": "Норі Dong Won Kimmy зі смаком васабі 2,7г",
@@ -720,6 +906,9 @@
    "img": "raw/img/00883298617958.jpg"
   },
   {
+   "chain_prices": {
+    "onde": 51.7
+   },
    "ean": "08801128542524",
    "brand": "Paldo",
    "title": "Снек Paldo Roasted Seaweed норі оригінальний смак 5г",
@@ -737,6 +926,9 @@
    "img": "raw/img/08801128542524.jpg"
   },
   {
+   "chain_prices": {
+    "grono": 52.0
+   },
    "ean": "08801005330176",
    "brand": "Sempio",
    "title": "Норі снек Sempio Jaerae Gim в прянощах 5г",
@@ -754,6 +946,9 @@
    "img": "raw/img/08801005330176.jpg"
   },
   {
+   "chain_prices": {
+    "grono": 52.0
+   },
    "ean": "08801005330183",
    "brand": "Sempio",
    "title": "Норі снек Sempio Parae Gim солоний 5г",
@@ -771,6 +966,12 @@
    "img": "raw/img/08801005330183.jpg"
   },
   {
+   "chain_prices": {
+    "cosmos": 90.4,
+    "auchan": 77.4,
+    "megamarket": 79.5,
+    "ultramarket": 79.5
+   },
    "ean": "08809395750017",
    "brand": "Kimnori",
    "title": "Чипси норі Kwang Kimnori Original 4г",
@@ -791,6 +992,13 @@
    "img": "raw/img/08809395750017.jpg"
   },
   {
+   "chain_prices": {
+    "cosmos": 92.8,
+    "auchan": 77.4,
+    "megamarket": 79.5,
+    "ultramarket": 79.5,
+    "zaraz": 79.5
+   },
    "ean": "08809395750024",
    "brand": "Kimnori",
    "title": "Чипси норі Kimnori Spicy 4г",
@@ -812,6 +1020,12 @@
    "img": "raw/img/08809395750024.jpg"
   },
   {
+   "chain_prices": {
+    "cosmos": 97.5,
+    "auchan": 77.4,
+    "megamarket": 79.5,
+    "ultramarket": 79.5
+   },
    "ean": "08809395750031",
    "brand": "Kimnori",
    "title": "Чипси норі Kimnori Teriyaki 4г",
@@ -832,6 +1046,11 @@
    "img": "raw/img/08809395750031.jpg"
   },
   {
+   "chain_prices": {
+    "megamarket": 84.0,
+    "ultramarket": 84.0,
+    "zaraz": 84.0
+   },
    "ean": "05021554005315",
    "brand": "Clearspring",
    "title": "Чипси Clearspring з морських водоростей чилі органічні 4г",
@@ -851,6 +1070,10 @@
    "img": "raw/img/05021554005315.jpg"
   },
   {
+   "chain_prices": {
+    "grono": 87.0,
+    "onde": 87.6
+   },
    "ean": "05021554002604",
    "brand": "Clearspring",
    "title": "Водорості Clearspring морські хрусткі органічні 4г",
@@ -869,6 +1092,9 @@
    "img": "raw/img/05021554002604.jpg"
   },
   {
+   "chain_prices": {
+    "onde": 87.6
+   },
    "ean": "05021554002581",
    "brand": "Clearspring",
    "title": "Чипси Clearspring Чилі з морських водоростей без глютену 4г",
@@ -886,6 +1112,11 @@
    "img": "raw/img/05021554002581.jpg"
   },
   {
+   "chain_prices": {
+    "megamarket": 89.0,
+    "ultramarket": 89.0,
+    "zaraz": 89.0
+   },
    "ean": "05021554005278",
    "brand": "Clearspring",
    "title": "Чипси Clearspring органічні з морських водоростей із сіллю 4г",
@@ -905,6 +1136,11 @@
    "img": "raw/img/05021554005278.jpg"
   },
   {
+   "chain_prices": {
+    "megamarket": 89.0,
+    "ultramarket": 89.0,
+    "zaraz": 89.0
+   },
    "ean": "05021554005353",
    "brand": "Clearspring",
    "title": "Чипси Clearspring з морських водоростей з імбиром органічні 4г",
@@ -924,6 +1160,15 @@
    "img": "raw/img/05021554005353.jpg"
   },
   {
+   "chain_prices": {
+    "novus": 32.49,
+    "cosmos": 20.8,
+    "vostorg": 24.5,
+    "kharkiv": 24.5,
+    "epicentr": 33.8,
+    "ideal": 29.5,
+    "torba": 29.5
+   },
    "ean": "04820265550210",
    "brand": "Norris",
    "title": "Сендвіч з норі Norris з кунжутом 8г",
@@ -947,6 +1192,11 @@
    "img": "raw/img/04820265550210.jpg"
   },
   {
+   "chain_prices": {
+    "vostorg": 31.0,
+    "kharkiv": 31.0,
+    "onde": 29.9
+   },
    "ean": "04820265550357",
    "brand": "Norris",
    "title": "Чипси норі Norris з фруктами 10г",
@@ -966,6 +1216,14 @@
    "img": "raw/img/04820265550357.jpg"
   },
   {
+   "chain_prices": {
+    "novus": 32.99,
+    "cosmos": 32.5,
+    "vostorg": 33.5,
+    "kharkiv": 33.5,
+    "epicentr": 33.8,
+    "ideal": 29.5
+   },
    "ean": "04820265550203",
    "brand": "Norris",
    "title": "Сендвіч з норі Norris з гарбузовим насінням 8г",
@@ -988,6 +1246,14 @@
    "img": "raw/img/04820265550203.jpg"
   },
   {
+   "chain_prices": {
+    "novus": 33.99,
+    "cosmos": 32.5,
+    "vostorg": 33.5,
+    "kharkiv": 33.5,
+    "epicentr": 33.8,
+    "ideal": 29.5
+   },
    "ean": "04820265550197",
    "brand": "Norris",
    "title": "Сендвіч з норі Norris з рисом 8г",
@@ -1010,6 +1276,16 @@
    "img": "raw/img/04820265550197.jpg"
   },
   {
+   "chain_prices": {
+    "novus": 54.99,
+    "metro": 53.89,
+    "epicentr": 71.1,
+    "auchan": 52.3,
+    "ideal": 51.0,
+    "megamarket": 61.5,
+    "ultramarket": 61.5,
+    "zaraz": 61.5
+   },
    "ean": "04820172442974",
    "brand": "Hokkaido Club",
    "title": "Чипси норі Hokkaido Club солоні 25г",
@@ -1034,6 +1310,16 @@
    "img": "raw/img/04820172442974.jpg"
   },
   {
+   "chain_prices": {
+    "novus": 54.99,
+    "metro": 53.89,
+    "epicentr": 71.1,
+    "auchan": 52.3,
+    "ideal": 51.0,
+    "megamarket": 61.5,
+    "ultramarket": 61.5,
+    "zaraz": 61.5
+   },
    "ean": "04820172443001",
    "brand": "Hokkaido Club",
    "title": "Чипси норі Hokkaido Club сир 25г",
@@ -1058,6 +1344,16 @@
    "img": "raw/img/04820172443001.jpg"
   },
   {
+   "chain_prices": {
+    "novus": 54.99,
+    "metro": 53.89,
+    "epicentr": 71.1,
+    "auchan": 52.3,
+    "ideal": 51.0,
+    "megamarket": 61.5,
+    "ultramarket": 61.5,
+    "zaraz": 61.5
+   },
    "ean": "04820172442981",
    "brand": "Hokkaido Club",
    "title": "Чипси норі Hokkaido Club васабі 25г",
@@ -1082,6 +1378,14 @@
    "img": "raw/img/04820172442981.jpg"
   },
   {
+   "chain_prices": {
+    "novus": 87.99,
+    "tavriav": 47.0,
+    "cosmos": 47.0,
+    "epicentr": 88.1,
+    "ideal": 63.6,
+    "onde": 72.1
+   },
    "ean": "04820265550104",
    "brand": "Norris",
    "title": "Чипси норі Norris з васабі 25г",
@@ -1104,6 +1408,14 @@
    "img": "raw/img/04820265550104.jpg"
   },
   {
+   "chain_prices": {
+    "novus": 87.99,
+    "tavriav": 63.6,
+    "cosmos": 68.5,
+    "epicentr": 73.7,
+    "ideal": 63.6,
+    "onde": 72.1
+   },
    "ean": "04820265550111",
    "brand": "Norris",
    "title": "Чипси норі Norris з сіллю 25г",
@@ -1126,6 +1438,13 @@
    "img": "raw/img/04820265550111.jpg"
   },
   {
+   "chain_prices": {
+    "novus": 87.99,
+    "cosmos": 68.5,
+    "epicentr": 73.5,
+    "ideal": 63.6,
+    "onde": 72.1
+   },
    "ean": "04820265550128",
    "brand": "Norris",
    "title": "Чипси норі Norris з сиром 25г",
@@ -1147,6 +1466,12 @@
    "img": "raw/img/04820265550128.jpg"
   },
   {
+   "chain_prices": {
+    "novus": 87.99,
+    "cosmos": 47.0,
+    "epicentr": 88.1,
+    "ideal": 63.6
+   },
    "ean": "04820265550098",
    "brand": "Norris",
    "title": "Чипси норі Norris з хондаші 25г",
@@ -1167,6 +1492,11 @@
    "img": "raw/img/04820265550098.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 80.5,
+    "onde": 123.6,
+    "zaraz": 95.5
+   },
    "ean": "08809094843003",
    "brand": "Ock Dong Ja",
    "title": "Норі снек Ock-Dong-Ja з кунжутною олією 15г",
@@ -1186,6 +1516,10 @@
    "img": "raw/img/08809094843003.jpg"
   },
   {
+   "chain_prices": {
+    "vostorg": 111.0,
+    "kharkiv": 111.0
+   },
    "ean": "04820298900020",
    "brand": "Ocean Snack",
    "title": "Чипси норі Ocean Snack з арахісом 40г",
@@ -1204,6 +1538,10 @@
    "img": "raw/img/04820298900020.jpg"
   },
   {
+   "chain_prices": {
+    "vostorg": 111.0,
+    "kharkiv": 111.0
+   },
    "ean": "04820298900044",
    "brand": "Ocean Snack",
    "title": "Чипси норі Ocean Snack з кунжутом 40г",
@@ -1222,6 +1560,10 @@
    "img": "raw/img/04820298900044.jpg"
   },
   {
+   "chain_prices": {
+    "vostorg": 111.0,
+    "kharkiv": 111.0
+   },
    "ean": "04820298900068",
    "brand": "Ocean Snack",
    "title": "Чипси норі Ocean Snack з мигдалем та кунжутом 40г",
@@ -1240,6 +1582,10 @@
    "img": "raw/img/04820298900068.jpg"
   },
   {
+   "chain_prices": {
+    "vostorg": 111.0,
+    "kharkiv": 111.0
+   },
    "ean": "04820298900051",
    "brand": "Ocean Snack",
    "title": "Чипси норі Ocean Snack з арахісом зі смаком васабі 40г",
@@ -1258,6 +1604,9 @@
    "img": "raw/img/04820298900051.jpg"
   },
   {
+   "chain_prices": {
+    "zaraz": 111.5
+   },
    "ean": "08809094841061",
    "brand": "Ock Dong Ja",
    "title": "Снек Ock Dong Ja Норі з оливковою олією 25г",
@@ -1275,6 +1624,11 @@
    "img": "raw/img/08809094841061.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 139.4,
+    "onde": 151.1,
+    "zaraz": 111.5
+   },
    "ean": "08809094845021",
    "brand": "Ock Dong Ja",
    "title": "Водорості Ock-Dong-Ja Норі з кунжутною олією 25г",
@@ -1294,6 +1648,10 @@
    "img": "raw/img/08809094845021.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 139.4,
+    "onde": 151.1
+   },
    "ean": "08809094845014",
    "brand": "Ock Dong Ja",
    "title": "Снек Норі з кунжутною олією 20г",
@@ -1312,6 +1670,9 @@
    "img": "raw/img/08809094845014.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 70.5
+   },
    "ean": "08857107230777",
    "brand": "Tao Kae Noi",
    "title": "Норі Taokaenoi зі смаком Том Ям 15г",
@@ -1329,6 +1690,10 @@
    "img": "raw/img/08857107230777.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 70.5,
+    "zaraz": 83.0
+   },
    "ean": "08857107231064",
    "brand": "Tao Kae Noi",
    "title": "Хрусткі норі Taokaenoi зі смаком васабі 15г",
@@ -1347,6 +1712,10 @@
    "img": "raw/img/08857107231064.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 74.5,
+    "zaraz": 87.5
+   },
    "ean": "08858702402194",
    "brand": "Tao Kae Noi",
    "title": "Норі Tao Kae Noi Hi Tempura гострі 25г",
@@ -1365,6 +1734,11 @@
    "img": "raw/img/08858702402194.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 74.5,
+    "onde": 121.2,
+    "zaraz": 87.5
+   },
    "ean": "08858702402187",
    "brand": "Tao Kae Noi",
    "title": "Норі Темпура оригінальний смак японський стиль 25г",
@@ -1384,6 +1758,11 @@
    "img": "raw/img/08858702402187.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 70.5,
+    "onde": 102.6,
+    "zaraz": 117.5
+   },
    "ean": "08857107231057",
    "brand": "Tao Kae Noi",
    "title": "Снеки з норі Tao Kae Noi Hot & Spicy хрусткі з чилі 15г",
@@ -1403,6 +1782,10 @@
    "img": "raw/img/08857107231057.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 126.5,
+    "zaraz": 143.5
+   },
    "ean": "08858702428132",
    "brand": "Tao Kae Noi",
    "title": "Норі смажені Tао Kае Nоі Hi Tempura барбекю 40г",
@@ -1421,6 +1804,9 @@
    "img": "raw/img/08858702428132.jpg"
   },
   {
+   "chain_prices": {
+    "onde": 192.9
+   },
    "ean": "08858702401272",
    "brand": "Tao Kae Noi",
    "title": "Норі Tao Kae Noi Hi Tempura гострі 25г",
@@ -1438,6 +1824,9 @@
    "img": "raw/img/08858702401272.jpg"
   },
   {
+   "chain_prices": {
+    "onde": 528.1
+   },
    "ean": "08858702421966",
    "brand": "Tao Kae Noi",
    "title": "Норі Tao Kae Noi гострі в темпурі 59г",
@@ -1455,6 +1844,9 @@
    "img": "raw/img/08858702421966.jpg"
   },
   {
+   "chain_prices": {
+    "metro": 105.0
+   },
    "ean": "04820293122632",
    "brand": "Metro Chef",
    "title": "Норі Metro Chef нарізані смажені з кунжутом 30г",
@@ -1472,6 +1864,9 @@
    "img": "raw/img/04820293122632.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 185.8
+   },
    "ean": "08809094847186",
    "brand": "Ock Dong Ja",
    "title": "Водорості Норі Ock Dong Ja подрібнені з кунжутом і зеленим чаєм 35г",
@@ -1489,6 +1884,9 @@
    "img": "raw/img/08809094847186.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 232.2
+   },
    "ean": "08809094847193",
    "brand": "Ock Dong Ja",
    "title": "Снек Ock Dong Ja норі подрібнені зі смаком барбекю 70г",
@@ -1506,6 +1904,9 @@
    "img": "raw/img/08809094847193.jpg"
   },
   {
+   "chain_prices": {
+    "grono": 126.0
+   },
    "ean": "05021554984146",
    "brand": "Clearspring",
    "title": "Крекери рисові з соусом Тамарі органічні 50г. Clearspring",
@@ -1523,6 +1924,10 @@
    "img": "raw/img/05021554984146.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 149.0,
+    "onde": 140.0
+   },
    "ean": "04710144900154",
    "brand": "Want Want",
    "title": "Крекери Want Want Mini рисові зі смаком водоростей 60г",
@@ -1541,6 +1946,10 @@
    "img": "raw/img/04710144900154.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 149.0,
+    "onde": 141.1
+   },
    "ean": "04710144901915",
    "brand": "Want Want",
    "title": "Крекери Want Want Mini рисові з гострим смаком 60г",
@@ -1559,6 +1968,10 @@
    "img": "raw/img/04710144901915.jpg"
   },
   {
+   "chain_prices": {
+    "auchan": 149.0,
+    "grono": 145.0
+   },
    "ean": "04710144902004",
    "brand": "Want Want",
    "title": "Крекери Want Want Mini рисові зі смаком курки 60г",
@@ -1577,6 +1990,9 @@
    "img": "raw/img/04710144902004.jpg"
   },
   {
+   "chain_prices": {
+    "cosmos": 147.6
+   },
    "ean": "03770027194767",
    "brand": "Ultra Pop",
    "title": "Чипси рисові Ultra Pop One Piece Барбекю 60г",
@@ -1594,6 +2010,9 @@
    "img": "raw/img/03770027194767.jpg"
   },
   {
+   "chain_prices": {
+    "cosmos": 147.6
+   },
    "ean": "03770027194743",
    "brand": "Ultra Pop",
    "title": "Чипси рисові Ultra Pop One Piece Кетчуп 60г",
@@ -1611,6 +2030,9 @@
    "img": "raw/img/03770027194743.jpg"
   },
   {
+   "chain_prices": {
+    "cosmos": 147.6
+   },
    "ean": "03760412583610",
    "brand": "Ultra Pop",
    "title": "Чипси рисові Ultra Pop Dragon Ball Перець чилі 60г",
@@ -1628,6 +2050,9 @@
    "img": "raw/img/03760412583610.jpg"
   },
   {
+   "chain_prices": {
+    "cosmos": 147.6
+   },
    "ean": "03760412583641",
    "brand": "Ultra Pop",
    "title": "Чипси рисові Ultra Pop Dragon Ball Піца 60г",
@@ -1645,6 +2070,9 @@
    "img": "raw/img/03760412583641.jpg"
   },
   {
+   "chain_prices": {
+    "cosmos": 147.6
+   },
    "ean": "03770027194729",
    "brand": "Ultra Pop",
    "title": "Чипси рисові Ultra Pop Naruto зі смаком сиру 60г",
@@ -1662,6 +2090,9 @@
    "img": "raw/img/03770027194729.jpg"
   },
   {
+   "chain_prices": {
+    "ideal": 20.5
+   },
    "ean": "05941194005448",
    "brand": "Croco",
    "title": "Снек рисовий Croco Snaks Pizza зі смаком піцци 50г",
@@ -1679,6 +2110,10 @@
    "img": "raw/img/05941194005448.jpg"
   },
   {
+   "chain_prices": {
+    "onde": 37.7,
+    "torba": 40.5
+   },
    "ean": "04820122284302",
    "brand": "Pikolo",
    "title": "Чипси рисові Pikolo зі смаком томатів спайсі 50г",
@@ -1697,6 +2132,10 @@
    "img": "raw/img/04820122284302.jpg"
   },
   {
+   "chain_prices": {
+    "onde": 37.7,
+    "torba": 40.5
+   },
    "ean": "04820122284296",
    "brand": "Pikolo",
    "title": "Чипси рисові Pikolo зі смаком лисичок в сметані 50г",
@@ -1715,6 +2154,11 @@
    "img": "raw/img/04820122284296.jpg"
   },
   {
+   "chain_prices": {
+    "novus": 39.49,
+    "onde": 37.7,
+    "torba": 41.5
+   },
    "ean": "04820122284289",
    "brand": "Pikolo",
    "title": "Чипси рисові Pikolo зі смаком сиру 50г",
@@ -1734,6 +2178,11 @@
    "img": "raw/img/04820122284289.jpg"
   },
   {
+   "chain_prices": {
+    "metro": 57.77,
+    "tavriav": 49.9,
+    "cosmos": 49.9
+   },
    "ean": "03800233091168",
    "brand": "B.yond",
    "title": "Чипси B.Yond рисові зі смаком сиру Чеддер і томатний Чатні 70г",
@@ -1753,6 +2202,10 @@
    "img": "raw/img/03800233091168.jpg"
   },
   {
+   "chain_prices": {
+    "metro": 57.77,
+    "tavriav": 49.9
+   },
    "ean": "03800233091205",
    "brand": "B.yond",
    "title": "Чипси B.Yond рисові зі смаком Сальса паприка 70г",
@@ -1771,6 +2224,10 @@
    "img": "raw/img/03800233091205.jpg"
   },
   {
+   "chain_prices": {
+    "metro": 57.77,
+    "tavriav": 49.9
+   },
    "ean": "03800233091212",
    "brand": "B.yond",
    "title": "Чипси B.Yond рисові зі смаком вершків та норвезької цибулі 70г",
@@ -1789,6 +2246,9 @@
    "img": "raw/img/03800233091212.jpg"
   },
   {
+   "chain_prices": {
+    "metro": 57.77
+   },
    "ean": "03800233091625",
    "brand": "Livity",
    "title": "Чипси Livity рисові Техаський барбекю 60г",
@@ -1806,6 +2266,10 @@
    "img": "raw/img/03800233091625.jpg"
   },
   {
+   "chain_prices": {
+    "tavriav": 58.8,
+    "cosmos": 61.7
+   },
    "ean": "04820179683677",
    "brand": "Trapeza",
    "title": "Чипси Trapeza рисові зі смаком сиру 60г",
@@ -1824,6 +2288,10 @@
    "img": "raw/img/04820179683677.jpg"
   },
   {
+   "chain_prices": {
+    "tavriav": 58.8,
+    "cosmos": 61.7
+   },
    "ean": "04820179683684",
    "brand": "Trapeza",
    "title": "Чипси Trapeza рисові зі смаком цибулі зі сметаною 60г",
@@ -1842,6 +2310,10 @@
    "img": "raw/img/04820179683684.jpg"
   },
   {
+   "chain_prices": {
+    "tavriav": 58.8,
+    "cosmos": 61.7
+   },
    "ean": "04820179683653",
    "brand": "Trapeza",
    "title": "Чипси Trapeza рисові зі смаком паприки 60г",
@@ -1860,6 +2332,10 @@
    "img": "raw/img/04820179683653.jpg"
   },
   {
+   "chain_prices": {
+    "metro": 55.12,
+    "onde": 68.6
+   },
    "ean": "03800233070149",
    "brand": "Rice Up!",
    "title": "Чипси рисові Rice up! сир 60г",
@@ -1878,6 +2354,10 @@
    "img": "raw/img/03800233070149.jpg"
   },
   {
+   "chain_prices": {
+    "metro": 55.12,
+    "onde": 71.3
+   },
    "ean": "03800233070248",
    "brand": "Rice Up!",
    "title": "Чипси рисові Rice up! паприка 60г",
@@ -1896,6 +2376,10 @@
    "img": "raw/img/03800233070248.jpg"
   },
   {
+   "chain_prices": {
+    "metro": 55.12,
+    "onde": 71.3
+   },
    "ean": "03800233070118",
    "brand": "Rice Up!",
    "title": "Чипси рисові Rice Up! сметана і зелена цибуля 60г",
@@ -1914,6 +2398,10 @@
    "img": "raw/img/03800233070118.jpg"
   },
   {
+   "chain_prices": {
+    "metro": 55.12,
+    "onde": 71.3
+   },
    "ean": "03800233071016",
    "brand": "Rice Up!",
    "title": "Чипси рисові Rice Up! з насінням чіа і кіноа 60г",
@@ -1932,6 +2420,9 @@
    "img": "raw/img/03800233071016.jpg"
   },
   {
+   "chain_prices": {
+    "cosmos": 83.9
+   },
    "ean": "05902510403621",
    "brand": "Cornellis",
    "title": "Рисовий снек Cornellis зі смаком барбекю 150г",
@@ -1949,6 +2440,10 @@
    "img": "raw/img/05902510403621.jpg"
   },
   {
+   "chain_prices": {
+    "tavriav": 73.4,
+    "cosmos": 134.9
+   },
    "ean": "05902510403614",
    "brand": "Cornellis",
    "title": "Снек рисовий Cornellis зі смаком сметани 150г",
@@ -1967,6 +2462,9 @@
    "img": "raw/img/05902510403614.jpg"
   },
   {
+   "chain_prices": {
+    "tavriav": 134.9
+   },
    "ean": "05902510403645",
    "brand": "Cornellis",
    "title": "Снек рисовий Cornellis зі смаком сиру 150г",
@@ -1984,6 +2482,9 @@
    "img": "raw/img/05902510403645.jpg"
   },
   {
+   "chain_prices": {
+    "cosmos": 134.9
+   },
    "ean": "05902510403638",
    "brand": "Cornellis",
    "title": "Снек рисовий Cornellis зі смаком васабі та сиру 150г",

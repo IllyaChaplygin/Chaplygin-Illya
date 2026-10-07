@@ -97,45 +97,59 @@ def weight_map(deck):
     rs = [r for r in ROWS if r['seg'] in NORI_SEGS]
     bins = [(0, 5.5, 'до 5 г'), (5.5, 16, '8–15 г'), (16, 31, '20–30 г'), (31, 61, '35–60 г'), (61, 999, '70 г і більше')]
     total = len(rs)
-    text(s, 0.62, 1.36, 12.1, 0.22, 'Кількість позицій і медіана ціни упаковки за ваговими смугами. Золотою позначено смуги, де є наші SKU.', size=9.2, color=MUTED)
-    caps(s, 0.62, 1.78, 4, 'Позицій у ваговій смузі', size=7)
-    caps(s, 7.3, 1.78, 5, 'Типова ціна упаковки (медіана), ₴', size=7)
+    sub_line(s, 'Скільки позицій ринку стоїть у кожній ваговій смузі, яка там типова ціна упаковки, і які саме наші SKU (із цінами нашої полиці при марже %d %%) потрапляють у цю смугу.' % MP, y=1.34, size=8.8)
+    caps(s, 0.62, 1.85, 4, 'Позицій ринку у смузі', size=7)
+    caps(s, 5.55, 1.85, 3, 'Типова ціна упаковки, ₴', size=7)
+    caps(s, 8.0, 1.85, 5, 'Наші SKU у смузі · наша полиця, ₴', size=7, color=AMBER)
     maxn = max(sum(1 for r in rs if a <= r['grams'] < b) for a, b, _ in bins)
-    mine_in = {}
-    for a, b, lab in bins:
-        sel = [r for r in rs if a <= r['grams'] < b]
-        mine = [o for o in OUR if a <= o['grams'] < b]
-        mine_in[lab] = mine
-        i = [x[2] for x in bins].index(lab)
-        y = 2.1 + i * 0.78
-        if mine:
-            rect(s, 0.55, y - 0.06, 12.25, 0.72, fill=rgb('FFF3DC'))
-        text(s, 0.62, y, 1.3, 0.55, lab, size=9.4, color=NAVY, bold=True, anchor='m')
-        w = 4.3 * len(sel) / maxn
-        rect(s, 2.0, y + 0.12, max(0.06, w), 0.32, fill=NAVY)
-        text(s, 2.0 + w + 0.1, y, 1.8, 0.55, '%d · %d %%' % (len(sel), round(100 * len(sel) / total)), size=8.6, color=MUTED, bold=True, anchor='m')
-        mp = med(r['pmed'] for r in sel)
-        w2 = 3.2 * min(mp, 200) / 200
-        rect(s, 7.3, y + 0.12, w2, 0.32, fill=AMBER)
-        text(s, 7.3 + w2 + 0.1, y, 2.3, 0.55, '%d ₴' % round(mp), size=8.6, color=MUTED, bold=True, anchor='m')
-        if mine:
-            text(s, 11.0, y, 1.7, 0.55, 'наші SKU: %d' % len(mine), size=8, color=AMBER, bold=True, anchor='m', align='r')
+    groups = D.our_groups()
     stats = {}
-    for a_, b_, lab in bins:
-        sel = [r for r in rs if a_ <= r['grams'] < b_]
-        stats[lab] = (len(sel), med(r['pmed'] for r in sel))
+    pitch = 0.86
+    for i, (a, b, lab) in enumerate(bins):
+        sel = [r for r in rs if a <= r['grams'] < b]
+        mine = [o for o in groups if a <= o['grams'] < b]
+        y = 2.12 + i * pitch
+        rect(s, 0.55, y - 0.04, 12.25, pitch - 0.08, fill=rgb('FFF3DC') if mine else rgb('F8F9FC'))
+        text(s, 0.62, y, 1.2, pitch - 0.16, lab, size=9.4, color=NAVY, bold=True, anchor='m')
+        w = 2.1 * len(sel) / maxn
+        rect(s, 1.85, y + 0.17, max(0.06, w), 0.32, fill=NAVY)
+        text(s, 1.85 + w + 0.08, y, 1.5, pitch - 0.16, '%d · %d %%' % (len(sel), round(100 * len(sel) / total)), size=8.6, color=MUTED, bold=True, anchor='m')
+        mp = med(r['pmed'] for r in sel)
+        stats[lab] = (len(sel), mp)
+        w2 = 1.4 * min(mp, 250) / 250
+        rect(s, 5.55, y + 0.17, w2, 0.32, fill=AMBER)
+        text(s, 5.55 + w2 + 0.08, y, 1.0, pitch - 0.16, '%d ₴' % round(mp), size=8.6, color=MUTED, bold=True, anchor='m')
+        xx, yy = 8.0, y + 0.06
+        merged = collections.OrderedDict()
+        for o in mine:
+            base = clean_title(o)
+            for flv in (' Original', ' Corn', ' Chicken Floss', ' Vegetables', ' Sesame', ' Meat Floss', ' Hot Spicy', ' Spicy Squid', ' Squid', ' Spicy', ' Wasabi', ' Mala Crawfish', ' Mala', ' Chicken'):
+                base = base.replace(flv, '')
+            base = base.replace('Wow ', '').replace('Norimaki', 'Norimaki')
+            merged.setdefault((o['sup'], base, o['grams']), []).append(o)
+        for (sid, base, g), os_ in merged.items():
+            pr = sorted(round(o['shelf']) for o in os_)
+            ptxt = ('%d' % pr[0]) if pr[0] == pr[-1] else '%d–%d' % (pr[0], pr[-1])
+            lab_t = '%s %s · %s ₴' % (base, gfmt(g), ptxt)
+            w_ = 0.25 + 0.07 * len(lab_t)
+            if xx + w_ > 12.75: xx, yy = 8.0, yy + 0.27
+            rect(s, xx, yy, w_, 0.24, fill=WHITE, line=SUP_COLOR[sid], lw=1.0, radius=0.3)
+            text(s, xx, yy, w_, 0.24, lab_t, size=6.4, color=INK, bold=True, align='c', anchor='m')
+            xx += w_ + 0.06
+        if not mine:
+            text(s, 8.0, y, 4.6, pitch - 0.16, 'наших SKU у цій смузі немає', size=7.6, color=MUTED, italic=True, anchor='m')
     n5, n8, n20, n35 = stats['до 5 г'], stats['8–15 г'], stats['20–30 г'], stats['35–60 г']
     tm = [o for o in OUR if 8 <= o['grams'] <= 15]
-    y = 6.1
+    y = 6.5
     boxes = [('ДЕ СТОЇТЬ НАШ АСОРТИМЕНТ',
-              'Наші SKU є в усіх п’яти вагових смугах. Найщільніша полиця — до 5 г (%d SKU, %d %%); у смузі 35–60 г — %d позицій ринку й %d наших SKU (Singha, Thai-Nichi, ZEK).' % (n5[0], round(100 * n5[0] / total), n35[0], len([o for o in OUR if 31 <= o['grams'] < 61])), NAVY),
+              'Наші SKU є у всіх вагових смугах. Найщільніша полиця — до 5 г (%d позицій, %d %%); у смузі 35–60 г — %d позицій ринку й %d наших SKU (Singha, Thai-Nichi, ZEK).' % (n5[0], round(100 * n5[0] / total), n35[0], len([o for o in OUR if 31 <= o['grams'] < 61])), NAVY),
              ('ЦІНА ЗРОСТАЄ З ВАГОЮ',
-              'Типова упаковка до 5 г — %d ₴, 8–15 г — %d ₴, 20–30 г — %d ₴, 35–60 г — %d ₴. Наші TMK 10–12 г стоять по %d ₴ — у %s рази вище за типову упаковку своєї смуги (%d ₴).' % (round(n5[1]), round(n8[1]), round(n20[1]), round(n35[1]), round(med(o['shelf'] for o in tm)), ('%.1f' % (med(o['shelf'] for o in tm) / n8[1])).replace('.', ','), round(n8[1])), AMBER)]
+              'Типова упаковка: до 5 г — %d ₴, 8–15 г — %d ₴, 20–30 г — %d ₴, 35–60 г — %d ₴. Наші TMK 10–12 г — %d ₴, у %s рази вище за типову упаковку своєї смуги.' % (round(n5[1]), round(n8[1]), round(n20[1]), round(n35[1]), round(med(o['shelf'] for o in tm)), ('%.1f' % (med(o['shelf'] for o in tm) / n8[1])).replace('.', ',')), AMBER)]
     for k, (ttl, body, col) in enumerate(boxes):
         x = 0.62 + k * 6.15
-        rect(s, x, y, 5.95, 0.92, fill=PANEL); rect(s, x, y, 0.04, 0.92, fill=col)
-        text(s, x + 0.2, y + 0.1, 5.6, 0.16, ttl, size=7, color=col, bold=True, spc=0.2)
-        text(s, x + 0.2, y + 0.3, 5.6, 0.6, body, size=7.8, color=INK)
+        rect(s, x, y, 5.95, 0.52, fill=PANEL); rect(s, x, y, 0.04, 0.52, fill=col)
+        text(s, x + 0.2, y + 0.04, 5.6, 0.14, ttl, size=6.4, color=col, bold=True, spc=0.2)
+        text(s, x + 0.2, y + 0.19, 5.65, 0.34, body, size=7.0, color=INK)
     src_note(s)
     return s
 
@@ -637,4 +651,65 @@ def sensitivity(deck):
                 rect(s, X0 + k * STEP + 0.02, y + 0.03, W, rh - 0.06, fill=bg)
             text(s, X0 + k * STEP, y, W - 0.1, rh, '%d ₴' % round(v), size=8.2, color=INK, bold=(m == str(MAR)), anchor='m', align='r')
     footnote(s, 'Близькі за вагою позиції — той самий сегмент, вага ×0,5–×2 від нашої. Excel SNACKS_FINMODEL_ALL_MARGINS.xlsx: базова маржа в клітинці D5 — 35 %%, значення при 30 %% — блок «МАРЖА 30 %%» (колонка U).')
+    return s
+
+
+def price_by_chain(deck, sgs, title, eyebrow, must=(), max_cols=8):
+    """Competitor lines (columns) x chains (rows): the price of one pack in each network."""
+    seg_col = SEG_COLOR[sgs[0]]
+    ls = [l for sg in sgs for l in lines(rows_of(sg))]
+    ls.sort(key=lambda l: -(l['n'] * len(l['chains'])))
+    cols = ls[:max_cols]
+    for mname in must:
+        if not any(c['brand'] == mname for c in cols):
+            extra = [l for l in ls if l['brand'] == mname]
+            if extra: cols = cols[:max_cols - 1] + extra[:1]
+    cols.sort(key=lambda l: (l['grams'], l['brand']))
+    chains = [c for c in CHAINS_ORDER if any(c in l['chain_price'] for l in cols)]
+    s = deck.slide(eyebrow, title)
+    sub_line(s, 'Ціна однієї упаковки (₴) у кожній мережі — найпопулярніші лінійки сегмента. Порожньо — лінійки в мережі немає; зелений — найдешевше для лінійки, червоний — найдорожче. Нижні рядки: діапазон між мережами й наша полиця поруч (при марже %d %%).' % MP, y=1.34, size=8.6)
+    x0, y0 = 0.62, 1.95
+    namew = 1.7
+    cw = min(1.45, (12.1 - namew) / len(cols))
+    head_h = 1.25
+    for j, l in enumerate(cols):
+        x = x0 + namew + j * cw
+        hit = l['brand'] in must
+        rect(s, x + 0.03, y0, cw - 0.06, head_h, fill=tint(seg_col, 0.22) if hit else PANEL)
+        picture(s, os.path.join(HERE, l['img']), x + 0.1, y0 + 0.05, cw - 0.2, 0.7)
+        text(s, x + 0.05, y0 + 0.78, cw - 0.1, 0.2, l['brand'], size=8, color=INK, bold=True, align='c')
+        text(s, x + 0.05, y0 + 0.98, cw - 0.1, 0.2, '%s · %d смаки' % (gfmt(l['grams']), l['n']) if l['n'] > 1 else '%s · 1 смак' % gfmt(l['grams']), size=6.6, color=MUTED, align='c')
+    rh = min(0.62, (6.3 - y0 - head_h - 0.1) / (len(chains) + 2))
+    fs_ = 10.5 if rh > 0.45 else (9 if rh > 0.3 else 8)
+    for i, c in enumerate(chains):
+        y = y0 + head_h + 0.08 + i * rh
+        if i % 2 == 0: rect(s, x0, y, namew + cw * len(cols), rh, fill=rgb('F8F9FC'))
+        text(s, x0 + 0.08, y, namew - 0.1, rh, CHAIN[c], size=fs_ - 0.5, color=NAVY, bold=True, anchor='m')
+        for j, l in enumerate(cols):
+            v = l['chain_price'].get(c)
+            x = x0 + namew + j * cw
+            if v is None:
+                text(s, x, y, cw, rh, '–', size=7.5, color=GREY, align='c', anchor='m')
+            else:
+                lo, hi = min(l['chain_price'].values()), max(l['chain_price'].values())
+                col = GREEN if (hi > lo and v <= lo + 0.001) else (RED if (hi > lo and v >= hi - 0.001) else INK)
+                text(s, x, y, cw, rh, '%d' % round(v), size=fs_, color=col, bold=True, align='c', anchor='m')
+    yb = y0 + head_h + 0.08 + len(chains) * rh
+    rect(s, x0, yb, namew + cw * len(cols), 0.012, fill=INK)
+    text(s, x0 + 0.08, yb + 0.03, namew, rh, 'Діапазон, ₴', size=7.6, color=MUTED, bold=True, anchor='m')
+    for j, l in enumerate(cols):
+        text(s, x0 + namew + j * cw, yb + 0.03, cw, rh, rng(l['pmin'], l['pmax']), size=8, color=INK, bold=True, align='c', anchor='m')
+    mine = [o for o in D.our_groups() if o['seg'] in sgs or (sgs[0] == 'tempura' and o['seg'] == 'tempura')]
+    yo = yb + rh + 0.12
+    rect(s, x0, yo, 12.1, 0.5, fill=rgb('FFF3DC')); rect(s, x0, yo, 0.04, 0.5, fill=GOLD)
+    text(s, x0 + 0.2, yo + 0.04, 2.2, 0.42, 'НАША ПОЛИЦЯ ПОРУЧ', size=7, color=AMBER, bold=True, anchor='m')
+    xx = x0 + 2.2
+    for o in mine:
+        t_ = '%s %s · %d ₴' % (clean_title(o), gfmt(o['grams']), round(o['shelf']))
+        w_ = 0.25 + 0.064 * len(t_)
+        if xx + w_ > x0 + 12.0: break
+        rect(s, xx, yo + 0.12, w_, 0.26, fill=WHITE, line=SUP_COLOR[o['sup']], lw=1.0, radius=0.3)
+        text(s, xx, yo + 0.12, w_, 0.26, t_, size=6.6, color=INK, bold=True, align='c', anchor='m')
+        xx += w_ + 0.08
+    src_note(s)
     return s
