@@ -16,12 +16,24 @@ const eur = v => '€ ' + fmt(v);
 const fav = new Set(ls.get('fav', []));
 const CO = { name: 'ALLIANZ KAPITAL d.o.o.', addr: 'Poluostrvo Zavala, Zgrada Harmonija, Budva, Crna Gora', reg: new Date(2007, 2, 13), registry: 'https://www.companywall.me/firma/allianz-kapital/MMxF2yCD' };
 const regDate = () => CO.reg.toLocaleDateString(D().loc, { day: 'numeric', month: 'long', year: 'numeric' });
-const SOCIAL_DEF = [['youtube', 'youtube-logo', 'YouTube'], ['instagram', 'instagram-logo', 'Instagram'], ['linkedin', 'linkedin-logo', 'LinkedIn'], ['facebook', 'facebook-logo', 'Facebook'], ['telegram', 'telegram-logo', 'Telegram'], ['tiktok', 'tiktok-logo', 'TikTok'], ['google', 'google-logo', 'Google']];
-const socials = () => { const S_ = (typeof SOCIAL !== 'undefined' && SOCIAL) || {}; return SOCIAL_DEF.filter(([k]) => /^https:\/\//.test(S_[k] || '')).map(([k, ic, name]) => ({ k, ic, name, url: S_[k] })); };
-const socialTiles = () => `<div class="soc">${socials().map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener"><i class="ph ph-${s.ic}"></i><span>${esc(s.name)}</span><i class="ph ph-arrow-up-right go"></i></a>`).join('')}</div>`;
+const SOCIAL_DEF = [['youtube', 'youtube-logo', 'YouTube'], ['instagram', 'instagram-logo', 'Instagram'], ['linkedin', 'linkedin-logo', 'LinkedIn'], ['facebook', 'facebook-logo', 'Facebook'], ['telegram', 'telegram-logo', 'Telegram'], ['whatsapp', 'whatsapp-logo', 'WhatsApp'], ['tiktok', 'tiktok-logo', 'TikTok'], ['google', 'google-logo', 'Google']];
+/* Every network is listed; those without a link are shown muted and not clickable until the link is set in config.js. */
+const socials = () => {
+  const S_ = (typeof SOCIAL !== 'undefined' && SOCIAL) || {}, C_ = (typeof CONTACT !== 'undefined' && CONTACT) || {};
+  return SOCIAL_DEF.map(([k, ic, name]) => {
+    let url = S_[k] || '';
+    if (k === 'telegram' && !url && C_.telegram) url = tgUrl(C_.telegram);
+    if (k === 'whatsapp' && !url && C_.whatsapp) url = waUrl(C_.whatsapp);
+    return { k, ic, name, url: /^https:\/\//.test(url) ? url : '' };
+  });
+};
+const socialLink = (s, inner, cls = '') => s.url
+  ? `<a class="${cls}" href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="${esc(s.name)}">${inner}</a>`
+  : `<span class="${cls} off" role="img" aria-disabled="true" aria-label="${esc(s.name)}" title="${esc(t('soon'))}">${inner}</span>`;
+const socialTiles = () => `<div class="soc">${socials().map(s => socialLink(s, `<i class="ph ph-${s.ic}"></i><span>${esc(s.name)}</span>${s.url ? '<i class="ph ph-arrow-up-right go"></i>' : `<small>${esc(t('soon'))}</small>`}`)).join('')}</div>`;
 const waUrl = (num, msg) => `https://wa.me/${String(num).replace(/\D/g, '')}${msg ? '?text=' + encodeURIComponent(msg) : ''}`;
 const tgUrl = v => /^https:\/\//.test(v) ? v : `https://t.me/${encodeURIComponent(String(v).replace(/^@/, ''))}`;
-const chatButtons = msg => { const c = contactSet() || {}; return [c.whatsapp && { k: 'wa', ic: 'whatsapp-logo', name: 'WhatsApp', url: waUrl(c.whatsapp, msg) }, c.telegram && { k: 'tg', ic: 'telegram-logo', name: 'Telegram', url: tgUrl(c.telegram) }].filter(Boolean); };
+const chatButtons = msg => { const c = contactSet() || {}; return [{ k: 'wa', ic: 'whatsapp-logo', name: 'WhatsApp', url: c.whatsapp ? waUrl(c.whatsapp, msg) : '' }, { k: 'tg', ic: 'telegram-logo', name: 'Telegram', url: c.telegram ? tgUrl(c.telegram) : '' }]; };
 const REGION_XY = { Kolasin: [42.8228, 19.5206], Budva: [42.2864, 18.84], Kotor: [42.4247, 18.7712] };
 const REGION_EN = { Kolasin: 'Kolasin', Budva: 'Budva', Kotor: 'Kotor' };
 const ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
@@ -369,7 +381,7 @@ function renderAbout() {
       <dl class="facts"><div><dt>${esc(t('coName'))}</dt><dd>${esc(CO.name)}</dd></div><div><dt>${esc(t('coAddr'))}</dt><dd>${esc(CO.addr)}</dd></div><div><dt>${esc(t('coReg'))}</dt><dd>${esc(regDate())}</dd></div></dl>
       <div class="doclinks" style="margin-top:16px"><a class="hbtn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CO.addr)}" target="_blank" rel="noopener"><i class="ph ph-map-pin"></i>${esc(t('coMap'))}</a>
       <a class="hbtn" href="${esc(CO.registry)}" target="_blank" rel="noopener"><i class="ph ph-arrow-up-right"></i>${esc(t('coReg3'))}</a></div></div></div></section>
-    ${socials().length ? `<section class="sec reveal"><h2>${esc(t('soc'))}</h2><p class="meta" style="margin:-8px 0 16px">${esc(t('socS'))}</p>${socialTiles()}</section>` : ''}
+    <section class="sec reveal"><h2>${esc(t('soc'))}</h2><p class="meta" style="margin:-8px 0 16px">${esc(t('socS'))}</p>${socialTiles()}</section>
     <section class="cta reveal"><div><h2>${esc(t('abCtaT'))}</h2><p>${esc(t('abCtaS'))}</p></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn light" href="#/">${esc(t('abCat'))}</a>
       ${c && c.whatsapp ? `<a class="btn" href="${esc(waUrl(c.whatsapp))}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo"></i>${esc(t('viaWa'))}</a>` : ''}
@@ -404,11 +416,11 @@ function renderContact(pre) {
             <div class="cstatus" id="cstatus" role="status"></div>
             <button class="btn" id="csend" type="submit"><i class="ph ph-paper-plane-tilt"></i>${esc(t('fSend'))}</button>
           </div></form></div>
-      <aside>${chatButtons(t('waGeneral')).length ? `<div class="card-p"><div class="lbl"><i class="ph ph-chats-circle"></i>${esc(t('quick'))}</div><div class="in"><div class="chat">${chatButtons(t('waGeneral')).map(b => `<a class="btn" href="${esc(b.url)}" target="_blank" rel="noopener"><i class="ph ph-${b.ic}"></i>${esc(t(b.k === 'wa' ? 'writeWa' : 'writeTg'))}</a>`).join('')}</div></div></div>` : ''}
+      <aside><div class="card-p"><div class="lbl"><i class="ph ph-chats-circle"></i>${esc(t('quick'))}</div><div class="in"><div class="chat">${chatButtons(t('waGeneral')).map(b => b.url ? `<a class="btn" href="${esc(b.url)}" target="_blank" rel="noopener"><i class="ph ph-${b.ic}"></i>${esc(t(b.k === 'wa' ? 'writeWa' : 'writeTg'))}</a>` : `<span class="btn off" aria-disabled="true" title="${esc(t('soon'))}"><i class="ph ph-${b.ic}"></i>${esc(t(b.k === 'wa' ? 'writeWa' : 'writeTg'))}<small>${esc(t('soon'))}</small></span>`).join('')}</div></div></div>
       <div class="card-p"><div class="lbl"><i class="ph ph-identification-card"></i>${esc(t('cInfo'))}</div><div class="in">
         <dl class="facts"><div><dt>${esc(t('coName'))}</dt><dd>${esc(CO.name)}</dd></div><div><dt>${esc(t('cAddr'))}</dt><dd>${esc(CO.addr)}</dd></div></dl>
         <div class="doclinks" style="margin-top:16px"><a class="hbtn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CO.addr)}" target="_blank" rel="noopener"><i class="ph ph-map-pin"></i>${esc(t('cMap'))}</a>${links}</div></div>
-        ${socials().length ? `<div class="lbl" style="border-top:1px solid var(--line)"><i class="ph ph-share-network"></i>${esc(t('soc'))}</div><div class="in">${socialTiles()}</div>` : ''}</div></aside>
+        <div class="card-p"><div class="lbl"><i class="ph ph-share-network"></i>${esc(t('soc'))}</div><div class="in">${socialTiles()}</div></div></div></aside>
     </div></div>`;
   const setErr = (id, msg) => { const e = $('#e-' + id), f = $('#' + id); if (e) e.textContent = msg || ''; if (f) f.setAttribute('aria-invalid', msg ? 'true' : 'false'); };
   $('#cagain').onclick = () => { $('#cok').hidden = true; $('#cfields').hidden = false; $('#cf').reset(); };
@@ -454,7 +466,7 @@ function updateFab(h) {
   let f = $('#fab'); if (!f) { f = document.createElement('div'); f.id = 'fab'; f.className = 'fab'; document.body.append(f); }
   const lot = (h.match(/^#\/p\/([\w-]+)/) || [])[1], l = lot && lotById(lot);
   const msg = l ? t('msgDef', l.id, l.municipality) : t('waGeneral');
-  const list = h.startsWith('#/contact') ? [] : chatButtons(msg);
+  const list = h.startsWith('#/contact') ? [] : chatButtons(msg).filter(b => b.url);
   f.hidden = !list.length;
   f.innerHTML = list.map(b => `<a href="${esc(b.url)}" target="_blank" rel="noopener" aria-label="${esc(t(b.k === 'wa' ? 'writeWa' : 'writeTg'))}" title="${esc(b.name)}"><i class="ph-fill ph-${b.ic}"></i></a>`).join('');
 }
@@ -466,7 +478,7 @@ function renderRoute() {
   const m = h.match(/^#\/p\/([\w-]+)/);
   updateSavedBadge();
   setText('#disc', t('disc'));
-  const ftl = $('#ftl'); if (ftl) ftl.innerHTML = socials().map(s => `<a class="hbtn" href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="${esc(s.name)}"><i class="ph ph-${s.ic}"></i><span>${esc(s.name)}</span></a>`).join('');
+  const ftl = $('#ftl'); if (ftl) ftl.innerHTML = socials().map(s => socialLink(s, `<i class="ph ph-${s.ic}"></i><span>${esc(s.name)}</span>`, 'hbtn')).join('');
   setText('#co', `${CO.name}, ${CO.addr}. ${t('coReg2')} ${regDate()}${regDate().endsWith('.') ? '' : '.'}`);
   setText('#navCat', t('navCat')); setText('#navAbout', t('navAbout'));
   const isAbout = h.startsWith('#/about'), isContact = h.startsWith('#/contact');
