@@ -6,3 +6,15 @@ const CONTACT = { email: '', whatsapp: '', phone: '', telegram: '' };
 // Подойдёт любой сервис, принимающий POST с JSON (например Formspree или Web3Forms).
 // extra: дополнительные поля, которых требует сервис (например { access_key: '...' } для Web3Forms).
 const FORM = { endpoint: '', extra: {} };
+
+// Соцсети. Показываются только те, где указана ссылка (полный адрес, начиная с https://).
+// Порядок на сайте: YouTube, Instagram, LinkedIn, Facebook, Telegram, TikTok, Google.
+const SOCIAL = {
+  youtube: 'https://youtube.com/@allianzkapital',
+  instagram: '',
+  linkedin: '',
+  facebook: '',
+  telegram: '',   // канал или группа, например https://t.me/название
+  tiktok: '',
+  google: ''      // страница компании в Google Картах (отзывы)
+};

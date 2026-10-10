@@ -14,8 +14,11 @@ const safeUrl = u => (/^https:\/\//.test(u || '') ? esc(u) : '#');
 const fmt = (v, d = 0) => v == null ? '-' : v.toLocaleString(D().loc, { maximumFractionDigits: d });
 const eur = v => '€ ' + fmt(v);
 const fav = new Set(ls.get('fav', []));
-const CO = { name: 'ALLIANZ KAPITAL d.o.o.', addr: 'Poluostrvo Zavala, Zgrada Harmonija, Budva, Crna Gora', reg: new Date(2007, 2, 13), registry: 'https://www.companywall.me/firma/allianz-kapital/MMxF2yCD', youtube: 'https://youtube.com/@allianzkapital' };
+const CO = { name: 'ALLIANZ KAPITAL d.o.o.', addr: 'Poluostrvo Zavala, Zgrada Harmonija, Budva, Crna Gora', reg: new Date(2007, 2, 13), registry: 'https://www.companywall.me/firma/allianz-kapital/MMxF2yCD' };
 const regDate = () => CO.reg.toLocaleDateString(D().loc, { day: 'numeric', month: 'long', year: 'numeric' });
+const SOCIAL_DEF = [['youtube', 'youtube-logo', 'YouTube'], ['instagram', 'instagram-logo', 'Instagram'], ['linkedin', 'linkedin-logo', 'LinkedIn'], ['facebook', 'facebook-logo', 'Facebook'], ['telegram', 'telegram-logo', 'Telegram'], ['tiktok', 'tiktok-logo', 'TikTok'], ['google', 'google-logo', 'Google']];
+const socials = () => { const S_ = (typeof SOCIAL !== 'undefined' && SOCIAL) || {}; return SOCIAL_DEF.filter(([k]) => /^https:\/\//.test(S_[k] || '')).map(([k, ic, name]) => ({ k, ic, name, url: S_[k] })); };
+const socialTiles = () => `<div class="soc">${socials().map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener"><i class="ph ph-${s.ic}"></i><span>${esc(s.name)}</span><i class="ph ph-arrow-up-right go"></i></a>`).join('')}</div>`;
 const REGION_XY = { Kolasin: [42.8228, 19.5206], Budva: [42.2864, 18.84], Kotor: [42.4247, 18.7712] };
 const REGION_EN = { Kolasin: 'Kolasin', Budva: 'Budva', Kotor: 'Kotor' };
 const ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
@@ -363,9 +366,9 @@ function renderAbout() {
       <dl class="facts"><div><dt>${esc(t('coName'))}</dt><dd>${esc(CO.name)}</dd></div><div><dt>${esc(t('coAddr'))}</dt><dd>${esc(CO.addr)}</dd></div><div><dt>${esc(t('coReg'))}</dt><dd>${esc(regDate())}</dd></div></dl>
       <div class="doclinks" style="margin-top:16px"><a class="hbtn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CO.addr)}" target="_blank" rel="noopener"><i class="ph ph-map-pin"></i>${esc(t('coMap'))}</a>
       <a class="hbtn" href="${esc(CO.registry)}" target="_blank" rel="noopener"><i class="ph ph-arrow-up-right"></i>${esc(t('coReg3'))}</a></div></div></div></section>
+    ${socials().length ? `<section class="sec reveal"><h2>${esc(t('soc'))}</h2><p class="meta" style="margin:-8px 0 16px">${esc(t('socS'))}</p>${socialTiles()}</section>` : ''}
     <section class="cta reveal"><div><h2>${esc(t('abCtaT'))}</h2><p>${esc(t('abCtaS'))}</p></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn light" href="#/">${esc(t('abCat'))}</a>
-      <a class="btn" href="${esc(CO.youtube)}" target="_blank" rel="noopener"><i class="ph ph-youtube-logo"></i>${esc(t('yt'))}</a>
       ${c && c.whatsapp ? `<a class="btn" href="https://wa.me/${esc(String(c.whatsapp).replace(/\D/g, ''))}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo"></i>${esc(t('viaWa'))}</a>` : ''}
       ${c && c.email ? `<a class="btn" href="mailto:${esc(c.email)}"><i class="ph ph-envelope-simple"></i>${esc(t('viaMail'))}</a>` : ''}</div></section>
   </div>`;
@@ -401,7 +404,8 @@ function renderContact(pre) {
           </div></form></div>
       <aside class="card-p"><div class="lbl"><i class="ph ph-identification-card"></i>${esc(t('cInfo'))}</div><div class="in">
         <dl class="facts"><div><dt>${esc(t('coName'))}</dt><dd>${esc(CO.name)}</dd></div><div><dt>${esc(t('cAddr'))}</dt><dd>${esc(CO.addr)}</dd></div></dl>
-        <div class="doclinks" style="margin-top:16px"><a class="hbtn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CO.addr)}" target="_blank" rel="noopener"><i class="ph ph-map-pin"></i>${esc(t('cMap'))}</a><a class="hbtn" href="${esc(CO.youtube)}" target="_blank" rel="noopener"><i class="ph ph-youtube-logo"></i>${esc(t('yt'))}</a>${links}</div></div></aside>
+        <div class="doclinks" style="margin-top:16px"><a class="hbtn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CO.addr)}" target="_blank" rel="noopener"><i class="ph ph-map-pin"></i>${esc(t('cMap'))}</a>${links}</div></div>
+        ${socials().length ? `<div class="lbl" style="border-top:1px solid var(--line)"><i class="ph ph-share-network"></i>${esc(t('soc'))}</div><div class="in">${socialTiles()}</div>` : ''}</aside>
     </div></div>`;
   const setErr = (id, msg) => { const e = $('#e-' + id), f = $('#' + id); if (e) e.textContent = msg || ''; if (f) f.setAttribute('aria-invalid', msg ? 'true' : 'false'); };
   $('#cagain').onclick = () => { $('#cok').hidden = true; $('#cfields').hidden = false; $('#cf').reset(); };
@@ -450,7 +454,7 @@ function renderRoute() {
   const m = h.match(/^#\/p\/([\w-]+)/);
   updateSavedBadge();
   setText('#disc', t('disc'));
-  setText('#ytT', t('yt'));
+  const ftl = $('#ftl'); if (ftl) ftl.innerHTML = socials().map(s => `<a class="hbtn" href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="${esc(s.name)}"><i class="ph ph-${s.ic}"></i><span>${esc(s.name)}</span></a>`).join('');
   setText('#co', `${CO.name}, ${CO.addr}. ${t('coReg2')} ${regDate()}${regDate().endsWith('.') ? '' : '.'}`);
   setText('#navCat', t('navCat')); setText('#navAbout', t('navAbout'));
   const isAbout = h.startsWith('#/about'), isContact = h.startsWith('#/contact');
