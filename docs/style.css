@@ -249,7 +249,8 @@ dialog.lb::backdrop{background:rgba(10,6,2,.94)}
 footer{background:var(--ink);color:var(--bg);font-size:13px;padding:32px 0}
 footer .wrap{display:grid;gap:8px}
 footer .brand{margin-bottom:6px}footer .mk{color:var(--acc);width:40px;height:40px}footer .wm small{color:inherit;opacity:.7}
-footer span{opacity:.75;max-width:60em}
+footer span{opacity:.75;max-width:62em;line-height:1.5}
+footer #disc{font-size:12px}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:var(--r);z-index:80;font-weight:600}
 .leaflet-container{font:inherit}
 .leaflet-tooltip.lotlbl{background:var(--acc);color:#fff;border:0;font-weight:700;box-shadow:none}
