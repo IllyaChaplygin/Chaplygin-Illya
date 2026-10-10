@@ -339,7 +339,7 @@ function renderAbout() {
   $('#app').innerHTML = `
   <section class="abt"><div class="wrap"><h1>${esc(t('abTitle'))}</h1>${D().ab.map(p => `<p>${esc(p)}</p>`).join('')}</div></section>
   <div class="wrap">
-    <div class="nums reveal"><div><b>10+</b><span>${esc(t('abYears'))}</span></div><div><b>${LOTS.length}</b><span>${esc(t('abLots'))}</span></div><div><b>${fmt(ha, 1)}</b><span>${esc(t('abHa'))}</span></div><div><b>${regs.length}</b><span>${esc(t('abRegions'))}</span></div></div>
+    <div class="nums reveal"><div><b>${fmt(LOTS.reduce((n, l) => n + l.n, 0))}</b><span>${esc(t('abParcels'))}</span></div><div><b>${LOTS.length}</b><span>${esc(t('abLots'))}</span></div><div><b>${fmt(ha, 1)}</b><span>${esc(t('abHa'))}</span></div><div><b>${regs.length}</b><span>${esc(t('abRegions'))}</span></div></div>
     <section class="sec reveal"><h2>${esc(t('abDoT'))}</h2><div class="do">
       <div class="big-t"><i class="ph ph-tree"></i><p>${esc(t('abDo1'))}</p></div>
       <div class="small-t"><i class="ph ph-buildings"></i><p>${esc(t('abDo2'))}</p></div></div></section>
