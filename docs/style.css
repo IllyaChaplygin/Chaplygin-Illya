@@ -239,6 +239,15 @@ h1,h2,h3{letter-spacing:-.02em}
 .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}
 .reveal.in{opacity:1;transform:none}
 
+/* quick contact */
+.chat{display:grid;gap:10px}
+.chat .btn{justify-content:flex-start;padding:14px 18px;font-size:16px}
+.chat .btn .ph{font-size:24px}
+.cgrid aside .card-p+.card-p{margin-top:16px}
+.fab{position:fixed;right:16px;bottom:16px;z-index:40;display:grid;gap:10px}
+.fab a{width:54px;height:54px;border-radius:var(--r);background:var(--acc);color:var(--acc-ink);display:grid;place-items:center;font-size:28px;box-shadow:var(--shadow);text-decoration:none;transition:transform .2s}
+.fab a:hover{transform:translateY(-2px)}
+@media (max-width:640px){.fab{right:12px;bottom:12px}.fab a{width:50px;height:50px}}
 /* social */
 .soc{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
 .soc a{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);text-decoration:none;font-weight:700;transition:border-color .2s,transform .2s}

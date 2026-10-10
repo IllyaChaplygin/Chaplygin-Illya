@@ -19,6 +19,9 @@ const regDate = () => CO.reg.toLocaleDateString(D().loc, { day: 'numeric', month
 const SOCIAL_DEF = [['youtube', 'youtube-logo', 'YouTube'], ['instagram', 'instagram-logo', 'Instagram'], ['linkedin', 'linkedin-logo', 'LinkedIn'], ['facebook', 'facebook-logo', 'Facebook'], ['telegram', 'telegram-logo', 'Telegram'], ['tiktok', 'tiktok-logo', 'TikTok'], ['google', 'google-logo', 'Google']];
 const socials = () => { const S_ = (typeof SOCIAL !== 'undefined' && SOCIAL) || {}; return SOCIAL_DEF.filter(([k]) => /^https:\/\//.test(S_[k] || '')).map(([k, ic, name]) => ({ k, ic, name, url: S_[k] })); };
 const socialTiles = () => `<div class="soc">${socials().map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener"><i class="ph ph-${s.ic}"></i><span>${esc(s.name)}</span><i class="ph ph-arrow-up-right go"></i></a>`).join('')}</div>`;
+const waUrl = (num, msg) => `https://wa.me/${String(num).replace(/\D/g, '')}${msg ? '?text=' + encodeURIComponent(msg) : ''}`;
+const tgUrl = v => /^https:\/\//.test(v) ? v : `https://t.me/${encodeURIComponent(String(v).replace(/^@/, ''))}`;
+const chatButtons = msg => { const c = contactSet() || {}; return [c.whatsapp && { k: 'wa', ic: 'whatsapp-logo', name: 'WhatsApp', url: waUrl(c.whatsapp, msg) }, c.telegram && { k: 'tg', ic: 'telegram-logo', name: 'Telegram', url: tgUrl(c.telegram) }].filter(Boolean); };
 const REGION_XY = { Kolasin: [42.8228, 19.5206], Budva: [42.2864, 18.84], Kotor: [42.4247, 18.7712] };
 const REGION_EN = { Kolasin: 'Kolasin', Budva: 'Budva', Kotor: 'Kotor' };
 const ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
@@ -331,8 +334,8 @@ function renderLot(id) {
   $$('#mos [data-i]').forEach(b => b.onclick = () => openLb(ph, +b.dataset.i));
   $$('[data-ct]').forEach(a => a.addEventListener('click', () => {
     const m = encodeURIComponent($('#msg').value);
-    a.href = a.dataset.ct === 'wa' ? `https://wa.me/${String(c.whatsapp).replace(/\D/g, '')}?text=${m}`
-      : a.dataset.ct === 'tg' ? `https://t.me/${encodeURIComponent(c.telegram)}`
+    a.href = a.dataset.ct === 'wa' ? waUrl(c.whatsapp, $('#msg').value)
+      : a.dataset.ct === 'tg' ? tgUrl(c.telegram)
       : `mailto:${c.email}?subject=${encodeURIComponent(t('lot') + ' ' + l.id)}&body=${m}`;
     a.target = '_blank'; a.rel = 'noopener';
   }));
@@ -369,7 +372,8 @@ function renderAbout() {
     ${socials().length ? `<section class="sec reveal"><h2>${esc(t('soc'))}</h2><p class="meta" style="margin:-8px 0 16px">${esc(t('socS'))}</p>${socialTiles()}</section>` : ''}
     <section class="cta reveal"><div><h2>${esc(t('abCtaT'))}</h2><p>${esc(t('abCtaS'))}</p></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn light" href="#/">${esc(t('abCat'))}</a>
-      ${c && c.whatsapp ? `<a class="btn" href="https://wa.me/${esc(String(c.whatsapp).replace(/\D/g, ''))}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo"></i>${esc(t('viaWa'))}</a>` : ''}
+      ${c && c.whatsapp ? `<a class="btn" href="${esc(waUrl(c.whatsapp))}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo"></i>${esc(t('viaWa'))}</a>` : ''}
+      ${c && c.telegram ? `<a class="btn" href="${esc(tgUrl(c.telegram))}" target="_blank" rel="noopener"><i class="ph ph-telegram-logo"></i>${esc(t('viaTg'))}</a>` : ''}
       ${c && c.email ? `<a class="btn" href="mailto:${esc(c.email)}"><i class="ph ph-envelope-simple"></i>${esc(t('viaMail'))}</a>` : ''}</div></section>
   </div>`;
   const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 }) : null;
@@ -383,8 +387,6 @@ function renderContact(pre) {
   const lotOpts = `<option value="">${esc(t('fLotAny'))}</option>` + LOTS.map(l => `<option value="${esc(l.id)}"${l.id === pre ? ' selected' : ''}>${esc(l.id)}, ${esc(l.municipality)}${l.area != null ? ', ' + fmt(l.area) + ' ' + esc(t('m2')) : ''}</option>`).join('');
   const field = (id, label, input, extra = '') => `<div class="ff"><label for="${id}">${esc(label)}</label>${input}<div class="err" id="e-${id}" role="alert"></div>${extra}</div>`;
   const links = [
-    c.whatsapp && `<a class="hbtn" href="https://wa.me/${esc(String(c.whatsapp).replace(/\D/g, ''))}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo"></i>${esc(t('viaWa'))}</a>`,
-    c.telegram && `<a class="hbtn" href="https://t.me/${esc(encodeURIComponent(c.telegram))}" target="_blank" rel="noopener"><i class="ph ph-telegram-logo"></i>${esc(t('viaTg'))}</a>`,
     c.email && `<a class="hbtn" href="mailto:${esc(c.email)}"><i class="ph ph-envelope-simple"></i>${esc(c.email)}</a>`,
     c.phone && `<a class="hbtn" href="tel:+${esc(String(c.phone).replace(/\D/g, ''))}"><i class="ph ph-phone"></i>${esc(t('call'))}</a>`].filter(Boolean).join('');
   $('#app').innerHTML = `<div class="wrap"><nav class="crumbs" aria-label="breadcrumb"><a href="#/"><i class="ph ph-arrow-left"></i> ${esc(t('back'))}</a></nav>
@@ -402,10 +404,11 @@ function renderContact(pre) {
             <div class="cstatus" id="cstatus" role="status"></div>
             <button class="btn" id="csend" type="submit"><i class="ph ph-paper-plane-tilt"></i>${esc(t('fSend'))}</button>
           </div></form></div>
-      <aside class="card-p"><div class="lbl"><i class="ph ph-identification-card"></i>${esc(t('cInfo'))}</div><div class="in">
+      <aside>${chatButtons(t('waGeneral')).length ? `<div class="card-p"><div class="lbl"><i class="ph ph-chats-circle"></i>${esc(t('quick'))}</div><div class="in"><div class="chat">${chatButtons(t('waGeneral')).map(b => `<a class="btn" href="${esc(b.url)}" target="_blank" rel="noopener"><i class="ph ph-${b.ic}"></i>${esc(t(b.k === 'wa' ? 'writeWa' : 'writeTg'))}</a>`).join('')}</div></div></div>` : ''}
+      <div class="card-p"><div class="lbl"><i class="ph ph-identification-card"></i>${esc(t('cInfo'))}</div><div class="in">
         <dl class="facts"><div><dt>${esc(t('coName'))}</dt><dd>${esc(CO.name)}</dd></div><div><dt>${esc(t('cAddr'))}</dt><dd>${esc(CO.addr)}</dd></div></dl>
         <div class="doclinks" style="margin-top:16px"><a class="hbtn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CO.addr)}" target="_blank" rel="noopener"><i class="ph ph-map-pin"></i>${esc(t('cMap'))}</a>${links}</div></div>
-        ${socials().length ? `<div class="lbl" style="border-top:1px solid var(--line)"><i class="ph ph-share-network"></i>${esc(t('soc'))}</div><div class="in">${socialTiles()}</div>` : ''}</aside>
+        ${socials().length ? `<div class="lbl" style="border-top:1px solid var(--line)"><i class="ph ph-share-network"></i>${esc(t('soc'))}</div><div class="in">${socialTiles()}</div>` : ''}</div></aside>
     </div></div>`;
   const setErr = (id, msg) => { const e = $('#e-' + id), f = $('#' + id); if (e) e.textContent = msg || ''; if (f) f.setAttribute('aria-invalid', msg ? 'true' : 'false'); };
   $('#cagain').onclick = () => { $('#cok').hidden = true; $('#cfields').hidden = false; $('#cf').reset(); };
@@ -447,6 +450,15 @@ $('#lb').addEventListener('keydown', e => { if (e.key === 'ArrowLeft') $('#lbP')
 $('#lb').addEventListener('click', e => { if (e.target === $('#lb') || e.target.classList.contains('st')) $('#lb').close(); });
 
 /* ---------- router ---------- */
+function updateFab(h) {
+  let f = $('#fab'); if (!f) { f = document.createElement('div'); f.id = 'fab'; f.className = 'fab'; document.body.append(f); }
+  const lot = (h.match(/^#\/p\/([\w-]+)/) || [])[1], l = lot && lotById(lot);
+  const msg = l ? t('msgDef', l.id, l.municipality) : t('waGeneral');
+  const list = h.startsWith('#/contact') ? [] : chatButtons(msg);
+  f.hidden = !list.length;
+  f.innerHTML = list.map(b => `<a href="${esc(b.url)}" target="_blank" rel="noopener" aria-label="${esc(t(b.k === 'wa' ? 'writeWa' : 'writeTg'))}" title="${esc(b.name)}"><i class="ph-fill ph-${b.ic}"></i></a>`).join('');
+}
+
 function renderRoute() {
   if (lotMap) { lotMap.remove(); lotMap = null; }
   if (homeMap) { homeMap.remove(); homeMap = null; }
@@ -462,6 +474,7 @@ function renderRoute() {
   [['#navCat', !isAbout && !isContact], ['#navAbout', isAbout], ['#navContact', isContact]].forEach(([s, on]) => { const n = $(s); if (n) n.classList.toggle('on', on); });
   $$('#lang button').forEach(b => b.classList.toggle('on', b.dataset.l === lang));
   document.documentElement.lang = D().html;
+  updateFab(h);
   if (m) { renderLot(m[1]); window.scrollTo(0, 0); return; }
   if (isContact) { renderContact((h.match(/^#\/contact\/([\w-]+)/) || [])[1]); window.scrollTo(0, 0); return; }
   if (isAbout) { renderAbout(); window.scrollTo(0, 0); return; }
