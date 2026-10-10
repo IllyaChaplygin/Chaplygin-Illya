@@ -14,6 +14,8 @@ const safeUrl = u => (/^https:\/\//.test(u || '') ? esc(u) : '#');
 const fmt = (v, d = 0) => v == null ? '-' : v.toLocaleString(D().loc, { maximumFractionDigits: d });
 const eur = v => '€ ' + fmt(v);
 const fav = new Set(ls.get('fav', []));
+const CO = { name: 'ALLIANZ KAPITAL d.o.o.', addr: 'Poluostrvo Zavala, Zgrada Harmonija, Budva, Crna Gora', reg: new Date(2007, 2, 13), registry: 'https://www.companywall.me/firma/allianz-kapital/MMxF2yCD' };
+const regDate = () => CO.reg.toLocaleDateString(D().loc, { day: 'numeric', month: 'long', year: 'numeric' });
 const REGION_XY = { Kolasin: [42.8228, 19.5206], Budva: [42.2864, 18.84], Kotor: [42.4247, 18.7712] };
 const REGION_EN = { Kolasin: 'Kolasin', Budva: 'Budva', Kotor: 'Kotor' };
 const ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
@@ -355,6 +357,10 @@ function renderAbout() {
         <dl><div><dt>${esc(t('totalArea'))}</dt><dd>${fmt(l.area)} ${esc(t('m2'))}</dd></div><div><dt>${esc(t('cadastreN'))}</dt><dd>${l.n}</dd></div>
         <div><dt>${esc(t('region'))}</dt><dd>${esc(regionName(l.region))}</dd></div><div><dt>${esc(t('price'))}</dt><dd>${l.total != null ? eur(l.total) : esc(t('onReq'))}</dd></div></dl>
         <div><a class="btn" href="#/p/${esc(l.id)}">${esc(t('abOpen'))}</a></div></div></article>`; }).join('')}</section>
+    <section class="sec reveal"><div class="card-p"><div class="lbl"><i class="ph ph-identification-card"></i>${esc(t('coT'))}</div><div class="in">
+      <dl class="facts"><div><dt>${esc(t('coName'))}</dt><dd>${esc(CO.name)}</dd></div><div><dt>${esc(t('coAddr'))}</dt><dd>${esc(CO.addr)}</dd></div><div><dt>${esc(t('coReg'))}</dt><dd>${esc(regDate())}</dd></div></dl>
+      <div class="doclinks" style="margin-top:16px"><a class="hbtn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CO.addr)}" target="_blank" rel="noopener"><i class="ph ph-map-pin"></i>${esc(t('coMap'))}</a>
+      <a class="hbtn" href="${esc(CO.registry)}" target="_blank" rel="noopener"><i class="ph ph-arrow-up-right"></i>${esc(t('coReg3'))}</a></div></div></div></section>
     <section class="cta reveal"><div><h2>${esc(t('abCtaT'))}</h2><p>${esc(t('abCtaS'))}</p></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn light" href="#/">${esc(t('abCat'))}</a>
       ${c && c.whatsapp ? `<a class="btn" href="https://wa.me/${esc(String(c.whatsapp).replace(/\D/g, ''))}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo"></i>${esc(t('viaWa'))}</a>` : ''}
@@ -382,6 +388,7 @@ function renderRoute() {
   const m = h.match(/^#\/p\/([\w-]+)/);
   updateSavedBadge();
   $('#disc').textContent = t('disc');
+  $('#co').textContent = `${CO.name}, ${CO.addr}. ${t('coReg2')} ${regDate()}${regDate().endsWith('.') ? '' : '.'}`;
   $('#navCat').textContent = t('navCat'); $('#navAbout').textContent = t('navAbout');
   $('#navCat').classList.toggle('on', !h.startsWith('#/about')); $('#navAbout').classList.toggle('on', h.startsWith('#/about'));
   $$('#lang button').forEach(b => b.classList.toggle('on', b.dataset.l === lang));
