@@ -8,13 +8,13 @@ const CONTACT = { email: '', whatsapp: '', phone: '', telegram: '' };
 const FORM = { endpoint: '', extra: {} };
 
 // Соцсети. Показываются только те, где указана ссылка (полный адрес, начиная с https://).
-// Порядок на сайте: YouTube, Instagram, LinkedIn, Facebook, Telegram, TikTok, Google.
+// Порядок на сайте: YouTube, Instagram, LinkedIn, Facebook, TikTok, Google.
+// WhatsApp и Telegram здесь не нужны: они задаются выше, в CONTACT, и показываются в блоке "Быстрая связь".
 const SOCIAL = {
   youtube: 'https://youtube.com/@allianzkapital',
   instagram: '',
   linkedin: '',
   facebook: '',
-  telegram: '',   // канал или группа, например https://t.me/название
   tiktok: '',
   google: ''      // страница компании в Google Картах (отзывы)
 };
