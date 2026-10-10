@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Земли Черногории — каталог участков</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--ink:#1b1f1d;--mute:#6b726e;--line:#e2e0d8;--acc:#1f6b52;--acc2:#e8f1ec;--warn:#b4531c}
+@media (prefers-color-scheme:dark){:root{--bg:#121513;--card:#1b201d;--ink:#e9ece9;--mute:#98a29c;--line:#2b322e;--acc:#5fc19b;--acc2:#1f2d26;--warn:#e69a62}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1240px;margin:0 auto;padding:0 16px 48px}
+header{padding:32px 0 8px}
+h1{margin:0 0 4px;font-size:clamp(24px,4vw,36px);letter-spacing:-.02em}
+header p{margin:0;color:var(--mute)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:20px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.kpi b{display:block;font-size:22px;font-variant-numeric:tabular-nums}
+.kpi span{color:var(--mute);font-size:12px}
+.filters{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;display:flex;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--line)}
+.filters input,.filters select{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:0}
+.filters input[type=search]{flex:1 1 200px}
+.filters label{display:flex;align-items:center;gap:6px;color:var(--mute)}
+.count{margin:14px 0 8px;color:var(--mute)}
+.tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:860px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--mute);cursor:pointer;user-select:none;position:sticky;top:0;background:var(--card)}
+th.sorted::after{content:" ▲"}th.sorted.desc::after{content:" ▼"}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.row{cursor:pointer}tr.row:hover td{background:var(--acc2)}
+.tag{display:inline-block;padding:2px 8px;border-radius:99px;font-size:12px;background:var(--acc2);color:var(--acc)}
+.tag.sold{background:#eee;color:#666}.tag.warn{background:#fbeadc;color:var(--warn)}
+@media (prefers-color-scheme:dark){.tag.sold{background:#2b322e;color:#98a29c}.tag.warn{background:#3a2a1d}}
+dialog{border:1px solid var(--line);border-radius:16px;background:var(--card);color:var(--ink);max-width:560px;width:calc(100% - 32px);padding:22px}
+dialog::backdrop{background:#0008}
+dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:14px 0}dt{color:var(--mute)}dd{margin:0}
+a.btn{display:inline-block;margin:4px 6px 0 0;padding:8px 12px;border-radius:8px;background:var(--acc);color:var(--bg);text-decoration:none;font-weight:600}
+button.close{float:right;border:0;background:none;color:var(--mute);font-size:22px;cursor:pointer}
+.note{margin-top:28px;color:var(--mute);font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Земельные участки Черногории</h1>
+    <p>Колашин · Будва · Котор — каталог по данным реестра</p>
+  </header>
+  <section class="kpis" id="kpis"></section>
+  <div class="filters">
+    <input type="search" id="q" placeholder="Поиск: кадастр, группа, община…">
+    <select id="region"><option value="">Все регионы</option></select>
+    <select id="view"><option value="">Любой вид</option><option value="гора">Горы</option><option value="море">Море</option></select>
+    <select id="status"><option value="">Любой статус</option></select>
+    <select id="muni"><option value="">Все общины</option></select>
+    <label><input type="checkbox" id="priced"> только с ценой</label>
+    <label><input type="checkbox" id="tour"> только с 3D-туром</label>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="tablewrap"><table>
+    <thead><tr id="head"></tr></thead><tbody id="body"></tbody>
+  </table></div>
+  <p class="note">Цены — по данным реестра, ориентировочные, не являются офертой. Площадь — по листам непокретности. Участки без площади и цены в реестре не заполнены.</p>
+</div>
+<dialog id="dlg"></dialog>
+<script src="data.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const fmt = (v, d = 0) => v == null ? '—' : v.toLocaleString('ru-RU', {maximumFractionDigits: d});
+const cols = [
+  ['id','№',1],['region','Регион'],['municipality','Община'],['cadastre','Кадастр'],['view','Вид'],
+  ['status','Статус'],['area','Площадь, м²',1],['ppm','€/м²',1],['total','Цена, €',1],['floors','Этажность']
+];
+let sort = {k:'id', desc:false};
+
+const uniq = k => [...new Set(PARCELS.map(p => p[k]).filter(Boolean))].sort();
+for (const [id,k] of [['region','region'],['status','status'],['muni','municipality']])
+  uniq(k).forEach(v => $(id).add(new Option(v, v)));
+
+$('head').innerHTML = cols.map(([k,l,n]) => `<th data-k="${k}" class="${n?'n':''}">${l}</th>`).join('');
+$('head').onclick = e => {
+  const k = e.target.dataset.k; if (!k) return;
+  sort = {k, desc: sort.k === k ? !sort.desc : false}; render();
+};
+['q','region','view','status','muni','priced','tour'].forEach(id => $(id).addEventListener('input', render));
+
+function tag(s){const c = s==='наша'?'':s==='продана'?'sold':'warn';return `<span class="tag ${c}">${s}</span>`}
+
+function render(){
+  const q = $('q').value.trim().toLowerCase();
+  let list = PARCELS.filter(p =>
+    (!q || [p.cadastre,p.group,p.municipality,p.region].join(' ').toLowerCase().includes(q)) &&
+    (!$('region').value || p.region === $('region').value) &&
+    (!$('view').value || p.view === $('view').value) &&
+    (!$('status').value || p.status === $('status').value) &&
+    (!$('muni').value || p.municipality === $('muni').value) &&
+    (!$('priced').checked || p.total) && (!$('tour').checked || p.tour || p.tourGroup));
+  const {k, desc} = sort;
+  list.sort((a,b) => {
+    const x = a[k], y = b[k];
+    if (x == null || x === '') return 1; if (y == null || y === '') return -1;
+    return (typeof x === 'number' ? x - y : String(x).localeCompare(String(y), 'ru', {numeric:true})) * (desc ? -1 : 1);
+  });
+  document.querySelectorAll('th').forEach(th => {
+    th.className = (th.className.includes('n') ? 'n ' : '') + (th.dataset.k === k ? 'sorted' + (desc ? ' desc' : '') : '');
+  });
+  $('count').textContent = `Показано ${list.length} из ${PARCELS.length}`;
+  $('body').innerHTML = list.map(p => `<tr class="row" data-id="${p.id}">
+    <td class="n">${p.id}</td><td>${p.region}</td><td>${p.municipality}</td><td>${p.cadastre}</td>
+    <td>${p.view}</td><td>${tag(p.status)}</td><td class="n">${fmt(p.area)}</td>
+    <td class="n">${fmt(p.ppm)}</td><td class="n">${fmt(p.total)}</td><td>${p.floors||'—'}</td></tr>`).join('');
+  kpis(list);
+}
+
+function kpis(list){
+  const avail = list.filter(p => p.status !== 'продана');
+  const area = avail.reduce((s,p) => s + (p.area||0), 0);
+  const val = avail.reduce((s,p) => s + (p.total||0), 0);
+  const withP = avail.filter(p => p.total && p.area);
+  const avg = withP.length ? withP.reduce((s,p)=>s+p.total,0) / withP.reduce((s,p)=>s+p.area,0) : null;
+  $('kpis').innerHTML = [
+    [list.length,'участков в выборке'],[avail.length,'не проданы'],
+    [fmt(area/10000,1)+' га','площадь (не проданных)'],
+    ['€ '+fmt(val/1e6,1)+' млн','оценка стоимости'],['€ '+fmt(avg,0),'средняя цена за м²']
+  ].map(([b,s]) => `<div class="kpi"><b>${b}</b><span>${s}</span></div>`).join('');
+}
+
+$('body').onclick = e => {
+  const tr = e.target.closest('tr'); if (!tr) return;
+  const p = PARCELS.find(x => x.id == tr.dataset.id);
+  const rows = [['Группа',p.group],['Регион',p.region],['Община',p.municipality],['Кадастр',p.cadastre],
+    ['Вид',p.view],['Статус',p.status],['Ограничения',p.restricted?'есть':'нет'],
+    ['Площадь',p.area?fmt(p.area)+' м²':'—'],['Цена за м²',p.ppm?'€ '+fmt(p.ppm):'—'],['Цена',p.total?'€ '+fmt(p.total):'—'],
+    ['План. документ',p.plan],['Коэф. заполнения',p.occupancy],['Коэф. застройки',p.far],['Этажность',p.floors]]
+    .filter(([,v]) => v && v !== '—');
+  $('dlg').innerHTML = `<button class="close" onclick="dlg.close()">×</button><h2 style="margin:0">Участок №${p.id}</h2>
+    <dl>${rows.map(([k,v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
+    ${p.tour?`<a class="btn" href="${p.tour}" target="_blank" rel="noopener">3D-тур участка</a>`:''}
+    ${p.tourGroup?`<a class="btn" href="${p.tourGroup}" target="_blank" rel="noopener">3D-тур группы</a>`:''}`;
+  $('dlg').showModal();
+};
+$('dlg').onclick = e => { if (e.target === $('dlg')) $('dlg').close(); };
+render();
+</script>
+</body>
+</html>
