@@ -1,0 +1,22 @@
+{
+ "M01": {"since": 2007, "category": "settlement", "right": "ownership", "restrictions": "none", "cooperation": "jointBuild",
+  "comms": ["electricity", "water", "gas", "sewage"],
+  "volume": {"gross": 27767, "apartments": 19944, "commercial": 1133, "garages": 410, "terraces": 2158},
+  "transport": [{"k": "beach", "min": 7, "how": "walk", "m": 500, "link": "https://maps.app.goo.gl/JweHGQTvLkNZaMqk8"},
+                {"k": "portBudva", "min": 10, "how": "car", "km": 3.7, "link": "https://maps.app.goo.gl/aBRosM7JMeKGPJnJ6"},
+                {"k": "airportTivat", "min": 30, "how": "car", "km": 24, "link": "https://maps.app.goo.gl/XNivpwJUyMrWRJQk9"}],
+  "img": {"cad": ["m01_cad1.jpg", "m01_cad2.jpg"], "concept": "m01_concept.jpg"}},
+ "M03": {"since": 2007, "category": "settlement", "right": "ownership", "restrictions": "none", "cooperation": "jointBuild",
+  "comms": ["electricity", "water", "gas", "sewage"],
+  "volume": {"gross": 14454},
+  "transport": [{"k": "portBudva", "min": 15, "how": "car", "km": 7.3, "link": "https://maps.app.goo.gl/rqybR2vr6vKvNnRb6"},
+                {"k": "airportTivat", "min": 17, "how": "car", "km": 13, "link": "https://maps.app.goo.gl/SGdF6EbSR2NkkNeo8"}],
+  "img": {"cad": ["m03_cad1.jpg", "m03_cad2.jpg"], "concept": "m03_concept.jpg"}},
+ "M07": {"since": 2007, "category": "settlement", "right": "ownership", "restrictions": "none", "cooperation": "jointBuild",
+  "comms": ["electricity", "water", "gas", "sewage"],
+  "volume": {},
+  "transport": [{"k": "beach", "min": 12, "how": "walk", "m": 900, "link": "https://maps.app.goo.gl/k11xGdhCUEGHtrYd6"},
+                {"k": "portBudva", "min": 12, "how": "car", "km": 5.3, "link": "https://maps.app.goo.gl/aBReWJnUx3ZCAG5bA"},
+                {"k": "airportTivat", "min": 36, "how": "car", "km": 25, "link": "https://maps.app.goo.gl/5ejJ2QzxQmo43nM66"}],
+  "img": {"cad": ["m07_cad1.jpg", "m07_cad2.jpg"], "concept": "m07_concept.jpg"}}
+}
