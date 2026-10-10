@@ -3,215 +3,39 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ALLIANZ KAPITAL — каталог земель</title>
+<title>Земельные участки в Черногории | ALLIANZ KAPITAL</title>
+<meta name="description" content="Земельные участки у моря и в горах Черногории: Будва, Котор, Колашин. Фото, видео и 3D-туры.">
 <link rel="icon" href="logo.png">
-<style>
-:root{--bg:#f6f5f1;--card:#fff;--ink:#1b1f1d;--mute:#6b726e;--line:#e2e0d8;--acc:#003543;--acc2:#e3edee;--warn:#b4531c}
-@media (prefers-color-scheme:dark){:root{--bg:#121513;--card:#1b201d;--ink:#e9ece9;--mute:#98a29c;--line:#2b322e;--acc:#7fb8b5;--acc2:#1c2a2c;--warn:#e69a62}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.wrap{max-width:1240px;margin:0 auto;padding:0 16px 48px}
-header{padding:28px 0 8px;display:flex;align-items:center;gap:16px}header img{width:64px;height:64px;border-radius:12px;flex:none}
-h1{margin:0 0 4px;font-size:clamp(24px,4vw,36px);letter-spacing:-.02em}
-header p{margin:0;color:var(--mute)}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:20px 0}
-.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-.kpi b{display:block;font-size:22px;font-variant-numeric:tabular-nums}
-.kpi span{color:var(--mute);font-size:12px}
-.filters{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;display:flex;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--line)}
-.filters input,.filters select{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:0}
-.filters input[type=search]{flex:1 1 200px}
-.filters label{display:flex;align-items:center;gap:6px;color:var(--mute)}
-.count{margin:14px 0 8px;color:var(--mute)}
-.tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:12px}
-table{border-collapse:collapse;width:100%;min-width:860px}
-th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
-th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--mute);cursor:pointer;user-select:none;position:sticky;top:0;background:var(--card)}
-th.sorted::after{content:" ▲"}th.sorted.desc::after{content:" ▼"}
-td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
-tr.row{cursor:pointer}tr.row:hover td{background:var(--acc2)}
-.tag{display:inline-block;padding:2px 8px;border-radius:99px;font-size:12px;background:var(--acc2);color:var(--acc)}
-.tag.sold{background:#eee;color:#666}.tag.warn{background:#fbeadc;color:var(--warn)}
-@media (prefers-color-scheme:dark){.tag.sold{background:#2b322e;color:#98a29c}.tag.warn{background:#3a2a1d}}
-dialog{border:1px solid var(--line);border-radius:16px;background:var(--card);color:var(--ink);max-width:560px;width:calc(100% - 32px);padding:22px}
-dialog::backdrop{background:#0008}
-dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:14px 0}dt{color:var(--mute)}dd{margin:0}
-a.btn{display:inline-block;margin:4px 6px 0 0;padding:8px 12px;border-radius:8px;background:var(--acc);color:var(--bg);text-decoration:none;font-weight:600}
-button.close{float:right;border:0;background:none;color:var(--mute);font-size:22px;cursor:pointer}
-.note{margin-top:28px;color:var(--mute);font-size:12px}
-header .ttl{flex:1;min-width:0}
-.lang{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;flex:none}
-.lang button{font:inherit;font-weight:600;border:0;background:var(--card);color:var(--mute);padding:6px 11px;cursor:pointer}
-.lang button.on{background:var(--acc);color:var(--bg)}
-@media (max-width:560px){header{flex-wrap:wrap}header img{width:48px;height:48px}.lang{margin-left:auto}}
-</style>
+<link rel="stylesheet" href="vendor/phosphor/regular.css">
+<link rel="stylesheet" href="vendor/phosphor/fill.css">
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <img src="logo.png" alt="ALLIANZ KAPITAL d.o.o.">
-    <div class="ttl"><h1>ALLIANZ KAPITAL d.o.o.</h1>
-    <p data-i18n="sub"></p></div>
-    <div class="lang" id="lang" role="group" aria-label="Language">
-      <button data-l="ru">RU</button><button data-l="en">EN</button><button data-l="me">ME</button>
-    </div>
-  </header>
-  <section class="kpis" id="kpis"></section>
-  <div class="filters">
-    <input type="search" id="q" data-i18n-ph="search">
-    <select id="region"></select>
-    <select id="view"></select>
-    <select id="status"></select>
-    <select id="muni"></select>
-    <label><input type="checkbox" id="priced"> <span data-i18n="priced"></span></label>
-    <label><input type="checkbox" id="tour"> <span data-i18n="tourOnly"></span></label>
+<header class="top"><div class="wrap">
+  <a class="brand" href="#/"><img src="logo.png" alt=""><span>ALLIANZ KAPITAL d.o.o.</span></a>
+  <div class="sp"></div>
+  <a class="hbtn" href="#/saved" id="savedLink"><i class="ph ph-heart"></i><span class="t" id="savedT"></span><span class="cnt" id="savedN" hidden>0</span></a>
+  <div class="lang" id="lang" role="group" aria-label="Language">
+    <button data-l="ru">RU</button><button data-l="en">EN</button><button data-l="me">ME</button>
   </div>
-  <div class="count" id="count"></div>
-  <div class="tablewrap"><table>
-    <thead><tr id="head"></tr></thead><tbody id="body"></tbody>
-  </table></div>
-  <p class="note">© ALLIANZ KAPITAL d.o.o. <span data-i18n="note"></span></p>
-</div>
-<dialog id="dlg"></dialog>
+</div></header>
+<main id="app"></main>
+<footer><div class="wrap">
+  <b>ALLIANZ KAPITAL d.o.o.</b>
+  <span id="disc"></span>
+</div></footer>
+<dialog class="lb" id="lb" aria-label="Gallery">
+  <div class="ct" id="lbCt"></div>
+  <button class="x" id="lbX" aria-label="Close"><i class="ph ph-x"></i></button>
+  <button class="pv" id="lbP" aria-label="Previous"><i class="ph ph-caret-left"></i></button>
+  <button class="nx" id="lbN" aria-label="Next"><i class="ph ph-caret-right"></i></button>
+  <div class="st"><img id="lbImg" alt=""></div>
+</dialog>
+<script src="vendor/leaflet/leaflet.js"></script>
+<script src="i18n.js"></script>
+<script src="config.js"></script>
 <script src="data.js"></script>
-<script>
-const $ = id => document.getElementById(id);
-const I18N = {
- ru:{loc:'ru-RU',html:'ru',sub:'Земельные участки Черногории · Колашин · Будва · Котор',search:'Поиск: кадастр, группа, община…',
-  allRegions:'Все регионы',anyView:'Любой вид',anyStatus:'Любой статус',allMuni:'Все общины',priced:'только с ценой',tourOnly:'только с 3D-туром',
-  note:'Цены — по данным реестра, ориентировочные, не являются офертой. Площадь — по листам непокретности. Участки без площади и цены в реестре не заполнены.',
-  shown:(a,b)=>`Показано ${a} из ${b}`,
-  cols:{id:'№',region:'Регион',municipality:'Община',cadastre:'Кадастр',view:'Вид',status:'Статус',area:'Площадь, м²',ppm:'€/м²',total:'Цена, €',floors:'Этажность'},
-  view:{'гора':'Горы','море':'Море'},
-  status:{'наша':'В собственности','продана':'Продана','частично':'Частично','экспроприация':'Экспроприация','право использования':'Право использования','статус не ясен':'Статус не ясен'},
-  region:{Kolasin:'Колашин',Budva:'Будва',Kotor:'Котор'},
-  kpi:{n:'участков в выборке',avail:'не проданы',area:'площадь (не проданных)',ha:'га',val:'оценка стоимости',mln:'млн',avg:'средняя цена за м²'},
-  d:{title:'Участок №',group:'Группа',restricted:'Ограничения',yes:'есть',no:'нет',m2:'м²',pm2:'Цена за м²',price:'Цена',plan:'План. документ',occ:'Коэф. заполнения',far:'Коэф. застройки',tour:'3D-тур участка',tourG:'3D-тур группы'}},
- en:{loc:'en-US',html:'en',sub:'Land plots in Montenegro · Kolašin · Budva · Kotor',search:'Search: cadastre, group, municipality…',
-  allRegions:'All regions',anyView:'Any type',anyStatus:'Any status',allMuni:'All municipalities',priced:'with price only',tourOnly:'with 3D tour only',
-  note:'Prices are indicative, based on the registry, and do not constitute an offer. Area is per the real-estate (property) sheets. Plots without area and price are not filled in the registry.',
-  shown:(a,b)=>`Showing ${a} of ${b}`,
-  cols:{id:'No.',region:'Region',municipality:'Municipality',cadastre:'Cadastre',view:'Type',status:'Status',area:'Area, m²',ppm:'€/m²',total:'Price, €',floors:'Floors'},
-  view:{'гора':'Mountain','море':'Sea'},
-  status:{'наша':'Owned','продана':'Sold','частично':'Partially','экспроприация':'Expropriation','право использования':'Right of use','статус не ясен':'Status unclear'},
-  region:{Kolasin:'Kolašin',Budva:'Budva',Kotor:'Kotor'},
-  kpi:{n:'plots in selection',avail:'not sold',area:'area (unsold)',ha:'ha',val:'estimated value',mln:'M',avg:'average price per m²'},
-  d:{title:'Plot №',group:'Group',restricted:'Encumbrances',yes:'yes',no:'no',m2:'m²',pm2:'Price per m²',price:'Price',plan:'Planning document',occ:'Site coverage',far:'Floor-area ratio',tour:'3D tour of plot',tourG:'3D tour of group'}},
- me:{loc:'sr-Latn-ME',html:'sr-Latn-ME',sub:'Zemljišne parcele u Crnoj Gori · Kolašin · Budva · Kotor',search:'Pretraga: katastar, grupa, opština…',
-  allRegions:'Svi regioni',anyView:'Bilo koji tip',anyStatus:'Bilo koji status',allMuni:'Sve opštine',priced:'samo sa cijenom',tourOnly:'samo sa 3D turom',
-  note:'Cijene su orijentacione, prema registru, i ne predstavljaju ponudu. Površina je prema listovima nepokretnosti. Parcele bez površine i cijene nijesu popunjene u registru.',
-  shown:(a,b)=>`Prikazano ${a} od ${b}`,
-  cols:{id:'Br.',region:'Region',municipality:'Opština',cadastre:'Katastar',view:'Tip',status:'Status',area:'Površina, m²',ppm:'€/m²',total:'Cijena, €',floors:'Spratnost'},
-  view:{'гора':'Planina','море':'More'},
-  status:{'наша':'U vlasništvu','продана':'Prodata','частично':'Djelimično','экспроприация':'Eksproprijacija','право использования':'Pravo korišćenja','статус не ясен':'Status nejasan'},
-  region:{Kolasin:'Kolašin',Budva:'Budva',Kotor:'Kotor'},
-  kpi:{n:'parcela u izboru',avail:'nije prodato',area:'površina (neprodato)',ha:'ha',val:'procijenjena vrijednost',mln:'mil.',avg:'prosječna cijena po m²'},
-  d:{title:'Parcela br. ',group:'Grupa',restricted:'Ograničenja',yes:'ima',no:'nema',m2:'m²',pm2:'Cijena po m²',price:'Cijena',plan:'Planski dokument',occ:'Indeks zauzetosti',far:'Indeks izgrađenosti',tour:'3D tura parcele',tourG:'3D tura grupe'}}
-};
-const guess = () => { const n=(navigator.language||'en').toLowerCase();
-  return n.startsWith('ru')?'ru':/^(sr|hr|bs|cnr|me)/.test(n)?'me':'en'; };
-let lang = guess();
-try { const s = localStorage.getItem('lang'); if (I18N[s]) lang = s; } catch(e){}
-const L = () => I18N[lang];
-const fmt = (v, d = 0) => v == null ? '—' : v.toLocaleString(L().loc, {maximumFractionDigits: d});
-const colDefs = [['id',1],['region'],['municipality'],['cadastre'],['view'],['status'],['area',1],['ppm',1],['total',1],['floors']];
-let sort = {k:'id', desc:false};
-const uniq = k => [...new Set(PARCELS.map(p => p[k]).filter(Boolean))].sort();
-const tr_ = (m,v) => (L()[m]||{})[v] || v;
-
-function fillSelect(id, first, values, label){
-  const el = $(id), cur = el.value;
-  el.innerHTML = '';
-  el.add(new Option(first, ''));
-  values.forEach(v => el.add(new Option(label(v), v)));
-  el.value = cur;
-}
-
-function applyLang(){
-  const l = L();
-  document.documentElement.lang = l.html;
-  document.querySelectorAll('[data-i18n]').forEach(e => e.textContent = l[e.dataset.i18n]);
-  document.querySelectorAll('[data-i18n-ph]').forEach(e => e.placeholder = l[e.dataset.i18nPh]);
-  document.querySelectorAll('#lang button').forEach(b => b.classList.toggle('on', b.dataset.l === lang));
-  fillSelect('region', l.allRegions, uniq('region'), v => tr_('region', v));
-  fillSelect('view', l.anyView, ['гора','море'], v => tr_('view', v));
-  fillSelect('status', l.anyStatus, uniq('status'), v => tr_('status', v));
-  fillSelect('muni', l.allMuni, uniq('municipality'), v => v);
-  $('head').innerHTML = colDefs.map(([k,n]) => `<th data-k="${k}" class="${n?'n':''}">${l.cols[k]}</th>`).join('');
-  render();
-}
-
-$('lang').onclick = e => {
-  const b = e.target.closest('button'); if (!b) return;
-  lang = b.dataset.l;
-  try { localStorage.setItem('lang', lang); } catch(e){}
-  applyLang();
-};
-$('head').onclick = e => {
-  const k = e.target.dataset.k; if (!k) return;
-  sort = {k, desc: sort.k === k ? !sort.desc : false}; render();
-};
-['q','region','view','status','muni','priced','tour'].forEach(id => $(id).addEventListener('input', render));
-
-function tag(s){const c = s==='наша'?'':s==='продана'?'sold':'warn';return `<span class="tag ${c}">${tr_('status',s)}</span>`}
-
-function render(){
-  const q = $('q').value.trim().toLowerCase();
-  let list = PARCELS.filter(p =>
-    (!q || [p.cadastre,p.group,p.municipality,p.region,tr_('region',p.region)].join(' ').toLowerCase().includes(q)) &&
-    (!$('region').value || p.region === $('region').value) &&
-    (!$('view').value || p.view === $('view').value) &&
-    (!$('status').value || p.status === $('status').value) &&
-    (!$('muni').value || p.municipality === $('muni').value) &&
-    (!$('priced').checked || p.total) && (!$('tour').checked || p.tour || p.tourGroup));
-  const {k, desc} = sort;
-  const loc = L().loc;
-  list.sort((a,b) => {
-    const x = a[k], y = b[k];
-    if (x == null || x === '') return 1; if (y == null || y === '') return -1;
-    return (typeof x === 'number' ? x - y : String(x).localeCompare(String(y), loc, {numeric:true})) * (desc ? -1 : 1);
-  });
-  document.querySelectorAll('th').forEach(th => {
-    th.className = (th.className.includes('n') ? 'n ' : '') + (th.dataset.k === k ? 'sorted' + (desc ? ' desc' : '') : '');
-  });
-  $('count').textContent = L().shown(list.length, PARCELS.length);
-  $('body').innerHTML = list.map(p => `<tr class="row" data-id="${p.id}">
-    <td class="n">${p.id}</td><td>${tr_('region',p.region)}</td><td>${p.municipality}</td><td>${p.cadastre}</td>
-    <td>${tr_('view',p.view)}</td><td>${tag(p.status)}</td><td class="n">${fmt(p.area)}</td>
-    <td class="n">${fmt(p.ppm)}</td><td class="n">${fmt(p.total)}</td><td>${p.floors||'—'}</td></tr>`).join('');
-  kpis(list);
-}
-
-function kpis(list){
-  const k = L().kpi;
-  const avail = list.filter(p => p.status !== 'продана');
-  const area = avail.reduce((s,p) => s + (p.area||0), 0);
-  const val = avail.reduce((s,p) => s + (p.total||0), 0);
-  const withP = avail.filter(p => p.total && p.area);
-  const avg = withP.length ? withP.reduce((s,p)=>s+p.total,0) / withP.reduce((s,p)=>s+p.area,0) : null;
-  $('kpis').innerHTML = [
-    [list.length,k.n],[avail.length,k.avail],
-    [fmt(area/10000,1)+' '+k.ha,k.area],
-    ['€ '+fmt(val/1e6,1)+' '+k.mln,k.val],['€ '+fmt(avg,0),k.avg]
-  ].map(([b,s]) => `<div class="kpi"><b>${b}</b><span>${s}</span></div>`).join('');
-}
-
-$('body').onclick = e => {
-  const tr = e.target.closest('tr'); if (!tr) return;
-  const p = PARCELS.find(x => x.id == tr.dataset.id), l = L(), d = l.d;
-  const rows = [[d.group,p.group],[l.cols.region,tr_('region',p.region)],[l.cols.municipality,p.municipality],[l.cols.cadastre,p.cadastre],
-    [l.cols.view,tr_('view',p.view)],[l.cols.status,tr_('status',p.status)],[d.restricted,p.restricted?d.yes:d.no],
-    [l.cols.area.split(',')[0],p.area?fmt(p.area)+' '+d.m2:''],[d.pm2,p.ppm?'€ '+fmt(p.ppm):''],[d.price,p.total?'€ '+fmt(p.total):''],
-    [d.plan,p.plan],[d.occ,p.occupancy],[d.far,p.far],[l.cols.floors,p.floors]]
-    .filter(([,v]) => v);
-  $('dlg').innerHTML = `<button class="close" onclick="dlg.close()">×</button><h2 style="margin:0">${d.title}${p.id}</h2>
-    <dl>${rows.map(([k,v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
-    ${p.tour?`<a class="btn" href="${p.tour}" target="_blank" rel="noopener">${d.tour}</a>`:''}
-    ${p.tourGroup?`<a class="btn" href="${p.tourGroup}" target="_blank" rel="noopener">${d.tourG}</a>`:''}`;
-  $('dlg').showModal();
-};
-$('dlg').onclick = e => { if (e.target === $('dlg')) $('dlg').close(); };
-applyLang();
-</script>
+<script src="app.js"></script>
 </body>
 </html>
