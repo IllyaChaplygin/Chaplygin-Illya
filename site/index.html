@@ -3,14 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Земли Черногории — каталог участков</title>
+<title>ALLIANZ KAPITAL — каталог земель</title>
+<link rel="icon" href="logo.png">
 <style>
-:root{--bg:#f6f5f1;--card:#fff;--ink:#1b1f1d;--mute:#6b726e;--line:#e2e0d8;--acc:#1f6b52;--acc2:#e8f1ec;--warn:#b4531c}
-@media (prefers-color-scheme:dark){:root{--bg:#121513;--card:#1b201d;--ink:#e9ece9;--mute:#98a29c;--line:#2b322e;--acc:#5fc19b;--acc2:#1f2d26;--warn:#e69a62}}
+:root{--bg:#f6f5f1;--card:#fff;--ink:#1b1f1d;--mute:#6b726e;--line:#e2e0d8;--acc:#003543;--acc2:#e3edee;--warn:#b4531c}
+@media (prefers-color-scheme:dark){:root{--bg:#121513;--card:#1b201d;--ink:#e9ece9;--mute:#98a29c;--line:#2b322e;--acc:#7fb8b5;--acc2:#1c2a2c;--warn:#e69a62}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .wrap{max-width:1240px;margin:0 auto;padding:0 16px 48px}
-header{padding:32px 0 8px}
+header{padding:28px 0 8px;display:flex;align-items:center;gap:16px}header img{width:64px;height:64px;border-radius:12px;flex:none}
 h1{margin:0 0 4px;font-size:clamp(24px,4vw,36px);letter-spacing:-.02em}
 header p{margin:0;color:var(--mute)}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:20px 0}
@@ -43,8 +44,9 @@ button.close{float:right;border:0;background:none;color:var(--mute);font-size:22
 <body>
 <div class="wrap">
   <header>
-    <h1>Земельные участки Черногории</h1>
-    <p>Колашин · Будва · Котор — каталог по данным реестра</p>
+    <img src="logo.png" alt="ALLIANZ KAPITAL d.o.o.">
+    <div><h1>ALLIANZ KAPITAL d.o.o.</h1>
+    <p>Земельные участки Черногории · Колашин · Будва · Котор</p></div>
   </header>
   <section class="kpis" id="kpis"></section>
   <div class="filters">
@@ -60,7 +62,7 @@ button.close{float:right;border:0;background:none;color:var(--mute);font-size:22
   <div class="tablewrap"><table>
     <thead><tr id="head"></tr></thead><tbody id="body"></tbody>
   </table></div>
-  <p class="note">Цены — по данным реестра, ориентировочные, не являются офертой. Площадь — по листам непокретности. Участки без площади и цены в реестре не заполнены.</p>
+  <p class="note">© ALLIANZ KAPITAL d.o.o. Цены — по данным реестра, ориентировочные, не являются офертой. Площадь — по листам непокретности. Участки без площади и цены в реестре не заполнены.</p>
 </div>
 <dialog id="dlg"></dialog>
 <script src="data.js"></script>
