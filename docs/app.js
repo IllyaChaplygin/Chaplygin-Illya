@@ -188,9 +188,10 @@ function toast(msg) {
   $$('.toast').forEach(x => x.remove());
   const d = document.createElement('div'); d.className = 'toast'; d.setAttribute('role', 'status'); d.textContent = msg; document.body.append(d); setTimeout(() => d.remove(), 2200);
 }
+const setText = (sel, v) => { const e = $(sel); if (e) e.textContent = v; };
 function updateSavedBadge() {
-  $('#savedT').textContent = t('saved');
-  const n = $('#savedN'); n.hidden = !fav.size; n.textContent = fav.size;
+  setText('#savedT', t('saved'));
+  const n = $('#savedN'); if (n) { n.hidden = !fav.size; n.textContent = fav.size; }
 }
 document.addEventListener('click', e => {
   const f = e.target.closest('[data-fav]');
@@ -204,7 +205,7 @@ document.addEventListener('click', e => {
     return;
   }
   const pk = e.target.closest('[data-pick]');
-  if (pk) { e.preventDefault(); S = Object.assign(DEF(), { region: pk.dataset.pick }); if (location.hash === '#/' || location.hash === '') renderRoute(); else location.hash = '#/'; }
+  if (pk) { e.preventDefault(); S = Object.assign(DEF(), { region: pk.dataset.pick }); if (location.hash === '#/' || location.hash === '') safeRoute(); else location.hash = '#/'; }
 });
 
 /* ---------- lot page ---------- */
@@ -387,10 +388,12 @@ function renderRoute() {
   const h = location.hash || '#/';
   const m = h.match(/^#\/p\/([\w-]+)/);
   updateSavedBadge();
-  $('#disc').textContent = t('disc');
-  $('#co').textContent = `${CO.name}, ${CO.addr}. ${t('coReg2')} ${regDate()}${regDate().endsWith('.') ? '' : '.'}`;
-  $('#navCat').textContent = t('navCat'); $('#navAbout').textContent = t('navAbout');
-  $('#navCat').classList.toggle('on', !h.startsWith('#/about')); $('#navAbout').classList.toggle('on', h.startsWith('#/about'));
+  setText('#disc', t('disc'));
+  setText('#co', `${CO.name}, ${CO.addr}. ${t('coReg2')} ${regDate()}${regDate().endsWith('.') ? '' : '.'}`);
+  setText('#navCat', t('navCat')); setText('#navAbout', t('navAbout'));
+  const nc = $('#navCat'), na = $('#navAbout');
+  if (nc) nc.classList.toggle('on', !h.startsWith('#/about'));
+  if (na) na.classList.toggle('on', h.startsWith('#/about'));
   $$('#lang button').forEach(b => b.classList.toggle('on', b.dataset.l === lang));
   document.documentElement.lang = D().html;
   if (m) { renderLot(m[1]); window.scrollTo(0, 0); return; }
@@ -400,6 +403,12 @@ function renderRoute() {
   renderHome();
   if (h === '#/saved') $('#catalog').scrollIntoView(); else window.scrollTo(0, 0);
 }
-window.addEventListener('hashchange', renderRoute);
-$('#lang').onclick = e => { const b = e.target.closest('button'); if (!b) return; lang = b.dataset.l; ls.set('lang', lang); renderRoute(); };
-renderRoute();
+const safeRoute = () => {
+  try { renderRoute(); } catch (e) {
+    console.error(e);
+    $('#app').innerHTML = '<div class="wrap" style="padding:64px 16px"><p>Страница обновилась. Нажмите Ctrl+Shift+R (на Mac Cmd+Shift+R), чтобы загрузить свежую версию.</p></div>';
+  }
+};
+window.addEventListener('hashchange', safeRoute);
+$('#lang').onclick = e => { const b = e.target.closest('button'); if (!b) return; lang = b.dataset.l; ls.set('lang', lang); safeRoute(); };
+safeRoute();
