@@ -73,11 +73,16 @@ function opts(arr, cur, first, label = x => x) {
 const regions = () => [...new Set(LOTS.map(l => l.region))].sort();
 const munis = () => [...new Set(LOTS.filter(l => !S.region || l.region === S.region).map(l => l.municipality))].sort((a, b) => a.localeCompare(b, 'sr'));
 
+function heroSub() {
+  const ar = LOTS.map(l => l.area).filter(Boolean), pr = LOTS.map(l => l.total).filter(Boolean);
+  return t('heroS', fmt(Math.min(...ar)), fmt(Math.max(...ar) / 10000, 1), fmt(Math.min(...pr)));
+}
+
 function renderHome() {
   document.title = t('title');
   $('#app').innerHTML = `
   <section class="hero" style="background-image:url('img/hero.jpg')"><div class="wrap">
-    <h1>${esc(t('heroT'))}</h1><p>${esc(t('heroS'))}</p>
+    <h1>${esc(t('heroT', LOTS.length))}</h1><p>${esc(heroSub())}</p>
     <form class="search" id="hs">
       <div class="seg" id="hseg">${[['', 'any'], ['море', 'sea'], ['гора', 'mountain']].map(([v, k]) => `<button type="button" data-v="${v}" class="${S.view === v ? 'on' : ''}">${esc(t(k))}</button>`).join('')}</div>
       <select id="hreg" aria-label="${esc(t('region'))}">${opts(regions(), S.region, t('allRegions'), regionName)}</select>
