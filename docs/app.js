@@ -305,6 +305,7 @@ function renderLot(id) {
       <div class="price">${price}</div>
       ${l.ppm && l.total != null ? `<div class="meta">${eur(l.ppm)} ${esc(t('perM2'))}</div>` : ''}
       <div class="stats"><div><b>${l.area != null ? fmt(l.area) + ' ' + esc(t('m2')) : '-'}</b><span>${esc(t('totalArea'))}</span></div><div><b>${l.n}</b><span>${esc(t('cadastreN'))}</span></div></div>
+      <a class="btn block" style="margin-top:16px" href="#/contact/${esc(l.id)}"><i class="ph ph-paper-plane-tilt"></i>${esc(t('cLot'))}</a>
       ${c ? `<div class="form"><label>${esc(t('yourMsg'))}<textarea id="msg" rows="3">${esc(t('msgDef', l.id, l.municipality))}</textarea></label>
         <div style="display:grid;gap:8px">
         ${c.whatsapp ? `<a class="btn block" data-ct="wa" href="#"><i class="ph ph-whatsapp-logo"></i>${esc(t('viaWa'))}</a>` : ''}
@@ -371,6 +372,65 @@ function renderAbout() {
   $$('.reveal').forEach(el => io ? io.observe(el) : el.classList.add('in'));
 }
 
+/* ---------- contact ---------- */
+function renderContact(pre) {
+  document.title = `${t('cT')} | ALLIANZ KAPITAL`;
+  const c = contactSet() || {};
+  const lotOpts = `<option value="">${esc(t('fLotAny'))}</option>` + LOTS.map(l => `<option value="${esc(l.id)}"${l.id === pre ? ' selected' : ''}>${esc(l.id)}, ${esc(l.municipality)}${l.area != null ? ', ' + fmt(l.area) + ' ' + esc(t('m2')) : ''}</option>`).join('');
+  const field = (id, label, input, extra = '') => `<div class="ff"><label for="${id}">${esc(label)}</label>${input}<div class="err" id="e-${id}" role="alert"></div>${extra}</div>`;
+  const links = [
+    c.whatsapp && `<a class="hbtn" href="https://wa.me/${esc(String(c.whatsapp).replace(/\D/g, ''))}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo"></i>${esc(t('viaWa'))}</a>`,
+    c.telegram && `<a class="hbtn" href="https://t.me/${esc(encodeURIComponent(c.telegram))}" target="_blank" rel="noopener"><i class="ph ph-telegram-logo"></i>${esc(t('viaTg'))}</a>`,
+    c.email && `<a class="hbtn" href="mailto:${esc(c.email)}"><i class="ph ph-envelope-simple"></i>${esc(c.email)}</a>`,
+    c.phone && `<a class="hbtn" href="tel:+${esc(String(c.phone).replace(/\D/g, ''))}"><i class="ph ph-phone"></i>${esc(t('call'))}</a>`].filter(Boolean).join('');
+  $('#app').innerHTML = `<div class="wrap"><nav class="crumbs" aria-label="breadcrumb"><a href="#/"><i class="ph ph-arrow-left"></i> ${esc(t('back'))}</a></nav>
+    <h1 class="title" style="margin-bottom:6px">${esc(t('cT'))}</h1><p class="meta" style="margin:0 0 20px;max-width:46em">${esc(t('cS'))}</p>
+    <div class="cgrid">
+      <div class="card-p"><div class="lbl"><i class="ph ph-paper-plane-tilt"></i>${esc(t('cT'))}</div>
+        <form class="in cform" id="cf" novalidate>
+          <div id="cok" class="cok" hidden><i class="ph ph-check-circle"></i><b>${esc(t('fOk'))}</b><span>${esc(t('fOkS'))}</span><button type="button" class="btn ghost" id="cagain">${esc(t('fAgain'))}</button></div>
+          <div id="cfields" class="cfields">
+            <div class="two">${field('cname', t('fName'), '<input id="cname" name="name" autocomplete="name" required>')}${field('cmail', t('fEmail'), '<input id="cmail" name="email" type="email" autocomplete="email" inputmode="email">')}</div>
+            <div class="two">${field('cphone', t('fPhone'), '<input id="cphone" name="phone" type="tel" autocomplete="tel" inputmode="tel">')}${field('clot', t('fLot'), `<select id="clot" name="lot">${lotOpts}</select>`)}</div>
+            ${field('cmsg', t('fMsg'), '<textarea id="cmsg" name="message" rows="5" required></textarea>')}
+            <div class="hp" aria-hidden="true"><label>Website<input id="chp" name="website" tabindex="-1" autocomplete="off"></label></div>
+            <div class="ff"><label class="chk"><input type="checkbox" id="cconsent"> ${esc(t('fConsent'))}</label><div class="err" id="e-cconsent" role="alert"></div></div>
+            <div class="cstatus" id="cstatus" role="status"></div>
+            <button class="btn" id="csend" type="submit"><i class="ph ph-paper-plane-tilt"></i>${esc(t('fSend'))}</button>
+          </div></form></div>
+      <aside class="card-p"><div class="lbl"><i class="ph ph-identification-card"></i>${esc(t('cInfo'))}</div><div class="in">
+        <dl class="facts"><div><dt>${esc(t('coName'))}</dt><dd>${esc(CO.name)}</dd></div><div><dt>${esc(t('cAddr'))}</dt><dd>${esc(CO.addr)}</dd></div></dl>
+        <div class="doclinks" style="margin-top:16px"><a class="hbtn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CO.addr)}" target="_blank" rel="noopener"><i class="ph ph-map-pin"></i>${esc(t('cMap'))}</a>${links}</div></div></aside>
+    </div></div>`;
+  const setErr = (id, msg) => { const e = $('#e-' + id), f = $('#' + id); if (e) e.textContent = msg || ''; if (f) f.setAttribute('aria-invalid', msg ? 'true' : 'false'); };
+  $('#cagain').onclick = () => { $('#cok').hidden = true; $('#cfields').hidden = false; $('#cf').reset(); };
+  $('#cf').onsubmit = async e => {
+    e.preventDefault();
+    const v = id => $('#' + id).value.trim();
+    const errs = {};
+    if (!v('cname')) errs.cname = t('vReq');
+    if (!v('cmsg')) errs.cmsg = t('vReq');
+    if (v('cmail') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('cmail'))) errs.cmail = t('vEmail');
+    if (!v('cmail') && !v('cphone')) { errs.cmail = t('vContact'); errs.cphone = t('vContact'); }
+    if (!$('#cconsent').checked) errs.cconsent = t('vConsent');
+    ['cname', 'cmail', 'cphone', 'cmsg', 'cconsent'].forEach(id => setErr(id, errs[id]));
+    const st = $('#cstatus'); st.textContent = ''; st.className = 'cstatus';
+    const first = Object.keys(errs)[0]; if (first) { $('#' + first).focus(); return; }
+    if ($('#chp').value) return;                          // honeypot: bots fill the hidden field
+    const F = (typeof FORM !== 'undefined' && FORM) || {};
+    if (!F.endpoint) { st.textContent = t('fOff'); st.className = 'cstatus bad'; return; }
+    const btn = $('#csend'); btn.disabled = true; st.textContent = t('fSending');
+    const lot = v('clot');
+    const payload = Object.assign({}, F.extra || {}, { name: v('cname'), email: v('cmail'), phone: v('cphone'), lot: lot || '', message: v('cmsg'), language: lang, page: location.href, subject: `ALLIANZ KAPITAL: ${lot ? t('lot') + ' ' + lot : t('fLotAny')}` });
+    try {
+      const r = await fetch(F.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) });
+      if (!r.ok) throw new Error(r.status);
+      st.textContent = ''; $('#cfields').hidden = true; $('#cok').hidden = false;
+    } catch (err) { st.textContent = t('fErr'); st.className = 'cstatus bad'; }
+    btn.disabled = false;
+  };
+}
+
 /* ---------- lightbox ---------- */
 let lbList = [], lbI = 0;
 function showLb() { $('#lbImg').src = photoBig(lbList[lbI]); $('#lbCt').textContent = `${lbI + 1} / ${lbList.length}`; }
@@ -391,13 +451,14 @@ function renderRoute() {
   setText('#disc', t('disc'));
   setText('#co', `${CO.name}, ${CO.addr}. ${t('coReg2')} ${regDate()}${regDate().endsWith('.') ? '' : '.'}`);
   setText('#navCat', t('navCat')); setText('#navAbout', t('navAbout'));
-  const nc = $('#navCat'), na = $('#navAbout');
-  if (nc) nc.classList.toggle('on', !h.startsWith('#/about'));
-  if (na) na.classList.toggle('on', h.startsWith('#/about'));
+  const isAbout = h.startsWith('#/about'), isContact = h.startsWith('#/contact');
+  setText('#navContact', t('navContact'));
+  [['#navCat', !isAbout && !isContact], ['#navAbout', isAbout], ['#navContact', isContact]].forEach(([s, on]) => { const n = $(s); if (n) n.classList.toggle('on', on); });
   $$('#lang button').forEach(b => b.classList.toggle('on', b.dataset.l === lang));
   document.documentElement.lang = D().html;
   if (m) { renderLot(m[1]); window.scrollTo(0, 0); return; }
-  if (h.startsWith('#/about')) { renderAbout(); window.scrollTo(0, 0); return; }
+  if (isContact) { renderContact((h.match(/^#\/contact\/([\w-]+)/) || [])[1]); window.scrollTo(0, 0); return; }
+  if (isAbout) { renderAbout(); window.scrollTo(0, 0); return; }
   if (h === '#/saved') S = Object.assign(DEF(), { saved: true });
   else if (S.saved && h === '#/') S.saved = false;
   renderHome();
