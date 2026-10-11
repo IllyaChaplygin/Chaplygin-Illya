@@ -36,6 +36,7 @@ const ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery
 const DEF = () => ({ view: '', purpose: '', region: '', muni: '', pmin: '', pmax: '', amin: '', amax: '', photo: false, video: false, tour: false, saved: false, sort: 'rel', mode: 'grid' });
 let S = DEF();
 let homeMap = null, lotMap = null;
+const ACC = () => getComputedStyle(document.documentElement).getPropertyValue('--acc').trim() || '#0b7285';
 
 /* ---------- helpers ---------- */
 const lotById = id => LOTS.find(l => l.id === id);
@@ -169,7 +170,7 @@ function drawHomeMap(list) {
       .bindPopup(`<b>${esc(regionName(r))}</b><br>${esc(t('results', n))}<br><a href="#/" data-pick="${esc(r)}">${esc(t('mapShow'))}</a>`);
   });
   list.filter(l => l.geo).forEach(l => {
-    L.circle([l.geo.lat, l.geo.lng], { radius: Math.max(l.geo.r, 120), color: '#0b7285', weight: 2, fillColor: '#0b7285', fillOpacity: .3 }).addTo(homeMap)
+    L.circle([l.geo.lat, l.geo.lng], { radius: Math.max(l.geo.r, 120), color: ACC(), weight: 2, fillColor: ACC(), fillOpacity: .3 }).addTo(homeMap)
       .bindPopup(`<b>${esc(t('lot'))} ${esc(l.id)}</b><br>${esc(l.municipality)}, ${l.area != null ? fmt(l.area) + ' ' + esc(t('m2')) : ''}<br><a href="#/p/${esc(l.id)}">${esc(t('sGeneral'))}</a>`);
   });
   if (pts.length) homeMap.fitBounds(pts, { padding: [60, 60], maxZoom: 10 });
@@ -259,7 +260,7 @@ function mountLotMap(l) {
   lotMap = L.map('mapcanvas', { scrollWheelZoom: false }).setView([g.lat, g.lng], 17);
   sat.addTo(lotMap);
   (l.poly || []).forEach(q => L.polygon(q.r, q.p ? { color: '#ff9f5a', weight: 2, dashArray: '6 5', fillColor: '#ff9f5a', fillOpacity: .12 } : { color: '#ffd166', weight: 2, fillColor: '#ffd166', fillOpacity: .22 }).addTo(lotMap).bindTooltip(q.c + (q.p ? ' · ' + t('partT') : ''), { sticky: true }));
-  L.circle([g.lat, g.lng], { radius: g.r, color: '#0b7285', weight: 4, fillColor: '#0b7285', fillOpacity: .18 }).addTo(lotMap)
+  L.circle([g.lat, g.lng], { radius: g.r, color: ACC(), weight: 4, fillColor: ACC(), fillOpacity: .18 }).addTo(lotMap)
     .bindTooltip(`${t('lot')} ${l.id}`, { permanent: true, direction: 'top', className: 'lotlbl', offset: [0, -4] });
   $('#mtabs').onclick = e => {
     const b = e.target.closest('button'); if (!b) return;
