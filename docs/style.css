@@ -385,3 +385,4 @@ footer #disc{font-size:12px}
 .tag.pu.joint{background:var(--acc-soft);color:var(--acc)}
 
 .side .price.txt{font-size:22px;line-height:1.2}
+@media (max-width:340px){.nav a{font-size:11.5px;padding:8px 1px}}
