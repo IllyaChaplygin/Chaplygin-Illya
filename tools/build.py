@@ -2,7 +2,7 @@
 Использование: python3 tools/build.py sheet.csv
 Нужны tools/files.json (фото из Drive), tools/tourimg.json (обложки 3D-туров),
 tools/arrays.json (данные из презентации) и tools/coords.csv (координаты лотов)."""
-import csv, json, os, re, sys
+import math, csv, json, os, re, sys
 import warnings
 from PIL import Image
 warnings.filterwarnings('ignore')
@@ -67,6 +67,24 @@ def read_coords():
 arrays = json.load(open(os.path.join(HERE, 'arrays.json'), encoding='utf-8'))
 coords = read_coords()
 
+def read_mymaps():
+    """tools/mymaps.json (from mymaps.py): purpose, pin and parcel outlines for lots on the company's Google My Maps."""
+    path = os.path.join(HERE, 'mymaps.json')
+    res = {}
+    if not os.path.exists(path):
+        return res
+    for code, v in json.load(open(path, encoding='utf-8')).items():
+        rings = [p['ring'] for p in v['polys']]
+        pts = [q for r in rings for q in r] or [v['pin']]
+        lat = (min(q[0] for q in pts) + max(q[0] for q in pts)) / 2
+        lng = (min(q[1] for q in pts) + max(q[1] for q in pts)) / 2
+        kx = 111320 * math.cos(math.radians(lat))
+        rad = max(math.hypot((q[1] - lng) * kx, (q[0] - lat) * 110574) for q in pts)
+        res[code] = {'purpose': v['purpose'], 'geo': {'lat': round(lat, 6), 'lng': round(lng, 6), 'r': max(30, round(rad * 1.12))}, 'poly': rings}
+    return res
+
+mymaps = read_mymaps()
+
 rows = [r + [''] * (30 - len(r)) for r in list(csv.reader(open(sys.argv[1], encoding='utf-8')))[2:] if any(r)]
 groups = collections.OrderedDict()
 for r in rows:
@@ -110,8 +128,11 @@ for code, ms in groups.items():
         'videos': uniq([drive_id(m[23]) for m in ms if '/file/d/' in m[23]]),
         'tours': tours, 'tourCover': cover,
         'docs': {k: next((m[c] for m in ms if m[c]), '') for k, c in (('idea', 21), ('utu', 20), ('deck', 26))},
-        'geo': coords.get(code), 'info': arrays.get(code),
+        'geo': (mymaps.get(code) or {}).get('geo') or coords.get(code), 'info': arrays.get(code),
     }
+    if code in mymaps:
+        lot['purpose'] = mymaps[code]['purpose']
+        lot['poly'] = mymaps[code]['poly']
     lot['docs'] = {k: v for k, v in lot['docs'].items() if v}
     out.append(lot)
 

@@ -33,7 +33,7 @@ const chatButtons = msg => { const c = contactSet() || {}; return [{ k: 'wa', ic
 const REGION_XY = { Kolasin: [42.8228, 19.5206], Budva: [42.2864, 18.84], Kotor: [42.4247, 18.7712] };
 const REGION_EN = { Kolasin: 'Kolasin', Budva: 'Budva', Kotor: 'Kotor' };
 const ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
-const DEF = () => ({ view: '', region: '', muni: '', pmin: '', pmax: '', amin: '', amax: '', photo: false, video: false, tour: false, saved: false, sort: 'rel', mode: 'grid' });
+const DEF = () => ({ view: '', purpose: '', region: '', muni: '', pmin: '', pmax: '', amin: '', amax: '', photo: false, video: false, tour: false, saved: false, sort: 'rel', mode: 'grid' });
 let S = DEF();
 let homeMap = null, lotMap = null;
 
@@ -52,7 +52,7 @@ function applyFilters() {
   const n = x => x === '' ? null : Number(x);
   const pmin = n(S.pmin), pmax = n(S.pmax), amin = n(S.amin), amax = n(S.amax);
   const list = LOTS.filter(l =>
-    (!S.view || l.view === S.view) && (!S.region || l.region === S.region) && (!S.muni || l.municipality === S.muni) &&
+    (!S.view || l.view === S.view) && (!S.purpose || l.purpose === S.purpose) && (!S.region || l.region === S.region) && (!S.muni || l.municipality === S.muni) &&
     (pmin == null || (l.total != null && l.total >= pmin)) && (pmax == null || (l.total != null && l.total <= pmax)) &&
     (amin == null || (l.area != null && l.area >= amin)) && (amax == null || (l.area != null && l.area <= amax)) &&
     (!S.photo || l.photos.length) && (!S.video || l.videos.length) && (!S.tour || has3d(l)) && (!S.saved || fav.has(l.id)));
@@ -63,6 +63,7 @@ function applyFilters() {
 }
 
 /* ---------- cards ---------- */
+const purposeTag = l => l.purpose ? `<span class="tag pu ${l.purpose}"><i class="ph ph-${l.purpose === 'sale' ? 'tag' : 'handshake'}"></i>${esc(t('pu_' + l.purpose))}</span>` : '';
 function card(l) {
   let img;
   if (l.photos.length) img = `<img src="${photoSm(l.photos[0])}" alt="" loading="lazy" decoding="async">`;
@@ -78,7 +79,7 @@ function card(l) {
       <div class="price">${price}</div>
       <div class="loc">${l.area != null ? `${fmt(l.area)} ${esc(t('m2'))}, ` : ''}${esc(viewName(l.view))}</div>
       <div class="meta">${esc(l.municipality)}, ${esc(regionName(l.region))}</div>
-      <div class="tags">${l.n > 1 ? `<span class="tag">${esc(t('parcelsN', l.n))}</span>` : ''}${l.partial ? `<span class="tag">${esc(t('partialOf', l.partial, l.n))}</span>` : ''}</div>
+      <div class="tags">${purposeTag(l)}${l.n > 1 ? `<span class="tag">${esc(t('parcelsN', l.n))}</span>` : ''}${l.partial ? `<span class="tag">${esc(t('partialOf', l.partial, l.n))}</span>` : ''}</div>
     </a></article>`;
 }
 
@@ -128,6 +129,7 @@ function renderFilters() {
   $('#flt').innerHTML = `
     <h3>${esc(t('filters'))} <button class="linkbtn" id="freset">${esc(t('reset'))}</button></h3>
     <div class="fld"><label for="fview">${esc(t('type'))}</label><select id="fview">${[['', 'any'], ['море', 'sea'], ['гора', 'mountain']].map(([v, k]) => `<option value="${v}"${S.view === v ? ' selected' : ''}>${esc(t(k))}</option>`).join('')}</select></div>
+    <div class="fld"><label for="fpurp">${esc(t('purpose'))}</label><select id="fpurp">${[['', 'puAny'], ['sale', 'pu_sale'], ['joint', 'pu_joint']].map(([v, k]) => `<option value="${v}"${S.purpose === v ? ' selected' : ''}>${esc(t(k))}</option>`).join('')}</select></div>
     <div class="fld"><label for="freg">${esc(t('region'))}</label><select id="freg">${opts(regions(), S.region, t('allRegions'), regionName)}</select></div>
     <div class="fld"><label for="fmuni">${esc(t('muni'))}</label><select id="fmuni">${opts(munis(), S.muni, t('allMuni'))}</select></div>
     <div class="fld"><span>${esc(t('price'))}</span><div class="two">${num('pmin', 'pmin', 'from', 'price')}${num('pmax', 'pmax', 'to', 'price')}</div></div>
@@ -178,6 +180,7 @@ function bindHome() {
   $('#flt').addEventListener('change', e => {
     const id = e.target.id;
     if (id === 'fview') { S.view = e.target.value; $$('#hseg button').forEach(x => x.classList.toggle('on', x.dataset.v === S.view)); }
+    else if (id === 'fpurp') S.purpose = e.target.value;
     else if (id === 'freg') { S.region = e.target.value; S.muni = ''; $('#hreg').value = S.region; renderFilters(); }
     else if (id === 'fmuni') S.muni = e.target.value;
     else if (id.startsWith('c-')) S[id.slice(2)] = e.target.checked;
@@ -240,7 +243,7 @@ function locationPanel(l) {
   return `<div class="card-p"><div class="lbl"><i class="ph ph-map-pin"></i>${esc(t('sLocation'))}</div>
     <div class="tabs" id="mtabs"><button data-k="sat" class="on">${esc(t('tabSat'))}</button><button data-k="map">${esc(t('tabMap'))}</button><button data-k="g">${esc(t('tabG'))}</button></div>
     <div class="mapbox"><div id="mapcanvas"></div><iframe id="gframe" hidden title="Google Maps" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-    <div class="maplinks"><span class="sp">${esc(t('circleNote'))}</span>
+    <div class="maplinks"><span class="sp">${esc(t('circleNote'))}${l.poly ? ' ' + esc(t('outlineNote')) : ''}</span>
       <a class="hbtn" href="${links.open}" target="_blank" rel="noopener"><i class="ph ph-map-pin"></i>${esc(t('openG'))}</a>
       <a class="hbtn" href="${links.route}" target="_blank" rel="noopener"><i class="ph ph-compass"></i>${esc(t('routeG'))}</a></div></div>`;
 }
@@ -251,6 +254,7 @@ function mountLotMap(l) {
   const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' });
   lotMap = L.map('mapcanvas', { scrollWheelZoom: false }).setView([g.lat, g.lng], 17);
   sat.addTo(lotMap);
+  (l.poly || []).forEach(r => L.polygon(r, { color: '#ffd166', weight: 2, fillColor: '#ffd166', fillOpacity: .22 }).addTo(lotMap));
   L.circle([g.lat, g.lng], { radius: g.r, color: '#0b7285', weight: 4, fillColor: '#0b7285', fillOpacity: .18 }).addTo(lotMap)
     .bindTooltip(`${t('lot')} ${l.id}`, { permanent: true, direction: 'top', className: 'lotlbl', offset: [0, -4] });
   $('#mtabs').onclick = e => {
@@ -283,7 +287,7 @@ function renderLot(id) {
   const restr = info.restrictions === 'none' ? D().v.none : !l.restricted ? t('restrNo') : l.restricted === l.n ? t('restrY') : t('restrSome', l.restricted, l.n);
   const facts = [
     [t('totalArea'), l.area != null ? `${fmt(l.area)} ${t('m2')}${l.area >= 10000 ? ` (${fmt(l.area / 10000, 2)} ${t('ha')})` : ''}` : '-', 'big'],
-    [t('cadastreN'), l.n], [t('type'), viewName(l.view)], [t('region'), regionName(l.region)], [t('muni'), l.municipality],
+    [t('cadastreN'), l.n], [t('type'), viewName(l.view)], l.purpose && [t('purpose'), t('pu_' + l.purpose)], [t('region'), regionName(l.region)], [t('muni'), l.municipality],
     info.category && [t('category'), D().v[info.category]], info.right && [t('right'), D().v[info.right]],
     [t('restr'), restr], info.cooperation && [t('coop'), D().v[info.cooperation]],
     [t('avail'), l.partial ? t('partialOf', l.partial, l.n) : t('statusN')],

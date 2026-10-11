@@ -379,3 +379,7 @@ footer #disc{font-size:12px}
 .nw-note{color:var(--mute);font-size:13px;padding:0 0 40px;max-width:52em}
 .nw-empty{padding:40px 0;color:var(--mute)}
 @media (max-width:640px){.nw-upd{margin-left:0;width:100%}.nw.lead{grid-column:auto}.nw-hero .wrap{padding-top:36px;padding-bottom:72px}}
+
+.tag.pu{display:inline-flex;align-items:center;gap:5px;font-weight:700}
+.tag.pu.sale{background:var(--gold-soft);color:var(--gold)}
+.tag.pu.joint{background:var(--acc-soft);color:var(--acc)}
