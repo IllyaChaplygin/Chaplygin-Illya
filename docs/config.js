@@ -12,7 +12,7 @@ const FORM = { endpoint: '', extra: {} };
 // WhatsApp и Telegram здесь не нужны: они задаются выше, в CONTACT, и показываются в блоке "Быстрая связь".
 const SOCIAL = {
   youtube: 'https://youtube.com/@allianzkapital',
-  instagram: '',
+  instagram: 'https://www.instagram.com/allianz_kapital/',
   linkedin: '',
   facebook: ''
 };
