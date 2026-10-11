@@ -1,14 +1,14 @@
 /* ALLIANZ KAPITAL land catalog. Sea palette: Adriatic teal accent 0B7285, deep-sea ink 0A2733, mist background F1F5F4
    One radius scale: --r for cards, inputs, buttons, panels; --r-s for small badges. */
 :root{
-  --bg:#f6f9f8;--surface:#fff;--ink:#0a2733;--mute:#52707a;--line:#d8e3e3;--deep:#06222f;--dk:6,34,47;--md:8,52,68;--ac:11,114,133;--lt:120,205,215;--sea:#0b7285;--sand:#d9b98a;--sky:#e6f3f6;--foam:#fbf6ec;--coral:#e0714f;--coral-soft:#fbe6dd;--gold:#8a6a2f;--gold-soft:#f6ecd6;
-  --acc:#0b7285;--acc-ink:#fff;--acc-soft:#dff0f1;--ok:#1f7a4d;
+  --bg:#f4f9f9;--surface:#fff;--ink:#17302f;--mute:#53706f;--line:#d6e5e4;--deep:#1e363e;--dk:30,54,62;--md:46,81,87;--ac:63,123,123;--lt:191,220,229;--sea:#1b7f7a;--sand:#d9b98a;--sky:#e4f1f3;--foam:#fbf6ec;--coral:#e0714f;--coral-soft:#fbe6dd;--gold:#8a6a2f;--gold-soft:#f6ecd6;
+  --acc:#1b7f7a;--acc-ink:#fff;--acc-soft:#e8f4f2;--ok:#2d7a4f;
   --r:12px;--r-s:8px;--shadow:0 1px 2px rgba(6,34,47,.06),0 10px 28px rgba(6,34,47,.1);
   --max:1320px;color-scheme:light dark;
 }
 @media (prefers-color-scheme:dark){:root{
-  --bg:#08171e;--surface:#0f242d;--ink:#e6f1f2;--mute:#8fb0b8;--line:#1d3a45;
-  --acc:#4fc3cf;--acc-ink:#04181d;--acc-soft:#12323a;--ok:#8fcf9f;--sky:#10303a;--foam:#2a2418;--coral:#f0906f;--coral-soft:#3a211a;--gold:#e5c98a;--gold-soft:#322a16;
+  --bg:#0c1c1f;--surface:#132a2d;--ink:#e4f0ef;--mute:#9bbcbc;--line:#1f3d41;
+  --acc:#5fd0c4;--acc-ink:#04201d;--acc-soft:#16363a;--ok:#8fcf9f;--sky:#12333a;--foam:#2a2418;--coral:#f0906f;--coral-soft:#3a211a;--gold:#e5c98a;--gold-soft:#322a16;
   --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.3);
 }}
 *{box-sizing:border-box}
@@ -62,7 +62,7 @@ h1,h2{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times 
 
 /* hero */
 .hero{position:relative;color:#fff;background:var(--deep) center/cover no-repeat;isolation:isolate}
-.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(var(--md),.78),rgba(var(--ac),.38) 58%,rgba(var(--lt),.12)),linear-gradient(0deg,rgba(var(--dk),.4),rgba(var(--dk),0) 40%);z-index:-1}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(var(--md),.72),rgba(var(--ac),.26) 58%,rgba(var(--lt),.06)),linear-gradient(0deg,rgba(var(--dk),.4),rgba(var(--dk),0) 40%);z-index:-1}
 .hero .wrap{padding-top:72px;padding-bottom:44px}
 .hero h1{margin:0 0 10px;font-size:clamp(30px,4.6vw,54px);line-height:1.06;max-width:14em;font-weight:800}
 .hero p{margin:0 0 28px;max-width:44em;font-size:18px;opacity:.94}
@@ -201,7 +201,7 @@ h1,h2{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times 
 
 /* about */
 .abt{position:relative;color:#fff;isolation:isolate;background:var(--deep) url(img/about.jpg) right center/cover no-repeat}
-.abt::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(var(--md),.8),rgba(var(--ac),.42) 55%,rgba(var(--ac),.08));z-index:-1}
+.abt::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(var(--md),.74),rgba(var(--ac),.34) 55%,rgba(var(--ac),.06));z-index:-1}
 .abt .wrap{padding-top:72px;padding-bottom:72px}
 .abt h1{margin:0 0 20px;font-size:clamp(30px,4.4vw,52px);text-transform:uppercase;letter-spacing:.01em;line-height:1.05}
 .abt p{max-width:34em;font-size:18px;margin:0 0 14px;opacity:.95}
@@ -346,7 +346,7 @@ footer #disc{font-size:12px}
 
 /* news */
 .nw-hero{position:relative;color:#fff;isolation:isolate;background:var(--acc) url(img/coast.jpg) center 40%/cover no-repeat;overflow:hidden}
-.nw-hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(105deg,rgba(var(--md),.82),rgba(var(--ac),.55) 55%,rgba(217,185,138,.35))}
+.nw-hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(105deg,rgba(var(--md),.72),rgba(var(--ac),.36) 55%,rgba(217,185,138,.2))}
 .nw-hero .wrap{padding-top:56px;padding-bottom:84px}
 .nw-hero .kick{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(6px);border-radius:var(--r);padding:5px 12px;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
 .nw-hero .kick i.live{width:8px;height:8px;border-radius:50%;background:#7be0a4;display:inline-block;animation:pulse 2s infinite}
