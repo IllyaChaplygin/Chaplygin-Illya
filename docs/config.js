@@ -18,3 +18,7 @@ const SOCIAL = {
   tiktok: '',
   google: ''      // страница компании в Google Картах (отзывы)
 };
+
+// Headlines feed: refreshed every 30 min by .github/workflows/news.yml (needs that file on main).
+// Falls back to the snapshot in docs/news.json.
+const NEWS = { url: 'https://raw.githubusercontent.com/illyachaplygin/chaplygin-illya/news-data/news.json', pollMin: 5 };

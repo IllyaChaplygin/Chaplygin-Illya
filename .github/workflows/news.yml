@@ -1,0 +1,37 @@
+name: Refresh news
+# Scheduled workflows run only from the default branch, so this file must be on main.
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: news
+  cancel-in-progress: false
+jobs:
+  news:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Collect headlines
+        run: python3 tools/news.py
+      - name: Publish news.json to the news-data branch (keeps the site branch history clean)
+        run: |
+          cp docs/news.json /tmp/news.json
+          git config user.name "news-bot"
+          git config user.email "news-bot@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin news-data >/dev/null 2>&1; then
+            git fetch --depth=1 origin news-data
+            git checkout -B news-data FETCH_HEAD
+          else
+            git checkout --orphan news-data
+            git rm -rf -q .
+          fi
+          cp /tmp/news.json news.json
+          git add news.json
+          git commit -qm "news $(date -u +%FT%TZ)" || exit 0
+          git push origin news-data

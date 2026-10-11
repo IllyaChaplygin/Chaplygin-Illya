@@ -163,7 +163,7 @@ function drawHomeMap(list) {
       .bindPopup(`<b>${esc(regionName(r))}</b><br>${esc(t('results', n))}<br><a href="#/" data-pick="${esc(r)}">${esc(t('mapShow'))}</a>`);
   });
   list.filter(l => l.geo).forEach(l => {
-    L.circle([l.geo.lat, l.geo.lng], { radius: Math.max(l.geo.r, 120), color: '#c04f15', weight: 2, fillColor: '#c04f15', fillOpacity: .3 }).addTo(homeMap)
+    L.circle([l.geo.lat, l.geo.lng], { radius: Math.max(l.geo.r, 120), color: '#0b7285', weight: 2, fillColor: '#0b7285', fillOpacity: .3 }).addTo(homeMap)
       .bindPopup(`<b>${esc(t('lot'))} ${esc(l.id)}</b><br>${esc(l.municipality)}, ${l.area != null ? fmt(l.area) + ' ' + esc(t('m2')) : ''}<br><a href="#/p/${esc(l.id)}">${esc(t('sGeneral'))}</a>`);
   });
   if (pts.length) homeMap.fitBounds(pts, { padding: [60, 60], maxZoom: 10 });
@@ -251,7 +251,7 @@ function mountLotMap(l) {
   const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' });
   lotMap = L.map('mapcanvas', { scrollWheelZoom: false }).setView([g.lat, g.lng], 17);
   sat.addTo(lotMap);
-  L.circle([g.lat, g.lng], { radius: g.r, color: '#c04f15', weight: 4, fillColor: '#c04f15', fillOpacity: .18 }).addTo(lotMap)
+  L.circle([g.lat, g.lng], { radius: g.r, color: '#0b7285', weight: 4, fillColor: '#0b7285', fillOpacity: .18 }).addTo(lotMap)
     .bindTooltip(`${t('lot')} ${l.id}`, { permanent: true, direction: 'top', className: 'lotlbl', offset: [0, -4] });
   $('#mtabs').onclick = e => {
     const b = e.target.closest('button'); if (!b) return;
@@ -467,7 +467,47 @@ function updateFab(h) {
   f.innerHTML = list.map(b => `<a href="${esc(b.url)}" target="_blank" rel="noopener" aria-label="${esc(t(b.k === 'wa' ? 'writeWa' : 'writeTg'))}" title="${esc(b.name)}"><i class="ph-fill ph-${b.ic}"></i></a>`).join('');
 }
 
+let newsTimer = null, newsState = { c: 'all', l: 'all', data: null };
+async function loadNews() {
+  for (const u of [NEWS.url, 'news.json']) {
+    try {
+      const r = await fetch(u + (u.includes('?') ? '&' : '?') + 't=' + Math.floor(Date.now() / 60000), { cache: 'no-store' });
+      if (r.ok) { const j = await r.json(); if (j && Array.isArray(j.items)) return j; }
+    } catch (e) { /* try the next source */ }
+  }
+  return null;
+}
+function newsList() {
+  const j = newsState.data, box = $('#nwList'); if (!box) return;
+  if (!j) { box.innerHTML = `<p class="nw-empty">${esc(t('newsEmpty'))}</p>`; return; }
+  const items = j.items.filter(i => (newsState.c === 'all' || i.c === newsState.c) && (newsState.l === 'all' || i.l === newsState.l) && /^https?:\/\//.test(i.u));
+  const mins = Math.max(0, Math.round((Date.now() - new Date(j.updated)) / 60000));
+  setText('#nwUpd', `${t('newsUpd')}: ${t('newsAgo', mins)}`);
+  const tag = { world: 'newsWorld', land: 'newsLand', me: 'newsMe' };
+  const when = d => { const m = Math.max(0, Math.round((Date.now() - new Date(d)) / 60000)); return t('newsAgo', m); };
+  box.innerHTML = items.length ? items.map(i => `<a class="nw" href="${esc(i.u)}" target="_blank" rel="noopener noreferrer nofollow">
+    <h3>${esc(i.t)}</h3><div class="m"><span class="tag">${esc(t(tag[i.c] || 'newsWorld'))}</span><span>${esc(i.s)}</span><span>${esc(when(i.d))}</span><span>${i.l.toUpperCase()}</span><i class="ph ph-arrow-up-right ar" title="${esc(t('newsOpen'))}"></i></div></a>`).join('')
+    : `<p class="nw-empty">${esc(t('newsEmpty'))}</p>`;
+}
+async function renderNews() {
+  document.title = `${t('newsT')} | ALLIANZ KAPITAL`;
+  const chip = (g, k, lab) => `<button data-g="${g}" data-k="${k}" class="${newsState[g] === k ? 'on' : ''}">${esc(lab)}</button>`;
+  $('#app').innerHTML = `<div class="wrap"><div class="nw-head"><h1>${esc(t('newsT'))}</h1><p>${esc(t('newsS'))}</p></div>
+    <div class="nw-bar"><div class="chips" id="nwC">${[['all', t('newsAll')], ['world', t('newsWorld')], ['land', t('newsLand')], ['me', t('newsMe')]].map(([k, l]) => chip('c', k, l)).join('')}</div>
+    <div class="chips" id="nwL">${[['all', t('newsLangAll')], ['ru', 'RU'], ['en', 'EN'], ['me', 'ME']].map(([k, l]) => chip('l', k, l)).join('')}</div>
+    <span class="nw-upd"><i class="live"></i><span id="nwUpd"></span></span></div>
+    <div class="nw-list" id="nwList"></div><p class="nw-note">${esc(t('newsNote'))}</p></div>`;
+  $('#app').querySelectorAll('.chips button').forEach(b => b.onclick = () => {
+    newsState[b.dataset.g] = b.dataset.k;
+    $$(`.chips button[data-g="${b.dataset.g}"]`).forEach(x => x.classList.toggle('on', x === b));
+    newsList();
+  });
+  const refresh = async () => { const j = await loadNews(); if (j) newsState.data = j; newsList(); };
+  await refresh();
+  newsTimer = setInterval(refresh, NEWS.pollMin * 60000);
+}
 function renderRoute() {
+  if (newsTimer) { clearInterval(newsTimer); newsTimer = null; }
   if (lotMap) { lotMap.remove(); lotMap = null; }
   if (homeMap) { homeMap.remove(); homeMap = null; }
   const h = location.hash || '#/';
@@ -476,15 +516,16 @@ function renderRoute() {
   setText('#disc', t('disc'));
   const ftl = $('#ftl'); if (ftl) ftl.innerHTML = socials().map(s => socialLink(s, `<i class="ph ph-${s.ic}"></i><span>${esc(s.name)}</span>`, 'hbtn')).join('');
   setText('#co', `${CO.name}, ${CO.addr}. ${t('coReg2')} ${regDate()}${regDate().endsWith('.') ? '' : '.'}`);
-  setText('#navCat', t('navCat')); setText('#navAbout', t('navAbout'));
-  const isAbout = h.startsWith('#/about'), isContact = h.startsWith('#/contact');
+  setText('#navCat', t('navCat')); setText('#navAbout', t('navAbout')); setText('#navNews', t('navNews'));
+  const isAbout = h.startsWith('#/about'), isContact = h.startsWith('#/contact'), isNews = h.startsWith('#/news');
   setText('#navContact', t('navContact'));
-  [['#navCat', !isAbout && !isContact], ['#navAbout', isAbout], ['#navContact', isContact]].forEach(([s, on]) => { const n = $(s); if (n) n.classList.toggle('on', on); });
+  [['#navCat', !isAbout && !isContact && !isNews], ['#navAbout', isAbout], ['#navNews', isNews], ['#navContact', isContact]].forEach(([s, on]) => { const n = $(s); if (n) n.classList.toggle('on', on); });
   $$('#lang button').forEach(b => b.classList.toggle('on', b.dataset.l === lang));
   document.documentElement.lang = D().html;
   updateFab(h);
   if (m) { renderLot(m[1]); window.scrollTo(0, 0); return; }
   if (isContact) { renderContact((h.match(/^#\/contact\/([\w-]+)/) || [])[1]); window.scrollTo(0, 0); return; }
+  if (isNews) { renderNews(); window.scrollTo(0, 0); return; }
   if (isAbout) { renderAbout(); window.scrollTo(0, 0); return; }
   if (h === '#/saved') S = Object.assign(DEF(), { saved: true });
   else if (S.saved && h === '#/') S.saved = false;
