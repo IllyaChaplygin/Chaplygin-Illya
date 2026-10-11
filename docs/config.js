@@ -23,4 +23,4 @@ const NEWS = { url: 'https://raw.githubusercontent.com/illyachaplygin/chaplygin-
 
 // Счётчик посещений без cookie (баннер согласия не нужен). Пока пусто: счётчик выключен.
 // goatcounter: код аккаунта с goatcounter.com (адрес вида КОД.goatcounter.com), plausible: домен сайта в plausible.io. Укажите что-то одно.
-const ANALYTICS = { goatcounter: '', plausible: '' };
+const ANALYTICS = { goatcounter: '', plausible: '', ga4: '' };   // ga4: идентификатор потока Google Analytics, вида G-XXXXXXXXXX. Включает баннер согласия на cookie.

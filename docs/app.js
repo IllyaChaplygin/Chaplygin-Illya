@@ -643,16 +643,40 @@ function renderPrivacy() {
   document.title = `${P.title} | ALLIANZ KAPITAL`;
   const cs = contactSet() || {};
   const counter = ANALYTICS_NAME();
-  const secs = P.sections({ name: CO.name, addr: CO.addr, reg: regDate(), email: cs.email || '', counter });
+  const secs = P.sections({ name: CO.name, addr: CO.addr, reg: regDate(), email: cs.email || '', counter, ga: !!GA_ID() });
   $('#app').innerHTML = `<div class="wrap legal"><nav class="crumbs" aria-label="breadcrumb"><a href="#/"><i class="ph ph-arrow-left"></i> ${esc(t('back'))}</a></nav>
     <h1 class="title">${esc(P.title)}</h1><p class="meta">${esc(P.updated)}: ${esc(P.date)}</p>
     ${secs.map(([h, ps], i) => `<section class="lg"><h2>${i + 1}. ${esc(h)}</h2>${ps.map(p => `<p>${esc(p)}</p>`).join('')}</section>`).join('')}</div>`;
 }
 
 /* ---------- visit counter (cookie-less; off until an account code is set in config.js) ---------- */
+const GA_ID = () => { const A = (typeof ANALYTICS !== 'undefined' && ANALYTICS) || {}; return /^G-[A-Z0-9]{4,}$/i.test(A.ga4 || '') ? A.ga4 : ''; };
 const ANALYTICS_NAME = () => { const A = (typeof ANALYTICS !== 'undefined' && ANALYTICS) || {}; return A.goatcounter ? 'GoatCounter' : A.plausible ? 'Plausible' : ''; };
-let trackReady = false;
+let trackReady = false, gaReady = false;
+/* Google Analytics 4 loads only after the visitor accepts (it sets cookies). Decision is kept in localStorage 'consent'. */
+function gaLoad() {
+  const id = GA_ID(); if (!id || gaReady) return; gaReady = true;
+  window.dataLayer = window.dataLayer || []; window.gtag = function () { window.dataLayer.push(arguments); };
+  const s = document.createElement('script'); s.async = true; s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`; document.head.appendChild(s);
+  window.gtag('js', new Date()); window.gtag('config', id, { send_page_view: false, anonymize_ip: true });
+}
+function gaPage() { if (gaReady && window.gtag) window.gtag('event', 'page_view', { page_path: location.pathname + location.hash, page_title: document.title }); }
+function showConsent() {
+  if (!GA_ID()) return; let b = $('#ckb'); if (b) b.remove();
+  b = document.createElement('div'); b.id = 'ckb'; b.className = 'ckb'; b.setAttribute('role', 'dialog'); b.setAttribute('aria-label', t('ckT'));
+  b.innerHTML = `<p>${esc(t('ckText'))} <a href="#/privacy">${esc(t('pvLink'))}</a></p><div class="ckact"><button class="btn ghost" id="ckno">${esc(t('ckNo'))}</button><button class="btn" id="ckyes">${esc(t('ckYes'))}</button></div>`;
+  document.body.appendChild(b);
+  $('#ckyes').onclick = () => { ls.set('consent', 'yes'); b.remove(); gaLoad(); gaPage(); };
+  $('#ckno').onclick = () => { ls.set('consent', 'no'); b.remove(); };
+}
+function consentInit() {
+  const id = GA_ID(), f = $('#ckl'); if (f) f.hidden = !id;
+  if (!id) return;
+  const c = ls.get('consent');
+  if (c === 'yes') gaLoad(); else if (!c && !$('#ckb')) showConsent();
+}
 function track() {
+  gaPage();
   const A = (typeof ANALYTICS !== 'undefined' && ANALYTICS) || {};
   if (A.plausible) {                                           // Plausible's hash-mode script follows #/ routes by itself
     if (!trackReady) { trackReady = true; const s = document.createElement('script'); s.defer = true; s.dataset.domain = A.plausible; s.src = 'https://plausible.io/js/script.hash.js'; document.head.appendChild(s); }
@@ -683,7 +707,10 @@ function renderRoute() {
   const navOn = $('.nav a.on'); if (navOn && navOn.scrollIntoView) navOn.scrollIntoView({ inline: 'center', block: 'nearest' });
   document.documentElement.lang = D().html;
   updateFab(h);
+  const ckl = $('#ckl'); if (ckl && !ckl.dataset.b) { ckl.dataset.b = 1; ckl.onclick = e => { e.preventDefault(); showConsent(); }; }
+  consentInit();
   track();
+  setText('#ckl', t('ckSet'));
   setText('#pvl', (PRIVACY[lang] || PRIVACY.ru).link);
   if (m) { renderLot(m[1]); window.scrollTo(0, 0); return; }
   if (isContact) { renderContact((h.match(/^#\/contact\/([\w-]+)/) || [])[1], (h.match(/[?&]t=(\w+)/) || [])[1]); window.scrollTo(0, 0); return; }
