@@ -36,7 +36,7 @@ const ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery
 const DEF = () => ({ view: '', purpose: '', region: '', muni: '', pmin: '', pmax: '', amin: '', amax: '', photo: false, video: false, tour: false, saved: false, sort: 'rel', mode: 'grid' });
 let S = DEF();
 let homeMap = null, lotMap = null;
-const ACC = () => getComputedStyle(document.documentElement).getPropertyValue('--acc').trim() || '#1b7f7a';
+const ACC = () => getComputedStyle(document.documentElement).getPropertyValue('--acc').trim() || '#0b7285';
 
 /* ---------- helpers ---------- */
 const lotById = id => LOTS.find(l => l.id === id);
