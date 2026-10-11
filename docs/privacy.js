@@ -1,0 +1,49 @@
+/* Privacy policy text (RU / EN / ME). Each language is a function of the company details and the site settings,
+   so statements about the visit counter and contact e-mail appear only when they are true. */
+const PRIVACY = {
+  ru: {
+    title: 'Политика конфиденциальности', link: 'Политика конфиденциальности', updated: 'Обновлено', date: '12.10.2026',
+    sections: c => [
+      ['Кто обрабатывает ваши данные', [`Оператор данных: ${c.name}, ${c.addr}. Компания зарегистрирована ${c.reg}.`, `По вопросам обработки данных: ${c.email ? c.email : 'через форму на странице «Контакты»'}.`, 'Обработка выполняется в соответствии с законодательством Черногории о защите персональных данных и, для посетителей из Европейского союза, с Регламентом (ЕС) 2016/679 (GDPR).']],
+      ['Какие данные мы получаем', ['Из формы: имя, адрес электронной почты, телефон, номер интересующего лота, текст сообщения, а при записи на просмотр ещё желаемая дата и формат просмотра.', 'Технические данные, которые получает хостинг при любом обращении к сайту: IP-адрес, тип браузера и время запроса.', 'Мы не просим скан паспорта, данные банковских карт и другие документы через сайт.']],
+      ['Зачем и на каком основании', ['Только чтобы ответить на ваш запрос, организовать просмотр, отправить презентацию лота и вести переписку до заключения договора.', 'Основание: ваше согласие (отметка в форме) и действия по вашему запросу перед заключением договора. Для безопасности сайта и подсчёта посещений основание — наш законный интерес.']],
+      ...(c.counter ? [['Статистика посещений', [`На сайте работает счётчик посещений ${c.counter}. Он не использует cookie и не идентифицирует вас лично: учитываются только страницы и общие показатели.`]]] : []),
+      ['Кому мы передаём данные', ['Заявки поступают на нашу почту через сервис приёма форм. Сайт размещён на GitHub Pages (GitHub, Inc.).', 'При нажатии на видео загружается плеер YouTube (Google), при просмотре карт загружаются изображения OpenStreetMap, Esri или Google Maps. Эти сервисы получают ваш IP-адрес и могут использовать собственные cookie по своим правилам.', 'Мы не продаём ваши данные и не передаём их рекламным сетям.']],
+      ['Cookie и память браузера', ['Сайт не использует рекламные и аналитические cookie.', 'В памяти вашего браузера (localStorage) хранятся выбранный язык и избранные лоты. Эти данные остаются на вашем устройстве, их можно удалить в настройках браузера.']],
+      ['Сроки хранения', ['Заявки хранятся не дольше, чем нужно для ответа и последующего сотрудничества, и удаляются по вашему требованию, если закон не обязывает нас их хранить.']],
+      ['Передача за границу', ['Некоторые провайдеры (GitHub, Google) находятся за пределами Черногории и ЕС, в частности в США. Передача происходит только в объёме, необходимом для работы сайта, и с применением защитных механизмов, предусмотренных законом.']],
+      ['Ваши права', ['Вы можете узнать, какие данные о вас у нас есть, исправить или удалить их, ограничить обработку, возразить против неё, запросить перенос данных и в любой момент отозвать согласие. Отзыв не влияет на законность обработки до этого момента. Для этого напишите нам.', 'Вы вправе обратиться в надзорный орган: в Черногории это Агентство по защите персональных данных и свободному доступу к информации (Agencija za zaštitu ličnih podataka i slobodan pristup informacijama), в ЕС — орган вашей страны.']],
+      ['Возраст и изменения', ['Сайт предназначен для лиц старше 18 лет.', 'Мы можем обновлять этот документ. Актуальная версия всегда находится на этой странице.']]
+    ]
+  },
+  en: {
+    title: 'Privacy policy', link: 'Privacy policy', updated: 'Updated', date: '12 October 2026',
+    sections: c => [
+      ['Who processes your data', [`Data controller: ${c.name}, ${c.addr}. The company was registered on ${c.reg}.`, `For questions about data processing: ${c.email ? c.email : 'use the form on the Contact page'}.`, 'Processing follows the personal data protection law of Montenegro and, for visitors from the European Union, Regulation (EU) 2016/679 (GDPR).']],
+      ['What data we receive', ['From the form: name, e-mail address, phone number, the lot you are interested in, your message, and for a viewing request also the preferred date and format.', 'Technical data the hosting receives with every visit: IP address, browser type and time of the request.', 'We do not ask for passport scans, bank card details or other documents through the site.']],
+      ['Why and on what basis', ['Only to answer your request, arrange a viewing, send you a presentation of a lot and correspond with you before a contract is signed.', 'Basis: your consent (the tick box in the form) and steps taken at your request before entering into a contract. For site security and visit statistics the basis is our legitimate interest.']],
+      ...(c.counter ? [['Visit statistics', [`The site uses the visit counter ${c.counter}. It does not use cookies and does not identify you personally: only pages and overall figures are counted.`]]] : []),
+      ['Who receives the data', ['Requests reach our mailbox through a form-processing service. The site is hosted on GitHub Pages (GitHub, Inc.).', 'When you click a video, the YouTube player (Google) is loaded; when you view maps, images from OpenStreetMap, Esri or Google Maps are loaded. These services receive your IP address and may use their own cookies under their own rules.', 'We do not sell your data and do not pass it to advertising networks.']],
+      ['Cookies and browser storage', ['The site does not use advertising or analytics cookies.', 'Your browser memory (localStorage) keeps the chosen language and your saved lots. This stays on your device and can be deleted in the browser settings.']],
+      ['Retention', ['Requests are kept no longer than needed to reply and cooperate afterwards, and are deleted on your request unless the law requires us to keep them.']],
+      ['Transfers abroad', ['Some providers (GitHub, Google) are located outside Montenegro and the EU, in particular in the United States. Data is transferred only as far as needed to run the site, with the safeguards the law provides.']],
+      ['Your rights', ['You can ask what data we hold about you, correct or delete it, restrict or object to processing, request data portability and withdraw your consent at any time. Withdrawal does not affect the lawfulness of earlier processing. Write to us to do so.', 'You may complain to a supervisory authority: in Montenegro the Agency for Personal Data Protection and Free Access to Information (Agencija za zaštitu ličnih podataka i slobodan pristup informacijama); in the EU, the authority of your country.']],
+      ['Age and changes', ['The site is intended for persons over 18.', 'We may update this document. The current version is always on this page.']]
+    ]
+  },
+  me: {
+    title: 'Politika privatnosti', link: 'Politika privatnosti', updated: 'Ažurirano', date: '12.10.2026.',
+    sections: c => [
+      ['Ko obrađuje vaše podatke', [`Rukovalac podacima: ${c.name}, ${c.addr}. Društvo je registrovano ${c.reg}.`, `Za pitanja o obradi podataka: ${c.email ? c.email : 'putem forme na stranici Kontakt'}.`, 'Obrada se vrši u skladu sa propisima Crne Gore o zaštiti podataka o ličnosti i, za posjetioce iz Evropske unije, sa Uredbom (EU) 2016/679 (GDPR).']],
+      ['Koje podatke primamo', ['Iz forme: ime, adresu e-pošte, telefon, broj lota koji vas zanima, tekst poruke, a kod zahtjeva za razgledanje i željeni datum i način razgledanja.', 'Tehničke podatke koje hosting dobija pri svakoj posjeti: IP adresu, vrstu pregledača i vrijeme zahtjeva.', 'Preko sajta ne tražimo sken pasoša, podatke o platnim karticama i druga dokumenta.']],
+      ['Zašto i na kojoj osnovi', ['Samo da odgovorimo na vaš upit, organizujemo razgledanje, pošaljemo prezentaciju lota i vodimo prepisku prije zaključenja ugovora.', 'Osnova: vaša saglasnost (kvačica u formi) i radnje na vaš zahtjev prije zaključenja ugovora. Za bezbjednost sajta i statistiku posjeta osnova je naš legitimni interes.']],
+      ...(c.counter ? [['Statistika posjeta', [`Sajt koristi brojač posjeta ${c.counter}. Ne koristi kolačiće i ne identifikuje vas lično: broje se samo stranice i opšti pokazatelji.`]]] : []),
+      ['Ko prima podatke', ['Upiti stižu na našu e-poštu preko servisa za prijem formi. Sajt se nalazi na GitHub Pages (GitHub, Inc.).', 'Kada kliknete na video, učitava se YouTube plejer (Google), a pri prikazu mapa slike sa OpenStreetMap, Esri ili Google Maps. Ti servisi dobijaju vašu IP adresu i mogu koristiti sopstvene kolačiće po sopstvenim pravilima.', 'Ne prodajemo vaše podatke i ne dajemo ih reklamnim mrežama.']],
+      ['Kolačići i memorija pregledača', ['Sajt ne koristi reklamne ni analitičke kolačiće.', 'U memoriji pregledača (localStorage) čuvaju se izabrani jezik i sačuvani lotovi. Ti podaci ostaju na vašem uređaju i mogu se obrisati u podešavanjima pregledača.']],
+      ['Rok čuvanja', ['Upiti se čuvaju najduže koliko je potrebno za odgovor i dalju saradnju i brišu se na vaš zahtjev, osim ako zakon ne nalaže da ih čuvamo.']],
+      ['Prenos u inostranstvo', ['Neki provajderi (GitHub, Google) nalaze se van Crne Gore i EU, naročito u SAD. Prenos se vrši samo u obimu potrebnom za rad sajta i uz mjere zaštite koje propisuje zakon.']],
+      ['Vaša prava', ['Možete zatražiti uvid u podatke koje imamo o vama, njihov ispravak ili brisanje, ograničenje obrade, prigovor na obradu, prenosivost podataka i u svakom trenutku povući saglasnost. Povlačenje ne utiče na zakonitost ranije obrade. Za to nam pišite.', 'Možete se obratiti nadzornom organu: u Crnoj Gori to je Agencija za zaštitu ličnih podataka i slobodan pristup informacijama, a u EU organ vaše države.']],
+      ['Uzrast i izmjene', ['Sajt je namijenjen licima starijim od 18 godina.', 'Ovaj dokument možemo mijenjati. Aktuelna verzija je uvijek na ovoj stranici.']]
+    ]
+  }
+};

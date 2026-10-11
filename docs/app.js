@@ -77,12 +77,12 @@ function card(l) {
   const badge = (l.photos.length || l.videos.length || has3d(l)) ? `<span class="badge">${l.photos.length ? `<span><i class="ph ph-camera"></i> ${l.photos.length}</span>` : ''}${l.videos.length ? '<i class="ph ph-video-camera"></i>' : ''}${has3d(l) ? '<i class="ph ph-cube"></i>' : ''}</span>` : '';
   const on = fav.has(l.id);
   const price = l.purpose === 'joint' ? esc(t('pu_joint')) : l.total != null ? `${eur(l.total)}${l.ppm ? `<small>${eur(l.ppm)} ${esc(t('perM2'))}</small>` : ''}` : esc(t('onReq'));
-  return `<article class="card" data-id="${esc(l.id)}">
+  return `<article class="card" data-id="${esc(l.id)}" data-p="${esc(l.purpose || '')}" data-v="${l.view === 'гора' ? 'm' : 's'}">
     <a class="im" href="#/p/${esc(l.id)}" aria-label="${esc(t('lot'))} ${esc(l.id)}">${img}<span class="code">${esc(l.id)}</span>${badge}</a>
     <button class="fav ${on ? 'on' : ''}" data-fav="${esc(l.id)}" aria-label="${esc(t(on ? 'unsave' : 'save'))}" aria-pressed="${on}"><i class="ph${on ? '-fill' : ''} ph-heart"></i></button>
     <a class="bd" href="#/p/${esc(l.id)}">
       <div class="price">${price}</div>
-      <div class="loc">${l.area != null ? `${fmt(l.area)} ${esc(t('m2'))}, ` : ''}${esc(viewName(l.view))}</div>
+      <div class="loc"><i class="ph-fill ph-${unit(l)} vi"></i> ${l.area != null ? `${fmt(l.area)} ${esc(t('m2'))}, ` : ''}${esc(viewName(l.view))}</div>
       <div class="meta">${esc(l.municipality)}, ${esc(regionName(l.region))}</div>
       <div class="tags">${l.purpose === 'joint' ? '' : purposeTag(l)}${l.n > 1 ? `<span class="tag">${esc(t('parcelsN', l.n))}</span>` : ''}${l.partial ? `<span class="tag">${esc(t('partialOf', l.partial, l.n))}</span>` : ''}</div>
     </a></article>`;
@@ -124,7 +124,7 @@ function renderHome() {
       <div id="res"></div>
     </section>
   </div></div>
-  <div class="wrap"><section class="vtease" id="vtease"></section></div>`;
+  <div class="band"><div class="wrap"><section class="vtease" id="vtease"></section></div></div>`;
   renderFilters();
   updateResults();
   bindHome();
@@ -278,6 +278,49 @@ function mountLotMap(l) {
 const COMM_ICON = { electricity: 'lightning', water: 'drop', gas: 'flame', sewage: 'pipe' };
 const TR_ICON = { beach: 'umbrella-simple', portBudva: 'anchor', airportTivat: 'airplane-tilt' };
 
+
+/* ---------- share / QR / PDF ---------- */
+const lotUrl = id => new URL(`lot/${encodeURIComponent(id)}/`, location.href.split('#')[0]).href;   // static page: carries the preview card
+function qrObj(text) { const q = qrcode(0, 'M'); q.addData(text); q.make(); return q; }
+function openQr(l) {
+  const url = lotUrl(l.id), q = qrObj(url);
+  let d = $('#qrd'); if (!d) { d = document.createElement('dialog'); d.id = 'qrd'; d.className = 'qrd'; document.body.appendChild(d); }
+  d.innerHTML = `<div class="qin"><h3>${esc(t('qrT'))} ${esc(l.id)}</h3><div class="qsvg">${q.createSvgTag({ cellSize: 6, margin: 2, scalable: true })}</div><p class="meta">${esc(t('qrHint'))}</p><p class="qurl">${esc(url)}</p>
+    <div class="qact"><button class="btn" id="qpng"><i class="ph ph-download-simple"></i>${esc(t('qrPng'))}</button><button class="btn ghost" id="qcp"><i class="ph ph-link"></i>${esc(t('qrCopy'))}</button><button class="btn ghost" id="qx">${esc(t('close'))}</button></div></div>`;
+  $('#qx').onclick = () => d.close();
+  d.onclick = e => { if (e.target === d) d.close(); };
+  $('#qcp').onclick = async () => { try { await navigator.clipboard.writeText(url); toast(t('copied')); } catch (e) { } };
+  $('#qpng').onclick = () => {
+    const n = q.getModuleCount(), px = 14, m = 2, cv = document.createElement('canvas');
+    cv.width = cv.height = (n + m * 2) * px; const g = cv.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, cv.width, cv.height); g.fillStyle = '#000';
+    for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (q.isDark(r, c)) g.fillRect((c + m) * px, (r + m) * px, px, px);
+    const a = document.createElement('a'); a.download = `${l.id}-qr.png`; a.href = cv.toDataURL('image/png'); a.click();
+  };
+  d.showModal();
+}
+async function printLot(l) {
+  const priced = l.total != null && l.purpose !== 'joint';
+  const ph = l.photos.slice(0, 4), cover = !ph.length && l.tourCover ? [`photos/${l.tourCover}`] : [];
+  const imgs = [...ph.map(photoBig), ...cover];
+  const rows = [[t('region'), regionName(l.region)], [t('muni'), l.municipality], [t('type'), viewName(l.view)], l.purpose && [t('purpose'), t('pu_' + l.purpose)],
+    [t('totalArea'), l.area != null ? `${fmt(l.area)} ${t('m2')}` : '-'], [t('cadastreN'), l.n],
+    priced && [t('shPrice'), eur(l.total) + (l.ppm ? ` (${eur(l.ppm)} ${t('perM2')})` : '')]].filter(Boolean);
+  const c = contactSet() || {};
+  const el = document.createElement('section'); el.className = 'sheet'; el.id = 'sheet';
+  el.innerHTML = `<div class="sh-h"><div class="sh-b"><i class="mk"></i><span class="wm"><b>ALLIANZ KAPITAL</b><small>MONTENEGRO</small></span></div><div class="sh-q">${qrObj(lotUrl(l.id)).createSvgTag({ cellSize: 3, margin: 0, scalable: true })}<small>${esc(t('shSite'))}</small></div></div>
+    <h1>${esc(t('lot'))} ${esc(l.id)}${l.area != null ? `, ${fmt(l.area)} ${esc(t('m2'))}` : ''}</h1><p class="sh-s">${esc(l.municipality)}, ${esc(regionName(l.region))}</p>
+    <dl class="sh-f">${rows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
+    ${imgs.length ? `<div class="sh-p n${imgs.length}">${imgs.map(s => `<img src="${esc(s)}" alt="">`).join('')}</div>` : ''}
+    ${l.n > 1 ? `<h2>${esc(t('shCad'))}</h2><table class="sh-t"><tr><th>${esc(t('thParcel'))}</th><th>${esc(t('thArea'))}</th>${priced ? `<th>${esc(t('thPrice'))}</th>` : ''}</tr>${l.parcels.map(p => `<tr><td>${esc(p.cadastre)}</td><td>${fmt(p.area)}</td>${priced ? `<td>${fmt(p.total)}</td>` : ''}</tr>`).join('')}</table>` : ''}
+    <div class="sh-c"><b>${esc(CO.name)}</b><br>${esc(CO.addr)}${c.email ? `<br>${esc(c.email)}` : ''}${c.phone ? `<br>+${esc(String(c.phone).replace(/\D/g, ''))}` : ''}<br>${esc(lotUrl(l.id))}</div>
+    <p class="sh-d">${esc(t('disc'))}</p>`;
+  $('#app').appendChild(el);
+  await Promise.all([...el.querySelectorAll('img')].map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })));
+  const clean = () => { el.remove(); window.removeEventListener('afterprint', clean); };
+  window.addEventListener('afterprint', clean);
+  window.print();
+}
+
 function renderLot(id) {
   const l = lotById(id);
   if (!l) { location.hash = '#/'; return; }
@@ -332,7 +375,9 @@ function renderLot(id) {
       <div class="price${l.purpose === 'joint' ? ' txt' : ''}">${price}</div>
       ${l.ppm && l.purpose !== 'joint' ? `<div class="meta">${eur(l.ppm)} ${esc(t('perM2'))}</div>` : ''}
       <div class="stats"><div><b>${l.area != null ? fmt(l.area) + ' ' + esc(t('m2')) : '-'}</b><span>${esc(t('totalArea'))}</span></div><div><b>${l.n}</b><span>${esc(t('cadastreN'))}</span></div></div>
-      <a class="btn block" style="margin-top:16px" href="#/contact/${esc(l.id)}"><i class="ph ph-paper-plane-tilt"></i>${esc(t('cLot'))}</a>
+      <div class="acts"><a class="btn block hot" href="#/contact/${esc(l.id)}?t=view"><i class="ph ph-calendar-check"></i>${esc(t('bookView'))}</a>
+      <a class="btn block ghost" href="#/contact/${esc(l.id)}?t=deck"><i class="ph ph-file-arrow-down"></i>${esc(t('reqDeck'))}</a>
+      <a class="btn block ghost" href="#/contact/${esc(l.id)}"><i class="ph ph-paper-plane-tilt"></i>${esc(t('cLot'))}</a></div>
       ${c ? `<div class="form"><label>${esc(t('yourMsg'))}<textarea id="msg" rows="3">${esc(t('msgDef', l.id, l.municipality))}</textarea></label>
         <div style="display:grid;gap:8px">
         ${c.whatsapp ? `<a class="btn block" data-ct="wa" href="#"><i class="ph ph-whatsapp-logo"></i>${esc(t('viaWa'))}</a>` : ''}
@@ -341,13 +386,16 @@ function renderLot(id) {
         ${c.phone ? `<a class="btn ghost block" href="tel:+${esc(String(c.phone).replace(/\D/g, ''))}"><i class="ph ph-phone"></i>${esc(t('call'))}</a>` : ''}</div></div>` : ''}
       <div class="row"><button class="sbtn ${on ? 'on' : ''}" data-fav="${esc(l.id)}" aria-pressed="${on}"><i class="ph${on ? '-fill' : ''} ph-heart"></i><span>${esc(t(on ? 'unsave' : 'save'))}</span></button>
       <button class="sbtn" id="share"><i class="ph ph-share-network"></i>${esc(t('share'))}</button></div>
+      <div class="row"><button class="sbtn" id="qrb"><i class="ph ph-qr-code"></i>${esc(t('qrBtn'))}</button><button class="sbtn" id="pdfb"><i class="ph ph-file-pdf"></i>${esc(t('pdfBtn'))}</button></div>
     </div></div></aside></div>
     ${sim.length ? `<section style="padding-bottom:56px"><h2>${esc(t('similar'))}</h2><div class="sim">${sim.map(card).join('')}</div></section>` : ''}
   </div>`;
 
   mountLotMap(l);
+  $('#qrb').onclick = () => openQr(l);
+  $('#pdfb').onclick = () => printLot(l);
   $('#share').onclick = async () => {
-    const url = location.href;
+    const url = lotUrl(l.id);
     try { if (navigator.share) { await navigator.share({ url, title: document.title }); return; } await navigator.clipboard.writeText(url); toast(t('copied')); } catch (e) { }
   };
   $$('.media').forEach(m => $('.go', m).onclick = () => { m.innerHTML = `<iframe src="${m.dataset.src}" allow="fullscreen; xr-spatial-tracking; gyroscope; accelerometer; autoplay" allowfullscreen loading="lazy" title="media"></iframe>`; });
@@ -402,7 +450,8 @@ function renderAbout() {
 }
 
 /* ---------- contact ---------- */
-function renderContact(pre) {
+function renderContact(pre, topic0) {
+  const topic = ['view', 'deck'].includes(topic0) ? topic0 : 'q';
   document.title = `${t('cT')} | ALLIANZ KAPITAL`;
   const c = contactSet() || {};
   const lotOpts = `<option value="">${esc(t('fLotAny'))}</option>` + LOTS.map(l => `<option value="${esc(l.id)}"${l.id === pre ? ' selected' : ''}>${esc(l.id)}, ${esc(l.municipality)}${l.area != null ? ', ' + fmt(l.area) + ' ' + esc(t('m2')) : ''}</option>`).join('');
@@ -419,9 +468,11 @@ function renderContact(pre) {
           <div id="cfields" class="cfields">
             <div class="two">${field('cname', t('fName'), '<input id="cname" name="name" autocomplete="name" required>')}${field('cmail', t('fEmail'), '<input id="cmail" name="email" type="email" autocomplete="email" inputmode="email">')}</div>
             <div class="two">${field('cphone', t('fPhone'), '<input id="cphone" name="phone" type="tel" autocomplete="tel" inputmode="tel">')}${field('clot', t('fLot'), `<select id="clot" name="lot">${lotOpts}</select>`)}</div>
-            ${field('cmsg', t('fMsg'), '<textarea id="cmsg" name="message" rows="5" required></textarea>')}
+            ${field('ctopic', t('fTopic'), `<select id="ctopic" name="topic">${[['q', 'tQ'], ['view', 'tView'], ['deck', 'tDeck']].map(([v, k]) => `<option value="${v}"${v === topic ? ' selected' : ''}>${esc(t(k))}</option>`).join('')}</select>`)}
+            <div class="two" id="viewf"${topic === 'view' ? '' : ' hidden'}>${field('cdate', t('fDate'), '<input id="cdate" name="date" type="date">')}${field('cformat', t('fFormat'), `<select id="cformat" name="format"><option value="site">${esc(t('fmSite'))}</option><option value="online">${esc(t('fmOnline'))}</option></select>`)}</div>
+            ${field('cmsg', t('fMsg'), '<textarea id="cmsg" name="message" rows="5"></textarea>')}
             <div class="hp" aria-hidden="true"><label>Website<input id="chp" name="website" tabindex="-1" autocomplete="off"></label></div>
-            <div class="ff"><label class="chk"><input type="checkbox" id="cconsent"> ${esc(t('fConsent'))}</label><div class="err" id="e-cconsent" role="alert"></div></div>
+            <div class="ff"><label class="chk"><input type="checkbox" id="cconsent"> <span>${esc(t('fConsentA'))} ${esc(t('pvAgree'))} <a href="#/privacy">${esc(t('pvLink')).toLowerCase()}</a></span></label><div class="err" id="e-cconsent" role="alert"></div></div>
             <div class="cstatus" id="cstatus" role="status"></div>
             <button class="btn" id="csend" type="submit"><i class="ph ph-paper-plane-tilt"></i>${esc(t('fSend'))}</button>
           </div></form></div>
@@ -431,6 +482,8 @@ function renderContact(pre) {
         <div class="doclinks" style="margin-top:16px"><a class="hbtn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CO.addr)}" target="_blank" rel="noopener"><i class="ph ph-map-pin"></i>${esc(t('cMap'))}</a>${links}</div></div>
         <div class="card-p"><div class="lbl"><i class="ph ph-share-network"></i>${esc(t('soc'))}</div><div class="in">${socialTiles()}</div></div></div></aside>
     </div></div>`;
+  const dt = $('#cdate'); if (dt) dt.min = new Date().toISOString().slice(0, 10);
+  $('#ctopic').onchange = e => { $('#viewf').hidden = e.target.value !== 'view'; };
   const setErr = (id, msg) => { const e = $('#e-' + id), f = $('#' + id); if (e) e.textContent = msg || ''; if (f) f.setAttribute('aria-invalid', msg ? 'true' : 'false'); };
   $('#cagain').onclick = () => { $('#cok').hidden = true; $('#cfields').hidden = false; $('#cf').reset(); };
   $('#cf').onsubmit = async e => {
@@ -438,11 +491,13 @@ function renderContact(pre) {
     const v = id => $('#' + id).value.trim();
     const errs = {};
     if (!v('cname')) errs.cname = t('vReq');
-    if (!v('cmsg')) errs.cmsg = t('vReq');
+    const tp = $('#ctopic').value;
+    if (tp === 'q' && !v('cmsg')) errs.cmsg = t('vReq');
+    if (tp === 'view' && !v('cdate')) errs.cdate = t('vReq');
     if (v('cmail') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('cmail'))) errs.cmail = t('vEmail');
     if (!v('cmail') && !v('cphone')) { errs.cmail = t('vContact'); errs.cphone = t('vContact'); }
     if (!$('#cconsent').checked) errs.cconsent = t('vConsent');
-    ['cname', 'cmail', 'cphone', 'cmsg', 'cconsent'].forEach(id => setErr(id, errs[id]));
+    ['cname', 'cmail', 'cphone', 'cmsg', 'cdate', 'cconsent'].forEach(id => setErr(id, errs[id]));
     const st = $('#cstatus'); st.textContent = ''; st.className = 'cstatus';
     const first = Object.keys(errs)[0]; if (first) { $('#' + first).focus(); return; }
     if ($('#chp').value) return;                          // honeypot: bots fill the hidden field
@@ -450,7 +505,7 @@ function renderContact(pre) {
     if (!F.endpoint) { st.textContent = t('fOff'); st.className = 'cstatus bad'; return; }
     const btn = $('#csend'); btn.disabled = true; st.textContent = t('fSending');
     const lot = v('clot');
-    const payload = Object.assign({}, F.extra || {}, { name: v('cname'), email: v('cmail'), phone: v('cphone'), lot: lot || '', message: v('cmsg'), language: lang, page: location.href, subject: `ALLIANZ KAPITAL: ${lot ? t('lot') + ' ' + lot : t('fLotAny')}` });
+    const payload = Object.assign({}, F.extra || {}, { name: v('cname'), email: v('cmail'), phone: v('cphone'), lot: lot || '', message: v('cmsg'), topic: t({ q: 'tQ', view: 'tView', deck: 'tDeck' }[tp]), preferred_date: tp === 'view' ? v('cdate') : '', format: tp === 'view' ? $('#cformat').selectedOptions[0].textContent : '', language: lang, page: location.href, subject: `ALLIANZ KAPITAL: ${t({ q: 'tQ', view: 'tView', deck: 'tDeck' }[tp])}${lot ? ', ' + t('lot') + ' ' + lot : ''}` });
     try {
       const r = await fetch(F.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) });
       if (!r.ok) throw new Error(r.status);
@@ -581,6 +636,35 @@ async function homeVideos() {
     <div class="vstrip">${vs.map((v, i) => `<a class="vc" href="#/videos" data-i="${i}"><span class="th">${thumbImg(v.id)}<i class="ph-fill ph-play-circle pl"></i>${v.lot ? `<span class="lt">${esc(v.lot)}</span>` : ''}</span><b>${esc(v.title)}</b></a>`).join('')}</div>`;
 }
 
+
+/* ---------- privacy policy ---------- */
+function renderPrivacy() {
+  const P = PRIVACY[lang] || PRIVACY.ru;
+  document.title = `${P.title} | ALLIANZ KAPITAL`;
+  const cs = contactSet() || {};
+  const counter = ANALYTICS_NAME();
+  const secs = P.sections({ name: CO.name, addr: CO.addr, reg: regDate(), email: cs.email || '', counter });
+  $('#app').innerHTML = `<div class="wrap legal"><nav class="crumbs" aria-label="breadcrumb"><a href="#/"><i class="ph ph-arrow-left"></i> ${esc(t('back'))}</a></nav>
+    <h1 class="title">${esc(P.title)}</h1><p class="meta">${esc(P.updated)}: ${esc(P.date)}</p>
+    ${secs.map(([h, ps], i) => `<section class="lg"><h2>${i + 1}. ${esc(h)}</h2>${ps.map(p => `<p>${esc(p)}</p>`).join('')}</section>`).join('')}</div>`;
+}
+
+/* ---------- visit counter (cookie-less; off until an account code is set in config.js) ---------- */
+const ANALYTICS_NAME = () => { const A = (typeof ANALYTICS !== 'undefined' && ANALYTICS) || {}; return A.goatcounter ? 'GoatCounter' : A.plausible ? 'Plausible' : ''; };
+let trackReady = false;
+function track() {
+  const A = (typeof ANALYTICS !== 'undefined' && ANALYTICS) || {};
+  if (A.plausible) {                                           // Plausible's hash-mode script follows #/ routes by itself
+    if (!trackReady) { trackReady = true; const s = document.createElement('script'); s.defer = true; s.dataset.domain = A.plausible; s.src = 'https://plausible.io/js/script.hash.js'; document.head.appendChild(s); }
+  } else if (A.goatcounter) {
+    if (!trackReady) {
+      trackReady = true; const s = document.createElement('script'); s.async = true; s.dataset.goatcounter = `https://${A.goatcounter}.goatcounter.com/count`;
+      s.dataset.goatcounterSettings = JSON.stringify({ no_onload: true }); s.src = 'https://gc.zgo.at/count.js';
+      s.onload = () => window.goatcounter && window.goatcounter.count({ path: location.pathname + location.hash }); document.head.appendChild(s);
+    } else if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: location.pathname + location.hash });
+  }
+}
+
 function renderRoute() {
   if (newsTimer) { clearInterval(newsTimer); newsTimer = null; }
   if (lotMap) { lotMap.remove(); lotMap = null; }
@@ -592,15 +676,18 @@ function renderRoute() {
   const ftl = $('#ftl'); if (ftl) ftl.innerHTML = socials().map(s => socialLink(s, `<i class="ph ph-${s.ic}"></i><span>${esc(s.name)}</span>`, 'hbtn')).join('');
   setText('#co', `${CO.name}, ${CO.addr}. ${t('coReg2')} ${regDate()}${regDate().endsWith('.') ? '' : '.'}`);
   setText('#navCat', t('navCat')); setText('#navAbout', t('navAbout')); setText('#navNews', t('navNews')); setText('#navVideos', t('navVideos'));
-  const isAbout = h.startsWith('#/about'), isContact = h.startsWith('#/contact'), isNews = h.startsWith('#/news'), isVideos = h.startsWith('#/videos');
+  const isAbout = h.startsWith('#/about'), isContact = h.startsWith('#/contact'), isNews = h.startsWith('#/news'), isVideos = h.startsWith('#/videos'), isPrivacy = h.startsWith('#/privacy');
   setText('#navContact', t('navContact'));
   [['#navCat', !isAbout && !isContact && !isNews && !isVideos], ['#navAbout', isAbout], ['#navVideos', isVideos], ['#navNews', isNews], ['#navContact', isContact]].forEach(([s, on]) => { const n = $(s); if (n) n.classList.toggle('on', on); });
   $$('#lang button').forEach(b => b.classList.toggle('on', b.dataset.l === lang));
   const navOn = $('.nav a.on'); if (navOn && navOn.scrollIntoView) navOn.scrollIntoView({ inline: 'center', block: 'nearest' });
   document.documentElement.lang = D().html;
   updateFab(h);
+  track();
+  setText('#pvl', (PRIVACY[lang] || PRIVACY.ru).link);
   if (m) { renderLot(m[1]); window.scrollTo(0, 0); return; }
-  if (isContact) { renderContact((h.match(/^#\/contact\/([\w-]+)/) || [])[1]); window.scrollTo(0, 0); return; }
+  if (isContact) { renderContact((h.match(/^#\/contact\/([\w-]+)/) || [])[1], (h.match(/[?&]t=(\w+)/) || [])[1]); window.scrollTo(0, 0); return; }
+  if (isPrivacy) { renderPrivacy(); window.scrollTo(0, 0); return; }
   if (isVideos) { renderVideos(); window.scrollTo(0, 0); return; }
   if (isNews) { renderNews(); window.scrollTo(0, 0); return; }
   if (isAbout) { renderAbout(); window.scrollTo(0, 0); return; }

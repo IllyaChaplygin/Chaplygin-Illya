@@ -20,3 +20,7 @@ const SOCIAL = {
 // Headlines feed: refreshed every 30 min by .github/workflows/news.yml (needs that file on main).
 // Falls back to the snapshot in docs/news.json.
 const NEWS = { url: 'https://raw.githubusercontent.com/illyachaplygin/chaplygin-illya/news-data/news.json', pollMin: 5 };
+
+// Счётчик посещений без cookie (баннер согласия не нужен). Пока пусто: счётчик выключен.
+// goatcounter: код аккаунта с goatcounter.com (адрес вида КОД.goatcounter.com), plausible: домен сайта в plausible.io. Укажите что-то одно.
+const ANALYTICS = { goatcounter: '', plausible: '' };
