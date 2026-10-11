@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Collect real-estate and land headlines from public RSS feeds into docs/news.json.
 
-Only headline, source, date and link are stored (no article text or images):
-the site links out to the publisher. Run by .github/workflows/news.yml every 30 min.
+Stored per item: headline, source, date, link and, when the feed itself supplies one,
+the publisher's thumbnail URL (hotlinked, not copied). No article text. Run by .github/workflows/news.yml every 30 min.
 """
 import json, re, sys, time, urllib.request, urllib.parse, html
 import xml.etree.ElementTree as ET
@@ -13,7 +13,7 @@ from pathlib import Path
 OUT = Path(__file__).resolve().parent.parent / 'docs' / 'news.json'
 UA = 'Mozilla/5.0 (compatible; AllianzKapitalNewsBot/1.0; +https://github.com/illyachaplygin)'
 MAX_AGE_DAYS = 14
-MAX_ITEMS = 120
+MAX_ITEMS = 150
 
 def gnews(q, hl, gl, ceid):
     return 'https://news.google.com/rss/search?' + urllib.parse.urlencode(
@@ -56,6 +56,21 @@ def txt(el, tag):
     n = el.find(tag)
     return (n.text or '').strip() if n is not None and n.text else ''
 
+MEDIA = '{http://search.yahoo.com/mrss/}'
+
+def image_of(it):
+    for tag in (MEDIA + 'thumbnail', MEDIA + 'content'):
+        n = it.find(tag)
+        if n is not None and n.get('url', '').startswith('https://'):
+            u = n.get('url')
+            if 'i.guim.co.uk' in u:          # Guardian thumbnails come at width=140
+                u = re.sub(r'width=\d+', 'width=640', u)
+            return html.unescape(u)
+    n = it.find('enclosure')
+    if n is not None and n.get('url', '').startswith('https://') and (n.get('type', 'image').startswith('image')):
+        return n.get('url')
+    return ''
+
 def parse(raw):
     root = ET.fromstring(raw)
     for it in root.iter('item'):
@@ -65,12 +80,13 @@ def parse(raw):
             'link': txt(it, 'link'),
             'date': txt(it, 'pubDate'),
             'src': (src.text or '').strip() if src is not None and src.text else '',
+            'img': image_of(it),
         }
     for it in root.iter('{http://www.w3.org/2005/Atom}entry'):
         ns = '{http://www.w3.org/2005/Atom}'
         l = it.find(ns + 'link')
         yield {'title': html.unescape(txt(it, ns + 'title')), 'link': l.get('href') if l is not None else '',
-               'date': txt(it, ns + 'updated') or txt(it, ns + 'published'), 'src': ''}
+               'date': txt(it, ns + 'updated') or txt(it, ns + 'published'), 'src': '', 'img': ''}
 
 def to_dt(s):
     try:
@@ -108,7 +124,7 @@ def main():
                     title, src = head.strip(), src or tail.strip()
             if kw and not kw.search(title):
                 continue
-            if not RELEVANT.search(title) or NOISE.search(title):
+            if NOISE.search(title) or (not src_over and not RELEVANT.search(title)):
                 continue
             d = to_dt(e['date'])
             if not d or (now - d).days > MAX_AGE_DAYS or d > now:
@@ -118,15 +134,19 @@ def main():
                 continue
             seen.add(k)
             tp = 'land' if (topic != 'me' and LAND.search(title)) else topic
-            items.append({'t': title, 'u': link, 's': src or '', 'd': d.strftime('%Y-%m-%dT%H:%M:%SZ'), 'l': lang, 'c': tp})
+            items.append({'t': title, 'u': link, 's': src or '', 'd': d.strftime('%Y-%m-%dT%H:%M:%SZ'), 'l': lang, 'c': tp, **({'i': e['img']} if e.get('img') else {})})
     items.sort(key=lambda x: x['d'], reverse=True)
     # keep balance: cap per (lang, topic) so one busy feed cannot push others out
-    per, out = {}, []
+    # per (lang, topic) cap; items with a publisher photo are kept first so the page is not all placeholders
+    groups = {}
     for it in items:
-        key = (it['l'], it['c'])
-        per[key] = per.get(key, 0) + 1
-        if per[key] <= 25:
-            out.append(it)
+        groups.setdefault((it['l'], it['c']), []).append(it)
+    out = []
+    for g in groups.values():
+        pic = [x for x in g if x.get('i')][:18]
+        rest = [x for x in g if x not in pic][:max(0, 25 - len(pic))]
+        out += pic + rest
+    out.sort(key=lambda x: x['d'], reverse=True)
     out = out[:MAX_ITEMS]
     if not out:
         print('no items collected, keeping previous file', fail, file=sys.stderr)

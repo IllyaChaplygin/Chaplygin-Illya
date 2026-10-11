@@ -485,15 +485,20 @@ function newsList() {
   setText('#nwUpd', `${t('newsUpd')}: ${t('newsAgo', mins)}`);
   const tag = { world: 'newsWorld', land: 'newsLand', me: 'newsMe' };
   const when = d => { const m = Math.max(0, Math.round((Date.now() - new Date(d)) / 60000)); return t('newsAgo', m); };
-  box.innerHTML = items.length ? items.map(i => `<a class="nw" href="${esc(i.u)}" target="_blank" rel="noopener noreferrer nofollow">
-    <h3>${esc(i.t)}</h3><div class="m"><span class="tag">${esc(t(tag[i.c] || 'newsWorld'))}</span><span>${esc(i.s)}</span><span>${esc(when(i.d))}</span><span>${i.l.toUpperCase()}</span><i class="ph ph-arrow-up-right ar" title="${esc(t('newsOpen'))}"></i></div></a>`).join('')
+  const fbImg = ['beach.jpg', 'coast.jpg', 'hero.jpg', 'about.jpg', 'kolasin.jpg'];
+  const hash = s => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
+  box.innerHTML = items.length ? items.map((i, n) => {
+    const fb = 'img/' + fbImg[(hash(i.s) + n) % fbImg.length];
+    const pic = i.i && /^https:\/\//.test(i.i) ? `<div class="ph-img"><img src="${esc(i.i)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('fb');this.parentNode.style.backgroundImage='url(${fb})';this.remove()"></div>` : `<div class="ph-img fb" style="background-image:url('${fb}')"></div>`;
+    return `<a class="nw${n === 0 && newsState.c === 'all' ? ' lead' : ''}" href="${esc(i.u)}" target="_blank" rel="noopener noreferrer nofollow">${pic.replace('</div>', `<span class="tag ${esc(i.c)}">${esc(t(tag[i.c] || 'newsWorld'))}</span></div>`)}
+    <div class="bd"><h3>${esc(i.t)}</h3><div class="m"><b>${esc(i.s)}</b><span>${esc(when(i.d))}</span><span>${i.l.toUpperCase()}</span><i class="ph ph-arrow-up-right ar" title="${esc(t('newsOpen'))}"></i></div></div></a>`; }).join('')
     : `<p class="nw-empty">${esc(t('newsEmpty'))}</p>`;
 }
 async function renderNews() {
   document.title = `${t('newsT')} | ALLIANZ KAPITAL`;
   const chip = (g, k, lab) => `<button data-g="${g}" data-k="${k}" class="${newsState[g] === k ? 'on' : ''}">${esc(lab)}</button>`;
-  $('#app').innerHTML = `<div class="wrap"><div class="nw-head"><h1>${esc(t('newsT'))}</h1><p>${esc(t('newsS'))}</p></div>
-    <div class="nw-bar"><div class="chips" id="nwC">${[['all', t('newsAll')], ['world', t('newsWorld')], ['land', t('newsLand')], ['me', t('newsMe')]].map(([k, l]) => chip('c', k, l)).join('')}</div>
+  $('#app').innerHTML = `<section class="nw-hero"><div class="wrap"><span class="kick"><i class="live"></i>${esc(t('newsLive'))}</span><h1>${esc(t('newsH'))}</h1><p>${esc(t('newsS'))}</p></div></section>
+    <div class="wrap nw-body"><div class="nw-bar"><div class="chips" id="nwC">${[['all', t('newsAll')], ['world', t('newsWorld')], ['land', t('newsLand')], ['me', t('newsMe')]].map(([k, l]) => chip('c', k, l)).join('')}</div>
     <div class="chips" id="nwL">${[['all', t('newsLangAll')], ['ru', 'RU'], ['en', 'EN'], ['me', 'ME']].map(([k, l]) => chip('l', k, l)).join('')}</div>
     <span class="nw-upd"><i class="live"></i><span id="nwUpd"></span></span></div>
     <div class="nw-list" id="nwList"></div><p class="nw-note">${esc(t('newsNote'))}</p></div>`;
