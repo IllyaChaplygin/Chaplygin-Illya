@@ -539,15 +539,19 @@ async function loadVideos() {
 const ytThumb = id => `https://i.ytimg.com/vi/${encodeURIComponent(id)}/maxresdefault.jpg`;
 const ytEmbed = id => `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0&modestbranding=1`;
 const ytWatch = id => `https://www.youtube.com/watch?v=${encodeURIComponent(id)}`;
-const monthYear = d => new Date(d).toLocaleDateString(D().loc, { month: 'long', year: 'numeric' });
+const vidDesc = v => {                      // short facts about the lot the film is about, taken from the catalogue
+  const l = v.lot && lotById(v.lot);
+  if (!l) return t('vidIntroD');
+  return [`${fmt(l.area)} ${t('m2')}`, (l.municipality === regionName(l.region) ? l.municipality : `${l.municipality}, ${regionName(l.region)}`), viewName(l.view), l.purpose ? t('pu_' + l.purpose) : ''].filter(Boolean).join(' · ');
+};
 const thumbImg = id => `<img src="${ytThumb(id)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='https://i.ytimg.com/vi/${esc(id)}/hqdefault.jpg'}">`;
 function videoCard(v, i) {
-  return `<button class="vc" data-i="${i}" aria-label="${esc(v.title)}"><span class="th">${thumbImg(v.id)}<i class="ph-fill ph-play-circle pl"></i>${v.lot ? `<span class="lt">${esc(v.lot)}</span>` : ''}</span><b>${esc(v.title)}</b><small>${esc(monthYear(v.date))}</small></button>`;
+  return `<button class="vc" data-i="${i}" aria-label="${esc(v.title)}"><span class="th">${thumbImg(v.id)}<i class="ph-fill ph-play-circle pl"></i>${v.lot ? `<span class="lt">${esc(v.lot)}</span>` : ''}</span><b>${esc(v.title)}</b><small>${esc(vidDesc(v))}</small></button>`;
 }
 function featured(v) {
   const lot = v.lot && lotById(v.lot);
   return `<div class="vplayer" id="vPlayer" data-id="${esc(v.id)}"><button class="vgo" aria-label="${esc(t('watch'))}">${thumbImg(v.id)}<span class="vbtn"><i class="ph-fill ph-play"></i>${esc(t('watch'))}</span></button></div>
-    <div class="vinfo"><div><h2>${esc(v.title)}</h2><p>${esc(monthYear(v.date))}</p></div><div class="vact">
+    <div class="vinfo"><div><h2>${esc(v.title)}</h2><p>${esc(vidDesc(v))}</p></div><div class="vact">
       ${lot ? `<a class="btn" href="#/p/${esc(lot.id)}"><i class="ph ph-map-pin"></i>${esc(t('vidLot'))} ${esc(lot.id)}</a>` : ''}
       <a class="hbtn" href="${ytWatch(v.id)}" target="_blank" rel="noopener"><i class="ph ph-youtube-logo"></i>${esc(t('vidYt'))}</a></div></div>`;
 }
