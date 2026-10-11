@@ -57,7 +57,7 @@ function applyFilters() {
     (amin == null || (l.area != null && l.area >= amin)) && (amax == null || (l.area != null && l.area <= amax)) &&
     (!S.photo || l.photos.length) && (!S.video || l.videos.length) && (!S.tour || has3d(l)) && (!S.saved || fav.has(l.id)));
   const rank = l => (l.photos.length ? 0 : l.tourCover ? 1 : 2);
-  const key = { pa: l => priceOf(l) ?? Infinity, pd: l => -(priceOf(l) ?? -Infinity), ad: l => -(l.area ?? 0), aa: l => l.area ?? Infinity, pm: l => l.ppm ?? Infinity,
+  const key = { pa: l => priceOf(l) ?? Infinity, pd: l => -(priceOf(l) ?? -Infinity), ad: l => -(l.area ?? 0), aa: l => l.area ?? Infinity, pm: l => (l.purpose === 'joint' ? null : l.ppm) ?? Infinity,
     rel: l => rank(l) }[S.sort];
   return list.sort((a, b) => key(a) - key(b) || (a.id < b.id ? -1 : 1));
 }
@@ -75,7 +75,7 @@ function card(l) {
   else img = `<div class="noimg"><i class="ph ph-${unit(l)}"></i><b>${l.area != null ? fmt(l.area) + ' ' + esc(t('m2')) : ''}</b><span>${esc(t('noPhoto'))}</span></div>`;
   const badge = (l.photos.length || l.videos.length || has3d(l)) ? `<span class="badge">${l.photos.length ? `<span><i class="ph ph-camera"></i> ${l.photos.length}</span>` : ''}${l.videos.length ? '<i class="ph ph-video-camera"></i>' : ''}${has3d(l) ? '<i class="ph ph-cube"></i>' : ''}</span>` : '';
   const on = fav.has(l.id);
-  const price = l.purpose === 'joint' ? `${esc(t('pu_joint'))}${l.ppm ? `<small>${eur(l.ppm)} ${esc(t('perM2'))}</small>` : ''}` : l.total != null ? `${eur(l.total)}${l.ppm ? `<small>${eur(l.ppm)} ${esc(t('perM2'))}</small>` : ''}` : esc(t('onReq'));
+  const price = l.purpose === 'joint' ? esc(t('pu_joint')) : l.total != null ? `${eur(l.total)}${l.ppm ? `<small>${eur(l.ppm)} ${esc(t('perM2'))}</small>` : ''}` : esc(t('onReq'));
   return `<article class="card" data-id="${esc(l.id)}">
     <a class="im" href="#/p/${esc(l.id)}" aria-label="${esc(t('lot'))} ${esc(l.id)}">${img}<span class="code">${esc(l.id)}</span>${badge}</a>
     <button class="fav ${on ? 'on' : ''}" data-fav="${esc(l.id)}" aria-label="${esc(t(on ? 'unsave' : 'save'))}" aria-pressed="${on}"><i class="ph${on ? '-fill' : ''} ph-heart"></i></button>
@@ -325,7 +325,7 @@ function renderLot(id) {
     </div>
     <aside class="side"><div class="card-p"><div class="in">
       <div class="price${l.purpose === 'joint' ? ' txt' : ''}">${price}</div>
-      ${l.ppm ? `<div class="meta">${eur(l.ppm)} ${esc(t('perM2'))}</div>` : ''}
+      ${l.ppm && l.purpose !== 'joint' ? `<div class="meta">${eur(l.ppm)} ${esc(t('perM2'))}</div>` : ''}
       <div class="stats"><div><b>${l.area != null ? fmt(l.area) + ' ' + esc(t('m2')) : '-'}</b><span>${esc(t('totalArea'))}</span></div><div><b>${l.n}</b><span>${esc(t('cadastreN'))}</span></div></div>
       <a class="btn block" style="margin-top:16px" href="#/contact/${esc(l.id)}"><i class="ph ph-paper-plane-tilt"></i>${esc(t('cLot'))}</a>
       ${c ? `<div class="form"><label>${esc(t('yourMsg'))}<textarea id="msg" rows="3">${esc(t('msgDef', l.id, l.municipality))}</textarea></label>
@@ -379,7 +379,7 @@ function renderAbout() {
       const pic = l.photos.length ? photoBig(l.photos[Math.min(1, l.photos.length - 1)]) : `img/${l.info && l.info.img ? l.info.img.concept : 'coast.jpg'}`;
       return `<article class="flag"><div class="pic" style="background-image:url('${pic}')"></div><div class="tx"><h3>${esc(t('lot'))} ${esc(l.id)}, ${esc(l.municipality)}</h3>
         <dl><div><dt>${esc(t('totalArea'))}</dt><dd>${fmt(l.area)} ${esc(t('m2'))}</dd></div><div><dt>${esc(t('cadastreN'))}</dt><dd>${l.n}</dd></div>
-        <div><dt>${esc(t('region'))}</dt><dd>${esc(regionName(l.region))}</dd></div><div><dt>${esc(t('price'))}</dt><dd>${l.purpose === 'joint' ? (l.ppm ? `${eur(l.ppm)} ${esc(t('perM2'))}` : esc(t('pu_joint'))) : l.total != null ? eur(l.total) : esc(t('onReq'))}</dd></div></dl>
+        <div><dt>${esc(t('region'))}</dt><dd>${esc(regionName(l.region))}</dd></div><div><dt>${esc(t('price'))}</dt><dd>${l.purpose === 'joint' ? esc(t('pu_joint')) : l.total != null ? eur(l.total) : esc(t('onReq'))}</dd></div></dl>
         <div><a class="btn" href="#/p/${esc(l.id)}">${esc(t('abOpen'))}</a></div></div></article>`; }).join('')}</section>
     <section class="sec reveal"><div class="card-p"><div class="lbl"><i class="ph ph-identification-card"></i>${esc(t('coT'))}</div><div class="in">
       <dl class="facts"><div><dt>${esc(t('coName'))}</dt><dd>${esc(CO.name)}</dd></div><div><dt>${esc(t('coAddr'))}</dt><dd>${esc(CO.addr)}</dd></div><div><dt>${esc(t('coReg'))}</dt><dd>${esc(regDate())}</dd></div></dl>
