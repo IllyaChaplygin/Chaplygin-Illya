@@ -109,6 +109,21 @@ for code, ms in groups.items():
     total_area = sum(a for a in areas if a)
     totals = [num(m[12]) if num(m[11]) else None for m in ms]
     total_price = sum(t for t in totals if t)
+    # Тип реализации (колонка O): "Партнерство (25%)" -> joint, "продажа" -> sale; внутри лота значения должны совпадать
+    kinds = {('joint' if m[14].strip().lower().startswith('парт') else 'sale' if m[14].strip().lower().startswith('прод') else None) for m in ms}
+    if len(kinds) != 1 or None in kinds:
+        sys.exit(f'{code}: неоднозначный "Тип реализации": {sorted({m[14] for m in ms})}')
+    kind = kinds.pop()
+    if code in mymaps and mymaps[code]['purpose'] != kind:
+        print(f'ВНИМАНИЕ {code}: в таблице {kind}, в Google My Maps {mymaps[code]["purpose"]}; берём таблицу')
+    # цена за м2: значение из колонки N (должно быть одно на лот и сходиться с суммой/площадью)
+    ppms = {num(m[13]) for m in ms if num(m[11]) and m[13].strip() and not m[13].startswith('#')}
+    ppm_tab = ppms.pop() if len(ppms) == 1 else None
+    ppm_calc = round(total_price / total_area) if total_area and total_price else None
+    if ppm_tab is not None and ppm_calc is not None and abs(ppm_tab - ppm_calc) > 1:
+        print(f'ВНИМАНИЕ {code}: цена за м2 в таблице {ppm_tab}, расчёт {ppm_calc}')
+    if len(ppms) > 1:
+        print(f'ВНИМАНИЕ {code}: несколько цен за м2: {sorted(ppms)}')
     photos, hashes = [], []
     for m in ms:
         for i in photos_of(m[22]):
@@ -120,7 +135,7 @@ for code, ms in groups.items():
     lot = {
         'id': code, 'view': top([m[3] for m in ms]), 'region': top([m[6] for m in ms]), 'municipality': top([m[7] for m in ms]),
         'area': total_area or None, 'total': total_price or None,
-        'ppm': round(total_price / total_area) if total_area and total_price else None,
+        'ppm': int(ppm_tab) if ppm_tab else ppm_calc,
         'n': len(ms), 'restricted': sum(1 for m in ms if m[4] == 'Да'), 'partial': sum(1 for m in ms if m[2] == 'частично'),
         'parcels': [{'cadastre': m[8], 'area': num(m[11]), 'total': num(m[12]) if num(m[11]) else None, 'partial': m[2] == 'частично', 'restricted': m[4] == 'Да'} for m in ms],
         'plan': ' / '.join(uniq([('' if m[16] in ('No', 'Yes', '') else m[16]) for m in ms])),
@@ -132,8 +147,8 @@ for code, ms in groups.items():
         'docs': {k: next((m[c] for m in ms if m[c]), '') for k, c in (('idea', 21), ('utu', 20), ('deck', 26))},
         'geo': (mymaps.get(code) or {}).get('geo') or coords.get(code), 'info': arrays.get(code),
     }
+    lot['purpose'] = kind
     if code in mymaps:
-        lot['purpose'] = mymaps[code]['purpose']
         lot['poly'] = mymaps[code]['poly']
     lot['docs'] = {k: v for k, v in lot['docs'].items() if v}
     out.append(lot)
