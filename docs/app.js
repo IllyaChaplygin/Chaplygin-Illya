@@ -492,6 +492,8 @@ function newsList() {
   const items = j.items.filter(i => (newsState.c === 'all' || i.c === newsState.c) && (newsState.l === 'all' || i.l === newsState.l) && /^https?:\/\//.test(i.u));
   const mins = Math.max(0, Math.round((Date.now() - new Date(j.updated)) / 60000));
   setText('#nwUpd', `${t('newsUpd')}: ${t('newsAgo', mins)}`);
+  // claim "every 30 minutes" only while the feed really is that fresh
+  setText('#nwKick', mins <= 90 ? t('newsLive') : t('newsKick2'));
   const tag = { world: 'newsWorld', land: 'newsLand', me: 'newsMe' };
   const when = d => { const m = Math.max(0, Math.round((Date.now() - new Date(d)) / 60000)); return t('newsAgo', m); };
   const fbImg = ['beach.jpg', 'coast.jpg', 'hero.jpg', 'about.jpg', 'kolasin.jpg'];
@@ -506,7 +508,7 @@ function newsList() {
 async function renderNews() {
   document.title = `${t('newsT')} | ALLIANZ KAPITAL`;
   const chip = (g, k, lab) => `<button data-g="${g}" data-k="${k}" class="${newsState[g] === k ? 'on' : ''}">${esc(lab)}</button>`;
-  $('#app').innerHTML = `<section class="nw-hero"><div class="wrap"><span class="kick"><i class="live"></i>${esc(t('newsLive'))}</span><h1>${esc(t('newsH'))}</h1><p>${esc(t('newsS'))}</p></div></section>
+  $('#app').innerHTML = `<section class="nw-hero"><div class="wrap"><span class="kick"><i class="live"></i><span id="nwKick">${esc(t('newsKick2'))}</span></span><h1>${esc(t('newsH'))}</h1><p>${esc(t('newsS'))}</p></div></section>
     <div class="wrap nw-body"><div class="nw-bar"><div class="chips" id="nwC">${[['all', t('newsAll')], ['world', t('newsWorld')], ['land', t('newsLand')], ['me', t('newsMe')]].map(([k, l]) => chip('c', k, l)).join('')}</div>
     <div class="chips" id="nwL">${[['all', t('newsLangAll')], ['ru', 'RU'], ['en', 'EN'], ['me', 'ME']].map(([k, l]) => chip('l', k, l)).join('')}</div>
     <span class="nw-upd"><i class="live"></i><span id="nwUpd"></span></span></div>
