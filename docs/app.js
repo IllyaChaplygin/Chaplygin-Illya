@@ -562,8 +562,7 @@ async function renderVideos() {
   $('#app').innerHTML = `<section class="nw-hero vid-hero"><div class="wrap"><span class="kick"><i class="ph-fill ph-drone"></i>${esc(t('vidKick'))}</span><h1>${esc(t('vidT'))}</h1><p>${esc(t('vidS'))}</p>
     ${yt ? `<p style="margin-top:20px"><a class="btn light" href="${esc(yt)}" target="_blank" rel="noopener"><i class="ph-fill ph-youtube-logo"></i>${esc(t('vidSub'))}</a></p>` : ''}</div></section>
     <div class="wrap nw-body">${vs.length ? `<div class="vfeat" id="vFeat">${featured(vs[0])}</div>
-    <h2 class="vh">${esc(t('vidAll'))} <span>${vs.length}</span></h2><div class="vgrid" id="vGrid">${vs.map(videoCard).join('')}</div>` : `<p class="nw-empty">${esc(t('vidEmpty'))}</p>`}
-    <p class="nw-note">${esc(t('vidNote'))}</p></div>`;
+    <h2 class="vh">${esc(t('vidAll'))} <span>${vs.length}</span></h2><div class="vgrid" id="vGrid">${vs.map(videoCard).join('')}</div>` : `<p class="nw-empty">${esc(t('vidEmpty'))}</p>`}</div>`;
   bindPlayer();
   const grid = $('#vGrid'); if (grid) grid.onclick = e => {
     const b = e.target.closest('.vc'); if (!b) return;
