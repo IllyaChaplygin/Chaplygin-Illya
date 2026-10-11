@@ -53,14 +53,18 @@ function applyFilters() {
   const pmin = n(S.pmin), pmax = n(S.pmax), amin = n(S.amin), amax = n(S.amax);
   const list = LOTS.filter(l =>
     (!S.view || l.view === S.view) && (!S.purpose || l.purpose === S.purpose) && (!S.region || l.region === S.region) && (!S.muni || l.municipality === S.muni) &&
-    (pmin == null || (l.total != null && l.total >= pmin)) && (pmax == null || (l.total != null && l.total <= pmax)) &&
+    (pmin == null || (priced(l) && l.total >= pmin)) && (pmax == null || (priced(l) && l.total <= pmax)) &&
     (amin == null || (l.area != null && l.area >= amin)) && (amax == null || (l.area != null && l.area <= amax)) &&
     (!S.photo || l.photos.length) && (!S.video || l.videos.length) && (!S.tour || has3d(l)) && (!S.saved || fav.has(l.id)));
   const rank = l => (l.photos.length ? 0 : l.tourCover ? 1 : 2);
-  const key = { pa: l => l.total ?? Infinity, pd: l => -(l.total ?? -Infinity), ad: l => -(l.area ?? 0), aa: l => l.area ?? Infinity, pm: l => l.ppm ?? Infinity,
+  const key = { pa: l => priceOf(l) ?? Infinity, pd: l => -(priceOf(l) ?? -Infinity), ad: l => -(l.area ?? 0), aa: l => l.area ?? Infinity, pm: l => (priced(l) ? l.ppm : null) ?? Infinity,
     rel: l => rank(l) }[S.sort];
   return list.sort((a, b) => key(a) - key(b) || (a.id < b.id ? -1 : 1));
 }
+
+/* joint-construction lots carry no price on the site */
+const priced = l => l.total != null && l.purpose !== 'joint';
+const priceOf = l => priced(l) ? l.total : null;
 
 /* ---------- cards ---------- */
 const purposeTag = l => l.purpose ? `<span class="tag pu ${l.purpose}"><i class="ph ph-${l.purpose === 'sale' ? 'tag' : 'handshake'}"></i>${esc(t('pu_' + l.purpose))}</span>` : '';
@@ -71,7 +75,7 @@ function card(l) {
   else img = `<div class="noimg"><i class="ph ph-${unit(l)}"></i><b>${l.area != null ? fmt(l.area) + ' ' + esc(t('m2')) : ''}</b><span>${esc(t('noPhoto'))}</span></div>`;
   const badge = (l.photos.length || l.videos.length || has3d(l)) ? `<span class="badge">${l.photos.length ? `<span><i class="ph ph-camera"></i> ${l.photos.length}</span>` : ''}${l.videos.length ? '<i class="ph ph-video-camera"></i>' : ''}${has3d(l) ? '<i class="ph ph-cube"></i>' : ''}</span>` : '';
   const on = fav.has(l.id);
-  const price = l.total != null ? `${eur(l.total)}${l.ppm ? `<small>${eur(l.ppm)} ${esc(t('perM2'))}</small>` : ''}` : esc(t('onReq'));
+  const price = l.purpose === 'joint' ? esc(t('pu_joint')) : l.total != null ? `${eur(l.total)}${l.ppm ? `<small>${eur(l.ppm)} ${esc(t('perM2'))}</small>` : ''}` : esc(t('onReq'));
   return `<article class="card" data-id="${esc(l.id)}">
     <a class="im" href="#/p/${esc(l.id)}" aria-label="${esc(t('lot'))} ${esc(l.id)}">${img}<span class="code">${esc(l.id)}</span>${badge}</a>
     <button class="fav ${on ? 'on' : ''}" data-fav="${esc(l.id)}" aria-label="${esc(t(on ? 'unsave' : 'save'))}" aria-pressed="${on}"><i class="ph${on ? '-fill' : ''} ph-heart"></i></button>
@@ -79,7 +83,7 @@ function card(l) {
       <div class="price">${price}</div>
       <div class="loc">${l.area != null ? `${fmt(l.area)} ${esc(t('m2'))}, ` : ''}${esc(viewName(l.view))}</div>
       <div class="meta">${esc(l.municipality)}, ${esc(regionName(l.region))}</div>
-      <div class="tags">${purposeTag(l)}${l.n > 1 ? `<span class="tag">${esc(t('parcelsN', l.n))}</span>` : ''}${l.partial ? `<span class="tag">${esc(t('partialOf', l.partial, l.n))}</span>` : ''}</div>
+      <div class="tags">${l.purpose === 'joint' ? '' : purposeTag(l)}${l.n > 1 ? `<span class="tag">${esc(t('parcelsN', l.n))}</span>` : ''}${l.partial ? `<span class="tag">${esc(t('partialOf', l.partial, l.n))}</span>` : ''}</div>
     </a></article>`;
 }
 
@@ -91,7 +95,7 @@ const regions = () => [...new Set(LOTS.map(l => l.region))].sort();
 const munis = () => [...new Set(LOTS.filter(l => !S.region || l.region === S.region).map(l => l.municipality))].sort((a, b) => a.localeCompare(b, 'sr'));
 
 function heroSub() {
-  const ar = LOTS.map(l => l.area).filter(Boolean), pr = LOTS.map(l => l.total).filter(Boolean);
+  const ar = LOTS.map(l => l.area).filter(Boolean), pr = LOTS.map(priceOf).filter(Boolean);
   return t('heroS', fmt(Math.min(...ar)), fmt(Math.max(...ar) / 10000, 1), fmt(Math.min(...pr)));
 }
 
@@ -296,7 +300,7 @@ function renderLot(id) {
   const sinceNote = info.since ? `<p class="meta" style="margin:14px 0 0"><i class="ph ph-seal-check"></i> ${esc(t('since', info.since))}</p>` : '';
   const vol = info.volume && info.volume.gross ? `<div class="card-p"><div class="lbl"><i class="ph ph-buildings"></i>${esc(t('sVolume'))}</div><div class="in"><div class="vol">${Object.entries(info.volume).map(([k, v]) => `<div class="${k === 'gross' ? 'main' : ''}"><b>${fmt(v)} ${esc(t('m2'))}</b><span>${esc(D().vol[k])}</span></div>`).join('')}</div></div></div>` : '';
   const tr = info.transport ? `<div class="card-p"><div class="lbl"><i class="ph ph-road-horizon"></i>${esc(t('sTransport'))}</div><div class="in"><div class="tr">${info.transport.map(x => `<a href="${safeUrl(x.link)}" target="_blank" rel="noopener"><i class="ph ph-${TR_ICON[x.k]}"></i><b>${esc(x.how === 'walk' ? t('walk', x.min, fmt(x.m)) : t('car', x.min, nfmt(x.km)))}</b><span>${esc(D().tr[x.k])}, ${esc(t('route'))}</span></a>`).join('')}</div></div></div>` : '';
-  const comp = l.n > 1 ? `<div class="card-p"><div class="lbl"><i class="ph ph-stack"></i>${esc(t('sComposition'))} (${l.n})</div><div class="tbl-w"><table class="tbl"><thead><tr><th>${esc(t('thParcel'))}</th><th class="n">${esc(t('thArea'))}</th><th class="n">${esc(t('thPrice'))}</th><th>${esc(t('thNote'))}</th></tr></thead><tbody>${l.parcels.map(p => `<tr><td>${esc(p.cadastre)}</td><td class="n">${fmt(p.area)}</td><td class="n">${fmt(p.total)}</td><td>${[p.partial ? t('partial') : '', p.restricted ? t('encumb') : ''].filter(Boolean).join(', ')}</td></tr>`).join('')}</tbody></table></div></div>` : '';
+  const comp = l.n > 1 ? `<div class="card-p"><div class="lbl"><i class="ph ph-stack"></i>${esc(t('sComposition'))} (${l.n})</div><div class="tbl-w"><table class="tbl"><thead><tr><th>${esc(t('thParcel'))}</th><th class="n">${esc(t('thArea'))}</th>${l.purpose === 'joint' ? '' : `<th class="n">${esc(t('thPrice'))}</th>`}<th>${esc(t('thNote'))}</th></tr></thead><tbody>${l.parcels.map(p => `<tr><td>${esc(p.cadastre)}</td><td class="n">${fmt(p.area)}</td>${l.purpose === 'joint' ? '' : `<td class="n">${fmt(p.total)}</td>`}<td>${[p.partial ? t('partial') : '', p.restricted ? t('encumb') : ''].filter(Boolean).join(', ')}</td></tr>`).join('')}</tbody></table></div></div>` : '';
   const plan = [[t('occ'), l.occupancy], [t('far'), l.far], [t('floors'), l.floors], [t('plan'), l.plan]].filter(([, v]) => v);
   const planP = plan.length ? `<div class="card-p"><div class="lbl"><i class="ph ph-ruler"></i>${esc(t('sPlanning'))}</div><div class="in"><dl class="facts">${plan.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>${l.floors ? `<p class="meta" style="margin:14px 0 0">${esc(t('floorsHint'))}</p>` : ''}</div></div>` : '';
   const imgs = info.img ? [...info.img.cad.map(x => [x, t('cad')]), info.img.concept && [info.img.concept, t('concept')]].filter(Boolean) : [];
@@ -306,7 +310,7 @@ function renderLot(id) {
   const docs = [['idea', 'docIdea'], ['utu', 'docUtu'], ['deck', 'docDeck']].filter(([k]) => l.docs[k]);
   const docsP = docs.length ? `<div class="card-p"><div class="lbl"><i class="ph ph-file-text"></i>${esc(t('sDocs'))}</div><div class="in"><div class="doclinks">${docs.map(([k, n]) => `<a class="hbtn" href="${safeUrl(l.docs[k])}" target="_blank" rel="noopener"><i class="ph ph-file-text"></i>${esc(t(n))}</a>`).join('')}</div></div></div>` : '';
   const c = contactSet();
-  const price = l.total != null ? eur(l.total) : t('onReq');
+  const price = l.purpose === 'joint' ? t('pu_joint') : l.total != null ? eur(l.total) : t('onReq');
   const sim = LOTS.filter(x => x.id !== l.id && x.region === l.region && hasMedia(x)).slice(0, 3);
   const on = fav.has(l.id);
 
@@ -320,8 +324,8 @@ function renderLot(id) {
       ${vol}${locationPanel(l)}${tr}${comp}${planP}${schemes}${vids}${tours}${docsP}
     </div>
     <aside class="side"><div class="card-p"><div class="in">
-      <div class="price">${price}</div>
-      ${l.ppm && l.total != null ? `<div class="meta">${eur(l.ppm)} ${esc(t('perM2'))}</div>` : ''}
+      <div class="price${l.purpose === 'joint' ? ' txt' : ''}">${price}</div>
+      ${l.ppm && priced(l) ? `<div class="meta">${eur(l.ppm)} ${esc(t('perM2'))}</div>` : ''}
       <div class="stats"><div><b>${l.area != null ? fmt(l.area) + ' ' + esc(t('m2')) : '-'}</b><span>${esc(t('totalArea'))}</span></div><div><b>${l.n}</b><span>${esc(t('cadastreN'))}</span></div></div>
       <a class="btn block" style="margin-top:16px" href="#/contact/${esc(l.id)}"><i class="ph ph-paper-plane-tilt"></i>${esc(t('cLot'))}</a>
       ${c ? `<div class="form"><label>${esc(t('yourMsg'))}<textarea id="msg" rows="3">${esc(t('msgDef', l.id, l.municipality))}</textarea></label>
@@ -375,7 +379,7 @@ function renderAbout() {
       const pic = l.photos.length ? photoBig(l.photos[Math.min(1, l.photos.length - 1)]) : `img/${l.info && l.info.img ? l.info.img.concept : 'coast.jpg'}`;
       return `<article class="flag"><div class="pic" style="background-image:url('${pic}')"></div><div class="tx"><h3>${esc(t('lot'))} ${esc(l.id)}, ${esc(l.municipality)}</h3>
         <dl><div><dt>${esc(t('totalArea'))}</dt><dd>${fmt(l.area)} ${esc(t('m2'))}</dd></div><div><dt>${esc(t('cadastreN'))}</dt><dd>${l.n}</dd></div>
-        <div><dt>${esc(t('region'))}</dt><dd>${esc(regionName(l.region))}</dd></div><div><dt>${esc(t('price'))}</dt><dd>${l.total != null ? eur(l.total) : esc(t('onReq'))}</dd></div></dl>
+        <div><dt>${esc(t('region'))}</dt><dd>${esc(regionName(l.region))}</dd></div><div><dt>${esc(t('price'))}</dt><dd>${l.purpose === 'joint' ? esc(t('pu_joint')) : l.total != null ? eur(l.total) : esc(t('onReq'))}</dd></div></dl>
         <div><a class="btn" href="#/p/${esc(l.id)}">${esc(t('abOpen'))}</a></div></div></article>`; }).join('')}</section>
     <section class="sec reveal"><div class="card-p"><div class="lbl"><i class="ph ph-identification-card"></i>${esc(t('coT'))}</div><div class="in">
       <dl class="facts"><div><dt>${esc(t('coName'))}</dt><dd>${esc(CO.name)}</dd></div><div><dt>${esc(t('coAddr'))}</dt><dd>${esc(CO.addr)}</dd></div><div><dt>${esc(t('coReg'))}</dt><dd>${esc(regDate())}</dd></div></dl>
