@@ -512,7 +512,7 @@ function newsList() {
 async function renderNews() {
   document.title = `${t('newsT')} | ALLIANZ KAPITAL`;
   const chip = (g, k, lab) => `<button data-g="${g}" data-k="${k}" class="${newsState[g] === k ? 'on' : ''}">${esc(lab)}</button>`;
-  $('#app').innerHTML = `<section class="nw-hero"><div class="wrap"><span class="kick"><i class="live"></i><span id="nwKick">${esc(t('newsKick2'))}</span></span><h1>${esc(t('newsH'))}</h1><p>${esc(t('newsS'))}</p></div></section>
+  $('#app').innerHTML = `<section class="nw-hero"><div class="wrap"><span class="kick"><i class="live"></i><span id="nwKick">${esc(t('newsKick2'))}</span></span><h1>${esc(t('newsH'))}</h1></div></section>
     <div class="wrap nw-body"><div class="nw-bar"><div class="chips" id="nwC">${[['all', t('newsAll')], ['world', t('newsWorld')], ['land', t('newsLand')], ['me', t('newsMe')]].map(([k, l]) => chip('c', k, l)).join('')}</div>
     <div class="chips" id="nwL">${[['all', t('newsLangAll')], ['ru', 'RU'], ['en', 'EN'], ['me', 'ME']].map(([k, l]) => chip('l', k, l)).join('')}</div>
     <span class="nw-upd"><i class="live"></i><span id="nwUpd"></span></span></div>
