@@ -387,3 +387,39 @@ footer #disc{font-size:12px}
 
 .side .price.txt{font-size:22px;line-height:1.2}
 @media (max-width:340px){.nav a{font-size:11.5px;padding:8px 1px}}
+
+/* videos */
+.vid-hero{background-image:url(img/hero.jpg);background-position:center 55%}
+.vid-hero .kick i{font-size:16px}
+.vfeat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);margin-bottom:34px}
+.vplayer{position:relative;aspect-ratio:16/9;background:#000}
+.vplayer iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vgo{position:absolute;inset:0;border:0;padding:0;background:#000;display:block;width:100%}
+.vgo img{width:100%;height:100%;object-fit:cover;opacity:.92;transition:transform .5s}
+.vgo:hover img{transform:scale(1.03)}
+.vbtn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:10px;background:var(--acc);color:var(--acc-ink);padding:14px 24px;border-radius:var(--r);font-weight:700;font-size:17px;box-shadow:0 8px 28px rgba(0,0,0,.45)}
+.vinfo{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;padding:18px 20px}
+.vinfo h2{margin:0 0 2px;font-size:clamp(20px,2.4vw,28px)}
+.vinfo p{margin:0;color:var(--mute)}
+.vact{display:flex;flex-wrap:wrap;gap:8px}
+.vh{display:flex;align-items:center;gap:10px;margin:0 0 14px;font-size:clamp(22px,2.6vw,30px)}
+.vh span{font-family:system-ui,sans-serif;font-size:13px;font-weight:700;background:var(--acc-soft);color:var(--acc);border-radius:var(--r-s);padding:2px 9px}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;padding-bottom:24px}
+.vc{display:flex;flex-direction:column;gap:8px;text-align:left;border:0;background:none;padding:0;text-decoration:none;color:inherit;cursor:pointer}
+.vc .th{position:relative;display:block;aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;background:var(--deep)}
+.vc .th img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.vc:hover .th img{transform:scale(1.05)}
+.vc .th::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(var(--dk),.5),rgba(var(--dk),0) 55%)}
+.vc .pl{position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);font-size:52px;color:#fff;filter:drop-shadow(0 3px 10px rgba(0,0,0,.5));transition:transform .2s}
+.vc:hover .pl{transform:translate(-50%,-50%) scale(1.12)}
+.vc .lt{position:absolute;z-index:1;left:10px;top:10px;background:var(--acc);color:var(--acc-ink);border-radius:var(--r-s);padding:2px 9px;font-size:12px;font-weight:700;letter-spacing:.04em}
+.vc b{font-size:15px;line-height:1.35;font-weight:700}
+.vc small{color:var(--mute);margin-top:-4px}
+.vtease{padding:8px 0 48px}
+.vt-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0 14px}
+.vt-head h2{margin:0;font-size:clamp(22px,2.6vw,30px)}
+.vstrip{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(250px,23%);gap:16px;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:10px;scrollbar-width:thin}
+.vstrip .vc{scroll-snap-align:start}
+@media (max-width:640px){.vstrip{grid-auto-columns:78%}.vbtn{padding:11px 18px;font-size:15px}.nav a{font-size:13px;padding:8px 2px}}
+
+@media (max-width:640px){.nav{overflow-x:auto;scrollbar-width:none;gap:2px}.nav::-webkit-scrollbar{display:none}.nav a{flex:0 0 auto;padding:8px 11px;font-size:14px}}

@@ -123,10 +123,12 @@ function renderHome() {
       </div>
       <div id="res"></div>
     </section>
-  </div></div>`;
+  </div></div>
+  <div class="wrap"><section class="vtease" id="vtease"></section></div>`;
   renderFilters();
   updateResults();
   bindHome();
+  homeVideos();
 }
 
 function renderFilters() {
@@ -307,6 +309,8 @@ function renderLot(id) {
   const imgs = info.img ? [...info.img.cad.map(x => [x, t('cad')]), info.img.concept && [info.img.concept, t('concept')]].filter(Boolean) : [];
   const schemes = imgs.length ? `<div class="card-p"><div class="lbl"><i class="ph ph-map-trifold"></i>${esc(t('sSchemes'))}</div><div class="in"><div class="schemes">${imgs.map(([f, a]) => `<img src="img/${esc(f)}" alt="${esc(a)}" loading="lazy">`).join('')}</div></div></div>` : '';
   const vids = l.videos.length ? `<div class="card-p"><div class="lbl"><i class="ph ph-video-camera"></i>${esc(t('sVideo'))}</div><div class="in">${l.videos.slice(0, 3).map(v => mediaBlock(`https://drive.google.com/file/d/${encodeURIComponent(v)}/preview`, ph.length ? photoBig(ph[0]) : '', 'ph-play', t('watch'))).join('')}</div></div>` : '';
+  const yv = (VID || []).find(v => v.lot === l.id);
+  const yvBlock = yv ? `<div class="card-p"><div class="lbl"><i class="ph ph-youtube-logo"></i>${esc(t('vidLotT'))}</div><div class="in">${mediaBlock(ytEmbed(yv.id), ytThumb(yv.id), 'ph-play', t('watch'))}</div></div>` : '';
   const tours = has3d(l) ? `<div class="card-p" id="m3d"><div class="lbl"><i class="ph ph-cube"></i>${esc(t('s3d'))}</div><div class="in">${l.tours.slice(0, 3).map((u, k) => mediaBlock(u, l.tourCover && !k ? `photos/${l.tourCover}` : '', 'ph-cube', t('open3d')) + `<p class="meta"><a href="${safeUrl(u)}" target="_blank" rel="noopener">${esc(t('loadFail'))}</a></p>`).join('')}</div></div>` : '';
   const docs = [['idea', 'docIdea'], ['utu', 'docUtu'], ['deck', 'docDeck']].filter(([k]) => l.docs[k]);
   const docsP = docs.length ? `<div class="card-p"><div class="lbl"><i class="ph ph-file-text"></i>${esc(t('sDocs'))}</div><div class="in"><div class="doclinks">${docs.map(([k, n]) => `<a class="hbtn" href="${safeUrl(l.docs[k])}" target="_blank" rel="noopener"><i class="ph ph-file-text"></i>${esc(t(n))}</a>`).join('')}</div></div></div>` : '';
@@ -322,7 +326,7 @@ function renderLot(id) {
       <h1 class="title">${l.area != null ? `${fmt(l.area)} ${esc(t('m2'))}, ` : ''}${esc(l.municipality)}</h1>
       <p class="meta" style="margin:0 0 16px">${esc(t('lot'))} ${esc(l.id)}. ${esc(regionName(l.region))}, ${esc(viewName(l.view))}</p>
       <div class="card-p"><div class="lbl"><i class="ph ph-info"></i>${esc(t('sGeneral'))}</div><div class="in"><dl class="facts">${facts.map(([k, v, cl]) => `<div><dt>${esc(k)}</dt><dd class="${cl || ''}">${esc(v)}</dd></div>`).join('')}</dl>${comms}${sinceNote}</div></div>
-      ${vol}${locationPanel(l)}${tr}${comp}${planP}${schemes}${vids}${tours}${docsP}
+      ${vol}${locationPanel(l)}${tr}${comp}${planP}${schemes}${yvBlock}${vids}${tours}${docsP}
     </div>
     <aside class="side"><div class="card-p"><div class="in">
       <div class="price${l.purpose === 'joint' ? ' txt' : ''}">${price}</div>
@@ -522,6 +526,58 @@ async function renderNews() {
   await refresh();
   newsTimer = setInterval(refresh, NEWS.pollMin * 60000);
 }
+
+/* ---------- videos (YouTube channel) ---------- */
+let VID = null;
+async function loadVideos() {
+  if (VID) return VID;
+  try { const r = await fetch('videos.json?v=' + Math.floor(Date.now() / 3600000)); if (r.ok) VID = (await r.json()).videos; } catch (e) { /* no videos */ }
+  VID = VID || [];
+  if (VID) VID.sort((x, y) => (x.lot ? 0 : -1) - (y.lot ? 0 : -1) || (x.lot || '').localeCompare(y.lot || ''));   // channel intro first, then by lot code
+  return VID;
+}
+const ytThumb = id => `https://i.ytimg.com/vi/${encodeURIComponent(id)}/maxresdefault.jpg`;
+const ytEmbed = id => `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0&modestbranding=1`;
+const ytWatch = id => `https://www.youtube.com/watch?v=${encodeURIComponent(id)}`;
+const monthYear = d => new Date(d).toLocaleDateString(D().loc, { month: 'long', year: 'numeric' });
+const thumbImg = id => `<img src="${ytThumb(id)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='https://i.ytimg.com/vi/${esc(id)}/hqdefault.jpg'}">`;
+function videoCard(v, i) {
+  return `<button class="vc" data-i="${i}" aria-label="${esc(v.title)}"><span class="th">${thumbImg(v.id)}<i class="ph-fill ph-play-circle pl"></i>${v.lot ? `<span class="lt">${esc(v.lot)}</span>` : ''}</span><b>${esc(v.title)}</b><small>${esc(monthYear(v.date))}</small></button>`;
+}
+function featured(v) {
+  const lot = v.lot && lotById(v.lot);
+  return `<div class="vplayer" id="vPlayer" data-id="${esc(v.id)}"><button class="vgo" aria-label="${esc(t('watch'))}">${thumbImg(v.id)}<span class="vbtn"><i class="ph-fill ph-play"></i>${esc(t('watch'))}</span></button></div>
+    <div class="vinfo"><div><h2>${esc(v.title)}</h2><p>${esc(monthYear(v.date))}</p></div><div class="vact">
+      ${lot ? `<a class="btn" href="#/p/${esc(lot.id)}"><i class="ph ph-map-pin"></i>${esc(t('vidLot'))} ${esc(lot.id)}</a>` : ''}
+      <a class="hbtn" href="${ytWatch(v.id)}" target="_blank" rel="noopener"><i class="ph ph-youtube-logo"></i>${esc(t('vidYt'))}</a></div></div>`;
+}
+function bindPlayer() {
+  const g = $('#vPlayer .vgo'); if (!g) return;
+  g.onclick = () => { const p = $('#vPlayer'); p.innerHTML = `<iframe src="${ytEmbed(p.dataset.id)}" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="video"></iframe>`; };
+}
+async function renderVideos() {
+  document.title = `${t('vidT')} | ALLIANZ KAPITAL`;
+  const vs = await loadVideos();
+  const yt = (typeof SOCIAL !== 'undefined' && SOCIAL.youtube) || '';
+  $('#app').innerHTML = `<section class="nw-hero vid-hero"><div class="wrap"><span class="kick"><i class="ph-fill ph-drone"></i>${esc(t('vidKick'))}</span><h1>${esc(t('vidT'))}</h1><p>${esc(t('vidS'))}</p>
+    ${yt ? `<p style="margin-top:20px"><a class="btn light" href="${esc(yt)}" target="_blank" rel="noopener"><i class="ph-fill ph-youtube-logo"></i>${esc(t('vidSub'))}</a></p>` : ''}</div></section>
+    <div class="wrap nw-body">${vs.length ? `<div class="vfeat" id="vFeat">${featured(vs[0])}</div>
+    <h2 class="vh">${esc(t('vidAll'))} <span>${vs.length}</span></h2><div class="vgrid" id="vGrid">${vs.map(videoCard).join('')}</div>` : `<p class="nw-empty">${esc(t('vidEmpty'))}</p>`}
+    <p class="nw-note">${esc(t('vidNote'))}</p></div>`;
+  bindPlayer();
+  const grid = $('#vGrid'); if (grid) grid.onclick = e => {
+    const b = e.target.closest('.vc'); if (!b) return;
+    $('#vFeat').innerHTML = featured(vs[+b.dataset.i]); bindPlayer(); $('#vPlayer .vgo').click();
+    $('#vFeat').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+}
+async function homeVideos() {
+  const box = $('#vtease'); if (!box) return;
+  const vs = (await loadVideos()).slice(0, 8); if (!vs.length || !$('#vtease')) return;
+  box.innerHTML = `<div class="vt-head"><h2>${esc(t('vidT'))}</h2><a class="hbtn" href="#/videos">${esc(t('vidMore'))} <i class="ph ph-arrow-right"></i></a></div>
+    <div class="vstrip">${vs.map((v, i) => `<a class="vc" href="#/videos" data-i="${i}"><span class="th">${thumbImg(v.id)}<i class="ph-fill ph-play-circle pl"></i>${v.lot ? `<span class="lt">${esc(v.lot)}</span>` : ''}</span><b>${esc(v.title)}</b></a>`).join('')}</div>`;
+}
+
 function renderRoute() {
   if (newsTimer) { clearInterval(newsTimer); newsTimer = null; }
   if (lotMap) { lotMap.remove(); lotMap = null; }
@@ -532,15 +588,17 @@ function renderRoute() {
   setText('#disc', t('disc'));
   const ftl = $('#ftl'); if (ftl) ftl.innerHTML = socials().map(s => socialLink(s, `<i class="ph ph-${s.ic}"></i><span>${esc(s.name)}</span>`, 'hbtn')).join('');
   setText('#co', `${CO.name}, ${CO.addr}. ${t('coReg2')} ${regDate()}${regDate().endsWith('.') ? '' : '.'}`);
-  setText('#navCat', t('navCat')); setText('#navAbout', t('navAbout')); setText('#navNews', t('navNews'));
-  const isAbout = h.startsWith('#/about'), isContact = h.startsWith('#/contact'), isNews = h.startsWith('#/news');
+  setText('#navCat', t('navCat')); setText('#navAbout', t('navAbout')); setText('#navNews', t('navNews')); setText('#navVideos', t('navVideos'));
+  const isAbout = h.startsWith('#/about'), isContact = h.startsWith('#/contact'), isNews = h.startsWith('#/news'), isVideos = h.startsWith('#/videos');
   setText('#navContact', t('navContact'));
-  [['#navCat', !isAbout && !isContact && !isNews], ['#navAbout', isAbout], ['#navNews', isNews], ['#navContact', isContact]].forEach(([s, on]) => { const n = $(s); if (n) n.classList.toggle('on', on); });
+  [['#navCat', !isAbout && !isContact && !isNews && !isVideos], ['#navAbout', isAbout], ['#navVideos', isVideos], ['#navNews', isNews], ['#navContact', isContact]].forEach(([s, on]) => { const n = $(s); if (n) n.classList.toggle('on', on); });
   $$('#lang button').forEach(b => b.classList.toggle('on', b.dataset.l === lang));
+  const navOn = $('.nav a.on'); if (navOn && navOn.scrollIntoView) navOn.scrollIntoView({ inline: 'center', block: 'nearest' });
   document.documentElement.lang = D().html;
   updateFab(h);
   if (m) { renderLot(m[1]); window.scrollTo(0, 0); return; }
   if (isContact) { renderContact((h.match(/^#\/contact\/([\w-]+)/) || [])[1]); window.scrollTo(0, 0); return; }
+  if (isVideos) { renderVideos(); window.scrollTo(0, 0); return; }
   if (isNews) { renderNews(); window.scrollTo(0, 0); return; }
   if (isAbout) { renderAbout(); window.scrollTo(0, 0); return; }
   if (h === '#/saved') S = Object.assign(DEF(), { saved: true });
@@ -556,4 +614,4 @@ const safeRoute = () => {
 };
 window.addEventListener('hashchange', safeRoute);
 $('#lang').onclick = e => { const b = e.target.closest('button'); if (!b) return; lang = b.dataset.l; ls.set('lang', lang); safeRoute(); };
-safeRoute();
+loadVideos().then(safeRoute, safeRoute);   // video list first, so lot pages know their YouTube video
