@@ -243,7 +243,7 @@ function locationPanel(l) {
   return `<div class="card-p"><div class="lbl"><i class="ph ph-map-pin"></i>${esc(t('sLocation'))}</div>
     <div class="tabs" id="mtabs"><button data-k="sat" class="on">${esc(t('tabSat'))}</button><button data-k="map">${esc(t('tabMap'))}</button><button data-k="g">${esc(t('tabG'))}</button></div>
     <div class="mapbox"><div id="mapcanvas"></div><iframe id="gframe" hidden title="Google Maps" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-    <div class="maplinks"><span class="sp">${esc(t('circleNote'))}${l.poly ? ' ' + esc(t('outlineNote')) : ''}</span>
+    <div class="maplinks"><span class="sp">${esc(t('circleNote'))}${l.poly ? ' ' + esc(t('outlineNote')) + (l.poly.some(q => q.p) ? ' ' + esc(t('partNote')) : '') : ''}</span>
       <a class="hbtn" href="${links.open}" target="_blank" rel="noopener"><i class="ph ph-map-pin"></i>${esc(t('openG'))}</a>
       <a class="hbtn" href="${links.route}" target="_blank" rel="noopener"><i class="ph ph-compass"></i>${esc(t('routeG'))}</a></div></div>`;
 }
@@ -254,7 +254,7 @@ function mountLotMap(l) {
   const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' });
   lotMap = L.map('mapcanvas', { scrollWheelZoom: false }).setView([g.lat, g.lng], 17);
   sat.addTo(lotMap);
-  (l.poly || []).forEach(r => L.polygon(r, { color: '#ffd166', weight: 2, fillColor: '#ffd166', fillOpacity: .22 }).addTo(lotMap));
+  (l.poly || []).forEach(q => L.polygon(q.r, q.p ? { color: '#ff9f5a', weight: 2, dashArray: '6 5', fillColor: '#ff9f5a', fillOpacity: .12 } : { color: '#ffd166', weight: 2, fillColor: '#ffd166', fillOpacity: .22 }).addTo(lotMap).bindTooltip(q.c + (q.p ? ' · ' + t('partT') : ''), { sticky: true }));
   L.circle([g.lat, g.lng], { radius: g.r, color: '#0b7285', weight: 4, fillColor: '#0b7285', fillOpacity: .18 }).addTo(lotMap)
     .bindTooltip(`${t('lot')} ${l.id}`, { permanent: true, direction: 'top', className: 'lotlbl', offset: [0, -4] });
   $('#mtabs').onclick = e => {

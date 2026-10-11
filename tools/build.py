@@ -75,17 +75,19 @@ def read_mymaps():
         return res
     for code, v in json.load(open(path, encoding='utf-8')).items():
         rings = [p['ring'] for p in v['polys']]
+        part = {m[8].strip().split('/')[0] for m in rows if m[1] == code and m[2] == 'частично'}   # участки со статусом "частично"
+        shapes = [{'c': p['cad'], 'r': p['ring'], **({'p': 1} if p['cad'].split('/')[0] in part else {})} for p in v['polys']]
         pts = [q for r in rings for q in r] or [v['pin']]
         lat = (min(q[0] for q in pts) + max(q[0] for q in pts)) / 2
         lng = (min(q[1] for q in pts) + max(q[1] for q in pts)) / 2
         kx = 111320 * math.cos(math.radians(lat))
         rad = max(math.hypot((q[1] - lng) * kx, (q[0] - lat) * 110574) for q in pts)
-        res[code] = {'purpose': v['purpose'], 'geo': {'lat': round(lat, 6), 'lng': round(lng, 6), 'r': max(30, round(rad * 1.12))}, 'poly': rings}
+        res[code] = {'purpose': v['purpose'], 'geo': {'lat': round(lat, 6), 'lng': round(lng, 6), 'r': max(30, round(rad * 1.12))}, 'poly': shapes}
     return res
 
-mymaps = read_mymaps()
 
 rows = [r + [''] * (30 - len(r)) for r in list(csv.reader(open(sys.argv[1], encoding='utf-8')))[2:] if any(r)]
+mymaps = read_mymaps()
 groups = collections.OrderedDict()
 for r in rows:
     if r[2] in PUBLIC:
