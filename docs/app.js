@@ -16,7 +16,7 @@ const eur = v => '€ ' + fmt(v);
 const fav = new Set(ls.get('fav', []));
 const CO = { name: 'ALLIANZ KAPITAL d.o.o.', addr: 'Poluostrvo Zavala, Zgrada Harmonija, Budva, Crna Gora', reg: new Date(2007, 2, 13), registry: 'https://www.companywall.me/firma/allianz-kapital/MMxF2yCD' };
 const regDate = () => CO.reg.toLocaleDateString(D().loc, { day: 'numeric', month: 'long', year: 'numeric' });
-const SOCIAL_DEF = [['youtube', 'youtube-logo', 'YouTube'], ['instagram', 'instagram-logo', 'Instagram'], ['linkedin', 'linkedin-logo', 'LinkedIn'], ['facebook', 'facebook-logo', 'Facebook'], ['tiktok', 'tiktok-logo', 'TikTok'], ['google', 'google-logo', 'Google']];
+const SOCIAL_DEF = [['youtube', 'youtube-logo', 'YouTube'], ['instagram', 'instagram-logo', 'Instagram'], ['linkedin', 'linkedin-logo', 'LinkedIn'], ['facebook', 'facebook-logo', 'Facebook']];
 /* WhatsApp and Telegram are not here: they live in the "Quick contact" block (see chatButtons) so nothing is duplicated.
    Every network is listed; those without a link are shown muted and not clickable until the link is set in config.js. */
 const socials = () => {
