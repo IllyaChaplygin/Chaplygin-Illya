@@ -114,7 +114,11 @@ if PROP:
         ws['A1']=f'INTERNAL — not for SIAS · real bonus 35 %, proportional cost uplift (G14) · {t}'
         ws['G13']='Cost uplift, % of landed cost (assumption)'
         ws['G14']=U0; ws['G14']._style=copy.copy(ws['C14']._style); ws['G14'].number_format='0.0%'
-        ws['H13']=None; ws['H14']=None; ws['H13']._style=copy.copy(ws['I13']._style); ws['H14']._style=copy.copy(ws['I14']._style)
+        ws['H13']='Base share of price for cost (real model: 1 − 25 % − 30 %)'; ws['H13']._style=copy.copy(ws['F13']._style)
+        ws['H14']=0.45; ws['H14']._style=copy.copy(ws['G14']._style); ws['H14'].number_format='0.0%'
+        ws['C13']='Margin shown (auto: offsets the cost uplift)'
+        ws['C14']='=1-D14-H14*(1+G14)'; f_=ws['C14'].font; ws['C14'].font=openpyxl.styles.Font(name=f_.name,sz=f_.sz,b=f_.b,color='FF172B46'); ws['C14'].fill=copy.copy(ws['E14'].fill); ws['C14'].number_format='0.0%'
+        ws.column_dimensions['H'].width=22
         ws['C4']=f"=$B${r1}*F14*(1+$G$14)"; ws['C6']=f"=$B${r2}*F14*(1+$G$14)"
         batch="(E16+F16+G16+E16*B18*(D16+B16*(1+D16)))/(C18*D18)"
         core=f"((B14/E14*(1-D14-C14)/(1+G14))/F14/(1+C16)-{batch})/((1+D16)*(1+B16))"
@@ -152,6 +156,7 @@ if PROP:
         for r in range(11,17):
             m[f'AL{r}']=m[f'E{r}'].value; m[f'AL{r}']._style=copy.copy(m[f'E{r}']._style)
             m[f'E{r}']=f"=AL{r}*(1+'{pn}'!$G$14)"
+        m['D5']=f"='{pn}'!C14"
         m['E10']='Landed cost incl. uplift, EUR/pack'
         m['E2']='Landed cost = Self-Cost_Sias (col. AL) × (1 + uplift from G14 on the "Price 120 UAH" sheet). Cost composition preserved.'
         p[f'B{r1}']=f"='{mn}'!AL13"; p[f'B{r2}']=f"='{mn}'!AL11"
