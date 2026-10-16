@@ -143,6 +143,47 @@ if PROP:
     sc['A27']='How to read: yellow cells (bonus, margin, cost uplift) can be changed — requests recalculate. Shelf price and batch parameters come from the "Price 120 UAH" sheets.'
     sc['A28']='Assumptions: bonus and margin are taken from the partner price (incl. VAT), as in the main model; the uplift is applied to the whole landed cost (after financing). Current SIAS purchase price: €0.65 (4 SKUs) / €0.75 (2 SKUs).'
     sc['A10']='SAME REQUEST PRICE, different structure (uplift matched to the sum of bonus + margin)'
+
+if PROP:
+    import json
+    from openpyxl.styles import Font,PatternFill,Alignment,Border,Side
+    BL=json.load(open("/tmp/claude-0/-home-user-Chaplygin-Illya/8bc0034a-4b53-5022-9bf5-e5697c987387/scratchpad/v10/blocks.json"))
+    bs=wb.create_sheet('Landed cost blocks',0)
+    thin=Side(style='thin',color='C9D3E0'); BR=Border(left=thin,right=thin,top=thin,bottom=thin)
+    def st(c,sz=10,b=False,col='FF172B46',fill=None,fmt=None,al='center'):
+        c.font=Font(name='Arial',sz=sz,b=b,color=col)
+        if fill: c.fill=PatternFill('solid',fgColor=fill)
+        if fmt: c.number_format=fmt
+        c.alignment=Alignment(horizontal=al,vertical='center',wrap_text=True); c.border=BR
+    bs.sheet_view.showGridLines=False
+    bs.merge_cells('A1:I1'); bs['A1']='INTERNAL — not for SIAS · Landed-cost blocks with the proportional uplift · ₴ per pack'; bs['A1'].font=Font(name='Arial',sz=16,b=True,color='FF172B46'); bs.row_dimensions[1].height=26
+    bs.merge_cells('A2:I2'); bs['A2']='Purchase + delivery + import VAT + financing = real landed cost; the uplift (assumption, cell G14 on the "Price 120 UAH" sheets) is added on top as a separate block.'
+    bs['A2'].font=Font(name='Arial',sz=10,color='FF5E6D7E'); bs['A2'].alignment=Alignment(wrap_text=True,vertical='center'); bs.row_dimensions[2].height=30
+    HEAD=['','Purchase\npack price × rate','Delivery\nfreight, broker, terminal','Import VAT\n20 % on goods and freight','Financing\n2.5 % of the sum','Real landed cost, ₴','Uplift (assumption), ₴','Landed cost with uplift, ₴','Check vs model sheet']
+    r=4
+    for sh,key,pal,fr_ask in (('Price 120 UAH - 33 pallets','33',33,'B19'),('Price 120 UAH - 6 pallets','6',6,'B20')):
+        bs.cell(r,1,f'{pal} PALLETS'+(' · FULL TRUCK' if pal==33 else '')); bs.cell(r,1).font=Font(name='Arial',sz=11,b=True,color='FF223A5E'); r+=1
+        for i,h in enumerate(HEAD,1): st(bs.cell(r,i,h),9,True,'FFFFFFFF','3E5A85')
+        bs.row_dimensions[r].height=44; r+=1
+        T=f"'{sh}'!"
+        for nm,vals,ref in (('BEFORE · 4 SKUs\n(Vegetable, Spicy, Beef, Chicken)',BL[key]['before4'],f"{T}C4"),('BEFORE · 2 SKUs\n(Gouda, Carbonara)',BL[key]['before2'],f"{T}C6"),('AFTER · SIAS request\n(all 6 SKUs)',None,f"{T}C8")):
+            bs.cell(r,1,nm); st(bs.cell(r,1),10,True,'FF172B46','FCE3A6' if vals is None else 'F2F5F9',None,'left')
+            if vals is not None:
+                for j in range(4): bs.cell(r,2+j,vals[j]); st(bs.cell(r,2+j),11,False,'FF0000FF','FFF4D2','#,##0.00" ₴"')
+            else:
+                ask=f"{T}{fr_ask}"; n=f"({T}C18*{T}D18)"
+                bs.cell(r,2,f"={ask}*{T}F14"); bs.cell(r,3,f"=({T}E16+{T}F16+{T}G16)/{n}*{T}F14")
+                bs.cell(r,4,f"=({ask}+{T}E16*{T}B18/{n})*(1+{T}D16)*{T}B16*{T}F14")
+                bs.cell(r,5,f"=(B{r}+C{r}+D{r}+({ask}+{T}E16*{T}B18/{n})*{T}D16*{T}F14)*{T}C16")
+                for j in range(4): st(bs.cell(r,2+j),11,False,'FF172B46','FCE3A6','#,##0.00" ₴"')
+            bs.cell(r,6,f"=SUM(B{r}:E{r})"); st(bs.cell(r,6),11,True,'FF172B46','E7EDF5','#,##0.00" ₴"')
+            bs.cell(r,7,f"=F{r}*{T}G14"); st(bs.cell(r,7),11,True,'FFB03A3A','FDE8E8','#,##0.00" ₴"')
+            bs.cell(r,8,f"=F{r}+G{r}"); st(bs.cell(r,8),13,True,'FF172B46','FCE3A6','#,##0.00" ₴"')
+            bs.cell(r,9,f"=ROUND(H{r}-{ref},4)"); st(bs.cell(r,9),9,False,'FF5E6D7E','F2F5F9','0.00;-0.00;"OK"')
+            bs.row_dimensions[r].height=34; r+=1
+        r+=1
+    bs.column_dimensions['A'].width=38
+    for col in 'BCDEFGHI': bs.column_dimensions[col].width=17
 wb.properties.title='Ramen financial model — internal (EN)'; wb.properties.creator=''; wb.properties.lastModifiedBy=''
 wb.calculation=CalcProperties(fullCalcOnLoad=True); wb.save(OUT)
 left=[(ws.title,c.coordinate,c.value[:50]) for ws in wb for r in ws.iter_rows() for c in r if isinstance(c.value,str) and cyr.search(c.value)]
