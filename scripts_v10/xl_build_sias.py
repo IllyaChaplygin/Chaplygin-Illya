@@ -5,6 +5,7 @@ from openpyxl.workbook.properties import CalcProperties
 SRC="/home/user/Chaplygin-Illya/RAMEN_FINMODEL_INTERNAL_UA.xlsx"; OUT=sys.argv[1]
 wb=openpyxl.load_workbook(SRC); wv=openpyxl.load_workbook(SRC,data_only=True)
 for n in ('Финмодель 6 паллет','Финмодель 33 паллет','Сценарии'): del wb[n]
+CONST={}
 CFG=(('Цена 120 грн — 33 паллет','33 pallets',33,19,'33 pallets (Full Truck)'),('Цена 120 грн — 6 паллет','6 pallets',6,20,'6 pallets'))
 for old,new,pal,ar,ttl in CFG:
     ws=wb[old]; v=wv[old]; cc=ar+2; r1=cc+2; r2=cc+3
@@ -19,10 +20,13 @@ for old,new,pal,ar,ttl in CFG:
     # убираем доп. расходы (внутренний параметр)
     for a in ('G13','G14'): ws[a].value=None; ws[a]._style=copy.copy(ws['H13']._style)
     ws['C4']=f"=$B${r1}*F14"; ws['C6']=f"=$B${r2}*F14"
-    batch="(E16+F16+G16+E16*B18*(D16+B16*(1+D16)))/(C18*D18)"
-    core=f"((B14/E14*(1-D14-C14))/F14/(1+C16)-{batch})/((1+D16)*(1+B16))"
+    vat,fin,dut,fr,br,ot,sh,pl,pk=[v[a].value for a in ('B16','C16','D16','E16','F16','G16','B18','C18','D18')]
+    n_=pl*pk
+    batch=f"({fr}+{br}+{ot}+{fr}*{sh}*({dut}+{vat}*(1+{dut})))/{n_}"
+    core=f"((B14/E14*(1-D14-C14))/F14/(1+{fin})-{batch})/((1+{dut})*(1+{vat}))"
     ws[f'B{ar}']=f"=ROUNDDOWN({core},2)"; ws[f'B{ar+1}']=f"={core}"
-    ws[f'B{cc}']=f"=(B{ar}*F14+(E16+F16+G16)/(C18*D18)*F14+(B{ar}+E16*B18/(C18*D18))*D16*F14+(B{ar}+E16*B18/(C18*D18))*(1+D16)*B16*F14)*(1+C16)"
+    ws[f'B{cc}']=f"=(B{ar}*F14+({fr}+{br}+{ot})/{n_}*F14+(B{ar}+{fr}*{sh}/{n_})*{dut}*F14+(B{ar}+{fr}*{sh}/{n_})*(1+{dut})*{vat}*F14)*(1+{fin})"
+    CONST[new]=(vat,fin,dut,fr,br,ot,sh,n_)
     # английские подписи
     T={'A1':f'SIAS · from purchase price to shelf price, one line · {ttl}','A2':'REQUEST TO SIAS, €/pack','H2':'one price for all 6 SKUs','A3':'Scenario',
        'B3':'SIAS purchase\nper pack','C3':'Landed cost in Ukraine\nproduct + costs in Ukraine','D3':'Partner price\ncost ÷ (1 − bonus − our share)',
@@ -33,7 +37,10 @@ for old,new,pal,ar,ttl in CFG:
        f'A{ar}':'Request to SIAS, €/pack (rounded down to the euro cent)',f'A{ar+1}':'Maximum purchase price before rounding, €/pack',f'A{cc}':'Landed cost in Ukraine at the request, ₴/pack',
        f'A{r1}':'Landed cost today, 4 SKUs (Vegetable, Spicy, Beef, Chicken), €/pack',f'A{r2}':'Landed cost today, 2 SKUs (Gouda, Carbonara), €/pack'}
     for k,t in T.items(): ws[k]=t
-    for rr_ in (15,16,17,18): ws.row_dimensions[rr_].hidden=True
+    for rr_ in (15,16,17,18):
+        for cc_ in 'ABCDEFGH':
+            ws[f'{cc_}{rr_}'].value=None; ws[f'{cc_}{rr_}']._style=copy.copy(ws['I1']._style)
+        ws.row_dimensions[rr_].height=3
     ws.row_dimensions[13].height=26
     ws['D2']='="now €"&B5&" (4 SKUs) / €"&B7&" (2 SKUs)"'
     ws['F2']=f'="reduction −"&ROUND((1-B{ar}/B5)*100,0)&" % / −"&ROUND((1-B{ar}/B7)*100,0)&" %"'
@@ -77,11 +84,11 @@ for sh,key,pal,fr_ask,fr_cc in (('33 pallets','33',33,'B19','B21'),('6 pallets',
             for j in range(4):
                 bs.cell(r,2+j,vals[j]); st(bs.cell(r,2+j),11,False,'FF0000FF','FFF4D2','#,##0.00" ₴"')
         else:
-            ask=f"{T}{fr_ask}"; n=f"({T}C18*{T}D18)"
+            ask=f"{T}{fr_ask}"; vat_,fin_,dut_,fr_,br_,ot_,sh_,n_=CONST[sh]
             bs.cell(r,2,f"={ask}*{T}F14")
-            bs.cell(r,3,f"=({T}E16+{T}F16+{T}G16)/{n}*{T}F14")
-            bs.cell(r,4,f"=({ask}+{T}E16*{T}B18/{n})*(1+{T}D16)*{T}B16*{T}F14")
-            bs.cell(r,5,f"=(B{r}+C{r}+D{r}+({ask}+{T}E16*{T}B18/{n})*{T}D16*{T}F14)*{T}C16")
+            bs.cell(r,3,f"=({fr_}+{br_}+{ot_})/{n_}*{T}F14")
+            bs.cell(r,4,f"=({ask}+{fr_}*{sh_}/{n_})*(1+{dut_})*{vat_}*{T}F14")
+            bs.cell(r,5,f"=(B{r}+C{r}+D{r}+({ask}+{fr_}*{sh_}/{n_})*{dut_}*{T}F14)*{fin_}")
             for j in range(4): st(bs.cell(r,2+j),11,False,'FF172B46','FCE3A6','#,##0.00" ₴"')
         bs.cell(r,6,f"=SUM(B{r}:E{r})"); st(bs.cell(r,6),13,True,'FF172B46','E7EDF5' if vals is not None else 'FCE3A6','#,##0.00" ₴"')
         bs.cell(r,7,f"=F{r}/{T}F14"); st(bs.cell(r,7),10,False,'FF5E6D7E','F2F5F9','"€"0.000')
