@@ -45,6 +45,53 @@ for ws in wb:
         for c in row:
             if isinstance(c.value,str) and c.value.startswith('=') and ('Финмодель' in c.value or 'Сценарии' in c.value): print('BAD REF',ws.title,c.coordinate,c.value)
             if isinstance(c.value,str) and not c.value.startswith('=') and any('а'<=ch<='я' or 'А'<=ch<='Я' for ch in c.value): print('CYR',ws.title,c.coordinate,c.value[:60])
+
+# ---------- лист «Landed cost blocks» ----------
+import json
+from openpyxl.styles import Font,PatternFill,Alignment,Border,Side
+BL=json.load(open("/tmp/claude-0/-home-user-Chaplygin-Illya/8bc0034a-4b53-5022-9bf5-e5697c987387/scratchpad/v10/blocks.json"))
+bs=wb.create_sheet('Landed cost blocks',0)
+thin=Side(style='thin',color='C9D3E0'); BR=Border(left=thin,right=thin,top=thin,bottom=thin)
+def st(c,sz=10,b=False,col='FF172B46',fill=None,fmt=None,al='center'):
+    c.font=Font(name='Arial',sz=sz,b=b,color=col)
+    if fill: c.fill=PatternFill('solid',fgColor=fill)
+    if fmt: c.number_format=fmt
+    c.alignment=Alignment(horizontal=al,vertical='center',wrap_text=True); c.border=BR
+bs.sheet_view.showGridLines=False
+bs.merge_cells('A1:H1'); bs['A1']='What the landed cost in Ukraine is made of · ₴ per pack'; bs['A1'].font=Font(name='Arial',sz=16,b=True,color='FF172B46'); bs.row_dimensions[1].height=26
+bs.merge_cells('A2:H2'); bs['A2']='SIAS purchase + delivery + import VAT + financing = landed cost. Delivery = freight, broker, terminal and certification of the batch, per pack. Customs duty 0 %.'
+bs['A2'].font=Font(name='Arial',sz=10,color='FF5E6D7E'); bs['A2'].alignment=Alignment(wrap_text=True,vertical='center'); bs.row_dimensions[2].height=30
+HEAD=['','SIAS purchase\npack price × rate','Delivery\nfreight, broker, terminal','Import VAT\n20 % on goods and freight','Financing\n2.5 % of the sum','Landed cost, ₴ (sum of blocks)','Landed cost, €','Check vs model sheet']
+r=4
+for sh,key,pal,fr_ask,fr_cc in (('33 pallets','33',33,'B19','B21'),('6 pallets','6',6,'B20','B22')):
+    bs.cell(r,1,f'{pal} PALLETS' + (' · FULL TRUCK' if pal==33 else '')); bs.cell(r,1).font=Font(name='Arial',sz=11,b=True,color='FF223A5E'); r+=1
+    for i,h in enumerate(HEAD,1):
+        c=bs.cell(r,i,h); st(c,9,True,'FFFFFFFF','3E5A85')
+    bs.row_dimensions[r].height=44; r+=1
+    T=f"'{sh}'!"
+    rows=[('BEFORE · 4 SKUs\n(Vegetable, Spicy, Beef, Chicken)',BL[key]['before4'],f"{T}C4"),('BEFORE · 2 SKUs\n(Gouda, Carbonara)',BL[key]['before2'],f"{T}C6"),('AFTER · SIAS request\n(all 6 SKUs)',None,f"{T}C8")]
+    for nm,vals,ref in rows:
+        bs.cell(r,1,nm); st(bs.cell(r,1),10,True,'FF172B46','FCE3A6' if vals is None else 'F2F5F9',None,'left')
+        if vals is not None:
+            for j in range(4):
+                bs.cell(r,2+j,vals[j]); st(bs.cell(r,2+j),11,False,'FF0000FF','FFF4D2','#,##0.00" ₴"')
+        else:
+            ask=f"{T}{fr_ask}"; n=f"({T}C18*{T}D18)"
+            bs.cell(r,2,f"={ask}*{T}F14")
+            bs.cell(r,3,f"=({T}E16+{T}F16+{T}G16)/{n}*{T}F14")
+            bs.cell(r,4,f"=({ask}+{T}E16*{T}B18/{n})*(1+{T}D16)*{T}B16*{T}F14")
+            bs.cell(r,5,f"=(B{r}+C{r}+D{r}+({ask}+{T}E16*{T}B18/{n})*{T}D16*{T}F14)*{T}C16")
+            for j in range(4): st(bs.cell(r,2+j),11,False,'FF172B46','FCE3A6','#,##0.00" ₴"')
+        bs.cell(r,6,f"=SUM(B{r}:E{r})"); st(bs.cell(r,6),13,True,'FF172B46','E7EDF5' if vals is not None else 'FCE3A6','#,##0.00" ₴"')
+        bs.cell(r,7,f"=F{r}/{T}F14"); st(bs.cell(r,7),10,False,'FF5E6D7E','F2F5F9','"€"0.000')
+        bs.cell(r,8,f"=ROUND(F{r}-{ref},4)"); st(bs.cell(r,8),9,False,'FF5E6D7E','F2F5F9','0.00;-0.00;"OK"')
+        bs.row_dimensions[r].height=34; r+=1
+    r+=1
+bs.merge_cells(start_row=r,start_column=1,end_row=r,end_column=8)
+bs.cell(r,1,'"Before": per our cost file (logistics allocated by value). "After": at the requested price, logistics spread evenly per pack. The smaller the batch, the higher the delivery cost per pack.')
+bs.cell(r,1).font=Font(name='Arial',sz=9,color='FF5E6D7E'); bs.cell(r,1).alignment=Alignment(wrap_text=True,vertical='top'); bs.row_dimensions[r].height=28
+bs.column_dimensions['A'].width=38
+for col in 'BCDEFGH': bs.column_dimensions[col].width=17
 wb.properties.title='SIAS financial model'; wb.properties.creator=''; wb.properties.lastModifiedBy=''; wb.properties.description=None; wb.properties.keywords=None
 wb.calculation=CalcProperties(fullCalcOnLoad=True)
 wb.save(OUT); print('saved',OUT)
