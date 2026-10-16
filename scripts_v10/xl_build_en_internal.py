@@ -122,7 +122,11 @@ if PROP:
         ws[f'B{cc}']=f"=(B{ar}*F14+(E16+F16+G16)/(C18*D18)*F14+(B{ar}+E16*B18/(C18*D18))*D16*F14+(B{ar}+E16*B18/(C18*D18))*(1+D16)*B16*F14)*(1+C16)*(1+G14)"
         ws['C3']='="Landed cost in Ukraine"&CHAR(10)&"product + costs in Ukraine"&IF(G14>0," + "&ROUND(G14*100,1)&" % uplift","")'
         ws[f'A{ar}']='Request to SIAS, €/pack (rounded down to the euro cent)'; ws[f'A{cc}']='Landed cost in Ukraine at the request (incl. uplift), ₴/pack'
-        ws[f'A{r1}']='Landed cost per Self-Cost, 4 SKUs (Vegetable…), €/pack — before uplift'; ws[f'A{r2}']='Landed cost per Self-Cost, 2 SKUs (Gouda, Carbonara), €/pack — before uplift'
+        for rr_ in (r1,r2):
+            ws[f'C{rr_}']=f"=B{rr_}*(1+$G$14)"; ws[f'C{rr_}']._style=copy.copy(ws[f'B{rr_}']._style); ws[f'C{rr_}'].number_format='"€"0.000'
+            f_=ws[f'C{rr_}'].font; ws[f'C{rr_}'].font=openpyxl.styles.Font(name=f_.name,sz=f_.sz,b=True,color='FF172B46'); ws[f'C{rr_}'].fill=copy.copy(ws['E14'].fill)
+        ws[f'A{r1}']='Landed cost, 4 SKUs (Vegetable…), €/pack — Self-Cost (col. B) → after uplift (col. C)'
+        ws[f'A{r2}']='Landed cost, 2 SKUs (Gouda, Carbonara), €/pack — Self-Cost (col. B) → after uplift (col. C)'
     sc=wb['Scenarios']
     sc['A1']='INTERNAL FILE — for us only · Price-structure scenarios with a proportional cost uplift'
     sc['A2']=('="Allowed (shown) landed cost = partner price × (1 − bonus − margin); product landed cost = that budget ÷ (1 + uplift). '
