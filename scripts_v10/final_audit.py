@@ -1,6 +1,6 @@
 import openpyxl,math,zipfile,re,sys
 from lxml import etree
-F='/home/user/Chaplygin-Illya/RAMEN_FINMODEL_Final_NEW_STRUCTURE.xlsx'
+F='/home/user/Chaplygin-Illya/RAMEN_FINMODEL_INTERNAL_UA.xlsx'
 SCF='/root/.claude/uploads/8bc0034a-4b53-5022-9bf5-e5697c987387/87c2996d-Self-Cost_Sias.xlsx'
 nv=openpyxl.load_workbook(F,data_only=True); nf=openpyxl.load_workbook(F)
 SC=openpyxl.load_workbook(SCF,data_only=True).worksheets[0]

@@ -2,7 +2,7 @@ import sys,re,math,openpyxl
 from pptx import Presentation
 sys.path.insert(0,'/tmp/claude-0/-home-user-Chaplygin-Illya/8bc0034a-4b53-5022-9bf5-e5697c987387/scratchpad')
 import calc120 as M
-X=openpyxl.load_workbook('/home/user/Chaplygin-Illya/RAMEN_FINMODEL_Final_NEW_STRUCTURE.xlsx',data_only=True)
+X=openpyxl.load_workbook('/home/user/Chaplygin-Illya/RAMEN_FINMODEL_INTERNAL_UA.xlsx',data_only=True)
 lang=sys.argv[2]; P=Presentation(sys.argv[1])
 def texts(sl):
     out=[]

@@ -1,8 +1,8 @@
 import sys,re,json
 sys.path.insert(0,'/tmp/claude-0/-home-user-Chaplygin-Illya/8bc0034a-4b53-5022-9bf5-e5697c987387/scratchpad/en')
 from pptx import Presentation
-from rules import *; from d1 import D1; from d2 import D2; from d3 import D3; from d4 import D4
-D={**D1,**D2,**D3,**D4}
+from rules import *; from d1 import D1; from d2 import D2; from d3 import D3; from d4 import D4; from d5 import D5
+D={**D1,**D2,**D3,**D4,**D5}
 cyr=re.compile('[А-Яа-яІіЇїЄєҐґ]')
 SRC,OUT=sys.argv[1],sys.argv[2]
 prs=Presentation(SRC)
@@ -37,4 +37,5 @@ for i,sl in enumerate(prs.slides,1):
                 n+=1
 print('changed',n,'missing',len(miss))
 for m in miss: print(m)
+prs.core_properties.last_modified_by=''
 prs.save(OUT)
