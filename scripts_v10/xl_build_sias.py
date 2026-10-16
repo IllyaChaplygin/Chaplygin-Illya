@@ -33,6 +33,7 @@ for old,new,pal,ar,ttl in CFG:
        f'A{ar}':'Request to SIAS, €/pack (rounded down to the euro cent)',f'A{ar+1}':'Maximum purchase price before rounding, €/pack',f'A{cc}':'Landed cost in Ukraine at the request, ₴/pack',
        f'A{r1}':'Landed cost today, 4 SKUs (Vegetable, Spicy, Beef, Chicken), €/pack',f'A{r2}':'Landed cost today, 2 SKUs (Gouda, Carbonara), €/pack'}
     for k,t in T.items(): ws[k]=t
+    for rr_ in (15,16,17,18): ws.row_dimensions[rr_].hidden=True
     ws.row_dimensions[13].height=26
     ws['D2']='="now €"&B5&" (4 SKUs) / €"&B7&" (2 SKUs)"'
     ws['F2']=f'="reduction −"&ROUND((1-B{ar}/B5)*100,0)&" % / −"&ROUND((1-B{ar}/B7)*100,0)&" %"'
