@@ -1,0 +1,107 @@
+# -*- coding: utf-8 -*-
+import openpyxl,re,sys,copy
+from openpyxl.workbook.properties import CalcProperties
+SRC="/tmp/claude-0/-home-user-Chaplygin-Illya/8bc0034a-4b53-5022-9bf5-e5697c987387/scratchpad/xl/scn_raw.xlsx"; OUT=sys.argv[1]
+wb=openpyxl.load_workbook(SRC)
+SHEETS={'Финмодель 6 паллет':'Model 6 pallets','Финмодель 33 паллет':'Model 33 pallets','Цена 120 грн — 6 паллет':'Price 120 UAH - 6 pallets','Цена 120 грн — 33 паллет':'Price 120 UAH - 33 pallets','Сценарии':'Scenarios'}
+# 1) имена листов в формулах
+for ws in wb:
+    for row in ws.iter_rows():
+        for c in row:
+            if isinstance(c.value,str) and c.value.startswith('='):
+                v=c.value
+                for a,b in SHEETS.items(): v=v.replace(a,b)
+                c.value=v
+for a,b in SHEETS.items(): wb[a].title=b
+D={
+'Сценарій поставки':'Delivery scenario','6 палет':'6 pallets','33 палети':'33 pallets',
+'Курс, грн/EUR':'Rate, UAH/EUR','Бонуси мережі, %':'Chain bonus, %','Цільова маржа, %':'Target margin, %','Націнка мережі (x)':'Chain markup (x)',
+'Прибуток після бонусу = ціна партнеру − собівартість − бонус мережі.':'Profit after bonus = partner price − landed cost − chain bonus.',
+'Ціна партнера':'Partner price','вже з ПДВ':'incl. VAT','ПДВ як у прикладі: СС збережено повністю; ціна вже з ПДВ. Множення на 1,20 немає.':'VAT as in the example: landed cost kept in full; the price already includes VAT. No multiplication by 1.20.',
+'Частка ціни для собівартості':'Share of price for landed cost',
+'ТОВАР':'PRODUCT','СОБІВАРТІСТЬ':'LANDED COST','ЦІНА ПАРТНЕРУ ТА ПРИБУТОК':'PARTNER PRICE AND PROFIT','ПОЛИЦЯ':'SHELF','МОДЕЛЬ: НУЛЬОВА МАРЖА':'MODEL: ZERO MARGIN','ПРИБУТОК З ОДНІЄЇ УПАКОВКИ':'PROFIT PER PACK',
+'Група':'Group','Позиція':'Item','Вага, г':'Weight, g','СС, EUR/уп.':'Landed cost, EUR/pack','1. СС, грн/уп.':'1. Landed cost, UAH/pack','2. Ціна партнеру з ПДВ':'2. Partner price incl. VAT','3. Бонус мережі, грн':'3. Chain bonus, UAH',
+'4. Прибуток після бонусу, грн':'4. Profit after bonus, UAH','5. Маржа за прикладом':'5. Margin per example','6. Полиця з ПДВ, грн':'6. Shelf price incl. VAT, UAH','Мін. ціна партнеру':'Min. partner price','Мін. полиця':'Min. shelf price',
+'Валовий прибуток за прикладом, до бонусу, грн/уп.':'Gross profit per example, before bonus, UAH/pack','Прибуток після бонусу за прикладом, грн/уп.':'Profit after bonus per example, UAH/pack',
+'Ціна партнеру з ПДВ, грн':'Partner price incl. VAT, UAH','Бонус мережі, грн':'Chain bonus, UAH','Прибуток після бонусу, грн':'Profit after bonus, UAH','Перевірка маржі':'Margin check','Полиця з ПДВ, грн':'Shelf price incl. VAT, UAH',
+'SIAS — рамен у пакеті':'SIAS — pack ramen','Кожен крок формування ціни — за вашим прикладом':'Each step of price formation — per your example','Що рахуємо':'What we calculate','Дія':'Action',
+'Собівартість в Україні, EUR/уп.':'Landed cost in Ukraine, EUR/pack','Із Self-Cost':'From Self-Cost','Умова в D3':'Input in D3','Собівартість в Україні, грн/уп.':'Landed cost in Ukraine, UAH/pack','Крок 1 × крок 2':'Step 1 × step 2',
+'Повна ціна партнеру, %':'Full partner price, %','База для всіх відсотків':'Base for all percentages','Бонус мережі, %':'Chain bonus, %','Умова в D4':'Input in D4','Частка ціни після бонусу, %':'Share of price after bonus, %','Крок 4 − крок 5':'Step 4 − step 5',
+'Наша цільова маржа, %':'Our target margin, %','Умова в D5':'Input in D5','Частка ціни для собівартості, %':'Share of price for landed cost, %','Крок 6 − крок 7':'Step 6 − step 7','Ціна партнеру з ПДВ, грн/уп.':'Partner price incl. VAT, UAH/pack','Крок 3 ÷ крок 8':'Step 3 ÷ step 8',
+'Валовий прибуток до бонусу, грн/уп.':'Gross profit before bonus, UAH/pack','Крок 9 − крок 3':'Step 9 − step 3','Бонус мережі, грн/уп.':'Chain bonus, UAH/pack','Крок 9 × крок 5':'Step 9 × step 5',
+'Нам залишається після собівартості та бонусу, грн/уп.':'Left for us after landed cost and bonus, UAH/pack','Крок 10 − крок 11':'Step 10 − step 11','Перевірка нашої маржі після бонусу, %':'Check of our margin after bonus, %','Крок 12 ÷ крок 9':'Step 12 ÷ step 9',
+'Націнка ритейлера для полиці, %':'Retailer markup for shelf, %','Множник D6 − 1':'Multiplier D6 − 1','Множник ритейлера':'Retailer multiplier','1 + крок 14':'1 + step 14','Ціна на полиці з ПДВ, грн/уп.':'Shelf price incl. VAT, UAH/pack','Крок 9 × крок 15':'Step 9 × step 15',
+'Ціна партнеру при нульовому нашому прибутку, грн/уп.':'Partner price at zero profit for us, UAH/pack','Крок 3 ÷ крок 6':'Step 3 ÷ step 6','Полиця при нульовому нашому прибутку, грн/уп.':'Shelf price at zero profit for us, UAH/pack','Крок 17 × крок 15':'Step 17 × step 15',
+'Рамен. Ціна партнеру та полиця — 6 палет':'Ramen. Partner price and shelf price — 6 pallets','Рамен. Ціна партнеру та полиця — 33 палет / Full Truck':'Ramen. Partner price and shelf price — 33 pallets / Full Truck',
+'Готова СС із Self-Cost_Sias: AJ6:AJ11. Склад СС збережено.':'Ready-made landed cost from Self-Cost_Sias: AJ6:AJ11. Cost composition preserved.','Готова СС із Self-Cost_Sias: AJ30:AJ35. Склад СС збережено.':'Ready-made landed cost from Self-Cost_Sias: AJ30:AJ35. Cost composition preserved.',
+'Курс 51,20 грн/EUR — із Self-Cost_Sias.':'Rate 51.20 UAH/EUR — from Self-Cost_Sias.',
+# tabs 3-4
+'ЗАПРОС ДЛЯ SIAS, €/пачку':'REQUEST TO SIAS, €/pack','одна цена на 6 SKU':'one price for all 6 SKUs','Вариант':'Scenario','Закупка SIAS\nза пачку':'SIAS purchase\nper pack','Цена партнёру\nСС ÷ (1 − бонус − маржа)':'Partner price\ncost ÷ (1 − bonus − margin)',
+'Наценка магазина\n+40 % к цене партнёру':'Store markup\n+40 % on partner price','ПОЛКА с НДС\nцена партнёру × 1,40':'SHELF PRICE incl. VAT\npartner price × 1.40',
+'ДО · Vegetable, Spicy, Beef, Chicken\n(4 SKU)':'BEFORE · Vegetable, Spicy, Beef, Chicken\n(4 SKUs)','ДО · Gouda Cheese, Carbonara Spicy\n(2 SKU)':'BEFORE · Gouda Cheese, Carbonara Spicy\n(2 SKUs)','ПОСЛЕ · запрос SIAS\n(все 6 SKU)':'AFTER · SIAS request\n(all 6 SKUs)','ИЗМЕНЕНИЕ: ПОСЛЕ − ДО (4 SKU)':'CHANGE: AFTER − BEFORE (4 SKUs)',
+'Полка, ₴':'Shelf price, ₴','Наша маржа':'Our margin','Бонус сети':'Chain bonus (shown)','Множитель полки':'Shelf multiplier','Курс ₴/€':'Rate ₴/€','Цель расчёта и условия модели':'Target and model terms',
+'Импортный ПДВ':'Import VAT','Финансирование':'Financing','Пошлина':'Customs duty','Перевозка партии, €':'Batch freight, €','Брокер, €':'Broker, €','Прочие, €':'Other, €','Доля фрахта в таможне':'Freight share in customs value','Паллет в партии':'Pallets in batch','Пачек на паллете':'Packs per pallet',
+'Запрос SIAS, €/уп. (вниз до евроцента)':'Request to SIAS, €/pack (rounded down to the euro cent)','Предельная закупка до округления, €/уп.':'Maximum purchase price before rounding, €/pack','Себестоимость в Украине при запросе (с доп. расходами), ₴/уп.':'Landed cost in Ukraine at the request (incl. extra cost), ₴/pack',
+'СС из Self-Cost, 4 SKU (Vegetable…), €/уп. — без доп. расходов':'Landed cost per Self-Cost, 4 SKUs (Vegetable…), €/pack — without extra cost','СС из Self-Cost, 2 SKU (Gouda, Carbonara), €/уп. — без доп. расходов':'Landed cost per Self-Cost, 2 SKUs (Gouda, Carbonara), €/pack — without extra cost',
+# scenarios
+'ВНУТРЕННИЙ ФАЙЛ — только для нас · Сценарии структуры цены: запрос к SIAS при другой марже, бонусе сети и доп. расходах':'INTERNAL FILE — for us only · Price-structure scenarios: the request to SIAS at a different margin, chain bonus and extra cost',
+'Цена партнёру при полке, ₴':'Partner price at shelf price, ₴','Сценарий':'Scenario','Маржа, которую показываем':'Margin shown','Доп. расходы в СС, ₴/уп.':'Extra cost in landed cost, ₴/pack','Бонус сети, ₴':'Chain bonus, ₴','Наша прибыль, ₴':'Our profit, ₴',
+'Бюджет СС (товар + расходы + доп.), ₴':'Landed-cost budget (product + costs + extra), ₴','СС товара в Украине, ₴':'Product landed cost in Ukraine, ₴','33 палеты: макс. закупка, €':'33 pallets: max purchase, €','33 палеты: ЗАПРОС SIAS, €':'33 pallets: REQUEST TO SIAS, €','к текущим €0,65, %':'vs current €0.65, %',
+'6 палет: макс. закупка, €':'6 pallets: max purchase, €','6 палет: ЗАПРОС SIAS, €':'6 pallets: REQUEST TO SIAS, €',
+'БАЗА · как было в прошлой версии модели':'BASE · previous version of the model','Было: бонус 25 % + маржа 30 %':'Previous: bonus 25 % + margin 30 %',
+'ТА ЖЕ ЦЕНА ЗАПРОСА, другая структура (сумма «бонус + маржа» и расходов не меняется)':'SAME REQUEST PRICE, different structure (the sum of bonus + margin + extra cost does not change)',
+'★ Бонус сети 35 % + маржа 20 % (без доп. расходов)':'★ Chain bonus 35 % + margin 20 % (no extra cost)','Бонус 30 % + маржа 25 %':'Bonus 30 % + margin 25 %',
+'Бонус 25 % + маржа 20 % + доп. расходы, подобранные под тот же запрос':'Bonus 25 % + margin 20 % + extra cost matched to the same request','Бонус 25 % + маржа 25 % + доп. расходы, подобранные под тот же запрос':'Bonus 25 % + margin 25 % + extra cost matched to the same request',
+'ПРИМЕР: +10 ₴ в себестоимость (запрос становится ниже)':'EXAMPLE: +10 ₴ in landed cost (the request gets lower)','Бонус 25 % + маржа 20 % + 10 ₴':'Bonus 25 % + margin 20 % + 10 ₴','Бонус 25 % + маржа 25 % + 10 ₴':'Bonus 25 % + margin 25 % + 10 ₴','Бонус 35 % + маржа 20 % + 10 ₴':'Bonus 35 % + margin 20 % + 10 ₴','Бонус 35 % + маржа 25 % + 10 ₴':'Bonus 35 % + margin 25 % + 10 ₴',
+'БОНУС 35 %: если маржа должна остаться выше 20 %, запрос падает':'CHAIN BONUS 35 %: if the margin must stay above 20 %, the request falls','Бонус 35 % + маржа 25 %':'Bonus 35 % + margin 25 %','Бонус 35 % + маржа 30 %':'Bonus 35 % + margin 30 %',
+'ТОЛЬКО СНИЗИЛИ МАРЖУ (бонус 25 %, без доп. расходов): допустимая закупка растёт — аргумент для SIAS ослабляется':'ONLY THE MARGIN LOWERED (bonus 25 %, no extra cost): the allowed purchase price rises — the argument toward SIAS weakens','Бонус 25 % + маржа 25 %':'Bonus 25 % + margin 25 %','Бонус 25 % + маржа 20 %':'Bonus 25 % + margin 20 %',
+'Как читать: жёлтые ячейки (бонус, маржа, доп. расходы) можно менять — запросы пересчитаются. Полка и параметры партии берутся из вкладок «Цена 120 грн».':'How to read: yellow cells (bonus, margin, extra cost) can be changed — requests recalculate. Shelf price and batch parameters come from the "Price 120 UAH" sheets.',
+'Допущения: бонус и маржа считаются от цены партнёру (с НДС) — как в основной модели; доп. расходы добавляются к СС уже после финансирования. Текущая закупка SIAS: €0,65 (4 SKU) / €0,75 (2 SKU).':'Assumptions: bonus and margin are taken from the partner price (incl. VAT), as in the main model; extra cost is added to landed cost after financing. Current SIAS purchase price: €0.65 (4 SKUs) / €0.75 (2 SKUs).',
+'Что показывать SIAS — решение за вами. Показанные маржа, бонус и доп. расходы должны соответствовать реальной структуре цены: SIAS может запросить подтверждение.':'What to show SIAS is your decision. Any margin, bonus and extra cost shown externally should match the real price structure: SIAS may ask for confirmation.',
+}
+cyr=re.compile('[А-Яа-яІіЇїЄєҐґ]')
+def tr(v):
+    if v in D: return D[v]
+    v2=re.sub(r'(\d) г\b',r'\1 g',v)
+    return v2
+for ws in wb:
+    for row in ws.iter_rows():
+        for c in row:
+            if isinstance(c.value,str) and not c.value.startswith('=') and cyr.search(c.value) or (isinstance(c.value,str) and re.search(r'\d г\b',c.value) and not c.value.startswith('=')):
+                c.value=tr(c.value)
+# формулы с кириллицей
+M6,M33='Model 6 pallets','Model 33 pallets'
+for n in (M6,M33):
+    ws=wb[n]
+    ws['E4']='="Chain bonus "&ROUND(D4*100,0)&"%; shelf = partner price × "&D6&"."'
+    ws['E5']='=ROUND(D5*100,0)&"% = (partner price − landed cost − bonus) / full partner price."'
+    ws['E8']='="100% − bonus − margin. Current terms: 100% − "&ROUND(D4*100,0)&"% − "&ROUND(D5*100,0)&"% = "&ROUND(D8*100,0)&"%."'
+    for a in ('P9','U9','Z9','AE9'): ws[a].number_format='"MARGIN "0%'
+for n,ar,t in (('Price 120 UAH - 33 pallets',19,'33 pallets (Full Truck)'),('Price 120 UAH - 6 pallets',20,'6 pallets')):
+    ws=wb[n]
+    ws['A1']=f'INTERNAL — not for SIAS · extra cost compensates the chain-bonus gap · {t}'
+    ws['D2']='="now €"&B5&" (4 SKUs) / €"&B7&" (2 SKUs)"'
+    ws['F2']=f'="reduction −"&ROUND((1-B{ar}/B5)*100,0)&" % / −"&ROUND((1-B{ar}/B7)*100,0)&" %"'
+    ws['C3']='="Landed cost in Ukraine"&CHAR(10)&"product + costs in Ukraine"&IF(G14>0," + "&ROUND(G14,2)&" ₴ bonus compensation","")'
+    ws['E3']='="Chain bonus (shown)"&CHAR(10)&ROUND(D14*100,0)&" % of partner price"'
+    ws['F3']='="Our profit"&CHAR(10)&ROUND(C14*100,0)&" % of partner price"'
+    mname='Model 33 pallets' if '33' in n else 'Model 6 pallets'
+    ws['A12']=f'INPUTS — yellow cells can be changed, green ones are linked from the sheet "{mname}"'
+    # компенсация бонуса: реальный бонус сети (внутренний ввод) и доп. расходы = разрыв × цена партнёру при целевой полке
+    ws['H13']='Real chain bonus (internal)'; ws['H13']._style=copy.copy(ws['F13']._style)
+    ws['H14']=0.35; ws['H14']._style=copy.copy(ws['C14']._style); ws['H14'].number_format='0.0%'
+    ws['G13']='Extra cost, ₴/pack (bonus-gap compensation)'
+    ws['G14']='=ROUND(B14/E14*(H14-D14),2)'
+    f=ws['G14'].font; ws['G14'].font=openpyxl.styles.Font(name=f.name,sz=f.sz,b=f.b,color='FF172B46'); ws['G14'].fill=copy.copy(ws['E14'].fill)
+    ws.column_dimensions['H'].width=17; ws.row_dimensions[13].height=36; ws.row_dimensions[3].height=78
+    ws.title=n
+# сценарии: A2
+sc=wb['Scenarios']
+sc['A2']=('="The request depends on the sum of bonus + margin and on extra cost: allowed landed cost = partner price × (1 − bonus − margin) − extra cost. '
+          '1 p.p. of margin or bonus = "&ROUND(E5/100,2)&" ₴ per pack = €"&ROUND(E5/100/D5/(1+C5)/((1+G5)*(1+F5)),4)&" on the request."')
+for a,b in (('A4','Shelf price, ₴'),('B4','Shelf multiplier'),('C4','Financing'),('D4','Rate ₴/€'),('E4','Partner price at shelf price, ₴'),('F4','Import VAT'),('G4','Customs duty'),('B7','Chain bonus'),('C7','Margin shown'),('D7','Extra cost in landed cost, ₴/pack')): sc[a]=b
+wb.properties.title='Ramen financial model — internal (EN)'; wb.properties.creator=''; wb.properties.lastModifiedBy=''
+wb.calculation=CalcProperties(fullCalcOnLoad=True); wb.save(OUT)
+left=[(ws.title,c.coordinate,c.value[:50]) for ws in wb for r in ws.iter_rows() for c in r if isinstance(c.value,str) and cyr.search(c.value)]
+nf=[(ws.title,c.coordinate,c.number_format) for ws in wb for r in ws.iter_rows() for c in r if cyr.search(c.number_format or '')]
+print('saved; cyrillic left:',left[:20],'| in formats:',nf[:5])
