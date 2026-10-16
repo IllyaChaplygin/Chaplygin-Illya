@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import openpyxl,re,sys,copy
 from openpyxl.workbook.properties import CalcProperties
-SRC="/tmp/claude-0/-home-user-Chaplygin-Illya/8bc0034a-4b53-5022-9bf5-e5697c987387/scratchpad/xl/scn_raw.xlsx"; OUT=sys.argv[1]
+import os
+SRC=os.environ.get("SRC","/tmp/claude-0/-home-user-Chaplygin-Illya/8bc0034a-4b53-5022-9bf5-e5697c987387/scratchpad/xl/scn_raw.xlsx"); OUT=sys.argv[1]; REAL=os.environ.get("MODE")=="real"
 wb=openpyxl.load_workbook(SRC)
 SHEETS={'Финмодель 6 паллет':'Model 6 pallets','Финмодель 33 паллет':'Model 33 pallets','Цена 120 грн — 6 паллет':'Price 120 UAH - 6 pallets','Цена 120 грн — 33 паллет':'Price 120 UAH - 33 pallets','Сценарии':'Scenarios'}
 # 1) имена листов в формулах
@@ -44,6 +45,7 @@ D={
 'Запрос SIAS, €/уп. (вниз до евроцента)':'Request to SIAS, €/pack (rounded down to the euro cent)','Предельная закупка до округления, €/уп.':'Maximum purchase price before rounding, €/pack','Себестоимость в Украине при запросе (с доп. расходами), ₴/уп.':'Landed cost in Ukraine at the request (incl. extra cost), ₴/pack',
 'СС из Self-Cost, 4 SKU (Vegetable…), €/уп. — без доп. расходов':'Landed cost per Self-Cost, 4 SKUs (Vegetable…), €/pack — without extra cost','СС из Self-Cost, 2 SKU (Gouda, Carbonara), €/уп. — без доп. расходов':'Landed cost per Self-Cost, 2 SKUs (Gouda, Carbonara), €/pack — without extra cost',
 # scenarios
+'Сценарии структуры цены: как меняется запрос к SIAS при другой марже, бонусе сети и доп. расходах':'INTERNAL FILE — for us only · Price-structure scenarios: the request to SIAS at a different margin, chain bonus and extra cost',
 'ВНУТРЕННИЙ ФАЙЛ — только для нас · Сценарии структуры цены: запрос к SIAS при другой марже, бонусе сети и доп. расходах':'INTERNAL FILE — for us only · Price-structure scenarios: the request to SIAS at a different margin, chain bonus and extra cost',
 'Цена партнёру при полке, ₴':'Partner price at shelf price, ₴','Сценарий':'Scenario','Маржа, которую показываем':'Margin shown','Доп. расходы в СС, ₴/уп.':'Extra cost in landed cost, ₴/pack','Бонус сети, ₴':'Chain bonus, ₴','Наша прибыль, ₴':'Our profit, ₴',
 'Бюджет СС (товар + расходы + доп.), ₴':'Landed-cost budget (product + costs + extra), ₴','СС товара в Украине, ₴':'Product landed cost in Ukraine, ₴','33 палеты: макс. закупка, €':'33 pallets: max purchase, €','33 палеты: ЗАПРОС SIAS, €':'33 pallets: REQUEST TO SIAS, €','к текущим €0,65, %':'vs current €0.65, %',
@@ -79,7 +81,7 @@ for n in (M6,M33):
     for a in ('P9','U9','Z9','AE9'): ws[a].number_format='"MARGIN "0%'
 for n,ar,t in (('Price 120 UAH - 33 pallets',19,'33 pallets (Full Truck)'),('Price 120 UAH - 6 pallets',20,'6 pallets')):
     ws=wb[n]
-    ws['A1']=f'INTERNAL — not for SIAS · extra cost compensates the chain-bonus gap · {t}'
+    ws['A1']=(f'INTERNAL — not for SIAS · real chain bonus shown, landed cost not adjusted · {t}' if REAL else f'INTERNAL — not for SIAS · extra cost compensates the chain-bonus gap · {t}')
     ws['D2']='="now €"&B5&" (4 SKUs) / €"&B7&" (2 SKUs)"'
     ws['F2']=f'="reduction −"&ROUND((1-B{ar}/B5)*100,0)&" % / −"&ROUND((1-B{ar}/B7)*100,0)&" %"'
     ws['C3']='="Landed cost in Ukraine"&CHAR(10)&"product + costs in Ukraine"&IF(G14>0," + "&ROUND(G14,2)&" ₴ bonus compensation","")'
