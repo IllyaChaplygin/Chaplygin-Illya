@@ -144,6 +144,17 @@ if PROP:
     sc['A28']='Assumptions: bonus and margin are taken from the partner price (incl. VAT), as in the main model; the uplift is applied to the whole landed cost (after financing). Current SIAS purchase price: €0.65 (4 SKUs) / €0.75 (2 SKUs).'
     sc['A10']='SAME REQUEST PRICE, different structure (uplift matched to the sum of bonus + margin)'
 
+
+if PROP:
+    for mn,pn,r1,r2 in (('Model 6 pallets','Price 120 UAH - 6 pallets',24,25),('Model 33 pallets','Price 120 UAH - 33 pallets',23,24)):
+        m=wb[mn]; p=wb[pn]
+        m['AL10']='Self-Cost source, EUR/pack (before uplift)'; m['AL10']._style=copy.copy(m['O10']._style); m.column_dimensions['AL'].width=18
+        for r in range(11,17):
+            m[f'AL{r}']=m[f'E{r}'].value; m[f'AL{r}']._style=copy.copy(m[f'E{r}']._style)
+            m[f'E{r}']=f"=AL{r}*(1+'{pn}'!$G$14)"
+        m['E10']='Landed cost incl. uplift, EUR/pack'
+        m['E2']='Landed cost = Self-Cost_Sias (col. AL) × (1 + uplift from G14 on the "Price 120 UAH" sheet). Cost composition preserved.'
+        p[f'B{r1}']=f"='{mn}'!AL13"; p[f'B{r2}']=f"='{mn}'!AL11"
 if PROP:
     import json
     from openpyxl.styles import Font,PatternFill,Alignment,Border,Side
