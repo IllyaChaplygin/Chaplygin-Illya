@@ -2,7 +2,7 @@
 import openpyxl,re,sys,copy
 from openpyxl.workbook.properties import CalcProperties
 import os
-SRC=os.environ.get("SRC","/tmp/claude-0/-home-user-Chaplygin-Illya/8bc0034a-4b53-5022-9bf5-e5697c987387/scratchpad/xl/scn_raw.xlsx"); OUT=sys.argv[1]; REAL=os.environ.get("MODE")=="real"; EXTRA=os.environ.get("MODE")=="extra"
+SRC=os.environ.get("SRC","/tmp/claude-0/-home-user-Chaplygin-Illya/8bc0034a-4b53-5022-9bf5-e5697c987387/scratchpad/xl/scn_raw.xlsx"); OUT=sys.argv[1]; REAL=os.environ.get("MODE")=="real"; EXTRA=os.environ.get("MODE")=="extra"; PROP=os.environ.get("MODE")=="prop"; U0=float(os.environ.get("UPLIFT","0.22"))
 wb=openpyxl.load_workbook(SRC)
 SHEETS={'Финмодель 6 паллет':'Model 6 pallets','Финмодель 33 паллет':'Model 33 pallets','Цена 120 грн — 6 паллет':'Price 120 UAH - 6 pallets','Цена 120 грн — 33 паллет':'Price 120 UAH - 33 pallets','Сценарии':'Scenarios'}
 # 1) имена листов в формулах
@@ -107,6 +107,38 @@ sc=wb['Scenarios']
 sc['A2']=('="The request depends on the sum of bonus + margin and on extra cost: allowed landed cost = partner price × (1 − bonus − margin) − extra cost. '
           '1 p.p. of margin or bonus = "&ROUND(E5/100,2)&" ₴ per pack = €"&ROUND(E5/100/D5/(1+C5)/((1+G5)*(1+F5)),4)&" on the request."')
 for a,b in (('A4','Shelf price, ₴'),('B4','Shelf multiplier'),('C4','Financing'),('D4','Rate ₴/€'),('E4','Partner price at shelf price, ₴'),('F4','Import VAT'),('G4','Customs duty'),('B7','Chain bonus'),('C7','Margin shown'),('D7','Extra cost in landed cost, ₴/pack')): sc[a]=b
+
+if PROP:
+    for n,ar,t in (('Price 120 UAH - 33 pallets',19,'33 pallets (Full Truck)'),('Price 120 UAH - 6 pallets',20,'6 pallets')):
+        ws=wb[n]; cc=ar+2; r1=cc+2; r2=cc+3
+        ws['A1']=f'INTERNAL — not for SIAS · real bonus 35 %, proportional cost uplift (G14) · {t}'
+        ws['G13']='Cost uplift, % of landed cost (assumption)'
+        ws['G14']=U0; ws['G14']._style=copy.copy(ws['C14']._style); ws['G14'].number_format='0.0%'
+        ws['H13']=None; ws['H14']=None; ws['H13']._style=copy.copy(ws['I13']._style); ws['H14']._style=copy.copy(ws['I14']._style)
+        ws['C4']=f"=$B${r1}*F14*(1+$G$14)"; ws['C6']=f"=$B${r2}*F14*(1+$G$14)"
+        batch="(E16+F16+G16+E16*B18*(D16+B16*(1+D16)))/(C18*D18)"
+        core=f"((B14/E14*(1-D14-C14)/(1+G14))/F14/(1+C16)-{batch})/((1+D16)*(1+B16))"
+        ws[f'B{ar}']=f"=ROUNDDOWN({core},2)"; ws[f'B{ar+1}']=f"={core}"
+        ws[f'B{cc}']=f"=(B{ar}*F14+(E16+F16+G16)/(C18*D18)*F14+(B{ar}+E16*B18/(C18*D18))*D16*F14+(B{ar}+E16*B18/(C18*D18))*(1+D16)*B16*F14)*(1+C16)*(1+G14)"
+        ws['C3']='="Landed cost in Ukraine"&CHAR(10)&"product + costs in Ukraine"&IF(G14>0," + "&ROUND(G14*100,1)&" % uplift","")'
+        ws[f'A{ar}']='Request to SIAS, €/pack (rounded down to the euro cent)'; ws[f'A{cc}']='Landed cost in Ukraine at the request (incl. uplift), ₴/pack'
+        ws[f'A{r1}']='Landed cost per Self-Cost, 4 SKUs (Vegetable…), €/pack — before uplift'; ws[f'A{r2}']='Landed cost per Self-Cost, 2 SKUs (Gouda, Carbonara), €/pack — before uplift'
+    sc=wb['Scenarios']
+    sc['A1']='INTERNAL FILE — for us only · Price-structure scenarios with a proportional cost uplift'
+    sc['A2']=('="Allowed (shown) landed cost = partner price × (1 − bonus − margin); product landed cost = that budget ÷ (1 + uplift). '
+              '1 p.p. of margin or bonus = "&ROUND(E5/100,2)&" ₴ per pack = €"&ROUND(E5/100/D5/(1+C5)/((1+G5)*(1+F5)),4)&" on the request."')
+    sc['D7']='Cost uplift, % of landed cost'; sc['G7']='Landed-cost budget (shown cost), ₴'; sc['H7']='Product landed cost allowed (budget ÷ (1 + uplift)), ₴'
+    ROWS={9:('Previous: bonus 25 % + margin 30 %',.25,.30,0),11:('★ Chain bonus 35 % + margin 20 % (no uplift)',.35,.20,0),12:('Bonus 30 % + margin 25 % (no uplift)',.30,.25,0),
+          13:('Bonus 25 % + margin 20 % + uplift matched to the same request',.25,.20,'=(1-B13-C13)/(1-$B$9-$C$9)-1'),14:('Bonus 25 % + margin 25 % + uplift matched to the same request',.25,.25,'=(1-B14-C14)/(1-$B$9-$C$9)-1'),
+          16:('Bonus 25 % + margin 20 % + 10 % uplift',.25,.20,.10),17:('Bonus 25 % + margin 25 % + 10 % uplift',.25,.25,.10),18:('Bonus 35 % + margin 20 % + 10 % uplift',.35,.20,.10),19:('Bonus 35 % + margin 25 % + 10 % uplift',.35,.25,.10),
+          21:('Bonus 35 % + margin 25 % (no uplift)',.35,.25,0),22:('Bonus 35 % + margin 30 % (no uplift)',.35,.30,0),24:('Bonus 25 % + margin 25 % (no uplift)',.25,.25,0),25:('Bonus 25 % + margin 20 % (no uplift)',.25,.20,0)}
+    for r,(nm,b,m,u) in ROWS.items():
+        sc.cell(r,1,nm); sc.cell(r,2,b); sc.cell(r,3,m); sc.cell(r,4,u); sc.cell(r,4).number_format='0.0%'
+        sc.cell(r,8,f"=G{r}/(1+D{r})")
+    sc['A15']='EXAMPLE: +10 % proportional uplift of landed cost (the request gets lower)'
+    sc['A27']='How to read: yellow cells (bonus, margin, cost uplift) can be changed — requests recalculate. Shelf price and batch parameters come from the "Price 120 UAH" sheets.'
+    sc['A28']='Assumptions: bonus and margin are taken from the partner price (incl. VAT), as in the main model; the uplift is applied to the whole landed cost (after financing). Current SIAS purchase price: €0.65 (4 SKUs) / €0.75 (2 SKUs).'
+    sc['A10']='SAME REQUEST PRICE, different structure (uplift matched to the sum of bonus + margin)'
 wb.properties.title='Ramen financial model — internal (EN)'; wb.properties.creator=''; wb.properties.lastModifiedBy=''
 wb.calculation=CalcProperties(fullCalcOnLoad=True); wb.save(OUT)
 left=[(ws.title,c.coordinate,c.value[:50]) for ws in wb for r in ws.iter_rows() for c in r if isinstance(c.value,str) and cyr.search(c.value)]
