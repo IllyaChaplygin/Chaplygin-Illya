@@ -2,7 +2,7 @@
 import openpyxl,re,sys,copy
 from openpyxl.workbook.properties import CalcProperties
 import os
-SRC=os.environ.get("SRC","/tmp/claude-0/-home-user-Chaplygin-Illya/8bc0034a-4b53-5022-9bf5-e5697c987387/scratchpad/xl/scn_raw.xlsx"); OUT=sys.argv[1]; REAL=os.environ.get("MODE")=="real"
+SRC=os.environ.get("SRC","/tmp/claude-0/-home-user-Chaplygin-Illya/8bc0034a-4b53-5022-9bf5-e5697c987387/scratchpad/xl/scn_raw.xlsx"); OUT=sys.argv[1]; REAL=os.environ.get("MODE")=="real"; EXTRA=os.environ.get("MODE")=="extra"
 wb=openpyxl.load_workbook(SRC)
 SHEETS={'Финмодель 6 паллет':'Model 6 pallets','Финмодель 33 паллет':'Model 33 pallets','Цена 120 грн — 6 паллет':'Price 120 UAH - 6 pallets','Цена 120 грн — 33 паллет':'Price 120 UAH - 33 pallets','Сценарии':'Scenarios'}
 # 1) имена листов в формулах
@@ -84,7 +84,7 @@ for n,ar,t in (('Price 120 UAH - 33 pallets',19,'33 pallets (Full Truck)'),('Pri
     ws['A1']=(f'INTERNAL — not for SIAS · real chain bonus shown, landed cost not adjusted · {t}' if REAL else f'INTERNAL — not for SIAS · extra cost compensates the chain-bonus gap · {t}')
     ws['D2']='="now €"&B5&" (4 SKUs) / €"&B7&" (2 SKUs)"'
     ws['F2']=f'="reduction −"&ROUND((1-B{ar}/B5)*100,0)&" % / −"&ROUND((1-B{ar}/B7)*100,0)&" %"'
-    ws['C3']='="Landed cost in Ukraine"&CHAR(10)&"product + costs in Ukraine"&IF(G14>0," + "&ROUND(G14,2)&" ₴ bonus compensation","")'
+    ws['C3']='="Landed cost in Ukraine"&CHAR(10)&"product + costs in Ukraine"&IF(G14>0," + "&ROUND(G14,2)&" ₴ extra","")'
     ws['E3']='="Chain bonus (shown)"&CHAR(10)&ROUND(D14*100,0)&" % of partner price"'
     ws['F3']='="Our profit"&CHAR(10)&ROUND(C14*100,0)&" % of partner price"'
     mname='Model 33 pallets' if '33' in n else 'Model 6 pallets'
@@ -96,6 +96,11 @@ for n,ar,t in (('Price 120 UAH - 33 pallets',19,'33 pallets (Full Truck)'),('Pri
     ws['G14']='=ROUND(B14/E14*(H14-D14),2)'
     f=ws['G14'].font; ws['G14'].font=openpyxl.styles.Font(name=f.name,sz=f.sz,b=f.b,color='FF172B46'); ws['G14'].fill=copy.copy(ws['E14'].fill)
     ws.column_dimensions['H'].width=17; ws.row_dimensions[13].height=36; ws.row_dimensions[3].height=78
+    if EXTRA:
+        ws['A1']=f'INTERNAL — not for SIAS · real chain bonus 35 %, extra cost in landed cost = assumption (edit G14) · {t}'
+        ws['G14']=10; ws['G14']._style=copy.copy(ws['C14']._style); ws['G14'].number_format='#,##0.00" ₴"'
+        ws['G13']='Extra cost in landed cost, ₴/pack (assumption)'
+        ws['H13']=None; ws['H14']=None; ws['H13']._style=copy.copy(ws['I13']._style); ws['H14']._style=copy.copy(ws['I14']._style)
     ws.title=n
 # сценарии: A2
 sc=wb['Scenarios']
