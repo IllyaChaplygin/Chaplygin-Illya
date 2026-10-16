@@ -122,7 +122,7 @@ for row in rows:
         core=f"(($H{r}/$D$5/(1+$C$5)-{batchref(T)})/((1+$G$5)*(1+$F$5)))"
         ws.cell(r,cm,"="+core); st(ws.cell(r,cm),10,False,'FF172B46','F2F5F9','"€"0.0000')
         ws.cell(r,ca,f"=ROUNDDOWN({core},2)"); st(ws.cell(r,ca),12,True,'FF172B46','FCE3A6','"€"0.00')
-        ws.cell(r,cd,f"={openpyxl.utils.get_column_letter(ca)}{r}/0.65-1"); st(ws.cell(r,cd),10,False,'FF172B46','F2F5F9','+0%;−0%;0%')
+        ws.cell(r,cd,f"={openpyxl.utils.get_column_letter(ca)}{r}/0.65-1"); st(ws.cell(r,cd),10,False,'FF172B46','F2F5F9','+0%;-0%;0%')
     ws.row_dimensions[r].height=34; r+=1
 last=r-1
 r+=1
